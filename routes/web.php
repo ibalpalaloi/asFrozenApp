@@ -62,7 +62,8 @@ Route::get('/get_list_sub_kategori/{id}', [GetController::class, 'get_sub_katego
 Route::get('/get_kecamatan/{id}', [GetController::class, 'get_kecamatan']);
 Route::get('/get_kelurahan/{id}', [GetController::class, 'get_kelurahan']);
 Route::get('/get_ongkir/{id}', [GetController::class, 'get_ongkir']);
-
+Route::get('/get-detail-produk/{id}', [GetController::class, 'get_detail_produk']);
+Route::get('/get-kategori', [GetController::class, 'get_kategori']);
 
 
 // admin pesanan
@@ -80,6 +81,10 @@ Route::get('/admin/get_riwayat_pesanan/{id}', [AdminRiwayatPesanan::class, 'get_
 Route::get('/admin-daftar-produk', [AdminProdukController::class, 'daftar_produk']);
 Route::get('/admin-tambah-produk', [AdminProdukController::class, 'tambah_produk']);
 Route::post('/admin-post-produk-baru', [AdminProdukController::class, 'admin_post_produk_baru']);
+Route::get('/admin--diskon-produk', [AdminProdukController::class, 'diskon']);
+Route::post('/admin/post-ubah-stok', [AdminProdukController::class, 'post_ubah_stok']);
+Route::post('/admin/post-ubah-diskon', [AdminProdukController::class, 'post_ubah_diskon']);
+Route::post('/post-update-produk', [AdminProdukController::class, 'post_update_produk']);
 
 // wilayah
 Route::get('/admin-kota', [WilayahController::class, 'kota']);

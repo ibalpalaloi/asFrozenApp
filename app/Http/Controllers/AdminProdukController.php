@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\Produk;
 use App\Models\Diskon;
+use App\Models\Stok_produk;
 use Illuminate\Support\Facades\Validator;
+use File;
 
 class AdminProdukController extends Controller
 {
@@ -27,6 +29,7 @@ class AdminProdukController extends Controller
             'nama_produk' => 'required',
             'satuan' => 'required',
             'harga' => 'required',
+            'stok' => 'required',
             'foto_produk' => 'required|mimes:jpg,png,jpeg',
         ]);
         if($valdiator->fails()){
@@ -46,6 +49,11 @@ class AdminProdukController extends Controller
         $produk->kategori_id = $request->kategori;
         $produk->sub_kategori_id = $request->sub_kategori;
         $produk->save();
+
+        $stok = new Stok_produk;
+        $stok->produk_id = $produk->id;
+        $stok->stok = $request->stok;
+        $stok->save();
 
         $file = $request->file('foto_produk');
         $lokasi = "img/produk";
@@ -68,6 +76,113 @@ class AdminProdukController extends Controller
 
     public function daftar_produk(){
         $produk = Produk::all();
-        return view('admin.daftar_produk', compact('produk'));
+        $list_produk = array();
+        $i=0;
+        foreach($produk as $data){
+            $list_produk[$i]['id'] = $data->id;
+            $list_produk[$i]['nama'] = $data->nama;
+            $list_produk[$i]['harga'] = $data->harga;
+            $list_produk[$i]['satuan'] = $data->satuan;
+            $list_produk[$i]['kategori'] = $data->kategori->kategori;
+            $list_produk[$i]['sub_kategori'] = $data->sub_kategori->sub_kategori;
+            if($data->diskon != null){
+                $list_produk[$i]['diskon'] = $data->diskon->diskon;
+            }
+            else{
+                $list_produk[$i]['diskon'] = 0;
+            }
+
+            if($data->stok_produk != null){
+                $list_produk[$i]['stok'] = $data->stok_produk->stok;
+            }
+            else{
+                $list_produk[$i]['stok'] = 0;
+            }
+            $i++;
+        }
+        return view('admin.daftar_produk', compact('list_produk'));
+    }
+
+    public function post_ubah_stok(Request $request){
+        $valdiator = Validator::make($request->all(), [
+            'id' => 'required', 
+            'stok' => 'required',
+        ]);
+
+        $status = "Success";
+
+        if($valdiator->fails()){
+            $status = "Error";
+        }
+
+        $cek_stok = Stok_produk::where('produk_id', $request->id)->first();
+        if($cek_stok == null){
+            $stok = new Stok_produk;
+            $stok->produk_id = $request->id;
+            $stok->stok = $request->stok;
+            $stok->save();
+        }
+        else{
+            $stok = Stok_produk::where('produk_id', $request->id)->first();
+            $stok->stok = $request->stok;
+            $stok->save();
+        }
+
+        return response()->json(['status'=>$status]);
+    }
+
+    public function post_ubah_diskon(Request $request){
+        $valdiator = Validator::make($request->all(), [
+            'id' => 'required', 
+            'diskon' => 'required',
+        ]);
+
+        $status = "Success";
+
+        if($valdiator->fails()){
+            $status = "Error";
+        }
+
+        $cek_diskon = Diskon::where('produk_id', $request->id)->first();
+        if($cek_diskon == null){
+            $diskon = new Diskon;
+            $diskon->produk_id = $request->id;
+            $diskon->diskon = $request->diskon;
+            $diskon->batas_diskon = $request->batas_tanggal;
+            $diskon->save();
+        }
+        else{
+            $diskon = Diskon::where('produk_id', $request->id)->first();
+            $diskon->diskon = $request->diskon;
+            $diskon->batas_diskon = $request->batas_tanggal;
+            $diskon->save();
+        }
+
+        return response()->json(['status'=>$status]);
+    }
+
+    public function post_update_produk(Request $request){
+        $produk = Produk::find($request->id);
+        $produk->nama = $request->nama;
+        $produk->harga = $request->harga;
+        $produk->satuan =  $request->satuan;
+        $produk->kategori_id = $request->kategori;
+        $produk->sub_kategori_id = $request->sub_kategori;
+        
+
+
+        $file = $request->file('foto');
+        if($file != null){
+            $lokasi = "img/produk";
+            File::delete($lokasi."/".$produk->foto);
+            
+            $foto = "produk-".$produk->id.".".$file->getClientOriginalExtension();
+            $file->move($lokasi, $foto);
+            $produk->foto = $foto;
+        }
+        $produk->save();
+        
+
+        return response()->json('berhasil');
     }
 }

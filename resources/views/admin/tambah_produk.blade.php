@@ -63,19 +63,25 @@
                 
 
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label>Satuan</label>
                             <input type="text" class="form-control" name="satuan">
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label>Harga (Rp)</label>
-                            <input type="text" class="form-control" name="harga">
+                            <input type="number" class="form-control" name="harga">
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
+                      <div class="form-group">
+                          <label>Stok</label>
+                          <input type="number" class="form-control" name="stok">
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label>Diskon (%)</label>
                             <input type="text" class="form-control" name="diskon">

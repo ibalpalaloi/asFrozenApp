@@ -10,6 +10,8 @@ use App\Models\Kelurahan;
 use App\Models\Ongkos_kirim;
 use App\Models\Riwayat_nota_pesanan;
 use App\Models\Riwayat_pesanan;
+use App\Models\Produk;
+use App\Models\Kategori;
 
 class GetController extends Controller
 {
@@ -39,5 +41,25 @@ class GetController extends Controller
         $pesanan = Riwayat_pesanan::where('riwayat_nota_pesanan_id', $id)->get();
         $nota = Riwayat_nota_pesanan::find($id);
         return response()->json(['pesanan'=>$pesanan, 'nota'=>$nota]);
+    }
+
+    public function get_detail_produk($id){
+        $data_produk = Produk::find($id);
+        $sub_kategori = Sub_kategori::where('id', $data_produk->sub_kategori->id)->get();
+        $prodduk = array();
+        $produk['id'] = $data_produk->id;
+        $produk['nama'] = $data_produk->nama;
+        $produk['harga'] = $data_produk->harga;
+        $produk['satuan'] = $data_produk->satuan;
+        $produk['deskripsi'] = $data_produk->deskripsi;
+        $produk['kategori'] = $data_produk->kategori->kategori;
+        $produk['sub_kategori'] = $data_produk->sub_kategori->sub_kategori;
+        $produk['foto'] = $data_produk->foto;
+        return response()->json(['produk'=>$produk, 'sub_kategori' => $sub_kategori]);
+    }
+
+    public function get_kategori(){
+        $kategori = Kategori::all();
+        return response()->json(['kategori' => $kategori]);
     }
 }

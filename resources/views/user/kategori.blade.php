@@ -412,36 +412,31 @@
 							$nama = array('Bakso', 'Buah Sayur', 'Bumbu', 'Daging', 'Ikan', 'Kecap Saus', 'Kue', 'Lainnya', 'Roti', 'Sosis','Kecap Saus', 'Kue', 'Lainnya', 'Roti', 'Sosis');
 							$file = array('baso_1.jpg', 'buah_sayur.jpg', 'bumbu.jpg', 'daging.jpg', 'ikan.jpg', 'kecap_saus.jpg', 'kue.jpg', 'lainnya.jpg', 'roti.jpg', 'sossis.jpg','kecap_saus.jpg', 'kue.jpg', 'lainnya.jpg', 'roti.jpg', 'sossis.jpg');
 							@endphp
-							@for ($i = 0; $i < count($file); $i++)
 							<a href="#" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 								<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 									@php
-									$url = url('/')."/katalog_assets/assets/img/kategori_icon/$file[$i]";
+									$url = url('/')."/icon_kategori/$kategori_current->logo";
 									@endphp
 									<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 									</div>
-									<div style="text-align: center; font-size: 0.8em;">{{$nama[$i]}}</div>
+									<div style="text-align: center; font-size: 0.8em;">{{$kategori_current->kategori}}</div>
 								</div>
 							</a>
-							@endfor
-						</div>
-						<div class="icon-boxes" style="margin-top: 0em; display: flex; justify-content: space-between; display: none;"> 		
-							@php
-							$nama = array('Bakso', 'Buah Sayur', 'Bumbu', 'Daging', 'Ikan', 'Kecap Saus', 'Kue', 'Lainnya', 'Roti', 'Sosis','Kecap Saus', 'Kue', 'Lainnya', 'Roti', 'Sosis');
-							$file = array('bakso.jpg', 'buah_sayur.jpg', 'bumbu.jpg', 'daging.jpg', 'ikan.jpg', 'kecap_saus.jpg', 'kue.jpg', 'lainnya.jpg', 'roti.jpg', 'sossis.jpg','kecap_saus.jpg', 'kue.jpg', 'lainnya.jpg', 'roti.jpg', 'sossis.jpg');
-							@endphp
-							@for ($i = 0; $i < count($file); $i++)
+							@foreach ($list_kategori as $data)
 							<a href="#" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 								<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 									@php
-									$url = url('/')."/katalog_assets/assets/img/kategori_icon/$file[$i]";
+									$url = url('/')."/icon_kategori/$data->logo";
 									@endphp
-									<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid white;" >
+									<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 									</div>
-									<div style="text-align: center; font-size: 0.8em;">{{$nama[$i]}}</div>
+									<div style="text-align: center; font-size: 0.8em;">{{$data->kategori}}</div>
 								</div>
 							</a>
-							@endfor
+							@endforeach
+						</div>
+						<div class="icon-boxes" style="margin-top: 0em; display: flex; justify-content: space-between; display: none;"> 		
+							
 						</div>
 			
 					</div>
@@ -455,7 +450,7 @@
 							@php
 								$index_sub_kategori = 0;
 							@endphp
-							@foreach ($kategori->sub_kategori as $sub_kategori)
+							@foreach ($kategori_current->sub_kategori as $sub_kategori)
 
 								<button onclick="sub_kategori('{{$index_sub_kategori}}')" id="sub_kategori_{{$index_sub_kategori}}" type="button" class="btn btn-outline-danger d-flex align-items-stretch" style="margin: 5px; border-radius: 10px; border: 1px solid red">{{$sub_kategori->sub_kategori}}</button>
 								@php
@@ -577,8 +572,8 @@
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 	<script>
 		var index_sub_kategori = {!! json_encode($index_sub_kategori) !!};
-		var kategori = {!! json_encode($kategori) !!}
-		var list_sub_kategori = <?php echo json_encode($kategori->sub_kategori); ?>
+		var kategori = {!! json_encode($kategori_current) !!}
+		var list_sub_kategori = <?php echo json_encode($kategori_current->sub_kategori); ?>
 
 		function sub_kategori(sub_kategori){
 			$("#sub_kategori_semua").removeClass("btn-danger")

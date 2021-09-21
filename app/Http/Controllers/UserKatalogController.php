@@ -15,8 +15,9 @@ class UserKatalogController extends Controller
     }
 
     public function kategori($kategori){
-        $kategori = Kategori::where('kategori', $kategori)->first();
-        return view('user.kategori', compact('kategori'));
+        $list_kategori = Kategori::where('kategori', '!=', $kategori)->get();
+        $kategori_current = Kategori::where('kategori', $kategori)->first();
+        return view('user.kategori', compact('list_kategori', 'kategori_current'));
     }
 
     public function get_produK_sub_kategori(Request $request){

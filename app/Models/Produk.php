@@ -22,4 +22,8 @@ class Produk extends Model
     public function diskon(){
         return $this->hasOne(Diskon::class);
     }
+
+    public function stok_produk(){
+        return $this->hasOne(Stok_produk::class);
+    }
 }

@@ -1,4 +1,4 @@
-@foreach ($kategori->sub_kategori as $sub_kategori)
+@foreach ($kategori_current->sub_kategori as $sub_kategori)
     <div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center;">
         <div>
             <h2>{{$sub_kategori->sub_kategori}}</h2>
