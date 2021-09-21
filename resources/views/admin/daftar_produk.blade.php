@@ -82,17 +82,17 @@
                 <tbody>
                     @foreach ($list_produk as $data)
                         <tr>
-                            <td>{{$data['nama']}}</td>
-                            <td>{{$data['harga']}}</td>
-                            <td>{{$data['satuan']}}</td>
+                            <td id="nama_{{$data['id']}}">{{$data['nama']}}</td>
+                            <td id="harga_{{$data['id']}}">{{$data['harga']}}</td>
+                            <td id="satuan_{{$data['id']}}">{{$data['satuan']}}</td>
                             <td id="stok_{{$data['id']}}">
                               <a href="#" onclick="show_input_stok('{{$data['id']}}', '{{$data['stok']}}')">{{$data['stok']}}</a>
                             </td>
                             <td >
                               <a id="diskon_{{$data['id']}}" href="#" onclick="show_input_diskon('{{$data['id']}}', '{{$data['diskon']}}')">{{$data['diskon']}}</a>
                             </td>
-                            <td>{{$data['kategori']}}</td>
-                            <td>{{$data['sub_kategori']}}</td>
+                            <td id="kategori_{{$data['id']}}">{{$data['kategori']}}</td>
+                            <td id="sub_kategori_{{$data['id']}}">{{$data['sub_kategori']}}</td>
                             <td>
                                 <button onclick="modal_detail_produk('{{$data['id']}}')"><ion-icon name="pencil-outline"></ion-icon></button>
                                 <button><ion-icon name="trash-outline"></ion-icon></button>
@@ -144,7 +144,14 @@
            processData: false,
            success: (response) => {
              if (response) {
-               console.log(response);
+               console.log(response.produk);
+               var produk = response.produk;
+               var id = produk['id'];
+               $('#nama_'+id).html(produk['nama']);
+               $('#harga_'+id).html(produk['harga']);
+               $('#satuan_'+id).html(produk['satuan']);
+               $('#kategori'+id).html(produk['kategori']);
+               $('#sub_kategori_'+id).html(produk['sub_kategori']);
              }
            },
            error: function(response){

@@ -181,8 +181,17 @@ class AdminProdukController extends Controller
             $produk->foto = $foto;
         }
         $produk->save();
+
+        $produk = Produk::find($request->id);
+
+        $data_produk['id'] = $produk->id;
+        $data_produk['nama'] = $produk->nama;
+        $data_produk['harga'] = $produk->harga;
+        $data_produk['satuan'] = $produk->satuan;
+        $data_produk['kategori'] = $produk->kategori->kategori;
+        $data_produk['sub_kategori'] = $produk->sub_kategori->sub_kategori;
         
 
-        return response()->json('berhasil');
+        return response()->json(['produk'=>$data_produk]);
     }
 }

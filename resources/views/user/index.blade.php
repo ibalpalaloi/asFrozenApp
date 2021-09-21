@@ -535,133 +535,63 @@
 					</div>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 1em;">
-				<div class="col-md-12" style="padding: 0px;">
-					<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
-						<div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center;">
-							<div style="width: 10em;">
-								<img src="<?=url('/')?>/katalog_assets/assets/img/menu_bakso.png" style="width: 100%">
+			@foreach ($kategori_show as $data)
+				<div class="row" style="margin-top: 1em;">
+					<div class="col-md-12" style="padding: 0px;">
+						<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+							<div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center;">
+								<div style="width: 10em;">
+									<img src="<?=url('/')?>/katalog_assets/assets/img/menu_bakso.png" style="width: 100%">
+									{{$data->kategori}}
+								</div>
+								<a href="<?=url('/')?>/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
 							</div>
-							<a href="<?=url('/')?>/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
-						</div>
-						<hr>
-						<div class="row team" style="padding: 1em;">
-							<div class="flash_sale" style="width: 100%;">
-								@php
-								$produk = array('1.jpg','2.jpg','3.jpg','4.jpg','1.jpg','2.jpg','3.jpg','4.jpg');
-								@endphp
-								@for ($i = 0; $i < count($produk); $i++)
-								<div class="d-flex align-items-stretch" style="margin-right: 1em;">
-									<div class="member" style="position: relative;">
-										<div class="member-img">
-											<img src="<?=url('/')?>/katalog_assets/assets/img/produk/{{$produk[$i]}}" class="img-fluid" alt="">
-										</div>
-										<div class="member-info" style="padding-top: 0.4em; padding-bottom: 0.8em;">
-											<small style="font-family: 'Segoe UI',Roboto;"><s>Rp. 50.000</s>
-												<badge class="badge badge-warning">-50%</badge> 
-											</small>
-											<h4 style="font-family: 'Segoe UI',Roboto;">Rp. 25.000</h4>
-											<span>Fiesta Chicken Nugget</span>
-											<div class="btn btn-danger" style="margin-top: 0.4em; display: flex; justify-content: center; flex-direction: row;">
-												<div>
-													<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
+							<hr>
+							<div class="row team" style="padding: 1em;">
+								<div class="flash_sale" style="width: 100%;">
+									@foreach ($data->produk as $produk)
+									<div class="d-flex align-items-stretch" style="margin-right: 1em;">
+										<div class="member" style="position: relative;">
+											<div class="member-img">
+												<img src="<?=url('/')?>/img/produk/{{$produk->foto}}" class="img-fluid" alt="">
+											</div>
+											<div class="member-info" style="padding-top: 0.4em; padding-bottom: 0.8em;">
+												@if ($produk->diskon != null)
+													@php
+														$harga = $produk->harga;
+														$diskon = $produk->diskon->diskon;
+														$harga_diskon = $harga - ($diskon/100 * $harga)
+													@endphp
+													<small style="font-family: 'Segoe UI',Roboto;"><s>Rp. {{$produk->harga}}</s>
+														<badge class="badge badge-warning">{{$diskon}}%</badge> 
+													</small>
+													<h4 style="font-family: 'Segoe UI',Roboto;">Rp. {{$harga_diskon}}</h4>
+												@else
+													<h4 style="font-family: 'Segoe UI',Roboto;">Rp. {{$produk->harga}}</h4>
+												@endif
+												
+												<span>{{$produk->nama}}</span>
+												<div onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="margin-top: 0.4em; display: flex; justify-content: center; flex-direction: row;">
+													<div>
+														<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
+													</div>
+													<div>Beli</div>
 												</div>
-												<div>Beli</div>
 											</div>
 										</div>
 									</div>
+									@endforeach
 								</div>
-								@endfor
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row" style="margin-top: 1em;">
-				<div class="col-md-12" style="padding: 0px;">
-					<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
-						<div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center;">
-							<div style="width: 10em;">
-								<img src="<?=url('/')?>/katalog_assets/assets/img/menu_daging.png" style="width: 100%">
-							</div>
-							<a href="<?=url('/')?>/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
-						</div>
-						<hr>
-						<div class="row team" style="padding: 1em;">
-							<div class="flash_sale" style="width: 100%;">
-								@php
-								$produk = array('1.jpg','2.jpg','3.jpg','4.jpg','1.jpg','2.jpg','3.jpg','4.jpg');
-								@endphp
-								@for ($i = 0; $i < count($produk); $i++)
-								<div class="d-flex align-items-stretch" style="margin-right: 1em;">
-									<div class="member" style="position: relative;">
-										<div class="member-img">
-											<img src="<?=url('/')?>/katalog_assets/assets/img/produk/{{$produk[$i]}}" class="img-fluid" alt="">
-										</div>
-										<div class="member-info" style="padding-top: 0.4em; padding-bottom: 0.8em;">
-											<small style="font-family: 'Segoe UI',Roboto;"><s>Rp. 50.000</s>
-												<badge class="badge badge-warning">-50%</badge> 
-											</small>
-											<h4 style="font-family: 'Segoe UI',Roboto;">Rp. 25.000</h4>
-											<span>Fiesta Chicken Nugget</span>
-											<div class="btn btn-danger" style="margin-top: 0.4em; display: flex; justify-content: center; flex-direction: row;">
-												<div>
-													<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
-												</div>
-												<div>Beli</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								@endfor
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			@endforeach
 
-			<div class="row" style="margin-top: 1em;">
-				<div class="col-md-12" style="padding: 0px;">
-					<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
-						<div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center;">
-							<div style="width: 10em;">
-								<img src="<?=url('/')?>/katalog_assets/assets/img/menu_ikan.png" style="width: 100%">
-							</div>
-							<a href="<?=url('/')?>/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
-						</div>
-						<hr>
-						<div class="row team" style="padding: 1em;">
-							<div class="flash_sale" style="width: 100%;">
-								@php
-								$produk = array('1.jpg','2.jpg','3.jpg','4.jpg','1.jpg','2.jpg','3.jpg','4.jpg');
-								@endphp
-								@for ($i = 0; $i < count($produk); $i++)
-								<div class="d-flex align-items-stretch" style="margin-right: 1em;">
-									<div class="member" style="position: relative;">
-										<div class="member-img">
-											<img src="<?=url('/')?>/katalog_assets/assets/img/produk/{{$produk[$i]}}" class="img-fluid" alt="">
-										</div>
-										<div class="member-info" style="padding-top: 0.4em; padding-bottom: 0.8em;">
-											<small style="font-family: 'Segoe UI',Roboto;"><s>Rp. 50.000</s>
-												<badge class="badge badge-warning">-50%</badge> 
-											</small>
-											<h4 style="font-family: 'Segoe UI',Roboto;">Rp. 25.000</h4>
-											<span>Fiesta Chicken Nugget</span>
-											<div class="btn btn-danger" style="margin-top: 0.4em; display: flex; justify-content: center; flex-direction: row;">
-												<div>
-													<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
-												</div>
-												<div>Beli</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								@endfor
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			
+			
+
+			
 
 			<hr>
 			<div class="btn btn-danger" style="padding: 0.8em;">Lihat Selengkapnya</div>
@@ -913,7 +843,18 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<script>
+		function tambah_keranjang(id){
+			$.ajax({
+				url: "<?=url('/')?>/tambah_keranjang/"+id,
+				type:"get",
+				success:function(data){
+					console.log(data);
+				}
+			})
+		}
+	</script>
 </body>
 
 </html>

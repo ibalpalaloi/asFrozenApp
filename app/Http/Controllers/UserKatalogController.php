@@ -11,7 +11,8 @@ class UserKatalogController extends Controller
     //
     public function index(){
         $kategori = Kategori::orderBy('urutan')->get();
-        return view('user.index', compact('kategori'));
+        $kategori_show = Kategori::withCount('produk')->orderBy('produk_count', 'desc')->paginate(3);
+        return view('user.index', compact('kategori', 'kategori_show'));
     }
 
     public function kategori($kategori){
