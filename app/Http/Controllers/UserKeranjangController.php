@@ -125,6 +125,8 @@ class UserKeranjangController extends Controller
             $pesanan->harga_satuan = $data->produk->harga;
             $pesanan->save();
         }
+
+        $keranjang = Keranjang::where([['user_id', Auth()->user()->id], ['checked', 'true']])->delete();
         return redirect('/pesanan');
     }
 }

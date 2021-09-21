@@ -423,7 +423,7 @@
 								</div>
 							</a>
 							@foreach ($list_kategori as $data)
-							<a href="#" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
+							<a href="/kategori/{{$data->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 								<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 									@php
 									$url = url('/')."/icon_kategori/$data->logo";

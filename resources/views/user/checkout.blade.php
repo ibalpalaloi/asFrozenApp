@@ -677,17 +677,17 @@
 					</div>	
 					<form action="/keranjang/post_checkout" method="post" id="form_data_pesanan">
 						@csrf
-						<input type="text" name="nama_penerima" id="input_nama_penerima" value="{{Auth()->user()->biodata->nama}}" required>
-						<input type="text" name="no_telp_penerima", id="input_no_telp_penerima" value="{{Auth()->user()->biodata->no_telp}}">
-						<input type="text" name="ongkos_kirim" id="input_ongkos_kirim" value="{{$ongkos_kirim}}" required>
-						<input type="text" name="total_harga_produk" id="input_total_harga_produk" value="{{$total_harga_produk}}" required>
-						<input type="text" name="alamat" id="input_alamat" value="{{Auth()->user()->biodata->alamat}}" required>
-						<input type="text" name="kota" id="input_kota" value="{{Auth()->user()->biodata->kelurahan->kecamatan->kota->kota}}" required>
-						<input type="text" name="kecamatan" id="input_kecamatan" value="{{Auth()->user()->biodata->kelurahan->kecamatan->kecamatan}}" required> 
-						<input type="text" name="kelurahan" id="input_kelurahan" value="{{Auth()->user()->biodata->kelurahan->kelurahan}}" required>
-						<input type="text" name="pembayaran" id="input_pembayaran" value="" required>
-						<input type="text" name="pengantaran" id="input_pengantaran" value="" required>
-						<textarea name="catatan_pesanan" id="input_catatan_pesanan" cols="30" rows="10"></textarea>
+						<input hidden type="text" name="nama_penerima" id="input_nama_penerima" value="{{Auth()->user()->biodata->nama}}" required>
+						<input hidden type="text" name="no_telp_penerima", id="input_no_telp_penerima" value="{{Auth()->user()->biodata->no_telp}}">
+						<input hidden type="text" name="ongkos_kirim" id="input_ongkos_kirim" value="{{$ongkos_kirim}}" required>
+						<input hidden type="text" name="total_harga_produk" id="input_total_harga_produk" value="{{$total_harga_produk}}" required>
+						<input hidden type="text" name="alamat" id="input_alamat" value="{{Auth()->user()->biodata->alamat}}" required>
+						<input hidden type="text" name="kota" id="input_kota" value="{{Auth()->user()->biodata->kelurahan->kecamatan->kota->kota}}" required>
+						<input hidden type="text" name="kecamatan" id="input_kecamatan" value="{{Auth()->user()->biodata->kelurahan->kecamatan->kecamatan}}" required> 
+						<input hidden type="text" name="kelurahan" id="input_kelurahan" value="{{Auth()->user()->biodata->kelurahan->kelurahan}}" required>
+						<input hidden type="text" name="pembayaran" id="input_pembayaran" value="" required>
+						<input hidden type="text" name="pengantaran" id="input_pengantaran" value="" required>
+						<textarea hidden name="catatan_pesanan" id="input_catatan_pesanan" cols="30" rows="10"></textarea>
 
 					</form>
 				</div>

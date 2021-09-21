@@ -48,6 +48,7 @@ Route::post('/keranjang/post_checkout', [UserKeranjangController::class, 'post_c
 
 // pesanan
 Route::get('/pesanan', [UserPesananController::class, 'pesanan'])->middleware('auth');
+Route::get('/batalkan-pesanan/{id}', [UserPesananController::class, 'batalkan_pesanan'])->middleware('auth');
 
 // Kategori
 Route::get('/admin-index', [AdminController::class, 'index']);

@@ -595,7 +595,7 @@
                     <hr>
                     <div class="template-demo" style="display: flex;">
                         @if ($status_pesanan != "telah diantarakan")
-                        <a href="<?=url('/keranjang')?>" type="button" class="btn btn-danger btn-lg" style="margin: 10px">Batalkan</a>
+                        <a href="/batalkan-pesanan/{{$nota->id}}" type="button" class="btn btn-danger btn-lg" style="margin: 10px">Batalkan</a>
 
                         @endif
                         <button onclick="hubungi_penjual()" type="button" class="btn btn-success" style="margin: 10px">Hubungi Penjual</button>
