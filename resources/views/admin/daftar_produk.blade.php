@@ -27,10 +27,19 @@
             <input type="text" class="form-control" id="input_diskon" aria-describedby="emailHelp" placeholder="Diskon">
           </div>
           <div class="form-group">
-            <label>Date:</label>
-              <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                  <input type="text" id="input_batas_tanggal" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                  <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+            <label>Tanggal Mulai:</label>
+              <div class="input-group date" id="tgl_mulai" data-target-input="nearest">
+                  <input type="text" id="input_tgl_mulai" class="form-control datetimepicker-input" data-target="#tgl_mulai"/>
+                  <div class="input-group-append" data-target="#tgl_mulai" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+            <label>Tanggal Akhir:</label>
+              <div class="input-group date" id="tgl_akhir" data-target-input="nearest">
+                  <input type="text" id="input_tgl_akhir" class="form-control datetimepicker-input" data-target="#tgl_akhir"/>
+                  <div class="input-group-append" data-target="#tgl_akhir" data-toggle="datetimepicker">
                       <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                   </div>
               </div>
@@ -124,7 +133,12 @@
         }
     });
 
-    $('#reservationdate').datetimepicker({
+    $('#tgl_mulai').datetimepicker({
+        format: 'L',
+        format: 'YYYY-MM-DD'
+    });
+
+    $('#tgl_akhir').datetimepicker({
         format: 'L',
         format: 'YYYY-MM-DD'
     });
@@ -294,12 +308,13 @@
   function ubah_diskon(){
     var id = $('#input_id_produk').val();
     var diskon = $('#input_diskon').val();
-    var batas_tanggal = $('#input_batas_tanggal').val();
+    var tgl_mulai = $('#input_tgl_mulai').val();
+    var tgl_akhir = $('#input_tgl_akhir').val();
     if(id != "" && diskon != ""){
       $.ajax({
         type: "post",
         url: "<?=url('/')?>/admin/post-ubah-diskon",
-        data:{'id':id, 'diskon':diskon, 'batas_tanggal':batas_tanggal},
+        data:{'id':id, 'diskon':diskon, 'tgl_mulai':tgl_mulai, 'tgl_akhir': tgl_akhir},
         success:function(data){
           console.log(data.status);
           if(data.status == "Success"){
