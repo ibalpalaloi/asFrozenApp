@@ -10,6 +10,7 @@ use App\Models\Stok_produk;
 use Illuminate\Support\Facades\Validator;
 use File;
 use Image;
+use Carbon\Carbon;
 
 class AdminProdukController extends Controller
 {
@@ -166,13 +167,15 @@ class AdminProdukController extends Controller
             $diskon = new Diskon;
             $diskon->produk_id = $request->id;
             $diskon->diskon = $request->diskon;
-            $diskon->batas_diskon = $request->batas_tanggal;
+            $diskon->tgl_mulai = $request->tgl_mulai;
+            $diskon->tgl_akhir = $request->tgl_akhir;
             $diskon->save();
         }
         else{
             $diskon = Diskon::where('produk_id', $request->id)->first();
             $diskon->diskon = $request->diskon;
-            $diskon->batas_diskon = $request->batas_tanggal;
+            $diskon->tgl_mulai = $request->tgl_mulai;
+            $diskon->tgl_akhir = $request->tgl_akhir;
             $diskon->save();
         }
 
@@ -215,5 +218,13 @@ class AdminProdukController extends Controller
 
 
         return response()->json(['produk'=>$data_produk]);
+    }
+
+    public function diskon(){
+        $start_date = Carbon::createFromFormat('Y-m-d', '2021-09-21');
+        $end_date = Carbon::createFromFormat('Y-m-d', '2021-09-25');
+        $diskon = Diskon::whereBetween('diskon_akhir', [$start_date, $end_date])->get();
+        dd($diskon);
+        return view('admin.diskon', compact('diskon'));
     }
 }
