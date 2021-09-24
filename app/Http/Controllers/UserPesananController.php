@@ -13,7 +13,7 @@ class UserPesananController extends Controller
 
     public function pesanan(){
         $notas = Nota::where('user_id', Auth()->user()->id)->get();
-        return view('user.pesanan', compact('notas'));
+        return view('user.payment.pesanan', compact('notas'));
     }
 
     public function batalkan_pesanan($id){
@@ -30,5 +30,9 @@ class UserPesananController extends Controller
         Pesanan::where('nota_id', $id)->delete();
         Nota::find($id)->delete();
         return redirect('/keranjang');
+    }
+
+    public function biodata(){
+        return view('user/biodata/index');
     }
 }

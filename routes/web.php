@@ -16,6 +16,7 @@ use App\Http\Controllers\UserKeranjangController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserPesananController;
 use App\Http\Controllers\UserRiwayatController;
+use App\Htpp\Controllers\UserBiodataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,7 @@ Route::post('/keranjang/ubah_checked', [UserKeranjangController::class, 'ubah_ch
 Route::post('/keranjang/ubah_jumlah', [UserKeranjangController::class, 'ubah_jumlah'])->middleware('auth');
 Route::post('/keranjang/post_checkout', [UserKeranjangController::class, 'post_checkout'])->middleware('auth');
 
+Route::get('/biodata', [UserPesananController::class, 'biodata']);
 
 // pesanan
 Route::get('/pesanan', [UserPesananController::class, 'pesanan'])->middleware('auth');
@@ -59,7 +61,7 @@ Route::post('/admin-post-kategori-baru', [AdminKategoriController::class, 'post_
 Route::post('/admin-post-sub-kategori-baru', [AdminKategoriController::class, 'admin_post_sub_kategori_baru']);
 Route::post('/admin-post-update-kategori', [AdminKategoriController::class, 'post_update_kategori']);
 Route::post('/admin-post-update-sub-kategori', [AdminKategoriController::class, 'post_update_sub_kategori']);
-
+Route::post('/admin-delete-kategori', [AdminKategoriController::class, 'delete_kategori']);
 // get
 Route::get('/get_list_sub_kategori/{id}', [GetController::class, 'get_sub_kategori']);
 Route::get('/get_kecamatan/{id}', [GetController::class, 'get_kecamatan']);

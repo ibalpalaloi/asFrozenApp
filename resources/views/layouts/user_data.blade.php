@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-	<title>OnePage Bootstrap Template - Index</title>
+	<title>@yield('title-header') - AsFrozen</title>
 	<meta content="" name="description">
 	<meta content="" name="keywords">
 
@@ -25,6 +25,7 @@
 	<link href="<?=url('/')?>/katalog_assets/assets/vendor/aos/aos.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick-theme.css"/>
+	<link rel="stylesheet" type="text/css" href="https://adminlte.io/themes/v3/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 	<!-- Template Main CSS File -->
 	<link href="<?=url('/')?>/katalog_assets/assets/css/style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
@@ -356,6 +357,10 @@
 			margin-bottom: 15px;
 		}
 
+		.btn-outline-danger > div:hover {
+			color: white;
+		}
+
 		.btnAllProduct, div.title-index {
 			font-style: normal;
 			font-stretch: normal;
@@ -365,6 +370,20 @@
 			font-family: MyriadPro;
 			font-weight: 700;
 		}		
+
+		body {
+			font-family: "Roboto", sans-serif !important;
+			color: #444444;
+		}
+
+		a {
+			color: #47b2e4;
+		}
+
+		a:hover {
+			color: #73c5eb;
+			text-decoration: none;
+		}
 	</style>
   <!-- =======================================================
   * Template Name: OnePage - v2.2.2
@@ -374,7 +393,7 @@
   ======================================================== -->
 </head>
 
-<body style="font-family: 'Segoe UI',Roboto;">
+<body>
 	{{-- modal --}}
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable">
@@ -387,41 +406,59 @@
 				</div>
 				<div class="modal-body">
 					<form>
-						<div class="form-group">
-							<label for="exampleFormControlInput1">Nama Pemesan</label>
-							<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Pemesan" value="Iqbal">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="exampleFormControlInput1">Nama Penerima</label>
+									<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Penerima" value="Fathul">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="exampleFormControlInput1">Nomor Handphone</label>
+									<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Pemesan" value="085156289855">
+								</div>
+							</div>
 						</div>
-						<div class="form-group">
-							<label for="exampleFormControlInput1">Nama Penerima</label>
-							<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Penerima" value="Fathul">
-						</div>
+
 						<div class="form-group">
 							<label for="exampleFormControlTextarea1">Alamat</label>
-							<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Alamat"></textarea>
+							<textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Alamat">Jl. Swadaya Lorong Balitbangda No. 9 Palu</textarea>
 						</div>
-						<div class="form-group">
-							<label for="exampleFormControlSelect1">Kota</label>
-							<select class="form-control" id="exampleFormControlSelect1">
-								<option>Palu</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="exampleFormControlSelect1">Kecamatan</label>
-							<select class="form-control" id="exampleFormControlSelect1">
-								<option>Palu Barat</option>
-								<option>Palu Timur</option>
-								<option>Palu Selatan</option>
-								<option>Palu Utara</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="exampleFormControlSelect1">Keluarahan</label>
-							<select class="form-control" id="exampleFormControlSelect1">
-								<option>Kabonena</option>
-								<option>Tipo</option>
-								<option>Donggala Kodi</option>
-								<option>Silae</option>
-							</select>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="exampleFormControlSelect1">Kota</label>
+									<select class="form-control" id="exampleFormControlSelect1">
+										<option>Palu</option>
+									</select>
+								</div>
+
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="exampleFormControlSelect1">Kecamatan</label>
+									<select class="form-control" id="exampleFormControlSelect1">
+										<option>Palu Barat</option>
+										<option>Palu Timur</option>
+										<option>Palu Selatan</option>
+										<option>Palu Utara</option>
+									</select>
+								</div>
+
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="exampleFormControlSelect1">Keluarahan</label>
+									<select class="form-control" id="select_kelurahan" onchange="ongkos_kirim()">
+										<option>Kabonena</option>
+										<option>Tipo</option>
+										<option>Donggala Kodi</option>
+										<option>Silae</option>
+									</select>
+								</div>
+							</div>
+
 						</div>
 					</form>
 					<div class="row" style="font-weight: 700">
@@ -430,16 +467,16 @@
 					</div>
 					<div class="row" style="font-weight: 700">
 						<div class="col">Ongkos Kirim</div>
-						<div class="col text-right">Rp. 7.000</div>
+						<div class="col text-right" id="ongkos_kirim">Rp. 7.000</div>
 					</div>
 				</div>
 				<br>
 				<div class="modal-footer justify-content-between" style="font-weight: 700">
-					<div style="font-size: 28px">
+					<div style="font-size: 28px" id="total_pesanan">
 						Total : Rp. 67.000
 					</div>
 					<div>
-						<button type="button" class="btn btn-danger">Pesan</button>
+						<a href="<?=url('/')?>/pesanan" type="button" class="btn btn-danger">Pesan</a>
 					</div>
 
 				</div>
@@ -449,162 +486,69 @@
 	{{-- end modal --}}
 
 	<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top" style="background: white; border-bottom: none; box-shadow:0 1px 1px rgb(0 0 0 / 20%); padding: 1em;">
-		<div class="container d-flex align-items-center">
-			<h1 class="logo mr-auto">
-				<div style="">
-					<img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_red.png" style="width: 110%;">
+	<header id="header" class="fixed-top" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); border-bottom: none; box-shadow:0 1px 1px rgb(0 0 0 / 20%); border-bottom: none; box-shadow:0 1px 1px rgb(0 0 0 / 20%); padding: 1em;">
+		<div class="container">
+			<div class="d-flex">
+				<h1 class="logo mr-auto">
+					<a href="<?=url('/')?>">
+						<img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_white.png">
+					</a>
+				</h1>
+				<div style="width: 100%; padding-left: 1%; margin-left: 2.5%; margin-right: 5%; border-left: 2px solid white;display: flex; align-items: center;">
+					<div style="color: white; vertical-align: center; padding-bottom: 0px; line-height: 1em; font-size: 1.4em;">@yield('title-header')
+					</div>
 				</div>
-			</h1>
-			<div style="width: 100%; padding-left: 1%; margin-left: 2.5%; margin-right: 5%; border-left: 2px solid #ec1f25;display: flex; align-items: center;">
-				<div style="color: #ec1f25; vertical-align: center; padding-bottom: 0px; line-height: 1em; font-size: 1.4em;">Pesanan</div>
+				<div>
+					<a href="<?=url('/')?>/keranjang">
+						<span class="iconify" data-icon="mdi:cart" style="font-size: 2em; color: white;"></span>
+					</a>
+				</div>
+
 			</div>
 		</div>
 	</header><!-- End Header -->
 
-	<!-- ======= Hero Section ======= -->
-	@php
-	$produk = ['Bakso Ikan', 'Fiesta chicken Nugget', 'Kulit Kebab'];
-	$harga = ['20.000', '30.000', '12.000'];
-	$jumlah = ['2', '3', '2'];
-	$total_harga = ['40.000', '90.000', '24.000'];
-	$status_pesanan = "packaging";
-	// status_pesanan = ['menunggu konfirmasi', 'packaging', 'telah diantarakan']
-	@endphp
-	<section id="" class="d-flex align-items-center" style="background: none; ">
-		<div class="container" style="padding-top: 40px;" >
-            @foreach ($notas as $nota)
-                <div class="card shadow p-3 mb-5 bg-white rounded">
-                    @if ($nota->status == "menunggu konfirmasi")
-                    <div class="alert alert-primary" style="font-size: 17px" role="alert">
-                        Menunggu Konfirmasi Pesanan
-                        <div style="float: right">
-                            <img src="<?=url('/')?>/katalog_assets/img/icons/chronometer.png" alt="" width="30px">
-                        </div>
-                    </div>
-                    @elseif ($nota->status == "packaging")
-                    <div class="alert alert-warning"  role="alert">
-                        Pesanan Sementara Packaging
-                        <div style="float: right">
-                            <img src="<?=url('/')?>/katalog_assets/img/icons/packaging.png" alt="" width="35px">
-                        </div>
-                    </div>
-                    @else
-                    <div class="alert alert-success"  role="alert">
-                        Pesanan Telah Diantarkan
-                        <div style="float: right">
-                            <img src="<?=url('/')?>/katalog_assets/img/icons/delivery.png" alt="" width="35px">
-                        </div>
-                    </div>
-                    @endif
-                    <table class="table" >
-                        <thead>
-                            <th style=""></th>
-                            <th style="text-align: center;">Harga Satuan</th>
-                            <th style="text-align: center;">Jumlah</th>
-                            <th style="text-align: center;">Subtotal</th>
-                        </thead>
-                        <tbody>
-                            @foreach ($nota->pesanan as $pesanan)
-                                <tr>
-                                    <td>
-                                        <div style="width: 100%; display: flex; margin-bottom: 0em;">
-                                            <div style="width: 10%;">
-                                                <img class="img-fluid" src="<?=url('/')?>/img/produk/{{$pesanan->produk->foto}}" style="width: 100%; border-radius: 1em;">
-                                            </div>
-                                            <div style="width: 85%; margin-left: 1em; display: flex; align-items: center;">
-                                                {{$pesanan->produk->nama}}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="display: flex; justify-content: space-between;">
-                                            <div>Rp.</div> <div>{{$pesanan->harga_satuan}}</div>
-                                        </div>
-                                    </td>
-                                    <td style="text-align: center;">{{$pesanan->jumlah}}</td>
-                                    <td>
-                                        <div style="display: flex; justify-content: space-between;">
-                                            <div>Rp.</div> <div>{{$pesanan->jumlah * $pesanan->harga_satuan}}</div>
-                                        </div>									
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>							
-                    </table>
-                    <div class="row" style="margin-left: 0.5em;margin-right: 0.5em;">
-                        <div class="col-md-4">
-                            <b>Diantarkan ke alamat</b><br>
-                            {{$nota->penerima}} | {{$nota->no_telp_penerima}}<br>
-                            {{$nota->alamat}}<br>
-                            {{$nota->kelurahan}}, {{$nota->kecamatan}}, {{$nota->kota}} <br>
-                        </div>
-                        <div class="col-md-4">
-                            <b>Transfer melalui</b><br>
-                            <div class="checkout-bank-transfer-item__card" style="display: flex;">
-                                <div class="checkout-bank-transfer-item__icon-container">
-                                    <img src="https://mall.shopee.co.id/static/images/img_bankid_bni.png" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
-                                </div>
-                                <div>
-                                    <div class="checkout-bank-transfer-item__main" style="line-height: 0.8em;">
-                                        Bank BNI
-                                    </div>
-                                    <div class="checkout-bank-transfer-item__description">
-                                        <small>Perlu upload bukti transfer</small>
-                                    </div>
-                                    <div>(Dicek Manual)</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4" style="display: flex;">
-                            <img src="<?=url('/')?>/katalog_assets/assets/qrcode.png" style="width: 6em;">
-                            <div style="margin-top: 0.2em;width: 100%;">
-                                <div class="row">
-                                    <div class="col-md-6">		
-                                        Subtotal
-                                    </div>
-                                    <div class="col-md-6" style="display: flex; justify-content: space-between;">		
-                                        <div>: Rp.</div>
-                                        <div>{{$nota->total_harga}}</div>
-                                    </div>
+	<section id="hero" class="d-flex align-items-center" style="background: none; ">
+		<div class="container" style="padding-top: 1em;">
+			<div class="row">
+				<div class="col-3">
+					<div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">
+						<div class="row" style="padding: 0.5em 1em;">
+							<div style="width: 30%; border-radius: 50%;">
+								<img src="img/default.png" style="width: 100%; border-radius: 50%;">
+							</div>
+							<div style="width: 70%; padding-left: 0.8em; display: flex; justify-content: center; flex-direction: column;">
+								<div>Iqbal Ramadhan</div>
+								<small>Member</small>
+							</div>
+						</div>
+					</div>
+					<div class="card shadow p-3 bg-white rounded" style="border: none;">
+						<div class="row" style="padding: 0em 1em;">
+							<ul class="list-unstyled components" style="margin-bottom: 0px;">
+								<li>
+									<a href="<?=url('/')?>/biodata">Biodata</a>
+								</li>
+								<li style="margin-top: 0.5em;">
+									<a href="<?=url('/')?>/riwayat-pesanan">Riwayat Pesanan</a>
+								</li>
+							</ul>
 
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">		
-                                        Ongkir
-                                    </div>
-                                    <div class="col-md-6" style="display: flex; justify-content: space-between;">		
-                                        <div>: Rp.</div>
-                                        <div>{{$nota->ongkos_kirim}}</div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">		
-                                        <b>Total</b>
-                                    </div>
-                                    <div class="col-md-6" style="display: flex; justify-content: space-between;">		
-                                        <div>: Rp.</div>
-                                        <div><b>{{$nota->ongkos_kirim + $nota->total_harga}}</b></div>
-                                    </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-9">
+					<div class="card shadow p-3 mb-5 bg-white rounded">
+						<div class="d-flex align-items-stretch slick-slide slick-active" style="margin-right: 1em; width: 213px;width: 100%; display: flex; flex-wrap: wrap;" tabindex="0" data-slick-index="1" aria-hidden="false" role="tabpanel" id="slick-slide11">
+							@yield('content')
+						</div>
 
-                                </div>
+					</div>
+				</div>
+			</div>
 
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="template-demo" style="display: flex;">
-                        @if ($status_pesanan != "telah diantarakan")
-                        <a href="/batalkan-pesanan/{{$nota->id}}" type="button" class="btn btn-danger btn-lg" style="margin: 10px">Batalkan</a>
-
-                        @endif
-                        <button onclick="hubungi_penjual()" type="button" class="btn btn-success" style="margin: 10px">Hubungi Penjual</button>
-                    </div>
-                </div>
-            @endforeach
 		</div>
-	</section><!-- End Hero -->
-
+	</section>
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
@@ -705,19 +649,8 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-	<script>
-		function modal_pesan(){
-			$('#exampleModal').modal('show');
-		}
-
-		function hubungi_penjual(){
-			var message = "Hallo AsFrozen saya telah memesan produk dengan link ID_pesanan=1880148014";
-
-			var walink = 'https://wa.me/'+ "+628114588477" +'?text=' + encodeURI(message);
-			window.open(walink);
-		}
-	</script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	@yield('footer')
 </body>
 
 </html>

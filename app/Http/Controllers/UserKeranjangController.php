@@ -34,13 +34,13 @@ class UserKeranjangController extends Controller
             $data_keranjang[$i]['checked'] = $data->checked;
             $i++;
         }
-        return view('user.keranjang', compact('keranjang', 'data_keranjang'));
+        return view('user.payment.keranjang', compact('keranjang', 'data_keranjang'));
     }
 
     public function tambah_keranjang($id){
         $keranjang = Keranjang::where([
-                                        ['user_id', Auth()->user()->id],
-                                        ['produk_id', $id]
+            ['user_id', Auth()->user()->id],
+            ['produk_id', $id]
         ])->first();
 
         if($keranjang != null){
@@ -63,10 +63,10 @@ class UserKeranjangController extends Controller
         $kecamatan = Kecamatan::where('kota_id', Auth()->user()->biodata->kelurahan->kecamatan->kota->id)->get();
         $kelurahan = Kelurahan::where('kecamatan_id', Auth()->user()->biodata->kelurahan->kecamatan->id)->get();
         $list_keranjang = Keranjang::where([
-                                            ['user_id', Auth()->user()->id],
-                                            ['checked', "true"]
+            ['user_id', Auth()->user()->id],
+            ['checked', "true"]
         ])->get();
-        return view('user.checkout', compact('list_keranjang', 'kota', 'kecamatan', 'kelurahan'));
+        return view('user.payment.checkout', compact('list_keranjang', 'kota', 'kecamatan', 'kelurahan'));
     }
 
     public function ubah_checked(Request $request){
