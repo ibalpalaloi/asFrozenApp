@@ -62,4 +62,16 @@ class GetController extends Controller
         $kategori = Kategori::all();
         return response()->json(['kategori' => $kategori]);
     }
+
+    public function get_embed_video(Request $request){
+        $link = $request->link;
+        $ytarray=explode("/", $link);
+        $ytendstring=end($ytarray);
+        $ytendarray=explode("?v=", $ytendstring);
+        $ytendstring=end($ytendarray);
+        $ytendarray=explode("&", $ytendstring);
+        $ytcode=$ytendarray[0];
+
+        return response()->json(['link_embed'=>$ytcode]);
+    }
 }

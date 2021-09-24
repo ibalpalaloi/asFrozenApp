@@ -186,12 +186,23 @@
       </div>
 
       <!-- Sidebar Menu -->
+      @php
+          $menu_ = "";
+          $sub_menu_ ="";
+          if(isset($menu)){
+            $menu_ = $menu;
+          }
+          
+          if(isset($sub_menu)){
+            $sub_menu_ = $sub_menu;
+          }
+      @endphp
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
+               <li class="nav-item has-treeview @if($menu_ == 'data dukung') menu-open @endif">
+                <a href="#" class="nav-link @if($menu_ == 'data dukung') active @endif">
                   <i class="nav-icon fas fa-tree"></i>
                   <p>
                     Data Dukung
@@ -200,25 +211,37 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="/admin-kategori" class="nav-link">
+                    <a href="/admin-banner" class="nav-link @if($sub_menu_ == 'banner') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Banner</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/admin-video" class="nav-link @if($sub_menu_ == 'video') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Video</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/admin-kategori" class="nav-link @if($sub_menu_ == 'banner') kategori @endif">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Kategori</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/admin-kota" class="nav-link">
+                    <a href="/admin-kota" class="nav-link @if($sub_menu_ == 'banner') kota @endif">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Kota</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/admin-kecamatan" class="nav-link">
+                    <a href="/admin-kecamatan" class="nav-link @if($sub_menu_ == 'banner') kecamatan @endif">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Kecamatan</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/admin-kelurahan" class="nav-link">
+                    <a href="/admin-kelurahan" class="nav-link @if($sub_menu_ == 'banner') kelurahan @endif">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Kelurahan</p>
                     </a>

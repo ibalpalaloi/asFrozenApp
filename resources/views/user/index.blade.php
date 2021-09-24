@@ -445,40 +445,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="row justify-content-center" style="margin-top: 1em; margin-bottom: 0px;">
-				<div class="col-lg-8 text-center" style="padding: 0;">
-					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-							<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-							<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-						</ol>
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner1.jpg" class="d-block w-100" alt="...">
-							</div>
-							<div class="carousel-item">
-								<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner2.jpg" class="d-block w-100" alt="...">
-							</div>
-							<div class="carousel-item">
-								<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner3.jpg" class="d-block w-100" alt="...">
-							</div>
-						</div>
-						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-4" style="padding: 0px; padding-left: 0.2em;">
-					<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner1.jpg" class="d-block w-100" alt="...">
-					<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner3.jpg" class="d-block w-100" alt="..." style="margin-top: 0.2em;">
-				</div>
-			</div>
+			
+			@include('user.include.banner')
+			
 			
 			<div class="row" style="margin-top: 1em;">
 				<div class="col-md-12" style="padding: 0px;">
@@ -525,7 +494,7 @@
 			<div style="margin-bottom: 10px">
 				<div class="row" style="margin-top: 20px; padding-left: 0px; padding-right: 0px;  display: flex; justify-content: space-between;">
 					<div style="width: 32%;">
-						<iframe width="100%" height="220"  src="https://www.youtube.com/embed/qNa5vUG4W08" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 0.5em;"></iframe>
+						<iframe width="100%" height="220"  src="https://www.youtube.com/embed/0ELeIUUG9fE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 0.5em;"></iframe>
 					</div>
 					<div style="width: 32%;">
 						<iframe width="100%" height="220"  src="https://www.youtube.com/embed/T5nSwojhgTo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 0.5em;"></iframe>

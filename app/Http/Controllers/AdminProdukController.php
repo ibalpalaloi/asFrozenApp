@@ -198,11 +198,37 @@ class AdminProdukController extends Controller
         return response()->json(['produk'=>$data_produk]);
     }
 
-    public function diskon(){
-        $start_date = Carbon::createFromFormat('Y-m-d', '2021-09-21');
-        $end_date = Carbon::createFromFormat('Y-m-d', '2021-09-25');
-        $diskon = Diskon::whereBetween('diskon_akhir', [$start_date, $end_date])->get();
-        dd($diskon);
-        return view('admin.diskon', compact('diskon'));
+    public function diskon(Request $request){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
+        if(count($request->all()) == 0){
+            // $start_date = Carbon::createFromFormat('Y-m-d', '2021-09-21');
+            // $end_date = Carbon::createFromFormat('Y-m-d', '2021-09-25');
+            $diskon = Diskon::where('diskon_akhir', '>=', $date_today)->get();
+            return view('admin.diskon', compact('diskon'));
+        }
+        // $date_tomorow = date("Y-m-d", strtotime("+1 day"));
+        $waktu = $request->waktu;
+        if($waktu == "future"){
+            $diskon = Diskon::where('diskon_akhir', '>', $date_today)->get();
+        }
+        elseif($waktu == "past"){
+            $diskon = Diskon::where('diskon_akhir', '<', $date_today)->get();
+        }
+        elseif($waktu == "between"){
+            $start_date = Carbon::createFromFormat('Y-m-d', $request->tgl_mulai);
+            $end_date = Carbon::createFromFormat('Y-m-d', $request->tgl_akhir);
+            $diskon = Diskon::where([
+                ['diskon_mulai', '<=', $request->tgl_akhir],
+                ['diskon_akhir', '>=', $request->tgl_mulai]
+                ])->get();
+
+        }
+        else{
+            $diskon = Diskon::where('diskon_akhir', '>=', $date_today)->get();
+        }
+        $view = view('admin.include.table_diskon', compact('diskon'))->render();
+
+        return response()->json(['html'=>$view]);
     }
 }

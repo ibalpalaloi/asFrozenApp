@@ -7,6 +7,8 @@ use App\Http\Controllers\AdminkController;
 use App\Http\Controllers\AdminKategoriController;
 use App\Http\Controllers\AdminPesananController;
 use App\Http\Controllers\AdminRiwayatPesanan;
+use App\Http\Controllers\AdminBannerController;
+use App\Http\Controllers\AdminVideoController;
 use App\Http\Controllers\GetController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\UserKatalogController;
@@ -65,6 +67,15 @@ Route::get('/get_kelurahan/{id}', [GetController::class, 'get_kelurahan']);
 Route::get('/get_ongkir/{id}', [GetController::class, 'get_ongkir']);
 Route::get('/get-detail-produk/{id}', [GetController::class, 'get_detail_produk']);
 Route::get('/get-kategori', [GetController::class, 'get_kategori']);
+Route::post('/get-embed-link', [GetController::class, 'get_embed_video']);
+
+// admin Banner
+Route::get('/admin-banner', [AdminBannerController::class, 'banner']);
+
+// admin video
+Route::get('/admin-video', [AdminVideoController::class, 'video']);
+Route::post('/admin-post-video', [AdminVideoController::class, 'post_video']);
+Route::get('/get-embed-link', [GetController::class, 'get_embed_video']);
 
 
 // admin pesanan

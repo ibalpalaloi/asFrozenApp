@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\Produk;
+use App\Models\Banner;
 
 class UserKatalogController extends Controller
 {
     //
     public function index(){
         $kategori = Kategori::orderBy('urutan')->get();
+        $banner = Banner::all();
+
         $kategori_show = Kategori::withCount('produk')->orderBy('produk_count', 'desc')->paginate(3);
-        return view('user.index', compact('kategori', 'kategori_show'));
+        return view('user.index', compact('kategori', 'kategori_show', 'banner'));
     }
 
     public function kategori($kategori){
