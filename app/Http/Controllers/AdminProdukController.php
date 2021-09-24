@@ -9,6 +9,7 @@ use App\Models\Diskon;
 use App\Models\Stok_produk;
 use Illuminate\Support\Facades\Validator;
 use File;
+use Image;
 
 class AdminProdukController extends Controller
 {
@@ -55,10 +56,17 @@ class AdminProdukController extends Controller
         $stok->stok = $request->stok;
         $stok->save();
 
-        $file = $request->file('foto_produk');
-        $lokasi = "img/produk";
-        $foto = "produk-".$produk->id.".".$file->getClientOriginalExtension();
-        $file->move($lokasi, $foto);
+        if ($request->file('foto_produk')) {
+            $file = $request->file('foto_produk');
+            $foto = "produk-".$this->autocode('prd').".".$file->getClientOriginalExtension();
+            \Storage::disk('public')->put("img/produk/$foto", file_get_contents($file));
+            \Storage::disk('public')->put("img/produk/thumbnail/500x500/$foto", file_get_contents($file));
+            \Storage::disk('public')->put("img/produk/thumbnail/300x300/$foto", file_get_contents($file));
+            $img = Image::make("img/produk/thumbnail/500x500/$foto")->fit(500,500);
+            $img->save();
+            $img = Image::make("img/produk/thumbnail/300x300/$foto")->fit(300,300);
+            $img->save();
+        }
 
         $produk->foto = $foto;
         $produk->save();
@@ -68,11 +76,18 @@ class AdminProdukController extends Controller
             $diskon->produk_id = $produk->id;
             $diskon->diskon = $request->diskon; 
             $diskon->save();
-            
+
         }
 
         return back()->with('success', 'Produk tersimpan');
     }
+
+    public function autocode($kode){
+        $timestamp = time(); 
+        $random = rand(10, 100);
+        $current_date = date('mdYs'.$random, $timestamp); 
+        return $kode.$current_date;
+    }  
 
     public function daftar_produk(){
         $produk = Produk::all();
@@ -81,6 +96,7 @@ class AdminProdukController extends Controller
         foreach($produk as $data){
             $list_produk[$i]['id'] = $data->id;
             $list_produk[$i]['nama'] = $data->nama;
+            $list_produk[$i]['foto'] = $data->foto;
             $list_produk[$i]['harga'] = $data->harga;
             $list_produk[$i]['satuan'] = $data->satuan;
             $list_produk[$i]['kategori'] = $data->kategori->kategori;
@@ -102,6 +118,8 @@ class AdminProdukController extends Controller
         }
         return view('admin.daftar_produk', compact('list_produk'));
     }
+
+
 
     public function post_ubah_stok(Request $request){
         $valdiator = Validator::make($request->all(), [
@@ -168,16 +186,20 @@ class AdminProdukController extends Controller
         $produk->satuan =  $request->satuan;
         $produk->kategori_id = $request->kategori;
         $produk->sub_kategori_id = $request->sub_kategori;
-        
 
-
-        $file = $request->file('foto');
-        if($file != null){
-            $lokasi = "img/produk";
-            File::delete($lokasi."/".$produk->foto);
-            
-            $foto = "produk-".$produk->id.".".$file->getClientOriginalExtension();
-            $file->move($lokasi, $foto);
+        if ($request->file('foto')) {
+            \File::delete("img/produk/$produk->foto");                 
+            \File::delete("img/produk/thumbnail/500x500/$produk->foto");                 
+            \File::delete("img/produk/thumbnail/300x300/$produk->foto");                 
+            $file = $request->file('foto');
+            $foto = "produk-".$this->autocode('prd').".".$file->getClientOriginalExtension();
+            \Storage::disk('public')->put("img/produk/$foto", file_get_contents($file));
+            \Storage::disk('public')->put("img/produk/thumbnail/500x500/$foto", file_get_contents($file));
+            \Storage::disk('public')->put("img/produk/thumbnail/300x300/$foto", file_get_contents($file));
+            $img = Image::make("img/produk/thumbnail/500x500/$foto")->fit(500,500);
+            $img->save();
+            $img = Image::make("img/produk/thumbnail/300x300/$foto")->fit(300,300);
+            $img->save();
             $produk->foto = $foto;
         }
         $produk->save();
@@ -190,7 +212,7 @@ class AdminProdukController extends Controller
         $data_produk['satuan'] = $produk->satuan;
         $data_produk['kategori'] = $produk->kategori->kategori;
         $data_produk['sub_kategori'] = $produk->sub_kategori->sub_kategori;
-        
+
 
         return response()->json(['produk'=>$data_produk]);
     }

@@ -375,16 +375,18 @@
 </head>
 
 <body>
-
+@if ($agent->isMobile())
+@else
 	<!-- ======= Header ======= -->
 	<header id="header" class="fixed-top" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); border-bottom: none; box-shadow:0 1px 1px rgb(0 0 0 / 20%);">
-		<div class="container d-flex align-items-center">
-			<h1 class="logo mr-auto">
-				<div style="">
-					<img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_white.png" style="width: 120%;">
-				</div>
-			</h1>
-			<div style="width: 100%; margin-left: 5%; margin-right: 5%;">
+		<div class="container" style="display: flex; justify-content: space-between;">
+			<div style="width: 88%; display: flex;">
+				<h1 class="logo" style="margin-right: 1em;">
+					<div style="">
+						<img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_white.png">
+					</div>
+				</h1>
+
 				<div class="shopee-searchbar shopee-searchbar--focus" style="width: 100%;">
 					<div class="shopee-searchbar__main" style="position: relative;">
 						<form role="search" class="shopee-searchbar-input" autocomplete="off">
@@ -396,7 +398,14 @@
 					</button>
 				</div>
 			</div>
-			<a href="<?=url('/')?>/keranjang" class=""><span class="iconify" data-icon="mdi:cart" style="font-size: 2em; color: white;"></span></a>
+			<div style="display: flex; flex-direction: row; justify-content: space-between; align-content: center; width: 8%;padding-top: 0.2em;">
+				<a href="<?=url('/')?>/keranjang">
+					<span class="iconify" data-icon="mdi:cart" style="font-size: 2em; color: white;"></span>
+				</a>
+				<a href="<?=url('/')?>/keranjang">
+					<span class="iconify" data-icon="mdi:user" style="font-size: 2em; color: white;"></span>
+				</a>
+			</div>
 		</div>
 	</header><!-- End Header -->
 
@@ -412,7 +421,7 @@
 							<a href="<?=url('/')?>/kategori/{{$data->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 								<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 									@php
-									$url = url('/')."/icon_kategori/$data->logo";
+									$url = url('/')."/icon_kategori/thumbnail/150x150/$data->logo";
 									@endphp
 									<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 									</div>
@@ -441,11 +450,12 @@
 							</a>
 							@endfor
 						</div>
-			
+
 					</div>
 				</div>
 			</div>
 			<div class="row justify-content-center" style="margin-top: 1em; margin-bottom: 0px;">
+
 				<div class="col-lg-8 text-center" style="padding: 0;">
 					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 						<ol class="carousel-indicators">
@@ -536,56 +546,56 @@
 				</div>
 			</div>
 			@foreach ($kategori_show as $data)
-				<div class="row" style="margin-top: 1em;">
-					<div class="col-md-12" style="padding: 0px;">
-						<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
-							<div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center;">
-								<div style="width: 10em;">
-									<img src="<?=url('/')?>/katalog_assets/assets/img/menu_bakso.png" style="width: 100%">
-									{{$data->kategori}}
-								</div>
-								<a href="<?=url('/')?>/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
+			<div class="row" style="margin-top: 1em;">
+				<div class="col-md-12" style="padding: 0px;">
+					<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+						<div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center;">
+							<div style="width: 10em;">
+								<img src="<?=url('/')?>/katalog_assets/assets/img/menu_bakso.png" style="width: 100%">
+								{{$data->kategori}}
 							</div>
-							<hr>
-							<div class="row team" style="padding: 1em;">
-								<div class="flash_sale" style="width: 100%;">
-									@foreach ($data->produk as $produk)
-									<div class="d-flex align-items-stretch" style="margin-right: 1em;">
-										<div class="member" style="position: relative;">
-											<div class="member-img">
-												<img src="<?=url('/')?>/img/produk/{{$produk->foto}}" class="img-fluid" alt="">
-											</div>
-											<div class="member-info" style="padding-top: 0.4em; padding-bottom: 0.8em;">
-												@if ($produk->diskon != null)
-													@php
-														$harga = $produk->harga;
-														$diskon = $produk->diskon->diskon;
-														$harga_diskon = $harga - ($diskon/100 * $harga)
-													@endphp
-													<small style="font-family: 'Segoe UI',Roboto;"><s>Rp. {{$produk->harga}}</s>
-														<badge class="badge badge-warning">{{$diskon}}%</badge> 
-													</small>
-													<h4 style="font-family: 'Segoe UI',Roboto;">Rp. {{$harga_diskon}}</h4>
-												@else
-													<h4 style="font-family: 'Segoe UI',Roboto;">Rp. {{$produk->harga}}</h4>
-												@endif
-												
-												<span>{{$produk->nama}}</span>
-												<div onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="margin-top: 0.4em; display: flex; justify-content: center; flex-direction: row;">
-													<div>
-														<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
-													</div>
-													<div>Beli</div>
+							<a href="<?=url('/')?>/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
+						</div>
+						<hr>
+						<div class="row team" style="padding: 1em;">
+							<div class="flash_sale" style="width: 100%;">
+								@foreach ($data->produk as $produk)
+								<div class="d-flex align-items-stretch" style="margin-right: 1em;">
+									<div class="member" style="position: relative;">
+										<div class="member-img">
+											<img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" alt="">
+										</div>
+										<div class="member-info" style="padding-top: 0.4em; padding-bottom: 0.8em;">
+											@if ($produk->diskon != null)
+											@php
+											$harga = $produk->harga;
+											$diskon = $produk->diskon->diskon;
+											$harga_diskon = $harga - ($diskon/100 * $harga)
+											@endphp
+											<small style="font-family: 'Segoe UI',Roboto;"><s>Rp. {{$produk->harga}}</s>
+												<badge class="badge badge-warning">{{$diskon}}%</badge> 
+											</small>
+											<h4 style="font-family: 'Segoe UI',Roboto;">Rp. {{$harga_diskon}}</h4>
+											@else
+											<h4 style="font-family: 'Segoe UI',Roboto;">Rp. {{$produk->harga}}</h4>
+											@endif
+
+											<span>{{$produk->nama}}</span>
+											<div onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="margin-top: 0.4em; display: flex; justify-content: center; flex-direction: row;">
+												<div>
+													<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
 												</div>
+												<div>Beli</div>
 											</div>
 										</div>
 									</div>
-									@endforeach
 								</div>
+								@endforeach
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 			@endforeach
 
 			
@@ -757,8 +767,7 @@
 	</footer><!-- End Footer -->
 
 	<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
-	<div id="preloader"></div>
-
+@endif
 	<!-- Vendor JS Files -->
 	<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery/jquery.min.js"></script>
 	<script src="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -16,40 +16,42 @@
     <div class="cover" style="background: #ec1f25;"></div>
   </section>
   <section class="login-content">
-    <div class="login-box" style="min-height: 550px;">
-      <img src="<?=url('/')?>/katalog_assets/assets/img/logo.png" style="width: 8em; border-radius: 50%; position: absolute; top: -4em; border: 5px solid white; left: 35%;">
+    <div class="login-box" style="min-height: 400px; min-width: 50%;">
+      <img src="<?=url('/')?>/katalog_assets/assets/img/logo.png" style="width: 8em; border-radius: 50%; position: absolute; top: -4em; border: 5px solid white; left: 42%;">
       <form class="login-form" action="/auth/post_registrasi" style="margin-top: 1.5em;" method="post">
         @csrf
-        <div class="form-group">
-          <label class="control-label">NAMA</label>
-          <input class="form-control" type="text" placeholder="Nama" name="nama" autofocus required>
-        </div>
-        <div class="form-group">
-          <label class="control-label">NOMOR HANDPHONE</label>
-          <input class="form-control" type="text" placeholder="Nomor Handphone" name="no_telp" autofocus required>
-        </div>
-        <div class="form-group">
-            <label class="control-label">EMAIL</label>
-            <input class="form-control" type="email" placeholder="Email" name="email" autofocus required>
-        </div>
-        <div class="form-group">
-            <label class="control-label">JENIS KELAMIN</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="jenis_kelamin" id="exampleRadios1" value="L">
-                <label class="form-check-label" for="exampleRadios1">
-                  Laki-laki
-                </label>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label">NAMA</label>
+              <input class="form-control" type="text" placeholder="Nama" name="nama" autofocus required>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="jenis_kelamin" id="exampleRadios2" value="P">
-                <label class="form-check-label" for="exampleRadios2">
-                  Perempuan
-                </label>
+            <div class="form-group">
+              <label class="control-label">NOMOR HANDPHONE</label>
+              <input class="form-control" type="text" placeholder="Nomor Handphone" name="no_telp" autofocus required>
             </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label">PASSWORD</label>
-          <input class="form-control" type="password" name="password" placeholder="Password" required>
+            <div class="form-group">
+              <label class="control-label">JENIS KELAMIN</label>
+              <select class="form-control" name="jenis_kelamin">
+                <option value="Laki-Laki">Laki-Laki</option>
+                <option value="Perempuan">Perempuan</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label">EMAIL</label>
+              <input class="form-control" type="email" placeholder="Email" name="email" autofocus required>
+            </div>
+            <div class="form-group">
+              <label class="control-label">PASSWORD</label>
+              <input class="form-control" type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+              <label class="control-label">KONFIRMASI PASSWORD</label>
+              <input class="form-control" type="password" name="konfirmasi_password" placeholder="Password" required>
+            </div>
+          </div>
         </div>
 
         <div class="form-group btn-container">

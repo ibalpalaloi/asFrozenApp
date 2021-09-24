@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\Sub_kategori;
 use Illuminate\Support\Facades\Validator;
+use Image;
 
 class AdminKategoriController extends Controller
 {
@@ -23,35 +24,40 @@ class AdminKategoriController extends Controller
         if($valdiator->fails()){
             return back()->with('error', 'Kesalahan Penginputan File!!');
         }
-
         $cek_kategori = Kategori::where('kategori', $request->kategori)->get();
         if(count($cek_kategori) > 0){
             return back()->with('error', 'Nama Kategori Telah Tersedia');
         }
-
-        // cek urutan
         $urutan = 1;
         $urutan_terakhir = Kategori::max("urutan");
         if($urutan_terakhir != null){
             $urutan = $urutan_terakhir+1;
         }
-        //
-        
-
         $kategori = new Kategori;
         $kategori->kategori = $request->kategori;
         $kategori->urutan = $urutan;
+
+        if ($request->file('logo')) {
+            $file = $request->file('logo');
+            $logo = "kategori-".$this->autocode('ktgr').".".$file->getClientOriginalExtension();
+            \Storage::disk('public')->put("icon_kategori/$logo", file_get_contents($file));
+            \Storage::disk('public')->put("icon_kategori/thumbnail/75x75/$logo", file_get_contents($file));
+            \Storage::disk('public')->put("icon_kategori/thumbnail/150x150/$logo", file_get_contents($file));
+            $img = Image::make("icon_kategori/thumbnail/75x75/$logo")->fit(75,75);
+            $img->save();
+            $img = Image::make("icon_kategori/thumbnail/150x150/$logo")->fit(150,150);
+            $img->save();
+            $kategori->logo = $logo;
+        }
         $kategori->save();
-
-        $file = $request->file('logo');
-
-        $kategori->logo = "kategori-".$kategori->id.".".$file->getClientOriginalExtension();
-        $kategori->save();
-
-        $lokasi = "icon_kategori";
-        $file->move($lokasi, $kategori->logo);
-        
-        return redirect('/admin-kategori');
+        $notification = array(
+            'kode-notif' => 'berhasil',
+            'message' => 'Data berhasil ditambah',
+            'color' => "#28a745",
+            'icon' => "fas fa-check-circle",
+            'header' => "Berhasil"
+        ); 
+        return back()->with($notification);  
     }
 
     public function admin_post_sub_kategori_baru(Request $request){
@@ -76,15 +82,44 @@ class AdminKategoriController extends Controller
         $sub_kategori->sub_kategori = $request->sub_kategori;
         $sub_kategori->save();
 
-        return back();
+        $notification = array(
+            'kode-notif' => 'berhasil',
+            'message' => 'Data berhasil ditambah',
+            'color' => "#28a745",
+            'icon' => "fas fa-check-circle",
+            'header' => "Berhasil"
+        ); 
+        return back()->with($notification);  
     }
 
     public function post_update_kategori(Request $request){
         $kategori = Kategori::find($request->kategori_id);
         $kategori->kategori = $request->kategori;
+        if ($request->file('logo')) {
+            \File::delete("icon_kategori/$kategori->logo");                 
+            \File::delete("icon_kategori/thumbnail/75x75/$kategori->logo");                 
+            \File::delete("icon_kategori/thumbnail/150x150/$kategori->logo");                 
+            $file = $request->file('logo');
+            $logo = "kategori-".$this->autocode('ktgr').".".$file->getClientOriginalExtension();
+            \Storage::disk('public')->put("icon_kategori/$logo", file_get_contents($file));
+            \Storage::disk('public')->put("icon_kategori/thumbnail/75x75/$logo", file_get_contents($file));
+            \Storage::disk('public')->put("icon_kategori/thumbnail/150x150/$logo", file_get_contents($file));
+            $img = Image::make("icon_kategori/thumbnail/75x75/$logo")->fit(75,75);
+            $img->save();
+            $img = Image::make("icon_kategori/thumbnail/150x150/$logo")->fit(150,150);
+            $img->save();
+            $kategori->logo = $logo;
+        }
         $kategori->save();
 
-        return back();
+        $notification = array(
+            'kode-notif' => 'berhasil',
+            'message' => 'Data berhasil diubah',
+            'color' => "#28a745",
+            'icon' => "fas fa-check-circle",
+            'header' => "Berhasil"
+        ); 
+        return back()->with($notification);  
     }
 
     public function post_update_sub_kategori(Request $request){
@@ -93,4 +128,29 @@ class AdminKategoriController extends Controller
         $sub_kategori->save();
         return back();
     }
+
+    public function delete_kategori(Request $request){
+        $kategori = Kategori::where('id', $request->id)->first();       
+        // dd($kategori); 
+        \File::delete("icon_kategori/$kategori->logo");                 
+        \File::delete("icon_kategori/thumbnail/75x75/$kategori->logo"); 
+        \File::delete("icon_kategori/thumbnail/150x150/$kategori->logo"); 
+        Sub_kategori::where('kategori_id', $request->id)->delete();                
+        Kategori::where('id', $request->id)->delete();        
+        $notification = array(
+            'kode-notif' => 'berhasil',
+            'message' => 'Data berhasil dihapus',
+            'color' => "#28a745",
+            'icon' => "fas fa-check-circle",
+            'header' => "Berhasil"
+        ); 
+        return back()->with($notification);  
+    }
+
+    public function autocode($kode){
+        $timestamp = time(); 
+        $random = rand(10, 100);
+        $current_date = date('mdYs'.$random, $timestamp); 
+        return $kode.$current_date;
+    }   
 }
