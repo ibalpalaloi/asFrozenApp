@@ -454,90 +454,12 @@
 					</div>
 				</div>
 			</div>
-<<<<<<< HEAD
 			
 			@include('user.include.banner')
 			
-=======
-			<div class="row justify-content-center" style="margin-top: 1em; margin-bottom: 0px;">
-
-				<div class="col-lg-8 text-center" style="padding: 0;">
-					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-							<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-							<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-						</ol>
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner1.jpg" class="d-block w-100" alt="...">
-							</div>
-							<div class="carousel-item">
-								<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner2.jpg" class="d-block w-100" alt="...">
-							</div>
-							<div class="carousel-item">
-								<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner3.jpg" class="d-block w-100" alt="...">
-							</div>
-						</div>
-						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-4" style="padding: 0px; padding-left: 0.2em;">
-					<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner1.jpg" class="d-block w-100" alt="...">
-					<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner3.jpg" class="d-block w-100" alt="..." style="margin-top: 0.2em;">
-				</div>
-			</div>
->>>>>>> edb0ff230a65f229d7bff0f1b5967c7c03f76e3d
 			
-			<div class="row" style="margin-top: 1em;">
-				<div class="col-md-12" style="padding: 0px;">
-					<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
-						<div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center;">
-							<div>
-								<img src="<?=url('/')?>/katalog_assets/assets/img/flash-sale2.png" style="width: 10em;">
-							</div>
-							<a href="<?=url('/')?>/flash-sale" style="color: #ec1f25;">Selengkapnya</a>
-						</div>
-						<hr>
-						<div class="row team" style="padding: 1em;">
-							<div class="flash_sale" style="width: 100%;">
-								@php
-								$produk = array('1.jpg','2.jpg','3.jpg','4.jpg','1.jpg','2.jpg','3.jpg','4.jpg');
-								@endphp
-								@for ($i = 0; $i < count($produk); $i++)
-								<div class="d-flex align-items-stretch" style="margin-right: 1em;">
-									<div class="member" style="position: relative;">
-										<div class="member-img">
-											<img src="<?=url('/')?>/katalog_assets/assets/img/produk/{{$produk[$i]}}" class="img-fluid" alt="">
-										</div>
-										<div class="member-info" style="padding-top: 0.4em; padding-bottom: 0.8em;">
-											<small style="font-family: 'Segoe UI',Roboto;"><s>Rp. 50.000</s>
-												<badge class="badge badge-warning">-50%</badge> 
-											</small>
-											<h4 style="font-family: 'Segoe UI',Roboto;">Rp. 25.000</h4>
-											<span>Fiesta Chicken Nugget</span>
-											<a href="<?=url('/')?>/login" class="btn btn-danger" style="margin-top: 0.4em; display: flex; justify-content: center; flex-direction: row;">
-												<div>
-													<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
-												</div>
-												<div>Beli</div>
-											</a>
-										</div>
-									</div>
-								</div>
-								@endfor
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			@include('user.include.flash_sale')
+
 			<div style="margin-bottom: 10px">
 				<div class="row" style="margin-top: 20px; padding-left: 0px; padding-right: 0px;  display: flex; justify-content: space-between;">
 					<div style="width: 32%;">
