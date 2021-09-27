@@ -27,11 +27,21 @@ class UserKeranjangController extends Controller
         $data_keranjang = array();
         $i=0;
         foreach($keranjang as $data){
+            $diskon = 0;
+            $harga = $data->produk->harga;
             $data_keranjang[$i]['id'] = $data->id;
             $data_keranjang[$i]['produk_id'] = $data->produk_id;
             $data_keranjang[$i]['harga'] = $data->produk->harga;
             $data_keranjang[$i]['jumlah'] = $data->jumlah;
             $data_keranjang[$i]['checked'] = $data->checked;
+            $data_keranjang[$i]['diskon'] = 0;
+            if($data->produk->diskon != null){
+                $data_keranjang[$i]['diskon'] = $data->produk->diskon->diskon;
+                $diskon = $data->produk->diskon->diskon;
+            }
+            if($diskon != 0){
+                $data_keranjang[$i]['harga'] = $harga - (($diskon / 100) * $harga);
+            }
             $i++;
         }
         return view('user.payment.keranjang', compact('keranjang', 'data_keranjang'));
@@ -66,7 +76,17 @@ class UserKeranjangController extends Controller
             ['user_id', Auth()->user()->id],
             ['checked', "true"]
         ])->get();
-        return view('user.payment.checkout', compact('list_keranjang', 'kota', 'kecamatan', 'kelurahan'));
+        $total_harga_produk = 0;
+        foreach($list_keranjang as $data){
+            $harga_diskon = $data->produk->harga;
+            if($data->produk->diskon != null){
+                if($data->produk->diskon->diskon != 0){
+                    $harga_diskon = $data->produk->harga - (($data->produk->diskon->diskon/100) * $data->produk->harga);
+                }
+            }
+            $total_harga_produk += $data->jumlah * $harga_diskon;
+        }
+        return view('user.payment.checkout', compact('list_keranjang', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk'));
     }
 
     public function ubah_checked(Request $request){

@@ -14,7 +14,9 @@ class AdminPesananController extends Controller
     //
     public function daftar_pesanan(){
         $nota = Nota::where('status', 'menunggu konfirmasi')->get();
-        return view('admin.daftar_pesanan', compact('nota'));
+        $menu = "pesanan";
+        $sub_menu = "daftar pesanan";
+        return view('admin.daftar_pesanan', compact('nota', 'menu', 'sub_menu'));
     }
 
     public function packaging(){

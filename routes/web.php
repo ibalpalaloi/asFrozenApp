@@ -70,6 +70,7 @@ Route::get('/get_ongkir/{id}', [GetController::class, 'get_ongkir']);
 Route::get('/get-detail-produk/{id}', [GetController::class, 'get_detail_produk']);
 Route::get('/get-kategori', [GetController::class, 'get_kategori']);
 Route::post('/get-embed-link', [GetController::class, 'get_embed_video']);
+Route::get('/get-jumlah-pesanan', [GetController::class, 'get_jumlah_pesanan']);
 
 // admin Banner
 Route::get('/admin-banner', [AdminBannerController::class, 'banner']);

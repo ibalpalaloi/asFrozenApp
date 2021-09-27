@@ -17,6 +17,16 @@ Biodata
 						$total_harga = 0;
 						@endphp
 						@foreach ($keranjang as $data)
+						@php
+							$diskon = "0";
+							if($data->produk->diskon != null){
+								$diskon = $data->produk->diskon->diskon;
+							}
+							$harga = $data->produk->harga;
+							if($diskon != "0"){
+								$harga = $harga - (($diskon / 100) * $harga);
+							}
+						@endphp
 						<div class="col-md-1" style="display: flex;justify-content: center; align-items: center;">
 							<div class="icheck-danger d-inline">
 								<input type="checkbox" id="checkboxPrimary{{$index}}" onchange="checkbox_cek('{{$data->id}}', '{{$index}}')" checked="false">
@@ -28,8 +38,16 @@ Biodata
 							<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 100%; border-radius: 0.2em; margin-bottom: 0.5em;">
 						</div>
 						<div class="col-5">
-							<div class="row">{{$data->produk->nama}}</div>
-							<div class="row text-muted">{{$data->produk->harga}}</div>
+							<div class="row">
+								{{$data->produk->nama}} &nbsp
+								@if ($diskon != "0")
+									<badge class="badge badge-success">{{$diskon}} %</badge>	
+								@endif
+								
+							</div>
+							<div class="row text-muted">
+								Rp. {{$harga}}
+							</div>
 						</div>
 						<div class="col-2" style="padding: 0px; display: flex; align-items: center;">
 							<div style="display: flex; align-items: flex-start; padding: 0px; justify-content: flex-start; width: 100%;">
@@ -41,7 +59,6 @@ Biodata
 						<div class="col-2" style="display: flex; align-items: center; justify-content: space-between; padding-right: 0px;">
 							@php
 							$jumlah = $data->jumlah;
-							$harga = $data->produk->harga;
 							$jumlah_harga = $jumlah * $harga;
 							$total_harga += $jumlah_harga;
 							@endphp	

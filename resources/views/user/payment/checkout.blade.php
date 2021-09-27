@@ -90,7 +90,6 @@ Checkout
 
 
 @php
-$total_harga_produk = 0;
 $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 @endphp
 
@@ -175,7 +174,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 							<span>{{Auth()->user()->biodata->alamat}}</span><br>
 							<span>{{Auth()->user()->biodata->kelurahan->kelurahan}}, {{Auth()->user()->biodata->kelurahan->kecamatan->kecamatan}}, {{Auth()->user()->biodata->kelurahan->kecamatan->kota->kota}}</span> <br>
 						</div>
-						<div data-toggle="modal" data-target="#exampleModal" onclick="ubah_data()" style="position: absolute; right: 2em; top: 40%;">Ubah data</div>
+						<div data-toggle="modal" onclick="ubah_data()" style="position: absolute; right: 2em; top: 40%;">Ubah data</div>
 					</div>
 				</div>
 
@@ -293,6 +292,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 @endsection
 
 @section('footer')
+
 <script>
 
 	var ongkos_kirim = {!! json_encode(Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim) !!};
@@ -375,7 +375,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 	}
 
 	function ubah_data(){
-		$('#modal_tes').modal('show');
+		$('#exampleModal').modal('show');
 	}
 
 	function metode_pengantaran(value){

@@ -530,6 +530,9 @@
 									<a href="<?=url('/')?>/biodata">Biodata</a>
 								</li>
 								<li style="margin-top: 0.5em;">
+									<a href="<?=url('/')?>/pesanan">Pesanan</a>
+								</li>
+								<li style="margin-top: 0.5em;">
 									<a href="<?=url('/')?>/riwayat-pesanan">Riwayat Pesanan</a>
 								</li>
 							</ul>
@@ -539,7 +542,7 @@
 				</div>
 				<div class="col-9">
 					<div class="card shadow p-3 mb-5 bg-white rounded">
-						<div class="d-flex align-items-stretch slick-slide slick-active" style="margin-right: 1em; width: 213px;width: 100%; display: flex; flex-wrap: wrap;" tabindex="0" data-slick-index="1" aria-hidden="false" role="tabpanel" id="slick-slide11">
+						<div tabindex="0" data-slick-index="1" aria-hidden="false" role="tabpanel" id="slick-slide11">
 							@yield('content')
 						</div>
 

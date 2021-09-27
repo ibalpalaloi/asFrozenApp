@@ -278,8 +278,8 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="/admin-daftar-produk" class="nav-link">
+          <li class="nav-item has-treeview @if($menu_ == 'pesanan') menu-open @endif">
+            <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'pesanan') active @endif">
               <i class="nav-icon fas fa-tree"></i>
               <p>
                 Pesanan
@@ -288,25 +288,28 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin/daftar-pesanan" class="nav-link">
+                <a href="/admin/daftar-pesanan" class="nav-link @if($menu_ == 'daftar pesanan') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Daftar Pesanan</p>
+                  <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/pesanan-packaging" class="nav-link">
+                <a href="/admin/pesanan-packaging" class="nav-link @if($menu_ == 'packaging') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Packing</p>
+                  <span id="jumlah_packaging" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/pesanan-dalam-pengantaran" class="nav-link">
+                <a href="/admin/pesanan-dalam-pengantaran" class="nav-link @if($menu_ == 'dalam pengantaran') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dalam Pengantaran</p>
+                  <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/riwayat-pesanan" class="nav-link">
+                <a href="/admin/riwayat-pesanan" class="nav-link @if($menu_ == 'daftar pesanan') riwayat @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Riwayat</p>
                 </a>
@@ -409,14 +412,31 @@
     time--;
   }
   @if(Session::get('kode-notif'))
-  $("#pesan-error-notif").html("{{Session::get('message')}}");
-  $("#header").html("{{Session::get('header')}}");
-  $("#icon").addClass("{{Session::get('icon')}}");
-  $("#header").css("color", "{{Session::get('color')}}");
-  $("#icon").css("color", "{{Session::get('color')}}");
-  $('#modal-footer-notif').css("background", "{{Session::get('color')}}");
-  $('#modal-notif').modal('show');    
+    $("#pesan-error-notif").html("{{Session::get('message')}}");
+    $("#header").html("{{Session::get('header')}}");
+    $("#icon").addClass("{{Session::get('icon')}}");
+    $("#header").css("color", "{{Session::get('color')}}");
+    $("#icon").css("color", "{{Session::get('color')}}");
+    $('#modal-footer-notif').css("background", "{{Session::get('color')}}");
+    $('#modal-notif').modal('show');    
   @endif
+
+  function get_jumlah_pesanan(){
+    $.ajax({
+      type: "GET",
+      url: "/get-jumlah-pesanan",
+      success:function(data){
+        var jumlah = data.jumlah;
+        $('#jumlah_menunggu_konfirmasi').html(jumlah['menunggu_konfirmasi']);
+        $('#jumlah_packaging').html(jumlah['packaging']);
+        $('#jumlah_pengantaran').html(jumlah['dalam_pengantaran'])
+      }
+    })
+  }
+
+  $(document).ready ( function(){
+    get_jumlah_pesanan();
+  })
 
 
 </script>

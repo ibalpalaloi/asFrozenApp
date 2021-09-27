@@ -99,48 +99,8 @@ Keranjang Belanja
 			</div>
 		</div>
 
-		<div class="row" style="margin-top: 1em;">
-			<div class="col-md-12" style="padding: 0px;">
-				<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
-					<div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center;">
-						<div>
-							<img src="<?=url('/')?>/katalog_assets/assets/img/flash-sale2.png" style="width: 10em;">
-						</div>
-						<a href="<?=url('/')?>/flash-sale" style="color: #ec1f25;">Selengkapnya</a>
-					</div>
-					<hr>
-					<div class="row team" style="padding: 1em;">
-						<div class="flash_sale" style="width: 100%;">
-							@php
-							$produk = array('1.jpg','2.jpg','3.jpg','4.jpg','1.jpg','2.jpg','3.jpg','4.jpg');
-							@endphp
-							@for ($i = 0; $i < count($produk); $i++)
-							<div class="d-flex align-items-stretch" style="margin-right: 1em;">
-								<div class="member" style="position: relative;">
-									<div class="member-img">
-										<img src="<?=url('/')?>/katalog_assets/assets/img/produk/{{$produk[$i]}}" class="img-fluid" alt="">
-									</div>
-									<div class="member-info" style="padding-top: 0.4em; padding-bottom: 0.8em;">
-										<small style="font-family: 'Segoe UI',Roboto;"><s>Rp. 50.000</s>
-											<badge class="badge badge-warning">-50%</badge> 
-										</small>
-										<h4 style="font-family: 'Segoe UI',Roboto;">Rp. 25.000</h4>
-										<div>Fiesta Chicken Nugget</div>
-										<a href="<?=url('/')?>/login" class="btn btn-danger" style="margin-top: 0.4em; display: flex; justify-content: center; flex-direction: row;">
-											<div>
-												<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
-											</div>
-											<div>Beli</div>
-										</a>
-									</div>
-								</div>
-							</div>
-							@endfor
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		@include('user.include.flash_sale')
+		
 		<div style="margin-bottom: 10px">
 			<div class="row" style="margin-top: 20px; padding-left: 0px; padding-right: 0px;  display: flex; justify-content: space-between;" hidden>
 				<div style="width: 32%;">
@@ -154,6 +114,7 @@ Keranjang Belanja
 				</div>
 			</div>
 		</div>
+
 		@foreach ($kategori_show as $data)
 		<div class="row" style="margin-top: 1em;">
 			<div class="col-md-12" style="padding: 0px;">
@@ -182,19 +143,19 @@ Keranjang Belanja
 										$harga_diskon = $harga - ($diskon/100 * $harga)
 										@endphp
 										<div style="margin-top: 0.5em; text-align: left; color: black;">
-											Fiesta Chicken Nugg.. <badge class="badge badge-warning">{{$diskon}}%</badge> 
+											{{$produk->nama}}.. <badge class="badge badge-warning">{{$diskon}}%</badge> 
 										</div>
 										<div style="padding-top: 0px; position: relative; display: flex; flex-direction: row; justify-content: flex-start; margin-top: 0.3em;">
 											<small><s>Rp {{number_format($produk->harga, 0, '.', '.')}}</s></small>&nbsp;&nbsp;
 											<h6>Rp {{number_format($harga_diskon, 0, '.', '.')}}</h6>
 										</div>
 										@else
-										<div style="margin-top: 0.5em; text-align: left; color: black;">Fiesta Chicken Nugget</div>
+										<div style="margin-top: 0.5em; text-align: left; color: black;">{{$produk->nama}}</div>
 										<div style="padding-top: 0px; position: relative; display: flex; flex-direction: row; justify-content: flex-start; margin-top: 0.3em;">
 											<h6>Rp {{number_format($produk->harga, 0, '.', '.')}}</h6>
 										</div>
 										@endif
-										<a class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
+										<a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
 											<div>
 												<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
 											</div>

@@ -35,7 +35,7 @@
                         <h6>Rp {{number_format($produk->harga, 0, '.', '.')}}</h6>
                     </div>
                     @endif
-                    <a class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
+                    <a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
                         <div>
                             <span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
                         </div>

@@ -81,12 +81,6 @@
                           <input type="number" class="form-control" name="stok">
                       </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Diskon (%)</label>
-                            <input type="text" class="form-control" name="diskon">
-                        </div>
-                    </div>
                 </div>
                 <div class="form-group">
                   <label class="col-form-label" for="inputWarning"> Deskripsi Produk</label>

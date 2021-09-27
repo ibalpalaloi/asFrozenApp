@@ -72,13 +72,13 @@ class AdminProdukController extends Controller
         $produk->foto = $foto;
         $produk->save();
 
-        if($request->diskon != null){
-            $diskon = new Diskon;
-            $diskon->produk_id = $produk->id;
-            $diskon->diskon = $request->diskon; 
-            $diskon->save();
+        // if($request->diskon != null){
+        //     $diskon = new Diskon;
+        //     $diskon->produk_id = $produk->id;
+        //     $diskon->diskon = $request->diskon; 
+        //     $diskon->save();
 
-        }
+        // }
 
         return back()->with('success', 'Produk tersimpan');
     }
@@ -167,15 +167,15 @@ class AdminProdukController extends Controller
             $diskon = new Diskon;
             $diskon->produk_id = $request->id;
             $diskon->diskon = $request->diskon;
-            $diskon->tgl_mulai = $request->tgl_mulai;
-            $diskon->tgl_akhir = $request->tgl_akhir;
+            $diskon->diskon_mulai = $request->tgl_mulai;
+            $diskon->diskon_akhir = $request->tgl_akhir;
             $diskon->save();
         }
         else{
             $diskon = Diskon::where('produk_id', $request->id)->first();
             $diskon->diskon = $request->diskon;
-            $diskon->tgl_mulai = $request->tgl_mulai;
-            $diskon->tgl_akhir = $request->tgl_akhir;
+            $diskon->diskon_mulai = $request->tgl_mulai;
+            $diskon->diskon_akhir = $request->tgl_akhir;
             $diskon->save();
         }
 

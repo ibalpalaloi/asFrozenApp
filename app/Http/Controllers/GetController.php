@@ -12,6 +12,7 @@ use App\Models\Riwayat_nota_pesanan;
 use App\Models\Riwayat_pesanan;
 use App\Models\Produk;
 use App\Models\Kategori;
+use App\Models\Nota;
 
 class GetController extends Controller
 {
@@ -73,5 +74,14 @@ class GetController extends Controller
         $ytcode=$ytendarray[0];
 
         return response()->json(['link_embed'=>$ytcode]);
+    }
+
+    public function get_jumlah_pesanan(){
+        $jumlah = array();
+        $jumlah['menunggu_konfirmasi'] = Nota::where('status', 'menunggu konfirmasi')->count();
+        $jumlah['packaging'] = Nota::where('status', 'packaging')->count();
+        $jumlah['dalam_pengantaran'] = Nota::where('status', 'dalam pengantaran')->count();
+
+        return response()->json(['jumlah'=>$jumlah]);
     }
 }

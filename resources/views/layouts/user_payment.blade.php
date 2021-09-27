@@ -394,96 +394,7 @@
 </head>
 
 <body>
-	{{-- modal --}}
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Pesanan</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="exampleFormControlInput1">Nama Penerima</label>
-									<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Penerima" value="Fathul">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="exampleFormControlInput1">Nomor Handphone</label>
-									<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Pemesan" value="085156289855">
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="exampleFormControlTextarea1">Alamat</label>
-							<textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Alamat">Jl. Swadaya Lorong Balitbangda No. 9 Palu</textarea>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="exampleFormControlSelect1">Kota</label>
-									<select class="form-control" id="exampleFormControlSelect1">
-										<option>Palu</option>
-									</select>
-								</div>
-
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="exampleFormControlSelect1">Kecamatan</label>
-									<select class="form-control" id="exampleFormControlSelect1">
-										<option>Palu Barat</option>
-										<option>Palu Timur</option>
-										<option>Palu Selatan</option>
-										<option>Palu Utara</option>
-									</select>
-								</div>
-
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="exampleFormControlSelect1">Keluarahan</label>
-									<select class="form-control" id="select_kelurahan" onchange="ongkos_kirim()">
-										<option>Kabonena</option>
-										<option>Tipo</option>
-										<option>Donggala Kodi</option>
-										<option>Silae</option>
-									</select>
-								</div>
-							</div>
-
-						</div>
-					</form>
-					<div class="row" style="font-weight: 700">
-						<div class="col">Total pesanan</div>
-						<div class="col text-right">Rp. 50.000</div>
-					</div>
-					<div class="row" style="font-weight: 700">
-						<div class="col">Ongkos Kirim</div>
-						<div class="col text-right" id="ongkos_kirim">Rp. 7.000</div>
-					</div>
-				</div>
-				<br>
-				<div class="modal-footer justify-content-between" style="font-weight: 700">
-					<div style="font-size: 28px" id="total_pesanan">
-						Total : Rp. 67.000
-					</div>
-					<div>
-						<a href="<?=url('/')?>/pesanan" type="button" class="btn btn-danger">Pesan</a>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	{{-- end modal --}}
+	
 
 	<!-- ======= Header ======= -->
 	<header id="header" class="fixed-top" style="background: white; border-bottom: none; box-shadow:0 1px 1px rgb(0 0 0 / 20%); padding: 1em;">
@@ -590,9 +501,9 @@
 	<div id="preloader" style=""></div>
 
 	<!-- Vendor JS Files -->
+	
 	<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery/jquery.min.js"></script>
 	<script src="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
 	<script src="<?=url('/')?>/katalog_assets/assets/vendor/php-email-form/validate.js"></script>
 	<script src="<?=url('/')?>/katalog_assets/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
 	<script src="<?=url('/')?>/katalog_assets/assets/vendor/counterup/counterup.min.js"></script>
@@ -606,10 +517,10 @@
 	</script>
 	<!-- Template Main JS File -->
 	<script src="<?=url('/')?>/katalog_assets/assets/js/main.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	{{-- <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> --}}
+	{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> --}}
+	
 	@yield('footer')
 </body>
 
