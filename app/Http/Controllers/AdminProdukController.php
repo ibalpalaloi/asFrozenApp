@@ -21,7 +21,9 @@ class AdminProdukController extends Controller
 
     public function tambah_produk(){
         $kategori = kategori::all();
-        return view('admin.tambah_produk', compact('kategori'));
+        $menu = 'produk';
+        $sub_menu = "tambah produk";
+        return view('admin.tambah_produk', compact('kategori', 'menu', 'sub_menu'));
     }
 
     public function admin_post_produk_baru(Request $request){
@@ -117,7 +119,9 @@ class AdminProdukController extends Controller
             }
             $i++;
         }
-        return view('admin.daftar_produk', compact('list_produk'));
+        $menu = 'produk';
+        $sub_menu = "daftar produk";
+        return view('admin.daftar_produk', compact('list_produk', 'menu', 'sub_menu'));
     }
 
 

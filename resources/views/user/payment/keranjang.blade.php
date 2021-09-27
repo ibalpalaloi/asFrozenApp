@@ -84,17 +84,17 @@ Biodata
 			<div class="col-4">
 				<div class="card shadow p-3 mb-5 bg-white rounded">
 					<div class="d-flex align-items-stretch slick-slide slick-active" style="margin-right: 1em; width: 213px;width: 100%; display: flex; flex-wrap: wrap;" tabindex="0" data-slick-index="1" aria-hidden="false" role="tabpanel" id="slick-slide11">
-						@for ($i = 0; $i < 4; $i++)
+						@foreach ($rekomendasi_produk as $data)
 						<div class="member" style="position: relative; width: 50%; padding: 0.5em;">
 							<div class="member-img">
-								<img src="http://localhost/as_frozen/katalog_assets/assets/img/produk/2.jpg" class="img-fluid" alt="">
+								<img src="<?=url('/')?>/img/produk/{{$data->foto}}" class="img-fluid" alt="">
 							</div>
 							<div class="member-info" style="padding-top: 0.4em;">
 								<small style="font-family: 'Segoe UI',Roboto; font-size: 0.7em;"><s>Rp. 50.000</s>
 									<badge class="badge badge-warning" style="font-size: 0.9em;">-50%</badge> 
 								</small>
 								<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. 25.000</h6>
-								<span style="font-size: 0.8em; line-height: 0.5em;"> {{substr("Fiesta Chicken Nugget", 0, 18) }} ....</span>
+								<span style="font-size: 0.8em; line-height: 0.5em;"> {{substr($data->nama, 0, 16) }} ....</span>
 								<div class="btn btn-outline-danger" style="margin-top: 0.4em; display: flex; justify-content: center; flex-direction: row; border: 1px solid #dc3545;">
 									<div>
 										<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" data-icon="mdi:cart" style="font-size: 1.3em; color:#dc3545;"><path d="M17 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2M1 2v2h2l3.6 7.59l-1.36 2.45c-.15.28-.24.61-.24.96a2 2 0 0 0 2 2h12v-2H7.42a.25.25 0 0 1-.25-.25c0-.05.01-.09.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03l3.58-6.47c.07-.16.12-.33.12-.5a1 1 0 0 0-1-1H5.21l-.94-2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2z" fill="currentColor"></path></svg>&nbsp;&nbsp;
@@ -103,7 +103,7 @@ Biodata
 								</div>
 							</div>
 						</div>
-						@endfor
+						@endforeach
 					</div>
 
 				</div>

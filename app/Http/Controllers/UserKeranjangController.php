@@ -9,6 +9,7 @@ use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Nota;
 use App\Models\Pesanan;
+use App\Models\Produk;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -44,7 +45,8 @@ class UserKeranjangController extends Controller
             }
             $i++;
         }
-        return view('user.payment.keranjang', compact('keranjang', 'data_keranjang'));
+        $rekomendasi_produk = Produk::take(4)->get();
+        return view('user.payment.keranjang', compact('keranjang', 'data_keranjang', 'rekomendasi_produk'));
     }
 
     public function tambah_keranjang($id){

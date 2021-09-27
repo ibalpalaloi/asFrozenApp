@@ -249,8 +249,8 @@
                   
                 </ul>
               </li>
-          <li class="nav-item has-treeview">
-            <a href="/admin-daftar-produk" class="nav-link">
+          <li class="nav-item has-treeview @if($menu_ == 'produk') menu-open @endif">
+            <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'produk') active @endif">
               <i class="nav-icon fas fa-tree"></i>
               <p>
                 Produk
@@ -259,13 +259,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin-daftar-produk" class="nav-link">
+                <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'daftar produk') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Daftar Produk</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-tambah-produk" class="nav-link">
+                <a href="/admin-tambah-produk" class="nav-link @if($menu_ == 'tambah produk') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Produk</p>
                 </a>
