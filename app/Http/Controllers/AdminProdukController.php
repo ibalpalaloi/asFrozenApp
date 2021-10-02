@@ -124,8 +124,6 @@ class AdminProdukController extends Controller
         return view('admin.daftar_produk', compact('list_produk', 'menu', 'sub_menu'));
     }
 
-
-
     public function post_ubah_stok(Request $request){
         $valdiator = Validator::make($request->all(), [
             'id' => 'required', 

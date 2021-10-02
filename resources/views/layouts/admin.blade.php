@@ -315,8 +315,39 @@
                 </a>
               </li>
             </ul>
-            
-            
+          </li>
+
+          <li class="nav-item has-treeview @if($menu_ == 'analisis') menu-open @endif">
+            <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'analisis') active @endif">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                Analisis
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin-analisis/produk" class="nav-link @if($menu_ == 'analisis produk') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Analisis Produk</p>
+                  <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin-analisis/transaksi" class="nav-link @if($menu_ == 'analisis transaksi') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Analisis Transaksi</p>
+                  <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin-analisis/pelanggan" class="nav-link @if($menu_ == 'analisis Pelangan') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Analisis Pelanggan</p>
+                  <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>

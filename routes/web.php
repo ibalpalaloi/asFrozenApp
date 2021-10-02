@@ -17,6 +17,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserPesananController;
 use App\Http\Controllers\UserRiwayatController;
 use App\Htpp\Controllers\UserBiodataController;
+use App\Http\Controllers\AdminAnalisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,13 @@ Route::post('/keranjang/ubah_jumlah', [UserKeranjangController::class, 'ubah_jum
 Route::post('/keranjang/post_checkout', [UserKeranjangController::class, 'post_checkout'])->middleware('auth');
 
 Route::get('/biodata', [UserPesananController::class, 'biodata']);
+
+// admin analisis
+Route::get('/admin-analisis/produk', [AdminAnalisController::class, 'produk']);
+Route::get('/admin-analisis/transaksi', [AdminAnalisController::class, 'transaksi']);
+Route::get('/admin-analisis/pelanggan', [AdminAnalisController::class, 'pelanggan']);
+Route::get('/admin-analisis/pelanggan/jenis-kelamin', [AdminAnalisController::class, 'jenis_kelamin']);
+Route::get('/admin-analisis/pelanggan/total-transaksi-terbanyak', [AdminAnalisController::class, 'total_transaksi_terbanyak']);
 
 // pesanan
 Route::get('/pesanan', [UserPesananController::class, 'pesanan'])->middleware('auth');
