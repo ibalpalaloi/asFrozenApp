@@ -38,130 +38,39 @@
     width: 100%;
     border-collapse: collapse;
   }
+
+  .loader-container{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }  
 </style>
+
+<div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+    <div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+      <div class="loader-container">
+        <div class="spinner-border text-danger" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
-
-    <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-      <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
-        </li>
       </ul>
 
-      <!-- SEARCH FORM -->
-      <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-navbar" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-
-      <!-- Right navbar links -->
-      <ul class="navbar-nav ml-auto">
-        <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-comments"></i>
-            <span class="badge badge-danger navbar-badge">3</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="{{asset('AdminLTE/dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Brad Diesel
-                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">Call me whenever you can...</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="{{asset('AdminLTE/dist/img/user8-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    John Pierce
-                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">I got your message bro</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="{{asset('AdminLTE/dist/img/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Nora Silvester
-                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">The subject goes here</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-          </div>
-        </li>
-        <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge">15</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <span class="dropdown-item dropdown-header">15 Notifications</span>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope mr-2"></i> 4 new messages
-              <span class="float-right text-muted text-sm">3 mins</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-users mr-2"></i> 8 friend requests
-              <span class="float-right text-muted text-sm">12 hours</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> 3 new reports
-              <span class="float-right text-muted text-sm">2 days</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-            <i class="fas fa-th-large"></i>
-          </a>
-        </li>
-      </ul>
     </nav>
     <!-- /.navbar -->
 
@@ -185,70 +94,70 @@
           </div>
         </div>
 
-      <!-- Sidebar Menu -->
-      @php
-          $menu_ = "";
-          $sub_menu_ ="";
-          if(isset($menu)){
-            $menu_ = $menu;
-          }
-          
-          if(isset($sub_menu)){
-            $sub_menu_ = $sub_menu;
-          }
-      @endphp
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Sidebar Menu -->
+        @php
+        $menu_ = "";
+        $sub_menu_ ="";
+        if(isset($menu)){
+        $menu_ = $menu;
+      }
+
+      if(isset($sub_menu)){
+      $sub_menu_ = $sub_menu;
+    }
+    @endphp
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-               <li class="nav-item has-treeview @if($menu_ == 'data dukung') menu-open @endif">
-                <a href="#" class="nav-link @if($menu_ == 'data dukung') active @endif">
-                  <i class="nav-icon fas fa-tree"></i>
-                  <p>
-                    Data Dukung
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
+           with font-awesome or any other icon font library -->
+           <li class="nav-item has-treeview @if($menu_ == 'data dukung') menu-open @endif">
+            <a href="#" class="nav-link @if($menu_ == 'data dukung') active @endif">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                Data Dukung
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin-banner" class="nav-link @if($sub_menu_ == 'banner') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Banner</p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="/admin-banner" class="nav-link @if($sub_menu_ == 'banner') active @endif">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Banner</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/admin-video" class="nav-link @if($sub_menu_ == 'video') active @endif">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Video</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/admin-kategori" class="nav-link @if($sub_menu_ == 'banner') kategori @endif">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Kategori</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/admin-kota" class="nav-link @if($sub_menu_ == 'banner') kota @endif">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Kota</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/admin-kecamatan" class="nav-link @if($sub_menu_ == 'banner') kecamatan @endif">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Kecamatan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/admin-kelurahan" class="nav-link @if($sub_menu_ == 'banner') kelurahan @endif">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Kelurahan</p>
-                    </a>
-                  </li>
-                  
-                </ul>
               </li>
+              <li class="nav-item">
+                <a href="/admin-video" class="nav-link @if($sub_menu_ == 'video') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Video</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin-kategori" class="nav-link @if($sub_menu_ == 'banner') kategori @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kategori</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin-kota" class="nav-link @if($sub_menu_ == 'banner') kota @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kota</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin-kecamatan" class="nav-link @if($sub_menu_ == 'banner') kecamatan @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kecamatan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin-kelurahan" class="nav-link @if($sub_menu_ == 'banner') kelurahan @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kelurahan</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
           <li class="nav-item has-treeview @if($menu_ == 'produk') menu-open @endif">
             <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'produk') active @endif">
               <i class="nav-icon fas fa-tree"></i>
@@ -271,7 +180,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin--diskon-produk" class="nav-link">
+                <a href="/admin-diskon-produk" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Diskon</p>
                 </a>
@@ -355,8 +264,6 @@
     </div>
     <!-- /.sidebar -->
   </aside>
-
-  @if(Session::get('kode-notif'))
   <div class="modal fade" id="modal-notif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -374,7 +281,6 @@
       </div>
     </div>
   </div>
-  @endif
   <!-- Content Wrapper. Contains page content -->
   @yield("body")
   <!-- /.content-wrapper -->
@@ -443,13 +349,13 @@
     time--;
   }
   @if(Session::get('kode-notif'))
-    $("#pesan-error-notif").html("{{Session::get('message')}}");
-    $("#header").html("{{Session::get('header')}}");
-    $("#icon").addClass("{{Session::get('icon')}}");
-    $("#header").css("color", "{{Session::get('color')}}");
-    $("#icon").css("color", "{{Session::get('color')}}");
-    $('#modal-footer-notif').css("background", "{{Session::get('color')}}");
-    $('#modal-notif').modal('show');    
+  $("#pesan-error-notif").html("{{Session::get('message')}}");
+  $("#header").html("{{Session::get('header')}}");
+  $("#icon").addClass("{{Session::get('icon')}}");
+  $("#header").css("color", "{{Session::get('color')}}");
+  $("#icon").css("color", "{{Session::get('color')}}");
+  $('#modal-footer-notif').css("background", "{{Session::get('color')}}");
+  $('#modal-notif').modal('show');    
   @endif
 
   function get_jumlah_pesanan(){
@@ -466,8 +372,21 @@
   }
 
   $(document).ready ( function(){
-    get_jumlah_pesanan();
+    // get_jumlah_pesanan();
   })
+
+
+  function show_loader(){
+    console.log('show');
+    $("#modal_loader").modal("show");
+    setTimeout(hide_loader, 5000);
+
+  };
+
+  function hide_loader(){
+    console.log('hide');
+    $("#modal_loader").modal("hide");
+  };
 
 
 </script>

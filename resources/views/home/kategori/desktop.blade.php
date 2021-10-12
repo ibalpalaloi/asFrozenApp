@@ -27,7 +27,7 @@ Keranjang Belanja
 								@endphp
 								<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 								</div>
-								<div style="text-align: center; font-size: 0.8em;">{{$kategori_current->kategori}}</div>
+								<div style="text-align: center; font-size: 1em;"><b>{{$kategori_current->kategori}}</b></div>
 							</div>
 						</a>
 						@foreach ($list_kategori as $data)
@@ -38,7 +38,7 @@ Keranjang Belanja
 								@endphp
 								<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 								</div>
-								<div style="text-align: center; font-size: 0.8em;">{{$data->kategori}}</div>
+								<div style="text-align: center; font-size: 1em;"><b>{{$data->kategori}}</b></div>
 							</div>
 						</a>
 						@endforeach

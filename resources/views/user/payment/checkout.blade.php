@@ -109,11 +109,15 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						</thead>
 						<tbody>
 							@foreach ($list_keranjang as $data)
+							@php $diskon = "0"; @endphp
+							@if ($data->produk->diskon != null)
+							@php $diskon = $data->produk->diskon->diskon; @endphp
+							@endif
 							<tr>
 								<td>
 									<div style="width: 100%; display: flex; margin-bottom: 0.5em;">
 										<div style="width: 12%;">
-											<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 100%; border-radius: 0.2em;">
+											<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 										</div>
 										<div style="width: 85%; margin-left: 1em; display: flex; align-items: center;">
 											{{$data->produk->nama}}
@@ -122,19 +126,31 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 								</td>
 								<td>
 									<div style="display: flex; justify-content: space-between;">
-										<div>Rp.</div> <div>{{$data->produk->harga}}</div>
+										@if ($diskon != "0")
+
+										@php 
+										$potongan_harga = round($data->produk->harga*$diskon/100,0); 
+										$harga_diskon = $data->produk->harga-$potongan_harga;
+										@endphp
+										<div>Rp.</div> <div>{{number_format($harga_diskon, 0, '.', '.')}}</div>
+										@else
+										@php 
+										$harga_diskon = $data->produk->harga;
+										@endphp
+										<div>Rp.</div> <div>{{number_format($harga_diskon, 0, '.', '.')}}</div>
+										@endif
 									</div>
 								</td>
-								<td style="text-align: center;">{{$data->jumlah}}</td>
+								<td style="text-align: center;">x{{$data->jumlah}}</td>
 								<td>
 									@php
 
-									$sub_total = $data->produk->harga * $data->jumlah;
+									$sub_total = $harga_diskon * $data->jumlah;
 									$total_harga_produk += $sub_total;
 
 									@endphp
 									<div style="display: flex; justify-content: space-between;">
-										<div>Rp.</div> <div>{{$sub_total}}</div>
+										<div>Rp.</div> <div>{{number_format($sub_total, 0, '.', '.')}}</div>
 									</div>									
 								</td>
 							</tr>
@@ -234,7 +250,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 							Subtotal Produk
 						</div>
 						<div class="col-md-2" style="display: flex; justify-content: flex-end;">
-							<div>Rp.</div><div>{{$total_harga_produk}}</div>
+							<div>Rp.&nbsp;</div><div>{{number_format($total_harga_produk,0,'.','.')}}</div>
 						</div>
 					</div>
 					<div class="row">
@@ -244,7 +260,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 							Ongkos Kirim
 						</div>
 						<div class="col-md-2" style="display: flex; justify-content: flex-end;">
-							<div>Rp.</div><div id="nilai_ongkir">-</div>
+							<div>Rp.&nbsp;</div><div id="nilai_ongkir">{{number_format($ongkos_kirim, 0, '.', '.')}}</div>
 						</div>
 					</div>
 					<div class="row">
@@ -254,7 +270,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 							Total
 						</div>
 						<div class="col-md-2" style="display: flex; justify-content: flex-end;">
-							<h3 id="nilai_total">{{$total_harga_produk + $ongkos_kirim}}</h3>
+							<h3 id="nilai_total">Rp.&nbsp;{{number_format($total_harga_produk + $ongkos_kirim, 0, '.', '.')}}</h3>
 						</div>
 					</div>
 					

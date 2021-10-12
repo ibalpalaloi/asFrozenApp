@@ -96,7 +96,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Logo</label>
-            <input name="logo" type="file" class="form-control" required>
+            <input name="logo" type="file" class="form-control">
           </div>
 
         </div>

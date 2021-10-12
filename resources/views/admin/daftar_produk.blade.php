@@ -6,52 +6,33 @@
     font-size: 17px;
   }
 </style>
+
+<?php
+// fungsi untuk konversi tanggal ke indonesia
+function tgl_indo($tanggal){
+  $bulan = array (
+    1 =>   'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember'
+  );
+  $pecahkan = explode('-', $tanggal);     
+  return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+}
+?>
+
 @endsection
 @section('body')
 
 {{-- modal --}}
-
-<div class="modal fade" id="modal_diskon" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-        <div class="modal-body">
-          <input type="text" id="input_id_produk" hidden>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Diskon</label>
-            <input type="text" class="form-control" id="input_diskon" aria-describedby="emailHelp" placeholder="Diskon">
-          </div>
-          <div class="form-group">
-            <label>Tanggal Mulai:</label>
-              <div class="input-group date" id="tgl_mulai" data-target-input="nearest">
-                  <input type="text" id="input_tgl_mulai" class="form-control datetimepicker-input" data-target="#tgl_mulai"/>
-                  <div class="input-group-append" data-target="#tgl_mulai" data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                  </div>
-              </div>
-          </div>
-          <div class="form-group">
-            <label>Tanggal Akhir:</label>
-              <div class="input-group date" id="tgl_akhir" data-target-input="nearest">
-                  <input type="text" id="input_tgl_akhir" class="form-control datetimepicker-input" data-target="#tgl_akhir"/>
-                  <div class="input-group-append" data-target="#tgl_akhir" data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                  </div>
-              </div>
-          </div>
-        </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="ubah_diskon()">simpan</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 {{--  modal detail produk--}}
@@ -95,21 +76,29 @@
                     <div style="display: flex; flex-direction: column; margin-left: 0.5em;">
                       <div id="nama_{{$data['id']}}">{{$data['nama']}}</div>
                       <div>
-                       <span id="harga_{{$data['id']}}">
+                       <small id="harga_{{$data['id']}}">
                         @if ($data['diskon'] > 0)
                         <s>Rp {{number_format($data['harga'], 0, '.','.')}}</s>
                         @else
                         Rp {{number_format($data['harga'], 0, '.','.')}}
                         @endif
-                      </span>
-                      <badge @if ($data['diskon'] > 0) class="badge badge-primary" @else class="badge badge-danger" @endif id="diskon_{{$data['id']}}" href="#" onclick="show_input_diskon('{{$data['id']}}', '{{$data['diskon']}}')">{{$data['diskon']}}%</badge>
-                    </div>
-                    <div>
-                      @if ($data['diskon'] > 0)
-                      @php 
-                      $harga_diskon = round($data['harga']*$data['diskon']/100, 0);
-                      @endphp
-                      Rp. {{number_format($data['harga']-$harga_diskon, 0, '.','.')}}
+                      </small>
+                      <span>
+                        @if ($data['diskon'] > 0)
+                        @php 
+                        $harga_diskon = round($data['harga']*$data['diskon']/100, 0);
+                        @endphp
+                        Rp. {{number_format($data['harga']-$harga_diskon, 0, '.','.')}}
+                        @endif
+                      </span><br>
+
+                      @if ($data['diskon'] > 0) 
+                      <badge class="badge badge-primary" href="#">{{$data['diskon']}}%
+                      </badge>
+                      @endif
+                      @if ($data['diskon_mulai'] != null)                    
+                        @php $sisa_diskon = strtotime($data['diskon_akhir']) - strtotime(date('Y-m-d')); @endphp
+                     Berakhir {{round($sisa_diskon / (60 * 60 * 24))}} Hari lagi</small>
                       @endif
                     </div>
                   </div>
@@ -158,15 +147,15 @@
     }
   });
 
-    $('#tgl_mulai').datetimepicker({
-        format: 'L',
-        format: 'YYYY-MM-DD'
-    });
+  $('#tgl_mulai').datetimepicker({
+    format: 'L',
+    format: 'YYYY-MM-DD'
+  });
 
-    $('#tgl_akhir').datetimepicker({
-        format: 'L',
-        format: 'YYYY-MM-DD'
-    });
+  $('#tgl_akhir').datetimepicker({
+    format: 'L',
+    format: 'YYYY-MM-DD'
+  });
 
   var kategori;
 
@@ -304,11 +293,24 @@
     $('#stok_'+id).html(html);
   }
 
-  function show_input_diskon(id, value){
-    $('#input_id_produk').val(id);
-    $('#input_batas_tanggal').val("");
-    $('#input_diskon').val(value);
-    $('#modal_diskon').modal('show');
+  function show_update_diskon(id){
+    $.ajax({
+      type: "GET",
+      url: '<?=url('/')?>/get-produk/'+id,
+      dataType: 'json',
+      success:function(data){
+                // alert(data.diskon_mulai);
+                var potongan_harga = data.harga-data.potongan_harga;
+                $("#input_harga_diskon").val(potongan_harga.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+                $("#input_nama").val(data.produk);
+                $("#input_harga").val(data.harga.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+                $("#input_diskon").val(data.diskon);
+                $("#input_tgl_mulai").val(data.diskon_mulai);
+                $("#input_tgl_akhir").val(data.diskon_akhir);
+                $("#modal_diskon").modal('show');
+
+              }
+            })    
   }
 
   function ubah_stok(id){

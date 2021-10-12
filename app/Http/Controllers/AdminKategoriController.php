@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kategori;
+use App\Models\Banner;
 use App\Models\Sub_kategori;
 use Illuminate\Support\Facades\Validator;
 use Image;
@@ -93,12 +94,10 @@ class AdminKategoriController extends Controller
     }
 
     public function post_update_kategori(Request $request){
-        $kategori = Kategori::find($request->kategori_id);
+        $kategori = Kategori::where('id', $request->kategori_id)->first();
         $kategori->kategori = $request->kategori;
         if ($request->file('logo')) {
             \File::delete("icon_kategori/$kategori->logo");                 
-            \File::delete("icon_kategori/thumbnail/75x75/$kategori->logo");                 
-            \File::delete("icon_kategori/thumbnail/150x150/$kategori->logo");                 
             $file = $request->file('logo');
             $logo = "kategori-".$this->autocode('ktgr').".".$file->getClientOriginalExtension();
             \Storage::disk('public')->put("icon_kategori/$logo", file_get_contents($file));

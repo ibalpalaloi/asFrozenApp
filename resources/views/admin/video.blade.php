@@ -18,9 +18,6 @@
             <br><br>
             <div class="input-group date" id="tgl_akhir" data-target-input="nearest">
                 <input type="text" id="modal_link_video" class="form-control" data-target="#tgl_akhir"/>
-                <div class="input-group-append">
-                    <div class="input-group-text"><i onclick="get_embed_link()" class="fa fa-calendar"></i></div>
-                </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -51,13 +48,13 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <button onclick="modal_video('{{$list_video[0]['id']}}', '{{$list_video[0]['link_embed']}}', '{{$list_video[0]['link']}}')">Video 1</button>
+                        <button class="btn btn-primary" onclick="modal_video('{{$list_video[0]['id']}}', '{{$list_video[0]['link_embed']}}', '{{$list_video[0]['link']}}')" style="width: 100%;">Ubah Video</button>
                     </div>
                     <div class="col">
-                        <button onclick="modal_video('{{$list_video[1]['id']}}', '{{$list_video[1]['link_embed']}}', '{{$list_video[1]['link']}}')">Video 2</button>
+                        <button class="btn btn-primary" onclick="modal_video('{{$list_video[1]['id']}}', '{{$list_video[1]['link_embed']}}', '{{$list_video[1]['link']}}')" style="width: 100%;">Ubah Video</button>
                     </div>
                     <div class="col">
-                        <button onclick="modal_video('{{$list_video[2]['id']}}', '{{$list_video[2]['link_embed']}}', '{{$list_video[2]['link']}}')">Video 3</button>
+                        <button class="btn btn-primary" onclick="modal_video('{{$list_video[2]['id']}}', '{{$list_video[2]['link_embed']}}', '{{$list_video[2]['link']}}')" style="width: 100%;">Ubah Video</button>
                     </div>
                 </div>
               </div>
@@ -93,6 +90,7 @@
                 success:function(data){
                     $('#iframe_'+id).attr('src', 'https://www.youtube.com/embed/'+data.embed_link);
                     $('#modal_video').modal('hide');
+                    location.reload();
                 }
             })
         }

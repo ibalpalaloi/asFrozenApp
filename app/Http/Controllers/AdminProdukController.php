@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use File;
 use Image;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class AdminProdukController extends Controller
 {
@@ -94,12 +95,16 @@ class AdminProdukController extends Controller
 
     public function daftar_produk(){
         $produk = Produk::all();
+        // dd($produk);
         $list_produk = array();
         $i=0;
         foreach($produk as $data){
             $list_produk[$i]['id'] = $data->id;
             $list_produk[$i]['nama'] = $data->nama;
             $list_produk[$i]['foto'] = $data->foto;
+            $list_produk[$i]['diskon_id'] = $data->diskon->id ?? 0;
+            $list_produk[$i]['diskon_mulai'] = $data->diskon->diskon_mulai ?? null;
+            $list_produk[$i]['diskon_akhir'] = $data->diskon->diskon_akhir ?? null;
             $list_produk[$i]['harga'] = $data->harga;
             $list_produk[$i]['satuan'] = $data->satuan;
             $list_produk[$i]['kategori'] = $data->kategori->kategori;
@@ -119,6 +124,7 @@ class AdminProdukController extends Controller
             }
             $i++;
         }
+        // dd($list_produk);
         $menu = 'produk';
         $sub_menu = "daftar produk";
         return view('admin.daftar_produk', compact('list_produk', 'menu', 'sub_menu'));
@@ -225,13 +231,19 @@ class AdminProdukController extends Controller
     public function diskon(Request $request){
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
+        $date_tomorrow = date("Y-m-d", strtotime("+1 day", strtotime(date("Y-m-d"))));
+        $date_lusa = date("Y-m-d", strtotime("+2 day", strtotime(date("Y-m-d"))));
+
         if(count($request->all()) == 0){
             // $start_date = Carbon::createFromFormat('Y-m-d', '2021-09-21');
             // $end_date = Carbon::createFromFormat('Y-m-d', '2021-09-25');
-            $diskon = Diskon::where('diskon_akhir', '>=', $date_today)->get();
-            return view('admin.diskon', compact('diskon'));
+            $kategori = Kategori::all();
+            $diskon = Diskon::where('diskon_akhir', '>=', $date_today)->where('diskon_mulai', '<=', $date_today)->get();        
+            return view('admin.diskon', compact('diskon', 'kategori'));
         }
         // $date_tomorow = date("Y-m-d", strtotime("+1 day"));
+        $view_lainnya = false;
+
         $waktu = $request->waktu;
         if($waktu == "future"){
             $diskon = Diskon::where('diskon_akhir', '>', $date_today)->get();
@@ -240,18 +252,42 @@ class AdminProdukController extends Controller
             $diskon = Diskon::where('diskon_akhir', '<', $date_today)->get();
         }
         elseif($waktu == "between"){
-            $start_date = Carbon::createFromFormat('Y-m-d', $request->tgl_mulai);
-            $end_date = Carbon::createFromFormat('Y-m-d', $request->tgl_akhir);
-            $diskon = Diskon::where([
-                ['diskon_mulai', '<=', $request->tgl_akhir],
-                ['diskon_akhir', '>=', $request->tgl_mulai]
-                ])->get();
-
+            $period = CarbonPeriod::create($_GET['tgl_mulai'], $_GET['tgl_akhir']);
+            $date_arr = array();
+            foreach ($period as $date) {
+                $date_arr[date('Y-m-d', strtotime($date))] = Diskon::where('diskon_akhir', '>=', $date)->where('diskon_mulai', '<=', $date)->get(); 
+            }
+            $view_lainnya = true;
+        }
+        elseif($waktu == "now"){
+            $diskon = Diskon::where('diskon_akhir', '>=', $date_today)->where('diskon_mulai', '<=', $date_today)->get();           
+        }
+        elseif($waktu == "tomorrow"){
+            $diskon = Diskon::where('diskon_akhir', '>=', $date_tomorrow)->where('diskon_mulai', '<=', $date_tomorrow)->get();  
+            // echo $date_tomorrow;         
+        }
+        elseif($waktu == 'lainnya'){
+            $max_date = Diskon::orderBy('diskon_akhir', 'desc')->first();
+            if ($max_date){
+                $period = CarbonPeriod::create($date_lusa, date('Y-m-d', strtotime($max_date->diskon_akhir)));
+                $date_arr = array();
+                foreach ($period as $date) {
+                    // echo $date."<br>";
+                    $date_arr[date('Y-m-d', strtotime($date))] = Diskon::where('diskon_akhir', '>=', $date)->where('diskon_mulai', '<=', $date)->get(); 
+                }
+            }
+            // dd($date_arr);    
+            $view_lainnya = true;
         }
         else{
             $diskon = Diskon::where('diskon_akhir', '>=', $date_today)->get();
         }
-        $view = view('admin.include.table_diskon', compact('diskon'))->render();
+        if ($view_lainnya == false){
+            $view = view('admin.include.table_diskon', compact('diskon'))->render();            
+        }
+        else {
+            $view = view('admin.include.table_diskon_lainnya', compact('date_arr'))->render();                        
+        }
 
         return response()->json(['html'=>$view]);
     }

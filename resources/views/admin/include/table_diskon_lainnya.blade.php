@@ -31,7 +31,12 @@ function tgl_indo2($tanggal){
         </tr>
     </thead>
     <tbody>
-        @foreach ($diskon as $data)
+        @foreach ($date_arr as $row => $value)
+        <tr style="border-top: none;">
+            <td colspan="6" style="border-top: none;"><small><b>{{tgl_indo2(date('Y-m-d', strtotime($row)))}}</b></small></td>
+        </tr>
+        @if (count($value) > 0)
+        @foreach ($value as $data)
         <tr>
             <td>{{$loop->iteration}}</td>
             <td>
@@ -65,7 +70,16 @@ function tgl_indo2($tanggal){
                 <button class="btn btn-danger">
                     <ion-icon name="trash-outline"></ion-icon>
                 </button>
-            </td>
+            </td>            
+        </tr>
+        @endforeach
+        @else
+        <tr>
+            <td colspan="6">Tidak ada diskon</td>
+        </tr>        
+        @endif
+        <tr>
+            <td colspan="6"></td>
         </tr>
         @endforeach
     </tbody>

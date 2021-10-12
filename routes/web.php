@@ -18,6 +18,7 @@ use App\Http\Controllers\UserPesananController;
 use App\Http\Controllers\UserRiwayatController;
 use App\Htpp\Controllers\UserBiodataController;
 use App\Http\Controllers\AdminAnalisController;
+use App\Http\Controllers\AdminGetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +82,9 @@ Route::post('/get-embed-link', [GetController::class, 'get_embed_video']);
 Route::get('/get-jumlah-pesanan', [GetController::class, 'get_jumlah_pesanan']);
 
 // admin Banner
+Route::post('/admin-banner-side-tambah', [AdminBannerController::class, 'store_side']);
+Route::post('/admin-banner-side-update', [AdminBannerController::class, 'update_side']);
+Route::post('/admin-banner-hapus', [AdminBannerController::class, 'delete']);
 Route::get('/admin-banner', [AdminBannerController::class, 'banner']);
 
 // admin video
@@ -115,6 +119,14 @@ Route::post('/admin-post-kota', [WilayahController::class, 'post_kota']);
 Route::get('/admin-kecamatan/{id}', [WilayahController::class, 'list_kecamatan']);
 Route::post('/admin-post-kecamatan', [WilayahController::class, 'post_kecamatan']);
 
+// diskon
+Route::get('/admin/get/sub-kategori/{id}', [AdminGetController::class, 'get_sub_kategori']);
+Route::get('/admin/get/produk/{id}', [AdminGetController::class, 'get_produk_from_sub']);
+
+// Route::post('/admin/diskon/update', )
+
+// get
+Route::get('/get-produk/{id}', [AdminGetController::class, 'get_produk']);
 
 // katalog
 Route::get('/', [UserKatalogController::class, 'index']);

@@ -1,7 +1,7 @@
 @extends("layouts.user_payment")
 
 @section('title-header')
-Biodata
+Keranjang
 @endsection
 
 @section('body')
@@ -12,74 +12,101 @@ Biodata
 			<div class="col-8">
 				<div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">
 					<div class="row" style="padding: 0.5em 1em;">
-						@php
+						<?php
 						$index = 0;
 						$total_harga = 0;
-						@endphp
-						@foreach ($keranjang as $data)
-						@php
-							$diskon = "0";
-							if($data->produk->diskon != null){
-								$diskon = $data->produk->diskon->diskon;
+						if ($keranjang->count() < 1){
+							?>
+							<div style="display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 2em 5em; width: 100%;">
+								<div>
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" data-icon="mdi:cart" style="font-size: 10em; color:#dc3545;"><path d="M17 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2M1 2v2h2l3.6 7.59l-1.36 2.45c-.15.28-.24.61-.24.96a2 2 0 0 0 2 2h12v-2H7.42a.25.25 0 0 1-.25-.25c0-.05.01-.09.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03l3.58-6.47c.07-.16.12-.33.12-.5a1 1 0 0 0-1-1H5.21l-.94-2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2z" fill="currentColor"></path></svg>&nbsp;&nbsp;
+								</div>
+								<h4 style="text-align: center;">
+									Belum ada produk yang dimasukan ke dalam keranjang
+								</h4>
+							</div>	
+							<?php
+						}
+						else {
+							foreach ($keranjang as $data){
+								$diskon = "0";
+								if($data->produk->diskon != null){
+									$diskon = $data->produk->diskon->diskon;
+								}
+								$harga = $data->produk->harga;
+								if($diskon != "0"){
+									$harga = $harga - (($diskon / 100) * $harga);
+								}
+								?>
+								<div class="col-md-1" style="display: flex;justify-content: center; align-items: center; margin-bottom: 1em;">
+									<div class="icheck-danger d-inline">
+										<input type="checkbox" id="checkboxPrimary{{$index}}" onchange="checkbox_cek('{{$data->id}}', '{{$index}}')" checked="false">
+										<label for="checkboxPrimary{{$index}}">
+										</label>
+									</div>
+								</div>
+								<div class="col-2">
+									<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 100%; border-radius: 0.2em; margin-bottom: 0.5em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+								</div>
+								<div class="col-5">
+									<div class="row">
+										{{$data->produk->nama}} &nbsp;
+
+									</div>
+									<div class="row text-muted" style="display: flex; flex-direction: column;">
+										@if ($diskon != "0")
+										<div style="display: flex;">
+											<div><s>Rp. {{number_format($harga,0,'.','.')}}</s>&nbsp;</div>
+											<badge class="badge badge-success" style="display: flex; justify-content: center; align-items: center;">{{$diskon}} %</badge>	
+										</div>
+										@php 
+										$potongan_harga = round($harga*$diskon/100,0); 
+										$harga_diskon = $harga-$potongan_harga;
+										@endphp
+										<div>Rp. {{number_format($harga_diskon,0,'.','.')}}</div>
+										@else
+										@php 
+										$harga_diskon = $harga;
+										@endphp
+										Rp. {{number_format($harga,0,'.','.')}}&nbsp;
+										@endif
+									</div>
+								</div>
+								<div class="col-2" style="padding: 0px; display: flex; align-items: center;">
+									<div style="display: flex; align-items: flex-start; padding: 0px; justify-content: flex-start; width: 100%;">
+										<div onclick="kurang_pesanan('{{$index}}', '{{$harga_diskon}}')" class="btn btn-danger" style="color: black; color: white; width: 25%; border-radius: 0px;"> - </div>
+										<div style="width: 50%; border-radius: 0px;" class="btn" id="jumlah_pesanan{{$index}}">{{$data->jumlah}}</div>
+										<div onclick="tambah_pesanan('{{$index}}', '{{$harga_diskon}}')" class="btn btn-danger" style="color: black; color: white; width: 25%; border-radius: 0px;"> + </div>
+									</div>
+								</div>
+								<div class="col-2" style="display: flex; align-items: center; justify-content: space-between; padding-right: 0px;">
+									@php
+									$jumlah = $data->jumlah;
+									$jumlah_harga = round($jumlah * $harga_diskon,0);
+									$total_harga += $jumlah_harga;
+									@endphp	
+									<span >Rp.</span> <span id="sub_total{{$index}}">{{number_format($jumlah_harga, 0, '.', '.')}}</span>
+								</div>
+								<?php
+								$index++;
 							}
-							$harga = $data->produk->harga;
-							if($diskon != "0"){
-								$harga = $harga - (($diskon / 100) * $harga);
-							}
-						@endphp
-						<div class="col-md-1" style="display: flex;justify-content: center; align-items: center;">
-							<div class="icheck-danger d-inline">
-								<input type="checkbox" id="checkboxPrimary{{$index}}" onchange="checkbox_cek('{{$data->id}}', '{{$index}}')" checked="false">
-								<label for="checkboxPrimary{{$index}}">
-								</label>
-							</div>
-						</div>
-						<div class="col-2">
-							<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 100%; border-radius: 0.2em; margin-bottom: 0.5em;">
-						</div>
-						<div class="col-5">
-							<div class="row">
-								{{$data->produk->nama}} &nbsp
-								@if ($diskon != "0")
-									<badge class="badge badge-success">{{$diskon}} %</badge>	
-								@endif
-								
-							</div>
-							<div class="row text-muted">
-								Rp. {{$harga}}
-							</div>
-						</div>
-						<div class="col-2" style="padding: 0px; display: flex; align-items: center;">
-							<div style="display: flex; align-items: flex-start; padding: 0px; justify-content: flex-start; width: 100%;">
-								<div onclick="kurang_pesanan('{{$index}}')" class="btn btn-danger" style="color: black; color: white; width: 25%; border-radius: 0px;"> - </div>
-								<div style="width: 50%; border-radius: 0px;" class="btn" id="jumlah_pesanan{{$index}}">{{$data->jumlah}}</div>
-								<div onclick="tambah_pesanan('{{$index}}')" class="btn btn-danger" style="color: black; color: white; width: 25%; border-radius: 0px;"> + </div>
-							</div>
-						</div>
-						<div class="col-2" style="display: flex; align-items: center; justify-content: space-between; padding-right: 0px;">
-							@php
-							$jumlah = $data->jumlah;
-							$jumlah_harga = $jumlah * $harga;
-							$total_harga += $jumlah_harga;
-							@endphp	
-							<span >Rp.</span> <span id="sub_total{{$index}}">{{$jumlah_harga}}</span>
-						</div>
-						@php
-						$index++;
-						@endphp
-						@endforeach
+						}?>
 					</div>
 				</div>
+				@if ($keranjang->count() > 0)
 				<div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">
 					<div class="row" style="padding: 0em 1em;">
 						<div class="col-8"></div>
 						<div class="col-2">Sub Total</div>
 						<div class="col-2" style="display: flex; justify-content: space-between; padding-right: 0px;">
-							<div>Rp.</div> <div id="harga_total">{{$total_harga}}</div>
+							<div>Rp.</div> <div id="harga_total">{{number_format($total_harga, 0, '.', '.')}}</div>
 						</div>
 					</div>
 				</div>
 				<a href="/keranjang/checkout" class="btn btn-danger" style="padding: 0.8em; font-size: 0.8em;">Proses Pembayaran</a>
+				@else
+				<a href="<?=url('/')?>" class="btn btn-danger" style="padding: 0.7em; font-size: 1.1em;">Belanja Sekarang</a>
+				@endif
 			</div>
 			<div class="col-4">
 				<div class="card shadow p-3 mb-5 bg-white rounded">
@@ -87,14 +114,14 @@ Biodata
 						@foreach ($rekomendasi_produk as $data)
 						<div class="member" style="position: relative; width: 50%; padding: 0.5em;">
 							<div class="member-img">
-								<img src="<?=url('/')?>/img/produk/{{$data->foto}}" class="img-fluid" alt="">
+								<img src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->foto}}" class="img-fluid" alt="">
 							</div>
 							<div class="member-info" style="padding-top: 0.4em;">
-								<small style="font-family: 'Segoe UI',Roboto; font-size: 0.7em;"><s>Rp. 50.000</s>
+								<small style="font-family: 'Segoe UI',Roboto; font-size: 0.7em;"><s>Rp. {{number_format($data->harga, 0, '.', '.')}}</s>
 									<badge class="badge badge-warning" style="font-size: 0.9em;">-50%</badge> 
 								</small>
 								<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. 25.000</h6>
-								<span style="font-size: 0.8em; line-height: 0.5em;"> {{substr($data->nama, 0, 16) }} ....</span>
+								<span style="font-size: 0.8em; line-height: 0.5em;"> @if (strlen($data->nama) > 15) {{substr($data->nama, 0, 15)}}... @else {{$data->nama}} @endif</span>
 								<div class="btn btn-outline-danger" style="margin-top: 0.4em; display: flex; justify-content: center; flex-direction: row; border: 1px solid #dc3545;">
 									<div>
 										<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" data-icon="mdi:cart" style="font-size: 1.3em; color:#dc3545;"><path d="M17 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2M1 2v2h2l3.6 7.59l-1.36 2.45c-.15.28-.24.61-.24.96a2 2 0 0 0 2 2h12v-2H7.42a.25.25 0 0 1-.25-.25c0-.05.01-.09.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03l3.58-6.47c.07-.16.12-.33.12-.5a1 1 0 0 0-1-1H5.21l-.94-2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2z" fill="currentColor"></path></svg>&nbsp;&nbsp;
@@ -118,7 +145,8 @@ Biodata
 <script type="text/javascript">
 
 	var list_keranjang = {!! json_encode($data_keranjang) !!}
-
+	var total_harga = parseInt("{{$total_harga}}");
+	// alert(total_harga);
 	function checkbox_cek(id,index){
 		var checked = $('#checkboxPrimary'+index).is(":checked");
 		list_keranjang[index]['checked'] = checked.toString();
@@ -135,27 +163,29 @@ Biodata
 
 	}
 
-	function kurang_pesanan(index){
-		var jumlah_pesanan = list_keranjang[index]['jumlah'];
+	function kurang_pesanan(index, harga_diskon){
+		total_harga -= parseInt(harga_diskon);
+		var jumlah_pesanan = parseInt($('#jumlah_pesanan'+index).html());
 		if(jumlah_pesanan > 1){
 			jumlah_pesanan -= 1;
 		}
 		list_keranjang[index]['jumlah'] = jumlah_pesanan;
-		var sub_total = jumlah_pesanan * list_keranjang[index]['harga'];
+		var sub_total = parseInt(jumlah_pesanan * harga_diskon);
 		$('#jumlah_pesanan'+index).html(jumlah_pesanan);
-		$('#sub_total'+index).html(sub_total);
-		get_harga_total();
+		$('#sub_total'+index).html(sub_total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+		$("#harga_total").html(total_harga.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
 		ubah_jumlah_ajax(list_keranjang[index]['id'], jumlah_pesanan);
 	}
 
-	function tambah_pesanan(index){
-		var jumlah_pesanan = list_keranjang[index]['jumlah'];
+	function tambah_pesanan(index, harga_diskon){
+		total_harga += parseInt(harga_diskon);
+		var jumlah_pesanan = parseInt($('#jumlah_pesanan'+index).html());
 		jumlah_pesanan += 1;
 		list_keranjang[index]['jumlah'] = jumlah_pesanan;
-		var sub_total = jumlah_pesanan * list_keranjang[index]['harga'];
+		var sub_total = parseInt(jumlah_pesanan * harga_diskon);
 		$('#jumlah_pesanan'+index).html(jumlah_pesanan);
-		$('#sub_total'+index).html(sub_total);
-		get_harga_total();
+		$('#sub_total'+index).html(sub_total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+		$("#harga_total").html(total_harga.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
 		ubah_jumlah_ajax(list_keranjang[index]['id'], jumlah_pesanan);
 	}
 
@@ -170,18 +200,18 @@ Biodata
 		})
 	}
 
-	function get_harga_total(){
-		var count = Object.keys(list_keranjang).length;
-		var harga_total =0;
-		for(let i = 0; i<count; i++){
-			if(list_keranjang[i]['checked'] == "true"){
-				var sub_total = list_keranjang[i]['harga'] * list_keranjang[i]['jumlah'];
-				harga_total += sub_total;
-			}
-		}
-		console.log(harga_total);
-		$("#harga_total").html(harga_total);
-	}
+	// function get_harga_total(){
+	// 	var count = Object.keys(list_keranjang).length;
+	// 	var harga_total =0;
+	// 	for(let i = 0; i<count; i++){
+	// 		if(list_keranjang[i]['checked'] == "true"){
+	// 			var sub_total = list_keranjang[i]['harga'] * list_keranjang[i]['jumlah'];
+	// 			harga_total += sub_total;
+	// 		}
+	// 	}
+	// 	console.log(harga_total);
+	// 	$("#harga_total").html(harga_total);
+	// }
 
 	function modal_pesan(){
 		$('#exampleModal').modal('show');

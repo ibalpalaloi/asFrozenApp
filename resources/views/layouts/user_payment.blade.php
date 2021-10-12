@@ -372,9 +372,10 @@
 		}		
 
 		body {
-			font-family: "Roboto", sans-serif !important;
-			color: #444444;
+			font-family: 'Lato', sans-serif;
+			/*font-family: 'Roboto', sans-serif;*/
 		}
+
 
 		a {
 			color: #47b2e4;

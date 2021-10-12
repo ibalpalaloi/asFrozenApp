@@ -374,18 +374,39 @@
 			font-family: 'Lato', sans-serif;
 			/*font-family: 'Roboto', sans-serif;*/
 		}
+
+		.loader-container{
+			width: 100%;
+			height: 100vh;
+			position: fixed;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}  
+
 	</style>
 
 	@yield('header')
 </head>
 <body>
+	<div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+			<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+				<div class="loader-container">
+					<div class="spinner-border text-danger" role="status">
+						<span class="sr-only">Loading...</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<header id="header" class="fixed-top" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); border-bottom: none; box-shadow:0 1px 1px rgb(0 0 0 / 20%);">
 		<div class="container" style="display: flex; justify-content: space-between;">
 			<div style="width: 88%; display: flex;">
 				<h1 class="logo" style="margin-right: 1em;">
-					<div style="">
+					<a href="<?=url('/')?>">
 						<img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_white.png">
-					</div>
+					</a>
 				</h1>
 
 				<div class="shopee-searchbar shopee-searchbar--focus" style="width: 100%;">
@@ -400,8 +421,9 @@
 				</div>
 			</div>
 			<div style="display: flex; flex-direction: row; justify-content: space-between; align-content: center; width: 8%;padding-top: 0.2em;">
-				<a href="<?=url('/')?>/keranjang">
+				<a href="<?=url('/')?>/keranjang" style="position: relative;">
 					<span class="iconify" data-icon="mdi:cart" style="font-size: 2em; color: white;"></span>
+					<div style="background: red; width: 1em; height: 1em; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.7em; padding: 0.7em; position: absolute; bottom: 2px; right: 0px; border: 1px solid white;">99</div>
 				</a>
 				<a href="<?=url('/')?>/biodata">
 					<span class="iconify" data-icon="mdi:user" style="font-size: 2em; color: white;"></span>
@@ -409,6 +431,8 @@
 			</div>
 		</div>
 	</header>	
+
+
 	@yield('body')
 
 
@@ -499,10 +523,23 @@
 
 	<!-- Template Main JS File -->
 	<script src="<?=url('/')?>/katalog_assets/assets/js/main.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<script src="{{asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+	<script type="text/javascript">
+		function show_loader(){
+			console.log('show');
+			$("#modal_loader").modal("show");
+			setTimeout(hide_loader, 5000);
+
+		};		
+		function hide_loader(){
+			console.log('hide');
+			$("#modal_loader").modal("hide");
+		};
+
+	</script>
 	@yield('footer')
 </body>
 </html>

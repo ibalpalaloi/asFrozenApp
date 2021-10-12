@@ -23,8 +23,7 @@
                     $diskon = $produk->diskon->diskon;
                     $harga_diskon = $harga - ($diskon/100 * $harga)
                     @endphp
-                    <div style="margin-top: 0.5em; text-align: left; color: black;">
-                        {{$produk->nama}}.. <badge class="badge badge-warning">{{$diskon}}%</badge> 
+                    <div style="margin-top: 0.5em; text-align: left; color: black;">@if (strlen($produk->nama) > 15) {{substr($produk->nama, 0, 15)}}... @else {{$produk->nama}} @endif <badge class="badge badge-warning">{{$diskon}}%</badge> 
                     </div>
                     <div style="padding-top: 0px; position: relative; display: flex; flex-direction: row; justify-content: flex-start; margin-top: 0.3em;">
                         <small><s>Rp {{number_format($produk->harga, 0, '.', '.')}}</s></small>&nbsp;&nbsp;

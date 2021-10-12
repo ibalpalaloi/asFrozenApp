@@ -124,7 +124,7 @@ $status_pesanan = "packaging";
 						<td>
 							<div style="width: 100%; display: flex; margin-bottom: 0em;">
 								<div style="width: 10%;">
-									<img class="img-fluid" src="<?=url('/')?>/img/produk/{{$pesanan->produk->foto}}" style="width: 100%; border-radius: 1em;">
+									<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$pesanan->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 								</div>
 								<div style="width: 85%; margin-left: 1em; display: flex; align-items: center;">
 									{{$pesanan->produk->nama}}
@@ -133,13 +133,13 @@ $status_pesanan = "packaging";
 						</td>
 						<td>
 							<div style="display: flex; justify-content: space-between;">
-								<div>Rp.</div> <div>{{$pesanan->harga_satuan}}</div>
+								<div>Rp.</div> <div>{{number_format($pesanan->harga_satuan, 0, '.', '.')}}</div>
 							</div>
 						</td>
-						<td style="text-align: center;">{{$pesanan->jumlah}}</td>
+						<td style="text-align: center;">x{{$pesanan->jumlah}}</td>
 						<td>
 							<div style="display: flex; justify-content: space-between;">
-								<div>Rp.</div> <div>{{$pesanan->jumlah * $pesanan->harga_satuan}}</div>
+								<div>Rp.</div> <div>{{number_format($pesanan->jumlah * $pesanan->harga_satuan, 0, '.', '.')}}</div>
 							</div>									
 						</td>
 					</tr>
@@ -171,7 +171,7 @@ $status_pesanan = "packaging";
 					</div>
 				</div>
 				<div class="col-md-4" style="display: flex;">
-					<img src="<?=url('/')?>/katalog_assets/assets/qrcode.png" style="width: 6em;">
+					<img src="<?=url('/')?>/katalog_assets/assets/qrcode.png" style="width: 6em; height: 6em;">
 					<div style="margin-top: 0.2em;width: 100%;">
 						<div class="row">
 							<div class="col-md-6">		
@@ -179,7 +179,7 @@ $status_pesanan = "packaging";
 							</div>
 							<div class="col-md-6" style="display: flex; justify-content: space-between;">		
 								<div>: Rp.</div>
-								<div>{{$nota->total_harga}}</div>
+								<div>{{number_format($nota->total_harga, 0, '.', '.')}}</div>
 							</div>
 
 						</div>
@@ -189,7 +189,7 @@ $status_pesanan = "packaging";
 							</div>
 							<div class="col-md-6" style="display: flex; justify-content: space-between;">		
 								<div>: Rp.</div>
-								<div>{{$nota->ongkos_kirim}}</div>
+								<div>{{number_format($nota->ongkos_kirim, 0, '.', '.')}}</div>
 							</div>
 						</div>
 						<div class="row">
@@ -198,7 +198,7 @@ $status_pesanan = "packaging";
 							</div>
 							<div class="col-md-6" style="display: flex; justify-content: space-between;">		
 								<div>: Rp.</div>
-								<div><b>{{$nota->ongkos_kirim + $nota->total_harga}}</b></div>
+								<div><b>{{number_format($nota->ongkos_kirim + $nota->total_harga, 0, '.', '.')}}</b></div>
 							</div>
 
 						</div>
