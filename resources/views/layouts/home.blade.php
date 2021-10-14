@@ -423,7 +423,7 @@
 			<div style="display: flex; flex-direction: row; justify-content: space-between; align-content: center; width: 8%;padding-top: 0.2em;">
 				<a href="<?=url('/')?>/keranjang" style="position: relative;">
 					<span class="iconify" data-icon="mdi:cart" style="font-size: 2em; color: white;"></span>
-					<div style="background: red; width: 1em; height: 1em; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.7em; padding: 0.7em; position: absolute; bottom: 2px; right: 0px; border: 1px solid white;">99</div>
+					<div style="background: red; width: 1em; height: 1em; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.7em; padding: 0.7em; position: absolute; bottom: 2px; right: 0px; border: 1px solid white;" id="jumlah_keranjang"></div>
 				</a>
 				<a href="<?=url('/')?>/biodata">
 					<span class="iconify" data-icon="mdi:user" style="font-size: 2em; color: white;"></span>

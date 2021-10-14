@@ -50,7 +50,7 @@ Route::post('/keranjang/ubah_checked', [UserKeranjangController::class, 'ubah_ch
 Route::post('/keranjang/ubah_jumlah', [UserKeranjangController::class, 'ubah_jumlah'])->middleware('auth');
 Route::post('/keranjang/post_checkout', [UserKeranjangController::class, 'post_checkout'])->middleware('auth');
 
-Route::get('/biodata', [UserPesananController::class, 'biodata']);
+Route::get('/biodata', [UserPesananController::class, 'biodata'])->middleware('auth');
 
 // admin analisis
 Route::get('/admin-analisis/produk', [AdminAnalisController::class, 'produk']);
@@ -80,6 +80,7 @@ Route::get('/get-detail-produk/{id}', [GetController::class, 'get_detail_produk'
 Route::get('/get-kategori', [GetController::class, 'get_kategori']);
 Route::post('/get-embed-link', [GetController::class, 'get_embed_video']);
 Route::get('/get-jumlah-pesanan', [GetController::class, 'get_jumlah_pesanan']);
+Route::get('/get_jumlah_keranjang', [GetController::class, 'get_jumlah_keranjang']);
 
 // admin Banner
 Route::post('/admin-banner-side-tambah', [AdminBannerController::class, 'store_side']);
@@ -127,6 +128,7 @@ Route::get('/admin/get/produk/{id}', [AdminGetController::class, 'get_produk_fro
 
 // get
 Route::get('/get-produk/{id}', [AdminGetController::class, 'get_produk']);
+
 
 // katalog
 Route::get('/', [UserKatalogController::class, 'index']);
