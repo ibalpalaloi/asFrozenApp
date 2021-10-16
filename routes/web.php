@@ -50,6 +50,7 @@ Route::post('/keranjang/ubah_checked', [UserKeranjangController::class, 'ubah_ch
 Route::post('/keranjang/ubah_jumlah', [UserKeranjangController::class, 'ubah_jumlah'])->middleware('auth');
 Route::post('/keranjang/post_checkout', [UserKeranjangController::class, 'post_checkout'])->middleware('auth');
 
+// biodata
 Route::get('/biodata', [UserPesananController::class, 'biodata'])->middleware('auth');
 
 // admin analisis
@@ -100,6 +101,9 @@ Route::get('/admin/ubah_status_pesanan/{id}/{status}', [AdminPesananController::
 Route::get('/admin/pesanan-packaging', [AdminPesananController::class, 'packaging']);
 Route::get('/admin/pesanan-dalam-pengantaran', [AdminPesananController::class, 'dalam_pengantaran']);
 Route::get('/admin/pesanan-selesai/{id}', [AdminPesananController::class, 'pesanan_selesai']);
+Route::delete('/admin/hapus_pesanan/{id}', [AdminPesananController::class, 'hapus_pesanan']);
+Route::get('/admin/get_list_produk/{produk}', [AdminPesananController::class, 'get_list_produk']);
+Route::post('/admin/input_pesanan_baru', [AdminPesananController::class, 'input_pesanan_baru']);
 
 // admin riwayat
 Route::get('/admin/riwayat-pesanan', [AdminRiwayatPesanan::class, 'daftar_riwayat']);
@@ -132,6 +136,7 @@ Route::get('/get-produk/{id}', [AdminGetController::class, 'get_produk']);
 
 // katalog
 Route::get('/', [UserKatalogController::class, 'index']);
+Route::get('/pencarian', [UserKatalogController::class, 'pencarian']);
 Route::get('/get_produk_sub_kategori', [UserKatalogController::class, 'get_produK_sub_kategori']);
 Route::get('/kategori/{kategori}', [UserKatalogController::class, 'kategori']);
 

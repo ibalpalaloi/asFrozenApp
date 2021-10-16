@@ -410,14 +410,14 @@
 				</h1>
 
 				<div class="shopee-searchbar shopee-searchbar--focus" style="width: 100%;">
-					<div class="shopee-searchbar__main" style="position: relative;">
-						<form role="search" class="shopee-searchbar-input" autocomplete="off">
-							<input aria-label="Jiniso Diskon s/d 80%" class="shopee-searchbar-input__input" maxlength="128" placeholder="Temukan kebutuhanmu disini" autocomplete="off" value="">
-						</form>
-					</div>
-					<button type="button" class="btn btn-solid-primary btn--s btn--inline">
-						<span class="iconify" data-icon="mdi:magnify" style="color: white; font-size: 2em;"></span>
-					</button>
+					<form action="pencarian" class="shopee-searchbar-input" autocomplete="off" id="form_pencarian">
+						<div class="shopee-searchbar__main" style="position: relative;">
+							<input id="pencarian" aria-label="Jiniso Diskon s/d 80%" class="shopee-searchbar-input__input" maxlength="128" placeholder="Temukan kebutuhanmu disini" autocomplete="off" value="">
+						</div>
+						<button type="submit" class="btn btn-solid-primary btn--s btn--inline">
+							<span class="iconify" data-icon="mdi:magnify" style="color: white; font-size: 2em;"></span>
+						</button>
+					</form>
 				</div>
 			</div>
 			<div style="display: flex; flex-direction: row; justify-content: space-between; align-content: center; width: 8%;padding-top: 0.2em;">
@@ -538,6 +538,46 @@
 			console.log('hide');
 			$("#modal_loader").modal("hide");
 		};
+
+		$('#form_pencarian').submit(function(event){
+			event.preventDefault();
+			pencarian();
+		})
+
+		function pencarian(){
+			
+			var keyword = $("#pencarian").val();
+			if(keyword != ''){
+				var this_url = window.location.origin;
+				window.location.href = this_url+"/pencarian?keyword="+keyword;
+			}
+		}
+
+		function tambah_keranjang(id){
+			$.ajax({
+				url: "<?=url('/')?>/tambah_keranjang/"+id,
+				type:"get",
+				success:function(data){
+					console.log(data);
+				}
+			})
+		}
+
+		$(document).ready(function(){
+			get_jumlah_keranjang();
+
+		})
+
+		function get_jumlah_keranjang(){
+			$.ajax({
+				url: "<?=url('/')?>/get_jumlah_keranjang/",
+				type:"get",
+				success:function(data){
+					jumlah_keranjang = data.jumlah_keranjang
+					$('#jumlah_keranjang').html(jumlah_keranjang);
+				}
+			})
+		}
 
 	</script>
 	@yield('footer')

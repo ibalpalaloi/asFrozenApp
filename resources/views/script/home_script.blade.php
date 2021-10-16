@@ -125,14 +125,5 @@
 
     })
 
-    function get_jumlah_keranjang(){
-        $.ajax({
-            url: "<?=url('/')?>/get_jumlah_keranjang/",
-            type:"get",
-            success:function(data){
-                jumlah_keranjang = data.jumlah_keranjang
-                $('#jumlah_keranjang').html(jumlah_keranjang);
-            }
-        })
-    }
+    
 </script>
