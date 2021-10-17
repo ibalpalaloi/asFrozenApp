@@ -16,16 +16,17 @@ class UserKatalogController extends Controller
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
         $kategori = Kategori::orderBy('urutan')->get();
-        $banner = Banner::all();
         $flash_sale = Diskon::where('diskon_akhir', '>=', $date_today)->get();
 
         $kategori_show = Kategori::withCount('produk')->orderBy('produk_count', 'desc')->paginate(3);
         $agent = new Agent();
+        $banner_main = Banner::where('posisi', 'main')->get();
+        $banner_not_main = Banner::where('posisi', '!=', 'main')->orderBy('posisi', 'asc')->get();
         if ($agent->isMobile()){
-            return view('home.landing_page.mobile', compact('kategori', 'kategori_show', 'flash_sale'));
+            return view('home.landing_page.mobile', compact('kategori', 'kategori_show', 'flash_sale', 'banner_main', 'banner_not_main'));
         }
         else {
-            return view('home.landing_page.desktop', compact('kategori', 'kategori_show', 'flash_sale'));            
+            return view('home.landing_page.desktop', compact('kategori', 'kategori_show', 'flash_sale', 'banner_main', 'banner_not_main'));            
         }
     }
 
@@ -34,7 +35,9 @@ class UserKatalogController extends Controller
         $kategori_current = Kategori::where('kategori', $kategori)->first();
         $agent = new Agent();
         if ($agent->isMobile()){
-            return view('home.kategori.mobile', compact('list_kategori', 'kategori_current'));            
+            $dummy = Produk::where('kategori_id', $kategori_current->id)->get();
+            // dd($dummy);
+            return view('home.kategori.mobile', compact('list_kategori', 'kategori_current', 'hw_dummy(link, id, msgid)'));            
         }        
         else {
             return view('home.kategori.desktop', compact('list_kategori', 'kategori_current'));                        

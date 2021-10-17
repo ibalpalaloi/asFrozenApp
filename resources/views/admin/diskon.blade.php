@@ -68,7 +68,7 @@ function tgl_indo($tanggal){
                             <div class="form-group">
                                 <label>Tanggal Mulai:</label>
                                 <div class="input-group date" id="tgl_mulai_modal" data-target-input="nearest">
-                                    <input type="text" id="input_tgl_mulai" class="form-control datetimepicker-input" data-target="#tgl_mulai"/>
+                                    <input type="date" id="input_tgl_mulai" class="form-control datetimepicker-input" data-target="#tgl_mulai"/>
                                     <div class="input-group-append" data-target="#tgl_mulai_modal" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -79,7 +79,7 @@ function tgl_indo($tanggal){
                             <div class="form-group">
                                 <label>Tanggal Akhir:</label>
                                 <div class="input-group date" id="tgl_akhir_modal" data-target-input="nearest">
-                                    <input type="text" id="input_tgl_akhir" class="form-control datetimepicker-input" data-target="#tgl_akhir"/>
+                                    <input type="date" id="input_tgl_akhir" class="form-control datetimepicker-input" data-target="#tgl_akhir"/>
                                     <div class="input-group-append" data-target="#tgl_akhir_modal" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -166,7 +166,7 @@ function tgl_indo($tanggal){
                             <div class="form-group">
                                 <label>Tanggal Mulai:</label>
                                 <div class="input-group date" id="tgl_mulai_modal" data-target-input="nearest">
-                                    <input type="text" id="tambah_tgl_mulai" class="form-control datetimepicker-input" data-target="#tgl_mulai"/>
+                                    <input type="date" id="tambah_tgl_mulai" class="form-control datetimepicker-input" data-target="#tgl_mulai"/>
                                     <div class="input-group-append" data-target="#tgl_mulai_modal" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -177,7 +177,7 @@ function tgl_indo($tanggal){
                             <div class="form-group">
                                 <label>Tanggal Akhir:</label>
                                 <div class="input-group date" id="tgl_akhir_modal" data-target-input="nearest">
-                                    <input type="text" id="tambah_tgl_akhir" class="form-control datetimepicker-input" data-target="#tgl_akhir"/>
+                                    <input type="date" id="tambah_tgl_akhir" class="form-control datetimepicker-input" data-target="#tgl_akhir"/>
                                     <div class="input-group-append" data-target="#tgl_akhir_modal" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -274,17 +274,7 @@ function tgl_indo($tanggal){
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-<script>
-    $('#tgl_mulai').datetimepicker({
-        format: 'L',
-        format: 'YYYY-MM-DD'
-    });
-
-    $('#tgl_akhir').datetimepicker({
-        format: 'L',
-        format: 'YYYY-MM-DD'
-    });
-</script>
+<script></script>
 <script>
 
     function pilih_kategori(){

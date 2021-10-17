@@ -11,6 +11,7 @@ use App\Models\Nota;
 use App\Models\Pesanan;
 use App\Models\Produk;
 use Illuminate\Support\Facades\Validator;
+use Jenssegers\Agent\Agent;
 
 
 class UserKeranjangController extends Controller
@@ -46,7 +47,14 @@ class UserKeranjangController extends Controller
             $i++;
         }
         $rekomendasi_produk = Produk::take(4)->get();
-        return view('user.payment.keranjang', compact('keranjang', 'data_keranjang', 'rekomendasi_produk'));
+        $agent = new Agent();
+        if ($agent->isMobile()){
+            return view('user.payment.keranjang.mobile', compact('keranjang', 'data_keranjang', 'rekomendasi_produk'));
+        }
+        else {
+            return view('user.payment.keranjang.desktop', compact('keranjang', 'data_keranjang', 'rekomendasi_produk'));
+        }
+
     }
 
     public function tambah_keranjang($id){
@@ -88,7 +96,14 @@ class UserKeranjangController extends Controller
             }
             $total_harga_produk += $data->jumlah * $harga_diskon;
         }
-        return view('user.payment.checkout', compact('list_keranjang', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk'));
+        $agent = new Agent();
+        if ($agent->isMobile()){
+            return view('user.payment.checkout.mobile', compact('list_keranjang', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk'));
+        }
+        else {
+            return view('user.payment.checkout.desktop', compact('list_keranjang', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk'));
+        }
+
     }
 
     public function ubah_checked(Request $request){

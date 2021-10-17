@@ -75,15 +75,13 @@
 								<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 							</ol>
 							<div class="carousel-inner">
-								<div class="carousel-item active">
-									<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner1.jpg" class="d-block w-100" alt="...">
+								@php $i=0; @endphp
+								@foreach ($banner_main as $data)
+								<div class="carousel-item @if ($i == 0) active @endif">
+									<img src="<?=url('/')?>/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100">
 								</div>
-								<div class="carousel-item">
-									<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner2.jpg" class="d-block w-100" alt="...">
-								</div>
-								<div class="carousel-item">
-									<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner3.jpg" class="d-block w-100" alt="...">
-								</div>
+								@php $i++; @endphp
+								@endforeach 
 							</div>
 							<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -96,8 +94,9 @@
 						</div>
 					</div>
 					<div class="col-lg-4" style="padding: 0px; padding-left: 0.2em;">
-						<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner1.jpg" class="d-block w-100" alt="...">
-						<img src="<?=url('/')?>/katalog_assets/assets/img/banner/banner3.jpg" class="d-block w-100" alt="..." style="margin-top: 0.2em;">
+						@foreach ($banner_not_main as $data)
+						<img src="<?=url('/')?>/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100" alt="..." @if ($data->posisi == 'kanan-bawah') style="margin-top: 0.2em;" @endif>
+						@endforeach
 					</div>
 				</div>
 
@@ -262,7 +261,8 @@
 		@section('footer')
 		<script type="text/javascript" src="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.min.js"></script>
 		<script type="text/javascript">
-			var end = new Date('10/12/2021 0:00 AM');
+			<?php  $date_tomorrow = date("m/d/Y", strtotime("+1 day", strtotime(date("Y-m-d")))); ?>
+			var end = new Date("{{$date_tomorrow}} 0:00 AM");
 
 			var _second = 1000;
 			var _minute = _second * 60;

@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use App\Models\Banner;
 use App\Models\Sub_kategori;
 use Illuminate\Support\Facades\Validator;
+use Jenssegers\Agent\Agent;
 use Image;
 
 class AdminKategoriController extends Controller

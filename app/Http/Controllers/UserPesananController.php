@@ -6,6 +6,7 @@ use App\Models\Pesanan;
 use App\Models\Nota;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
+use Jenssegers\Agent\Agent;
 
 class UserPesananController extends Controller
 {
@@ -13,7 +14,13 @@ class UserPesananController extends Controller
 
     public function pesanan(){
         $notas = Nota::where('user_id', Auth()->user()->id)->get();
-        return view('user.payment.pesanan', compact('notas'));
+        $agent = new Agent();
+        if ($agent->isMobile()){
+            return view('user.payment.pesanan.mobile', compact('notas'));
+        }
+        else {
+            return view('user.payment.pesanan.desktop', compact('notas'));
+        }
     }
 
     public function batalkan_pesanan($id){
@@ -33,6 +40,12 @@ class UserPesananController extends Controller
     }
 
     public function biodata(){
-        return view('user/biodata/index');
+        $agent = new Agent();
+        if ($agent->isMobile()){
+            return view('user/biodata/mobile');
+        }
+        else {
+            return view('user/biodata/desktop');            
+        }
     }
 }
