@@ -13,6 +13,7 @@ use App\Models\Riwayat_pesanan;
 use App\Models\Produk;
 use App\Models\Kategori;
 use App\Models\Nota;
+use App\Models\Keranjang;
 
 class GetController extends Controller
 {
@@ -83,5 +84,14 @@ class GetController extends Controller
         $jumlah['dalam_pengantaran'] = Nota::where('status', 'dalam pengantaran')->count();
 
         return response()->json(['jumlah'=>$jumlah]);
+    }
+
+    public function get_jumlah_keranjang(){
+        $user = Auth()->user();
+        $jumlah_keranjamng = 0;
+        if($user != null){
+            $jumlah_keranjang = Keranjang::where('user_id', $user->id)->count();
+        }
+        return response()->json(['jumlah_keranjang'=>$jumlah_keranjang]);
     }
 }

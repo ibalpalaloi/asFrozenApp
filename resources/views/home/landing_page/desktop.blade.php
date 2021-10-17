@@ -381,4 +381,5 @@
 				]
 			});	
 		</script>
+			@include('script.home_script')
 		@endsection

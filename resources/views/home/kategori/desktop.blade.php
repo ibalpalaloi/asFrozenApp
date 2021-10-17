@@ -116,15 +116,7 @@ Keranjang Belanja
 			});
 	}
 
-	function tambah_keranjang(id){
-		$.ajax({
-			url: "<?=url('/')?>/tambah_keranjang/"+id,
-			type:"get",
-			success:function(data){
-				console.log(data);
-			}
-		})
-	}
+	
 </script>
 
 @endsection

@@ -49,13 +49,36 @@ class UserKatalogController extends Controller
         $jenis = $request->jenis;
 
         if($jenis == 'semua'){
-            $kategori = Kategori::where('kategori', $sub_kategori)->first();
-            $view = view('user.sub_kategori_semua', compact('kategori'))->render();
+            $kategori_current = Kategori::where('kategori', $sub_kategori)->first();
+            $view = view('home.kategori.sub_kategori.desktop', compact('kategori_current'))->render();
         }else{
             $produk = Produk::where('sub_kategori_id', $request->sub_kategori)->get();
             $view = view('user.data_katalog_sub_kategori', compact('produk'))->render();
         }
 
         return response()->json(['html'=>$view]);
+    }
+
+    public function pencarian(Request $request){
+        $page = $request->page;
+        if($page == null){
+            $page = 1;
+        }
+        $keyword = $request->keyword;
+        $kategori = Kategori::all();
+        $produk = Produk::where('nama', 'LIKE', '%'.$keyword.'%')->paginate(40);
+        $list_page = $this->get_pagination_page_produk($keyword, 40);
+        return view('user.pencarian.desktop', compact('kategori', 'keyword', 'produk', 'page', 'list_page', 'page'));
+    }
+
+    public function get_pagination_page_produk($keyword, $paginate){
+        $produk = Produk::where('nama', 'LIKE', '%'.$keyword.'%')->count();
+        $jumlah_page = ceil($produk / $paginate);
+        $list_page = array();
+        for($i = 0; $i < $jumlah_page; $i++){
+            $list_page[$i] = $i+1;
+        }
+
+        return $list_page;
     }
 }

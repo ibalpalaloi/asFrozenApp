@@ -8,6 +8,7 @@ use App\Models\Riwayat_nota_pesanan;
 use App\Models\Riwayat_pesanan;
 use App\Models\User;
 use App\Models\pesanan;
+use App\Models\Produk;
 
 class AdminPesananController extends Controller
 {
@@ -74,5 +75,53 @@ class AdminPesananController extends Controller
         $nota->status = $status;
         $nota->save();
         return back();
+    }
+
+    public function hapus_pesanan($id){
+        Pesanan::where('id', $id)->delete();
+    }
+
+    public function get_list_produk($produk){
+        $list_produk = array();
+        $produk = Produk::where("nama", "LIKE", "%".$produk."%")->get();
+        $i=0;
+        foreach($produk as $data){
+            $list_produk[$i]['id'] = $data->id;
+            $list_produk[$i]['nama'] = $data->nama;
+            $list_produk[$i]['stok'] = $data->stok_produk->stok;
+            $list_produk[$i]['diskon']= "";
+            $list_produk[$i]['harga'] = $data->harga;
+            $i++;
+        }
+        $view = view('admin.include.data_tabel_tambah_produk', compact('list_produk'))->render();
+
+        return response()->json(['view'=>$view]);
+    }
+
+    public function input_pesanan_baru(Request $request){
+        $pesanan = Pesanan::where([
+                                        ['nota_id', $request->id_nota],
+                                        ['produk_id', $request->produk_id]
+                        ])->first();
+        if(!empty($pesanan)){
+            $pesanan->jumlah = $request->jumlah;
+            $pesanan->save();
+        }
+        else{
+            $pesanan = new Pesanan;
+            $pesanan->nota_id = $request->id_nota;
+            $pesanan->produk_id = $request->id_produk;
+            $pesanan->jumlah = $request->jumlah;
+            $pesanan->harga_satuan = $request->harga_satuan;
+            $pesanan->save();
+        }
+
+        $data_pesanan = array();
+        $data_pesanan['id'] = $pesanan->id;
+        $data_pesanan['nama'] = $pesanan->produk->nama;
+        $data_pesanan['jumlah'] = $pesanan->jumlah;
+        $data_pesanan['harga_satuan'] = $pesanan->harga_satuan;
+        $data_pesanan['harga_total'] = $pesanan->jumlah * $pesanan->harga_satuan;
+        return response()->json(['pesanan'=>$data_pesanan]);
     }
 }

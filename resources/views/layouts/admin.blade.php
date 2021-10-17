@@ -372,7 +372,7 @@
   }
 
   $(document).ready ( function(){
-    // get_jumlah_pesanan();
+    get_jumlah_pesanan();
   })
 
 
