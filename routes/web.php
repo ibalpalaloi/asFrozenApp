@@ -104,6 +104,9 @@ Route::get('/admin/pesanan-selesai/{id}', [AdminPesananController::class, 'pesan
 Route::delete('/admin/hapus_pesanan/{id}', [AdminPesananController::class, 'hapus_pesanan']);
 Route::get('/admin/get_list_produk/{produk}', [AdminPesananController::class, 'get_list_produk']);
 Route::post('/admin/input_pesanan_baru', [AdminPesananController::class, 'input_pesanan_baru']);
+Route::get('/admin/get_total_pesanan/{id_nota}', [AdminPesananController::class, 'get_total_pesanan']);
+Route::get('/admin/get_harga_produk/{id_produk}', [AdminPesananController::class, 'get_harga']);
+
 
 // admin riwayat
 Route::get('/admin/riwayat-pesanan', [AdminRiwayatPesanan::class, 'daftar_riwayat']);
@@ -117,6 +120,7 @@ Route::get('/admin-diskon-produk', [AdminProdukController::class, 'diskon']);
 Route::post('/admin/post-ubah-stok', [AdminProdukController::class, 'post_ubah_stok']);
 Route::post('/admin/post-ubah-diskon', [AdminProdukController::class, 'post_ubah_diskon']);
 Route::post('/post-update-produk', [AdminProdukController::class, 'post_update_produk']);
+Route::get('/admin-get-data-cari-produk', [AdminProdukController::class, 'get_data_cari_produk']);
 
 // wilayah
 Route::get('/admin-kota', [WilayahController::class, 'kota']);

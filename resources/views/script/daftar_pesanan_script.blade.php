@@ -78,8 +78,20 @@
 
                 $('#tbody_daftar_pesanan_'+id_nota).append(new_tr);
                 $('#tambah_pesanan_modal').modal('hide');
+                get_total_pesanan(id_nota);
 
             }
         })
+   }
+
+   function get_total_pesanan(id_nota){
+       $.ajax({
+           type: "get",
+           url: "/admin/get_total_pesanan/"+id_nota,
+           success:function(data){
+               console.log(data);
+               $('#total_pesanan_'+id_nota).html("Total Pesanan : Rp. "+data.total_harga);
+           }
+       })
    }
 </script>

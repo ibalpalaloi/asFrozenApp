@@ -52,10 +52,12 @@ function tgl_indo($tanggal){
     <div class="container-fluid">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">DataTable with default features</h3>
+          <h3 class="card-title">Daftar Produk</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
+          <input type="text" class="form-control" style="width: 400px" id="cari_produk" onchange="cari_produk()">
+          <br>
           <table id="example1" class="table table-bordered table-striped">
             <thead>
               <tr>
@@ -67,64 +69,9 @@ function tgl_indo($tanggal){
                 <th></th>
               </tr>
             </thead>
-            <tbody>
-              @foreach ($list_produk as $data)
-              <tr>
-                <td>
-                  <div style="display:flex;">
-                    <img src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100px;">
-                    <div style="display: flex; flex-direction: column; margin-left: 0.5em;">
-                      <div id="nama_{{$data['id']}}">{{$data['nama']}}</div>
-                      <div>
-                       <small id="harga_{{$data['id']}}">
-                        @if ($data['diskon'] > 0)
-                        <s>Rp {{number_format($data['harga'], 0, '.','.')}}</s>
-                        @else
-                        Rp {{number_format($data['harga'], 0, '.','.')}}
-                        @endif
-                      </small>
-                      <span>
-                        @if ($data['diskon'] > 0)
-                        @php 
-                        $harga_diskon = round($data['harga']*$data['diskon']/100, 0);
-                        @endphp
-                        Rp. {{number_format($data['harga']-$harga_diskon, 0, '.','.')}}
-                        @endif
-                      </span><br>
-
-                      @if ($data['diskon'] > 0) 
-                      <badge class="badge badge-primary" href="#">{{$data['diskon']}}%
-                      </badge>
-                      @endif
-                      @if ($data['diskon_mulai'] != null)                    
-                        @php $sisa_diskon = strtotime($data['diskon_akhir']) - strtotime(date('Y-m-d')); @endphp
-                     Berakhir {{round($sisa_diskon / (60 * 60 * 24))}} Hari lagi</small>
-                      @endif
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td id="stok_{{$data['id']}}">
-                <a href="#" onclick="show_input_stok('{{$data['id']}}', '{{$data['stok']}}')">{{$data['stok']}}</a>
-              </td>
-              <td id="satuan_{{$data['id']}}">{{$data['satuan']}}</td>
-              <td id="kategori_{{$data['id']}}">{{$data['kategori']}}</td>
-              <td id="sub_kategori_{{$data['id']}}">{{$data['sub_kategori']}}</td>
-              <td>
-                <button class="btn btn-info" onclick="modal_detail_produk('{{$data['id']}}')">
-                  <ion-icon name="pencil-outline"></ion-icon>
-                </button>
-                <button class="btn btn-danger">
-                  <ion-icon name="trash-outline"></ion-icon>
-                </button>
-                <button class="btn btn-success">
-                  <ion-icon name="eye-outline"></ion-icon>
-                </button>
-              </td>
-            </tr>
-
-            @endforeach
-          </tbody>
+            <tbody id="tbody_daftar_produk">
+              @include('admin.include.data_daftar_produk')
+            </tbody>
         </table>
       </div>
       <!-- /.card-body -->
@@ -141,6 +88,8 @@ function tgl_indo($tanggal){
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script type="text/javascript">
+
+
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -272,22 +221,6 @@ function tgl_indo($tanggal){
 
 
 
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-
   function show_input_stok(id, value){
     html = "<input style='width:  60px' onkeydown='ubah_stok("+id+")' id='input_stok_"+id+"' type='text' value='"+value+"'>";
     $('#stok_'+id).html(html);
@@ -353,6 +286,66 @@ function tgl_indo($tanggal){
       })
     }
     
+  }
+
+  $(window).on("scroll", function() {
+    var scrollHeight = $(document).height();
+    var scrollPosition = $(window).height() + $(window).scrollTop();
+    if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
+      if($('#cari_produk').val() == ""){
+        var view = get_data_produk();
+
+        $('#tbody_daftar_produk').append(view);
+      }
+        
+    }
+  });
+
+  var page = 2;
+  var status_scroll = true;
+  function get_data_produk(keyword){
+    if(status_scroll){
+      var view = null
+      var table = $.ajax({
+        async: false,
+        type: "get",
+        url: "/admin-daftar-produk?page="+page,
+        success:function(data){
+          page = data.page;
+          status_scroll = data.status_scroll;
+          view = data.view;
+        }
+      });
+      return view;
+    }
+  }
+
+  function cari_produk(){
+    var keyword = $('#cari_produk').val();
+    if(keyword != ""){
+      page =1;
+      var view = get_data_cari_produk(keyword)
+    }
+    else{
+      var view = get_data_produk();
+    }
+    $('#tbody_daftar_produk').empty();
+    $('#tbody_daftar_produk').append(view);
+  }
+
+  function get_data_cari_produk(keyword){
+    if(status_scroll){
+      var view = null
+      var table = $.ajax({
+        async: false,
+        type: "get",
+        url: "/admin-get-data-cari-produk?keyword="+keyword,
+        success:function(data){
+          view = data.view;
+        }
+      });
+      return view;
+    }
   }
 </script>
 
