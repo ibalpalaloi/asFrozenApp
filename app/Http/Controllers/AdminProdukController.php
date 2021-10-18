@@ -93,8 +93,8 @@ class AdminProdukController extends Controller
         return $kode.$current_date;
     }  
 
-    public function daftar_produk(){
-        $produk = Produk::all();
+    public function daftar_produk(Request $request){
+        $produk = Produk::paginate(30);
         // dd($produk);
         $list_produk = array();
         $i=0;
@@ -127,6 +127,19 @@ class AdminProdukController extends Controller
         // dd($list_produk);
         $menu = 'produk';
         $sub_menu = "daftar produk";
+        if(count($request->all()) != 0){
+            $keyword = $request->keyword;
+            $page = $request->page;
+            if(count($list_produk) == 30){
+                $page++;
+                $status_scroll = true;
+            }
+            else{
+                $status_scroll = false;
+            }
+            $view = view('admin.include.data_daftar_produk', compact('list_produk', 'menu', 'sub_menu'))->render();
+            return response()->json(['view'=>$view, 'page'=>$page, 'status_scroll'=>$status_scroll]);
+        }
         return view('admin.daftar_produk', compact('list_produk', 'menu', 'sub_menu'));
     }
 
@@ -290,5 +303,41 @@ class AdminProdukController extends Controller
         }
 
         return response()->json(['html'=>$view]);
+    }
+
+    public function get_data_cari_produk(Request $request){
+        $keyword = $request->keyword;
+        $produk = Produk::where('nama', 'LIKE', '%'.$keyword.'%')->get();
+        // dd($produk);
+        $list_produk = array();
+        $i=0;
+        foreach($produk as $data){
+            $list_produk[$i]['id'] = $data->id;
+            $list_produk[$i]['nama'] = $data->nama;
+            $list_produk[$i]['foto'] = $data->foto;
+            $list_produk[$i]['diskon_id'] = $data->diskon->id ?? 0;
+            $list_produk[$i]['diskon_mulai'] = $data->diskon->diskon_mulai ?? null;
+            $list_produk[$i]['diskon_akhir'] = $data->diskon->diskon_akhir ?? null;
+            $list_produk[$i]['harga'] = $data->harga;
+            $list_produk[$i]['satuan'] = $data->satuan;
+            $list_produk[$i]['kategori'] = $data->kategori->kategori;
+            $list_produk[$i]['sub_kategori'] = $data->sub_kategori->sub_kategori;
+            if($data->diskon != null){
+                $list_produk[$i]['diskon'] = $data->diskon->diskon;
+            }
+            else{
+                $list_produk[$i]['diskon'] = 0;
+            }
+
+            if($data->stok_produk != null){
+                $list_produk[$i]['stok'] = $data->stok_produk->stok;
+            }
+            else{
+                $list_produk[$i]['stok'] = 0;
+            }
+            $i++;
+        }
+        $view = view('admin.include.data_daftar_produk', compact('list_produk'))->render();
+        return response()->json(['view'=>$view]);
     }
 }

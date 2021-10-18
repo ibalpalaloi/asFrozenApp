@@ -9,6 +9,7 @@ use App\Models\Riwayat_pesanan;
 use App\Models\User;
 use App\Models\pesanan;
 use App\Models\Produk;
+use App\Models\Diskon;
 
 class AdminPesananController extends Controller
 {
@@ -89,8 +90,8 @@ class AdminPesananController extends Controller
             $list_produk[$i]['id'] = $data->id;
             $list_produk[$i]['nama'] = $data->nama;
             $list_produk[$i]['stok'] = $data->stok_produk->stok;
-            $list_produk[$i]['diskon']= "";
-            $list_produk[$i]['harga'] = $data->harga;
+            $list_produk[$i]['harga'] = $this->get_harga($data->id);
+            $list_produk[$i]['diskon'] = $this->get_diskon_produk($data->id);
             $i++;
         }
         $view = view('admin.include.data_tabel_tambah_produk', compact('list_produk'))->render();
@@ -123,5 +124,48 @@ class AdminPesananController extends Controller
         $data_pesanan['harga_satuan'] = $pesanan->harga_satuan;
         $data_pesanan['harga_total'] = $pesanan->jumlah * $pesanan->harga_satuan;
         return response()->json(['pesanan'=>$data_pesanan]);
+    }
+
+    public function get_total_pesanan($id_nota){
+        $nota = Nota::find($id_nota);
+        $total_harga = $nota->pesanan->sum('harga_satuan') + $nota->ongkos_kirim;
+
+        return response()->json(['total_harga'=>$total_harga]);
+    }
+
+    public function get_harga($id_produk){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
+        $produk = Produk::find($id_produk);
+        $diskon = Diskon::where([
+                                ['produk_id', $id_produk],
+                                ['diskon_akhir', '>=', $date_today],
+                                ['diskon_mulai', '<=', $date_today]
+        ])->first();
+        if($diskon != null){
+            $harga = $produk->harga - (($diskon->diskon/100) * $produk->harga);
+        }
+        else{
+            $harga = $produk->harga;
+        }
+        return $harga;
+    }
+
+    public function get_diskon_produk($id_produk){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
+        $produk = Produk::find($id_produk);
+        $diskon = Diskon::where([
+                                ['produk_id', $id_produk],
+                                ['diskon_akhir', '>=', $date_today],
+                                ['diskon_mulai', '<=', $date_today]
+        ])->first();
+        if($diskon != null){
+            $diskon = $diskon->diskon;
+        }
+        else{
+            $diskon = 0;
+        }
+        return $diskon;
     }
 }
