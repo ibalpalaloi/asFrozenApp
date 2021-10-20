@@ -19,6 +19,7 @@ use App\Http\Controllers\UserRiwayatController;
 use App\Htpp\Controllers\UserBiodataController;
 use App\Http\Controllers\AdminAnalisController;
 use App\Http\Controllers\AdminGetController;
+use App\Http\Controllers\AdminDiskonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +83,7 @@ Route::get('/get-kategori', [GetController::class, 'get_kategori']);
 Route::post('/get-embed-link', [GetController::class, 'get_embed_video']);
 Route::get('/get-jumlah-pesanan', [GetController::class, 'get_jumlah_pesanan']);
 Route::get('/get_jumlah_keranjang', [GetController::class, 'get_jumlah_keranjang']);
+Route::get('/get-data-diskon/{id}', [GetController::class, 'get_data_diskon']);
 
 // admin Banner
 Route::post('/admin-banner-side-tambah', [AdminBannerController::class, 'store_side']);
@@ -131,11 +133,15 @@ Route::post('/admin-post-kecamatan', [WilayahController::class, 'post_kecamatan'
 // diskon
 Route::get('/admin/get/sub-kategori/{id}', [AdminGetController::class, 'get_sub_kategori']);
 Route::get('/admin/get/produk/{id}', [AdminGetController::class, 'get_produk_from_sub']);
+Route::get('/admin-manajemen-diskon', [AdminDiskonController::class, 'manajemen_diskon']);
+Route::post('/admin/post_ubah_diskon', [AdminDiskonController::class, 'post_ubah_diskon']);
+Route::get('/admin/hapus_diskon/{id}', [AdminDiskonController::class, 'hapus_diskon']);
 
 // Route::post('/admin/diskon/update', )
 
 // get
 Route::get('/get-produk/{id}', [AdminGetController::class, 'get_produk']);
+
 
 
 // katalog

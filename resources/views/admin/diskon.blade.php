@@ -275,15 +275,7 @@ function tgl_indo($tanggal){
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 <script>
-    $('#tgl_mulai').datetimepicker({
-        format: 'L',
-        format: 'YYYY-MM-DD'
-    });
-
-    $('#tgl_akhir').datetimepicker({
-        format: 'L',
-        format: 'YYYY-MM-DD'
-    });
+   
 </script>
 <script>
 
