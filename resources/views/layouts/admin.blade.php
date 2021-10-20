@@ -158,6 +158,7 @@
 
             </ul>
           </li>
+
           <li class="nav-item has-treeview @if($menu_ == 'produk') menu-open @endif">
             <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'produk') active @endif">
               <i class="nav-icon fas fa-tree"></i>
@@ -179,14 +180,33 @@
                   <p>Tambah Produk</p>
                 </a>
               </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview @if($menu_ == 'diskon') menu-open @endif">
+            <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'diskon') active @endif">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                Diskon
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin-diskon-produk" class="nav-link">
+                <a href="/admin-diskon-produk" class="nav-link @if($menu_ == 'daftar produk') active @endif">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Diskon</p>
+                  <p>Lihat Diskon</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin-manajemen-diskon" class="nav-link @if($menu_ == 'tambah produk') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manajemen Diskon</p>
                 </a>
               </li>
             </ul>
           </li>
+
           <li class="nav-item has-treeview @if($menu_ == 'pesanan') menu-open @endif">
             <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'pesanan') active @endif">
               <i class="nav-icon fas fa-tree"></i>

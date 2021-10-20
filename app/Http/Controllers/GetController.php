@@ -94,4 +94,26 @@ class GetController extends Controller
         }
         return response()->json(['jumlah_keranjang'=>$jumlah_keranjang]);
     }
+
+    public function get_data_diskon($id){
+        $data_produk = array();
+        $produk = Produk::find($id);
+        if(!empty($produk)){
+            $data_produk['id'] = $produk->id;
+            $data_produk['nama_produk'] = $produk->nama;
+            if($produk->diskon != null){
+                $data_produk['diskon'] = $produk->diskon->diskon;
+                $data_produk['diskon_mulai'] = $produk->diskon->diskon_mulai;
+                $data_produk['diskon_akhir'] = $produk->diskon->diskon_akhir;
+            }
+            else{
+                $data_produk['diskon'] = 0;
+                $data_produk['diskon_mulai'] = "-";
+                $data_produk['diskon_akhir'] = "-";
+            }
+        }
+
+        return response()->json(['data_diskon'=>$data_produk]);
+        
+    }
 }
