@@ -337,7 +337,7 @@ class AdminProdukController extends Controller
             }
             $i++;
         }
-        $view = view('admin.include.data_manajemen_diskon', compact('list_produk'))->render();
+        $view = view('admin.include.data_daftar_produk', compact('list_produk'))->render();
         return response()->json(['view'=>$view]);
     }
 }

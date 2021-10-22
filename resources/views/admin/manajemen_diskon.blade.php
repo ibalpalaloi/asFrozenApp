@@ -244,7 +244,7 @@
     if(tgl_mulai != "" && tgl_akhir != ""){
       $.ajax({
         type: "get",
-        url: "/admin/get-data-cari-produk?tgl_mulai="+tgl_mulai+"&tgl_akhir="+tgl_akhir,
+        url: "/admin/cari-produk-diskon-tanggal?tgl_mulai="+tgl_mulai+"&tgl_akhir="+tgl_akhir,
         success:function(data){
           $('#tbody_daftar_produk').html(data.view);
         }

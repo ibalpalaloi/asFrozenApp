@@ -339,7 +339,7 @@ function tgl_indo($tanggal){
       var table = $.ajax({
         async: false,
         type: "get",
-        url: "/admin-get-data-cari-produk?keyword="+keyword,
+        url: "/admin/get-data-cari-produk?keyword="+keyword,
         success:function(data){
           view = data.view;
         }
