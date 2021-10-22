@@ -35,7 +35,7 @@ class AdminProdukController extends Controller
             'satuan' => 'required',
             'harga' => 'required',
             'stok' => 'required',
-            'foto_produk' => 'required|mimes:jpg,png,jpeg',
+            // 'foto_produk' => 'required|mimes:jpg,png,jpeg',
         ]);
         if($valdiator->fails()){
             return back()->with('error', 'Kesalahan Penginputan data!!');
@@ -337,7 +337,7 @@ class AdminProdukController extends Controller
             }
             $i++;
         }
-        $view = view('admin.include.data_daftar_produk', compact('list_produk'))->render();
+        $view = view('admin.include.data_manajemen_diskon', compact('list_produk'))->render();
         return response()->json(['view'=>$view]);
     }
 }

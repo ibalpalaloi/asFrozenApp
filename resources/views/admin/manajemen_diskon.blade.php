@@ -71,7 +71,44 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <input type="text" class="form-control" style="width: 400px" id="cari_produk" onchange="cari_produk()">
+            <div class="row">
+              <div class="col">
+                <br>
+                <div style="padding: 7px">
+                  <input  type="text" class="form-control" style="width: 400px" id="cari_produk" onchange="cari_produk()" placeholder="Cari Nama Produk">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                    <label>Tanggal Mulai:</label>
+                    <div class="input-group date" id="cari_tgl_mulai" data-target-input="nearest">
+                        <input type="text" id="cari_tgl_mulai_" class="form-control datetimepicker-input" data-target="#input_tgl_mulai"/>
+                        <div class="input-group-append" data-target="#cari_tgl_mulai" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                    <label>Tanggal Akhir:</label>
+                    <div class="input-group date" id="cari_tgl_akhir" data-target-input="nearest">
+                        <input type="text" id="cari_tgl_akhir_" class="form-control datetimepicker-input" data-target="#input_tgl_mulai"/>
+                        <div class="input-group-append" data-target="#cari_tgl_akhir" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col">
+                <br>
+                <div style="margin-top: 7px">
+                  <button type="button" onclick="cari_berdasarkan_tgl()" class="btn btn-primary">cari</button>
+                </div>
+                
+              </div>
+            </div>
+            
             <br>
             <table id="example1" class="table table-bordered table-striped">
               <thead>
@@ -105,6 +142,16 @@
     });
 
     $('#input_tgl_akhir').datetimepicker({
+        format: 'L',
+        format: 'YYYY-MM-DD'
+    });
+
+    $('#cari_tgl_mulai').datetimepicker({
+        format: 'L',
+        format: 'YYYY-MM-DD'
+    });
+
+    $('#cari_tgl_akhir').datetimepicker({
         format: 'L',
         format: 'YYYY-MM-DD'
     });
@@ -189,6 +236,20 @@
       }
 
     })
+  }
+
+  function cari_berdasarkan_tgl(){
+    var tgl_mulai = $('#cari_tgl_mulai_').val();
+    var tgl_akhir = $('#cari_tgl_akhir_').val();
+    if(tgl_mulai != "" && tgl_akhir != ""){
+      $.ajax({
+        type: "get",
+        url: "/admin/get-data-cari-produk?tgl_mulai="+tgl_mulai+"&tgl_akhir="+tgl_akhir,
+        success:function(data){
+          $('#tbody_daftar_produk').html(data.view);
+        }
+      })
+    }
   }
 </script>
 @endsection

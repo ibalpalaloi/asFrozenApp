@@ -122,7 +122,7 @@ Route::get('/admin-diskon-produk', [AdminProdukController::class, 'diskon']);
 Route::post('/admin/post-ubah-stok', [AdminProdukController::class, 'post_ubah_stok']);
 Route::post('/admin/post-ubah-diskon', [AdminProdukController::class, 'post_ubah_diskon']);
 Route::post('/post-update-produk', [AdminProdukController::class, 'post_update_produk']);
-Route::get('/admin-get-data-cari-produk', [AdminProdukController::class, 'get_data_cari_produk']);
+Route::get('/admin/get-data-cari-produk', [AdminProdukController::class, 'get_data_cari_produk']);
 
 // wilayah
 Route::get('/admin-kota', [WilayahController::class, 'kota']);
@@ -136,6 +136,7 @@ Route::get('/admin/get/produk/{id}', [AdminGetController::class, 'get_produk_fro
 Route::get('/admin-manajemen-diskon', [AdminDiskonController::class, 'manajemen_diskon']);
 Route::post('/admin/post_ubah_diskon', [AdminDiskonController::class, 'post_ubah_diskon']);
 Route::get('/admin/hapus_diskon/{id}', [AdminDiskonController::class, 'hapus_diskon']);
+Route::get('/admin/cari-produk-diskon-tanggal', [AdminDiskonController::class, 'cari_produk_diskon_tanggal']);
 
 // Route::post('/admin/diskon/update', )
 
