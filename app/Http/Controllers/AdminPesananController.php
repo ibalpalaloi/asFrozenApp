@@ -128,7 +128,11 @@ class AdminPesananController extends Controller
 
     public function get_total_pesanan($id_nota){
         $nota = Nota::find($id_nota);
-        $total_harga = $nota->pesanan->sum('harga_satuan') + $nota->ongkos_kirim;
+        $total_harga = 0;
+        foreach($nota->pesanan as $pesanan){
+            $total_sub_pesanan = $pesanan->jumlah * $pesanan->harga_satuan;
+            $total_harga += $total_sub_pesanan;
+        }
 
         return response()->json(['total_harga'=>$total_harga]);
     }

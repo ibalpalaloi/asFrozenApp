@@ -104,14 +104,20 @@
                                   </tr>
                               </thead>
                               <tbody id="tbody_daftar_pesanan_{{$data->id}}">
+                                @php
+                                    $total_harga = 0;
+                                @endphp
                                   @foreach ($data->pesanan as $pesanan)
+                                      @php
+                                          $total_harga += $pesanan->jumlah * $pesanan->harga_satuan;
+                                      @endphp
                                       <tr class="border_table" id="row_{{$pesanan->id}}">
                                           <td class="border_table">{{$pesanan->produk->nama}}</td>
                                           <td class="border_table">{{$pesanan->jumlah}}</td>
                                           <td class="border_table">{{$pesanan->harga_satuan}}</td>
                                           <td class="border_table">{{$pesanan->harga_satuan * $pesanan->jumlah}}</td>
                                           <td class="border_table">
-                                            <button onclick="hapus_pesanan('{{$pesanan->id}}')" class="btn btn-danger"></button>
+                                            <button onclick="hapus_pesanan('{{$pesanan->id}}', '{{$data->id}}')" class="btn btn-danger"></button>
                                           </td>
                                       </tr>
                                   @endforeach
@@ -172,7 +178,7 @@
                           </div>
                       </div>
                       <div class="timeline-footer">
-                      <h3 style="color: #ec1f25" id="total_pesanan_{{$data->id}}">Total Pesanan : Rp. {{$data->pesanan->sum('harga_satuan')+ $data->ongkos_kirim}}</h3>
+                      <h3 style="color: #ec1f25" id="total_pesanan_{{$data->id}}">Total Pesanan : Rp. {{$total_harga + $data->ongkos_kirim}}</h3>
                       <a href="/admin/ubah_status_pesanan/{{$data->id}}/packaging" class="btn btn-primary btn-sm">Terima Pesanan</a>
                       <a class="btn btn-success btn-sm" >Hubungi Pembeli</a>
                       <a class="btn btn-danger btn-sm" >Batalkan Pesanan</a>

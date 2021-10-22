@@ -1,11 +1,12 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     var token = $("meta[name='csrf-token']").attr("content");
-   function hapus_pesanan(row){
+   function hapus_pesanan(row, id_nota){
       swal("Yakin Ingin Menghapus Pesanan")
         .then((value) => {
           $('#row_'+row).remove();
           ajax_hapus_pesanan(row);
+          get_total_pesanan(id_nota);
       });
    }
 
