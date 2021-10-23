@@ -108,49 +108,31 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 							<th style="text-align: center;">Subtotal</th>
 						</thead>
 						<tbody>
-							@foreach ($list_keranjang as $data)
-							@php $diskon = "0"; @endphp
-							@if ($data->produk->diskon != null)
-							@php $diskon = $data->produk->diskon->diskon; @endphp
-							@endif
+							@foreach ($data_produk_checkout as $data)
 							<tr>
 								<td>
 									<div style="width: 100%; display: flex; margin-bottom: 0.5em;">
 										<div style="width: 12%;">
-											<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+											<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 										</div>
 										<div style="width: 85%; margin-left: 1em; display: flex; align-items: center;">
-											{{$data->produk->nama}}
+											{{$data['nama_produk']}}
+											@if ($data['diskon'] != 0)
+												<badge class="badge badge-success" style="display: flex; justify-content: center; align-items: center; margin-left: 4px">{{$data['diskon']}} %</badge>
+											@endif
+											
 										</div>
 									</div>
 								</td>
 								<td>
 									<div style="display: flex; justify-content: space-between;">
-										@if ($diskon != "0")
-
-										@php 
-										$potongan_harga = round($data->produk->harga*$diskon/100,0); 
-										$harga_diskon = $data->produk->harga-$potongan_harga;
-										@endphp
-										<div>Rp.</div> <div>{{number_format($harga_diskon, 0, '.', '.')}}</div>
-										@else
-										@php 
-										$harga_diskon = $data->produk->harga;
-										@endphp
-										<div>Rp.</div> <div>{{number_format($harga_diskon, 0, '.', '.')}}</div>
-										@endif
+										<div>Rp.</div> <div>{{number_format($data['harga_diskon'], 0, '.', '.')}}</div>
 									</div>
 								</td>
-								<td style="text-align: center;">x{{$data->jumlah}}</td>
+								<td style="text-align: center;">x{{$data['jumlah']}}</td>
 								<td>
-									@php
-
-									$sub_total = $harga_diskon * $data->jumlah;
-									$total_harga_produk += $sub_total;
-
-									@endphp
 									<div style="display: flex; justify-content: space-between;">
-										<div>Rp.</div> <div>{{number_format($sub_total, 0, '.', '.')}}</div>
+										<div>Rp.</div> <div>{{number_format($data['jumlah'] * $data['harga_diskon'], 0, '.', '.')}}</div>
 									</div>									
 								</td>
 							</tr>

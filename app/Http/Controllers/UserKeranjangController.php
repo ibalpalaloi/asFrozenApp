@@ -10,6 +10,7 @@ use App\Models\Kelurahan;
 use App\Models\Nota;
 use App\Models\Pesanan;
 use App\Models\Produk;
+use App\Models\Diskon;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
 
@@ -23,36 +24,81 @@ class UserKeranjangController extends Controller
         return $current_date;
     }
 
+    public function get_diskon($id_produk, $date){
+        
+        $cek_diskon = Diskon::where([
+            ['produk_id', $id_produk],
+            ['diskon_akhir', '>=', $date],
+            ['diskon_mulai', '<=', $date]
+        ])->first();
+
+        if(!empty($cek_diskon)){
+            $diskon = $cek_diskon->diskon;
+        }else{
+            $diskon = 0;
+        }
+        return $diskon;
+    }
+
+    public function get_harga_total_no_json(){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $user_id = Auth()->user()->id;
+        $date_today = date("Y-m-d");
+        $harga_total = 0;
+        $keranjang = Keranjang::where([
+                                        ['user_id', $user_id],
+                                        ['checked', 'true']
+        ])->get();
+        foreach($keranjang as $data){
+            $produk = Produk::find($data->produk_id);
+            $cek_diskon = Diskon::where([
+                                        ['produk_id', $produk->id],
+                                        ['diskon_akhir', '>=', $date_today],
+                                        ['diskon_mulai', '<=', $date_today]
+            ])->first();
+            if(!empty($cek_diskon)){
+                $diskon = $cek_diskon->diskon;
+            }else{
+                $diskon = 0;
+            }
+
+            $harga_diskon = $this->get_harga_diskon($produk->harga, $diskon);
+            $harga_total += $data->jumlah * $harga_diskon;
+        }
+
+        return $harga_total;
+    }
+
     public function keranjang(){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
+
         Keranjang::where('user_id', Auth()->user()->id)->update(['checked' => "true"]);
         $keranjang = Keranjang::where('user_id', Auth()->user()->id)->get();
         $data_keranjang = array();
         $i=0;
         foreach($keranjang as $data){
-            $diskon = 0;
+            $diskon = $this->get_diskon($data->produk_id, $date_today);
             $harga = $data->produk->harga;
             $data_keranjang[$i]['id'] = $data->id;
             $data_keranjang[$i]['produk_id'] = $data->produk_id;
+            $data_keranjang[$i]['nama_produk'] = $data->produk->nama;
             $data_keranjang[$i]['harga'] = $data->produk->harga;
             $data_keranjang[$i]['jumlah'] = $data->jumlah;
             $data_keranjang[$i]['checked'] = $data->checked;
-            $data_keranjang[$i]['diskon'] = 0;
-            if($data->produk->diskon != null){
-                $data_keranjang[$i]['diskon'] = $data->produk->diskon->diskon;
-                $diskon = $data->produk->diskon->diskon;
-            }
-            if($diskon != 0){
-                $data_keranjang[$i]['harga'] = $harga - (($diskon / 100) * $harga);
-            }
+            $data_keranjang[$i]['diskon'] = $diskon;
+            $data_keranjang[$i]['foto'] = $data->produk->foto;
+            $data_keranjang[$i]['harga_diskon'] = $this->get_harga_diskon($data->produk->harga, $diskon);
             $i++;
         }
+        $harga_total = $this->get_harga_total_no_json();
         $rekomendasi_produk = Produk::take(4)->get();
         $agent = new Agent();
         if ($agent->isMobile()){
-            return view('user.payment.keranjang.mobile', compact('keranjang', 'data_keranjang', 'rekomendasi_produk'));
+            return view('user.payment.keranjang.mobile', compact('keranjang', 'data_keranjang', 'rekomendasi_produk', 'harga_total'));
         }
         else {
-            return view('user.payment.keranjang.desktop', compact('keranjang', 'data_keranjang', 'rekomendasi_produk'));
+            return view('user.payment.keranjang.desktop1', compact('keranjang', 'data_keranjang', 'rekomendasi_produk', 'harga_total'));
         }
 
     }
@@ -79,6 +125,8 @@ class UserKeranjangController extends Controller
     }
 
     public function checkout(){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
         $kota = Kota::all();
         $kecamatan = Kecamatan::where('kota_id', Auth()->user()->biodata->kelurahan->kecamatan->kota->id)->get();
         $kelurahan = Kelurahan::where('kecamatan_id', Auth()->user()->biodata->kelurahan->kecamatan->id)->get();
@@ -86,22 +134,30 @@ class UserKeranjangController extends Controller
             ['user_id', Auth()->user()->id],
             ['checked', "true"]
         ])->get();
-        $total_harga_produk = 0;
+        $total_harga_produk = $this->get_harga_total_no_json();
+        $data_produk_checkout = array();
+        $i=0;
         foreach($list_keranjang as $data){
-            $harga_diskon = $data->produk->harga;
-            if($data->produk->diskon != null){
-                if($data->produk->diskon->diskon != 0){
-                    $harga_diskon = $data->produk->harga - (($data->produk->diskon->diskon/100) * $data->produk->harga);
-                }
-            }
-            $total_harga_produk += $data->jumlah * $harga_diskon;
+            $diskon = $this->get_diskon($data->produk_id, $date_today);
+            $harga = $data->produk->harga;
+            $data_produk_checkout[$i]['id'] = $data->id;
+            $data_produk_checkout[$i]['produk_id'] = $data->produk_id;
+            $data_produk_checkout[$i]['nama_produk'] = $data->produk->nama;
+            $data_produk_checkout[$i]['harga'] = $data->produk->harga;
+            $data_produk_checkout[$i]['jumlah'] = $data->jumlah;
+            $data_produk_checkout[$i]['checked'] = $data->checked;
+            $data_produk_checkout[$i]['diskon'] = $diskon;
+            $data_produk_checkout[$i]['foto'] = $data->produk->foto;
+            $data_produk_checkout[$i]['harga_diskon'] = $this->get_harga_diskon($data->produk->harga, $diskon);
+            $i++;
         }
+
         $agent = new Agent();
         if ($agent->isMobile()){
-            return view('user.payment.checkout.mobile', compact('list_keranjang', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk'));
+            return view('user.payment.checkout.mobile', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk'));
         }
         else {
-            return view('user.payment.checkout.desktop', compact('list_keranjang', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk'));
+            return view('user.payment.checkout.desktop', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk'));
         }
 
     }
@@ -165,5 +221,39 @@ class UserKeranjangController extends Controller
 
         $keranjang = Keranjang::where([['user_id', Auth()->user()->id], ['checked', 'true']])->delete();
         return redirect('/pesanan');
+    }
+
+    public function get_harga_total(){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $user_id = Auth()->user()->id;
+        $date_today = date("Y-m-d");
+        $harga_total = 0;
+        $keranjang = Keranjang::where([
+                                        ['user_id', $user_id],
+                                        ['checked', 'true']
+        ])->get();
+        foreach($keranjang as $data){
+            $produk = Produk::find($data->produk_id);
+            $cek_diskon = Diskon::where([
+                                        ['produk_id', $produk->id],
+                                        ['diskon_akhir', '>=', $date_today],
+                                        ['diskon_mulai', '<=', $date_today]
+            ])->first();
+            if(!empty($cek_diskon)){
+                $diskon = $cek_diskon->diskon;
+            }else{
+                $diskon = 0;
+            }
+
+            $harga_diskon = $this->get_harga_diskon($produk->harga, $diskon);
+            $harga_total += $data->jumlah * $harga_diskon;
+        }
+
+        return response()->json(['harga_total'=>$harga_total]);
+    }
+
+    public function get_harga_diskon($harga, $diskon){
+        $harga_diskon = $harga - (($diskon/100) * $harga);
+        return $harga_diskon;
     }
 }

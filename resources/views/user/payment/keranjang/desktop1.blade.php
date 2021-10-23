@@ -28,67 +28,47 @@ Keranjang
 							<?php
 						}
 						else {
-							foreach ($keranjang as $data){
-								$diskon = "0";
-								if($data->produk->diskon != null){
-									$diskon = $data->produk->diskon->diskon;
-								}
-								$harga = $data->produk->harga;
-								if($diskon != "0"){
-									$harga = $harga - (($diskon / 100) * $harga);
-								}
+							foreach ($data_keranjang as $data){
 								?>
 								<div class="col-md-1" style="display: flex;justify-content: center; align-items: center; margin-bottom: 1em;">
 									<div class="icheck-danger d-inline">
-										<input type="checkbox" id="checkboxPrimary{{$index}}" onchange="checkbox_cek('{{$data->id}}', '{{$index}}')" checked="false">
-										<label for="checkboxPrimary{{$index}}">
+										<input type="checkbox" id="checkboxPrimary{{$data['id']}}" onchange="checkbox_cek('{{$data['id']}}')" checked="false">
+										<label for="checkboxPrimary{{$data['id']}}">
 										</label>
 									</div>
 								</div>
 								<div class="col-2">
-									<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 100%; border-radius: 0.2em; margin-bottom: 0.5em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+									<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100%; border-radius: 0.2em; margin-bottom: 0.5em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 								</div>
 								<div class="col-5">
 									<div class="row">
-										{{$data->produk->nama}} &nbsp;
+										{{$data['nama_produk']}} &nbsp;
 
 									</div>
 									<div class="row text-muted" style="display: flex; flex-direction: column;">
-										@if ($diskon != "0")
+										@if ($data['diskon'] != "0")
 										<div style="display: flex;">
-											<div><s>Rp. {{number_format($harga,0,'.','.')}}</s>&nbsp;</div>
-											<badge class="badge badge-success" style="display: flex; justify-content: center; align-items: center;">{{$diskon}} %</badge>	
+											<div><s>Rp. {{number_format($data['harga'],0,'.','.')}}</s>&nbsp;</div>
+											<badge class="badge badge-success" style="display: flex; justify-content: center; align-items: center;">{{$data['diskon']}} %</badge>	
 										</div>
-										@php 
-										$potongan_harga = round($harga*$diskon/100,0); 
-										$harga_diskon = $harga-$potongan_harga;
-										@endphp
-										<div>Rp. {{number_format($harga_diskon,0,'.','.')}}</div>
+										<div>Rp. {{number_format($data['harga_diskon'],0,'.','.')}}</div>
 										@else
-										@php 
-										$harga_diskon = $harga;
-										@endphp
-										Rp. {{number_format($harga,0,'.','.')}}&nbsp;
+										Rp. {{number_format($data['harga'],0,'.','.')}}&nbsp;
 										@endif
 									</div>
 								</div>
 								<div class="col-2" style="padding: 0px; display: flex; align-items: center;">
 									<div style="display: flex; align-items: flex-start; padding: 0px; justify-content: flex-start; width: 100%;">
-										<div onclick="kurang_pesanan('{{$index}}', '{{$harga_diskon}}')" class="btn btn-danger" style="color: black; color: white; width: 25%; border-radius: 0px;"> - </div>
-										<div style="width: 50%; border-radius: 0px;" class="btn" id="jumlah_pesanan{{$index}}">{{$data->jumlah}}</div>
-										<div onclick="tambah_pesanan('{{$index}}', '{{$harga_diskon}}')" class="btn btn-danger" style="color: black; color: white; width: 25%; border-radius: 0px;"> + </div>
+										<div onclick="kurang_pesanan('{{$data['id']}}', '{{$data['harga_diskon']}}')" class="btn btn-danger" style="color: black; color: white; width: 25%; border-radius: 0px;"> - </div>
+										<div style="width: 50%; border-radius: 0px;" class="btn" id="jumlah_pesanan{{$data['id']}}">{{$data['jumlah']}}</div>
+										<div onclick="tambah_pesanan('{{$data['id']}}', '{{$data['harga_diskon']}}')" class="btn btn-danger" style="color: black; color: white; width: 25%; border-radius: 0px;"> + </div>
 									</div>
 								</div>
 								<div class="col-2" style="display: flex; align-items: center; justify-content: space-between; padding-right: 0px;">
-									@php
-									$jumlah = $data->jumlah;
-									$jumlah_harga = round($jumlah * $harga_diskon,0);
-									$total_harga += $jumlah_harga;
-									@endphp	
-									<span >Rp.</span> <span id="sub_total{{$index}}">{{number_format($jumlah_harga, 0, '.', '.')}}</span>
+									
+									<span >Rp.</span> <span id="sub_total{{$data['id']}}">{{number_format($data['jumlah'] * $data['harga_diskon'], 0, '.', '.')}}</span>
 								</div>
 								<?php
-								$index++;
 							}
 						}?>
 					</div>
@@ -99,7 +79,7 @@ Keranjang
 						<div class="col-8"></div>
 						<div class="col-2">Sub Total</div>
 						<div class="col-2" style="display: flex; justify-content: space-between; padding-right: 0px;">
-							<div>Rp.</div> <div id="harga_total">{{number_format($total_harga, 0, '.', '.')}}</div>
+							<div>Rp.</div> <div id="harga_total">{{number_format($harga_total, 0, '.', '.')}}</div>
 						</div>
 					</div>
 				</div>
@@ -142,107 +122,5 @@ Keranjang
 @endsection
 
 @section('footer')
-<script type="text/javascript">
-
-	var list_keranjang = {!! json_encode($data_keranjang) !!}
-	var total_harga = parseInt("{{$total_harga}}");
-	// alert(total_harga);
-	function checkbox_cek(id,index){
-		var checked = $('#checkboxPrimary'+index).is(":checked");
-		list_keranjang[index]['checked'] = checked.toString();
-		// get_harga_total();
-
-		$.ajax({
-			type:"post",
-			url: "<?=url('/')?>/keranjang/ubah_checked",
-			data:{"id": id, "checked":checked.toString(), "_token" : "{{ csrf_token() }}"},
-			success:function(data){
-				console.log("sukses")
-				get_harga_total();
-			}
-		})
-
-	}
-
-	function kurang_pesanan(index, harga_diskon){
-		total_harga -= parseInt(harga_diskon);
-		var jumlah_pesanan = parseInt($('#jumlah_pesanan'+index).html());
-		if(jumlah_pesanan > 1){
-			jumlah_pesanan -= 1;
-		}
-		list_keranjang[index]['jumlah'] = jumlah_pesanan;
-		var sub_total = parseInt(jumlah_pesanan * harga_diskon);
-		$('#jumlah_pesanan'+index).html(jumlah_pesanan);
-		$('#sub_total'+index).html(sub_total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
-		$("#harga_total").html(total_harga.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
-		ubah_jumlah_ajax(list_keranjang[index]['id'], jumlah_pesanan);
-	}
-
-	function tambah_pesanan(index, harga_diskon){
-		total_harga += parseInt(harga_diskon);
-		var jumlah_pesanan = parseInt($('#jumlah_pesanan'+index).html());
-		jumlah_pesanan += 1;
-		list_keranjang[index]['jumlah'] = jumlah_pesanan;
-		var sub_total = parseInt(jumlah_pesanan * harga_diskon);
-		$('#jumlah_pesanan'+index).html(jumlah_pesanan);
-		$('#sub_total'+index).html(sub_total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
-		$("#harga_total").html(total_harga.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
-		ubah_jumlah_ajax(list_keranjang[index]['id'], jumlah_pesanan);
-	}
-
-	function ubah_jumlah_ajax(id, jumlah){
-		$.ajax({
-			type:"post",
-			url: "<?=url('/')?>/keranjang/ubah_jumlah",
-			data:{"id": id, "jumlah":jumlah, "_token" : "{{ csrf_token() }}"},
-			success:function(data){
-				console.log("sukses")
-			}
-		})
-	}
-
-	function get_harga_total(){
-		$.ajax({
-			type: "get",
-			url: "/keranjang/get-harga-total",
-			success:function(data){
-				$('#harga_total').html(data.harga_total);
-			}
-		})
-	}
-
-	function modal_pesan(){
-		$('#exampleModal').modal('show');
-	}
-
-	function ongkos_kirim(){
-		var kelurahan = $("#select_kelurahan").val();
-		var ongkos_kirim = 0;
-		var total_pesanan = 0;
-		if(kelurahan == "Tipo"){
-			ongkos_kirim = "20.000"
-			total_pesanan = "70.000"
-		}
-		else if(kelurahan == "Kabonena"){
-			ongkos_kirim = "18.000"
-			total_pesanan = "68.000"
-		}
-		else if(kelurahan == "Donggala Kodi"){
-			ongkos_kirim = "18.000"
-			total_pesanan = "68.000"
-		}
-		else if(kelurahan == "Silae"){
-			ongkos_kirim = "29.000"
-			total_pesanan = "79.000"
-		}
-		else{
-			ongkos_kirim = "0"
-		}
-
-		$("#ongkos_kirim").empty()
-		$("#total_pesanan").empty()
-		$("#total_pesanan").append("Total : Rp. "+total_pesanan)
-		$("#ongkos_kirim").append("Rp. "+ongkos_kirim)
-	}
-</script>
+    @include('user.payment.keranjang.keranjang_script')
 @endsection

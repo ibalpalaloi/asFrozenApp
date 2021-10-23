@@ -50,6 +50,7 @@ Route::get('/keranjang/checkout', [UserKeranjangController::class, 'checkout'])-
 Route::post('/keranjang/ubah_checked', [UserKeranjangController::class, 'ubah_checked'])->middleware('auth');
 Route::post('/keranjang/ubah_jumlah', [UserKeranjangController::class, 'ubah_jumlah'])->middleware('auth');
 Route::post('/keranjang/post_checkout', [UserKeranjangController::class, 'post_checkout'])->middleware('auth');
+Route::get('/keranjang/get-harga-total', [UserKeranjangController::class, 'get_harga_total']);
 
 // biodata
 Route::get('/biodata', [UserPesananController::class, 'biodata'])->middleware('auth');
