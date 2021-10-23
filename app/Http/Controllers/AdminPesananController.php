@@ -172,4 +172,9 @@ class AdminPesananController extends Controller
         }
         return $diskon;
     }
+
+    public function batalkan_pesanan($id){
+        Nota::find($id)->delete();
+        Pesanan::where('nota_id', $id)->delete();
+    }
 }

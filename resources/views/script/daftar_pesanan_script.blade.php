@@ -95,4 +95,21 @@
            }
        })
    }
+
+   function hubungi_pesanan(id_pesanan){
+       var no_hp = "628114588477";
+       var pesan = "Hallo As Frozen saya telah memesan dengan kode pesanan *'"+id_pesanan+"'*";
+       var walink = 'https://wa.me/'+ no_hp +'?text=' + encodeURI(pesan);
+       window.open(walink);
+   }
+
+   function batalkan_pesanan(id_nota){
+       $.ajax({
+           type: "GET",
+           url: "/admin/batalkan_pesanan/"+id_nota,
+           success:function(data){
+                $('#div_card'+id_nota).remove();
+           }
+       })
+   }
 </script>

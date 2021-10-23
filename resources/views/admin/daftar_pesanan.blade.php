@@ -79,7 +79,7 @@
             {{--  --}}
             @foreach ($nota as $data)
 
-            <div>
+            <div id="div_card{{$data->id}}">
                 <i class="fas fa-envelope bg-blue"></i>
                 <div class="timeline-item">
                       <span class="time" style="font-size: 15px">ID: {{$data->id_pesanan}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-clock"></i> 12:05</span>
@@ -180,8 +180,8 @@
                       <div class="timeline-footer">
                       <h3 style="color: #ec1f25" id="total_pesanan_{{$data->id}}">Total Pesanan : Rp. {{$total_harga + $data->ongkos_kirim}}</h3>
                       <a href="/admin/ubah_status_pesanan/{{$data->id}}/packaging" class="btn btn-primary btn-sm">Terima Pesanan</a>
-                      <a class="btn btn-success btn-sm" >Hubungi Pembeli</a>
-                      <a class="btn btn-danger btn-sm" >Batalkan Pesanan</a>
+                      <a class="btn btn-success btn-sm" onclick="hubungi_pesanan('{{$data->id_pesanan}}')">Hubungi Pembeli</a>
+                      <a class="btn btn-danger btn-sm" onclick="batalkan_pesanan('{{$data->id}}')" >Batalkan Pesanan</a>
                       </div>
                 </div>
               </div>

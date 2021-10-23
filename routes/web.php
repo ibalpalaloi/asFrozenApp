@@ -109,6 +109,7 @@ Route::get('/admin/get_list_produk/{produk}', [AdminPesananController::class, 'g
 Route::post('/admin/input_pesanan_baru', [AdminPesananController::class, 'input_pesanan_baru']);
 Route::get('/admin/get_total_pesanan/{id_nota}', [AdminPesananController::class, 'get_total_pesanan']);
 Route::get('/admin/get_harga_produk/{id_produk}', [AdminPesananController::class, 'get_harga']);
+Route::get('//admin/batalkan_pesanan/{id}', [AdminPesananController::class, 'batalkan_pesanan']);
 
 
 // admin riwayat
