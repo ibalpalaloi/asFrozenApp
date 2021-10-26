@@ -151,235 +151,236 @@
 													<h6>Rp {{number_format($harga_diskon, 0, '.', '.')}}</h6>
 												</div>
 												@else
-												<div style="margin-top: 0.5em; text-align: left; color: black;">{{$produk->nama}}</div>
-												<div style="padding-top: 0px; position: relative; display: flex; flex-direction: row; justify-content: flex-start; margin-top: 0.3em;">
-													<h6>Rp {{number_format($produk->harga, 0, '.', '.')}}</h6>
-												</div>
-												@endif
-												<a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
-													<div>
-														<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
+												<div style="margin-top: 0.5em; text-align: left; color: black;">
+													@if (strlen($produk->nama) > 20) {{substr($produk->nama, 0, 20)}}... @else {{$produk->nama}} @endif</div>
+													<div style="padding-top: 0px; position: relative; display: flex; flex-direction: row; justify-content: flex-start; margin-top: 0.3em;">
+														<h6>Rp {{number_format($produk->harga, 0, '.', '.')}}</h6>
 													</div>
-													<div>Beli</div>
-												</a>
+													@endif
+													<a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
+														<div>
+															<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
+														</div>
+														<div>Beli</div>
+													</a>
+												</div>
 											</div>
 										</div>
+										@endforeach
 									</div>
-									@endforeach
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				@endforeach
-				<hr>
-				<div class="btn btn-danger" style="padding: 0.8em;">Lihat Selengkapnya</div>
-
-			</div>
-
-		</section><!-- End Hero -->
-
-		<div id="ck-wrapperWhyBrambang" class="ng-scope" style="background: rgba(255, 255, 255, 0.8);">
-			<div class="mobileOnly" style="margin-top:50px;"></div>
-			<div class="title-index">Keutungan Beli dari AsFrozen</div>
-			<div id="WhyBrambangContainer" style="padding-left: 0px;">
-				<div style="display: flex; justify-content: space-around;width: 100%;">
-					<div class="wrapperWhyBrambangCard" style=" width: 23%;">
-						<div class="ck-wrapperWhyBrambang-image" style="">
-							<img src="https://dtq2i388ejbah.cloudfront.net/images/home/abus-02.svg" alt="Gratis Ongkir" class="img-responsive center-block">
-						</div>
-						<div class="ck-wrapperWhyBrambang-content sub-ck-wrap">
-							<div class="WhyBrambangTitle WhyBrambangTitle-o">Gratis Ongkir</div>
-							<div class="WhyBrambangSubTitle WhyBrambangSubTitle-o">Dapatkan gratis ongkir dengan minimal pembelian Rp
-							98.000.</div>
-						</div>
-					</div>
-					<div class="wrapperWhyBrambangCard" style=" width: 23%;">
-						<div class="ck-wrapperWhyBrambang-image" style="">
-							<img src="https://dtq2i388ejbah.cloudfront.net/images/home/abus-01.svg" alt="Mutu Terjamin" class="img-responsive center-block">
-						</div>
-						<div class="ck-wrapperWhyBrambang-content sub-ck-wrap">
-							<div class="WhyBrambangTitle WhyBrambangTitle-o">Mutu Terjamin</div>
-							<div class="WhyBrambangSubTitle WhyBrambangSubTitle-o">Kami melakukan kontrol mutu agar produk yang diterima selalu sesuai deskripsi dan foto di AsFrozen.com.</div>
-						</div>
-					</div>
-					<div class="wrapperWhyBrambangCard" style=" width: 23%;">
-						<div class="ck-wrapperWhyBrambang-image" style="">
-							<img src="https://dtq2i388ejbah.cloudfront.net/images/home/abus-06.svg" alt="Tinggal Klik" class="img-responsive center-block">
-						</div>
-						<div class="ck-wrapperWhyBrambang-content sub-ck-wrap">
-							<div class="WhyBrambangTitle"> Tinggal Klik</div>
-							<div class="WhyBrambangSubTitle"> Tidak perlu repot ke toko. Tidak macet, hemat waktu dan tenaga. Pesan lewat hp atau komputer lalu klik produk yang kamu inginkan.</div>
-						</div>
-					</div>
-					<div class="wrapperWhyBrambangCard" style=" width: 23%;">
-						<div class="ck-wrapperWhyBrambang-image" style="">
-							<img src="https://dtq2i388ejbah.cloudfront.net/images/home/abus-05.svg" alt="Pesan Hari Ini Esok Sampai" class="img-responsive center-block">
-						</div>
-						<div class="ck-wrapperWhyBrambang-content sub-ck-wrap">
-							<div class="WhyBrambangTitle">Pesan Hari Ini <span>dan Esok Sampai</span></div>
-							<div class="WhyBrambangSubTitle">Tinggal tunggu barang tiba.</div>
-						</div>
-					</div>
-
+					@endforeach
+					<hr>
+					<div class="btn btn-danger" style="padding: 0.8em;">Lihat Selengkapnya</div>
 
 				</div>
-			</div>
 
-			<div class="clear"></div>
+			</section><!-- End Hero -->
 
-			<div id="ck-wrapper" style="background: #ec1f25;">
-			</div>
-
-			<div class="clear"></div>
-
-			<div class="btn-delivery-price" ng-click="vm.openDeliveryTable()" style="display: none" role="button" tabindex="0">
-				<a href="">Lihat Ongkos Kirim</a>
-			</div>
-
-		</div>
-		<section id="clients" class="clients section-bg">
-			<div class="container">
-
-				<div class="row">
-					<div class="list_brand" style="width: 100%;">
-						@php
-						$brand = array('client-6.png', 'client-1.png', 'client-2.png', 'client-3.png', 'client-4.png', 'client-5.png', 'client-7.png')
-						@endphp
-						@for ($i = 0; $i < count($brand); $i++)
-						<div data-aos="zoom-in" style="width: 18%;">
-							<img src="<?=url('/')?>/katalog_assets/assets/img/brand/{{$brand[$i]}}" class="img-fluid" alt="" style='width: 100%; filter: none;'>
+			<div id="ck-wrapperWhyBrambang" class="ng-scope" style="background: rgba(255, 255, 255, 0.8);">
+				<div class="mobileOnly" style="margin-top:50px;"></div>
+				<div class="title-index">Keutungan Beli dari AsFrozen</div>
+				<div id="WhyBrambangContainer" style="padding-left: 0px;">
+					<div style="display: flex; justify-content: space-around;width: 100%;">
+						<div class="wrapperWhyBrambangCard" style=" width: 23%;">
+							<div class="ck-wrapperWhyBrambang-image" style="">
+								<img src="https://dtq2i388ejbah.cloudfront.net/images/home/abus-02.svg" alt="Gratis Ongkir" class="img-responsive center-block">
+							</div>
+							<div class="ck-wrapperWhyBrambang-content sub-ck-wrap">
+								<div class="WhyBrambangTitle WhyBrambangTitle-o">Gratis Ongkir</div>
+								<div class="WhyBrambangSubTitle WhyBrambangSubTitle-o">Dapatkan gratis ongkir dengan minimal pembelian Rp
+								98.000.</div>
+							</div>
 						</div>
-						@endfor
+						<div class="wrapperWhyBrambangCard" style=" width: 23%;">
+							<div class="ck-wrapperWhyBrambang-image" style="">
+								<img src="https://dtq2i388ejbah.cloudfront.net/images/home/abus-01.svg" alt="Mutu Terjamin" class="img-responsive center-block">
+							</div>
+							<div class="ck-wrapperWhyBrambang-content sub-ck-wrap">
+								<div class="WhyBrambangTitle WhyBrambangTitle-o">Mutu Terjamin</div>
+								<div class="WhyBrambangSubTitle WhyBrambangSubTitle-o">Kami melakukan kontrol mutu agar produk yang diterima selalu sesuai deskripsi dan foto di AsFrozen.com.</div>
+							</div>
+						</div>
+						<div class="wrapperWhyBrambangCard" style=" width: 23%;">
+							<div class="ck-wrapperWhyBrambang-image" style="">
+								<img src="https://dtq2i388ejbah.cloudfront.net/images/home/abus-06.svg" alt="Tinggal Klik" class="img-responsive center-block">
+							</div>
+							<div class="ck-wrapperWhyBrambang-content sub-ck-wrap">
+								<div class="WhyBrambangTitle"> Tinggal Klik</div>
+								<div class="WhyBrambangSubTitle"> Tidak perlu repot ke toko. Tidak macet, hemat waktu dan tenaga. Pesan lewat hp atau komputer lalu klik produk yang kamu inginkan.</div>
+							</div>
+						</div>
+						<div class="wrapperWhyBrambangCard" style=" width: 23%;">
+							<div class="ck-wrapperWhyBrambang-image" style="">
+								<img src="https://dtq2i388ejbah.cloudfront.net/images/home/abus-05.svg" alt="Pesan Hari Ini Esok Sampai" class="img-responsive center-block">
+							</div>
+							<div class="ck-wrapperWhyBrambang-content sub-ck-wrap">
+								<div class="WhyBrambangTitle">Pesan Hari Ini <span>dan Esok Sampai</span></div>
+								<div class="WhyBrambangSubTitle">Tinggal tunggu barang tiba.</div>
+							</div>
+						</div>
+
+
 					</div>
 				</div>
 
+				<div class="clear"></div>
+
+				<div id="ck-wrapper" style="background: #ec1f25;">
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="btn-delivery-price" ng-click="vm.openDeliveryTable()" style="display: none" role="button" tabindex="0">
+					<a href="">Lihat Ongkos Kirim</a>
+				</div>
+
 			</div>
-		</section><!-- End Clients Section -->
-		@endsection
+			<section id="clients" class="clients section-bg">
+				<div class="container">
 
-		@section('footer')
-		<script type="text/javascript" src="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.min.js"></script>
-		<script type="text/javascript">
-			<?php  $date_tomorrow = date("m/d/Y", strtotime("+1 day", strtotime(date("Y-m-d")))); ?>
-			var end = new Date("{{$date_tomorrow}} 0:00 AM");
+					<div class="row">
+						<div class="list_brand" style="width: 100%;">
+							@php
+							$brand = array('client-6.png', 'client-1.png', 'client-2.png', 'client-3.png', 'client-4.png', 'client-5.png', 'client-7.png')
+							@endphp
+							@for ($i = 0; $i < count($brand); $i++)
+							<div data-aos="zoom-in" style="width: 18%;">
+								<img src="<?=url('/')?>/katalog_assets/assets/img/brand/{{$brand[$i]}}" class="img-fluid" alt="" style='width: 100%; filter: none;'>
+							</div>
+							@endfor
+						</div>
+					</div>
 
-			var _second = 1000;
-			var _minute = _second * 60;
-			var _hour = _minute * 60;
-			var _day = _hour * 24;
-			var timer;
+				</div>
+			</section><!-- End Clients Section -->
+			@endsection
 
-			function showRemaining() {
-				var now = new Date();
-				var distance = end - now;
-				if (distance < 0) {
+			@section('footer')
+			<script type="text/javascript" src="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.min.js"></script>
+			<script type="text/javascript">
+				<?php  $date_tomorrow = date("m/d/Y", strtotime("+1 day", strtotime(date("Y-m-d")))); ?>
+				var end = new Date("{{$date_tomorrow}} 0:00 AM");
 
-					clearInterval(timer);
-					document.getElementById('countdown').innerHTML = 'EXPIRED!';
+				var _second = 1000;
+				var _minute = _second * 60;
+				var _hour = _minute * 60;
+				var _day = _hour * 24;
+				var timer;
 
-					return;
-				}
-				var days = Math.floor(distance / _day);
-				var hours = Math.floor((distance % _day) / _hour);
-				var minutes = Math.floor((distance % _hour) / _minute);
-				var seconds = Math.floor((distance % _minute) / _second);
+				function showRemaining() {
+					var now = new Date();
+					var distance = end - now;
+					if (distance < 0) {
 
-				document.getElementById('countdown_jam').innerHTML = hours;
-				document.getElementById('countdown_menit').innerHTML = minutes;
-				document.getElementById('countdown_detik').innerHTML = seconds;
-			}
+						clearInterval(timer);
+						document.getElementById('countdown').innerHTML = 'EXPIRED!';
 
-			timer = setInterval(showRemaining, 1000);
-		</script>
-
-		<script>
-			function tambah_keranjang(id){
-				show_loader();
-				$.ajax({
-					url: "<?=url('/')?>/tambah_keranjang/"+id,
-					type:"get",
-					success:function(data){
-						setTimeout(hide_loader, 500);
-						console.log(data);
+						return;
 					}
-				})
-			}
+					var days = Math.floor(distance / _day);
+					var hours = Math.floor((distance % _day) / _hour);
+					var minutes = Math.floor((distance % _hour) / _minute);
+					var seconds = Math.floor((distance % _minute) / _second);
 
-			$(document).ready(function() {
-				$('#age-select-1').popover({
-					content: "<ul class='foo'><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li></ul>",
-					html: true,
-					trigger: "click",
-					placement: "bottom"
+					document.getElementById('countdown_jam').innerHTML = hours;
+					document.getElementById('countdown_menit').innerHTML = minutes;
+					document.getElementById('countdown_detik').innerHTML = seconds;
+				}
+
+				timer = setInterval(showRemaining, 1000);
+			</script>
+
+			<script>
+				function tambah_keranjang(id){
+					show_loader();
+					$.ajax({
+						url: "<?=url('/')?>/tambah_keranjang/"+id,
+						type:"get",
+						success:function(data){
+							setTimeout(hide_loader, 500);
+							console.log(data);
+						}
+					})
+				}
+
+				$(document).ready(function() {
+					$('#age-select-1').popover({
+						content: "<ul class='foo'><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li></ul>",
+						html: true,
+						trigger: "click",
+						placement: "bottom"
+					});
 				});
-			});
-		</script>
-		<script type="text/javascript">
-			$('.flash_sale').slick({
-				dots: false,
-				infinite: false,
-				speed: 300,
-				slidesToShow: 5,
-				slidesToScroll: 5,
-				responsive: [
-				{
-					breakpoint: 1024,
-					settings: {
-						slidesToShow: 3,
-						slidesToScroll: 3,
-						infinite: true,
-						dots: true
+			</script>
+			<script type="text/javascript">
+				$('.flash_sale').slick({
+					dots: false,
+					infinite: false,
+					speed: 300,
+					slidesToShow: 5,
+					slidesToScroll: 5,
+					responsive: [
+					{
+						breakpoint: 1024,
+						settings: {
+							slidesToShow: 3,
+							slidesToScroll: 3,
+							infinite: true,
+							dots: true
+						}
+					},
+					{
+						breakpoint: 600,
+						settings: {
+							slidesToShow: 2,
+							slidesToScroll: 2
+						}
+					},
+					{
+						breakpoint: 480,
+						settings: {
+							slidesToShow: 1,
+							slidesToScroll: 1
+						}
 					}
-				},
-				{
-					breakpoint: 600,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 2
+					]
+				});	
+				$('.list_brand').slick({
+					dots: false,
+					infinite: false,
+					speed: 300,
+					slidesToShow: 5,
+					slidesToScroll: 5,
+					responsive: [
+					{
+						breakpoint: 1024,
+						settings: {
+							slidesToShow: 3,
+							slidesToScroll: 3,
+							infinite: true,
+							dots: true
+						}
+					},
+					{
+						breakpoint: 600,
+						settings: {
+							slidesToShow: 2,
+							slidesToScroll: 2
+						}
+					},
+					{
+						breakpoint: 480,
+						settings: {
+							slidesToShow: 1,
+							slidesToScroll: 1
+						}
 					}
-				},
-				{
-					breakpoint: 480,
-					settings: {
-						slidesToShow: 1,
-						slidesToScroll: 1
-					}
-				}
-				]
-			});	
-			$('.list_brand').slick({
-				dots: false,
-				infinite: false,
-				speed: 300,
-				slidesToShow: 5,
-				slidesToScroll: 5,
-				responsive: [
-				{
-					breakpoint: 1024,
-					settings: {
-						slidesToShow: 3,
-						slidesToScroll: 3,
-						infinite: true,
-						dots: true
-					}
-				},
-				{
-					breakpoint: 600,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 2
-					}
-				},
-				{
-					breakpoint: 480,
-					settings: {
-						slidesToShow: 1,
-						slidesToScroll: 1
-					}
-				}
-				]
-			});	
-		</script>
+					]
+				});	
+			</script>
 			@include('script.home_script')
-		@endsection
+			@endsection

@@ -148,20 +148,35 @@ $status_pesanan = "packaging";
 			</table>
 			<div class="row" style="margin-left: 0.5em;margin-right: 0.5em;">
 				<div class="col-md-4">
+					@if ($nota->pengantaran == 'Diantarkan')
 					<b>Diantarkan ke alamat</b><br>
 					{{$nota->penerima}} | {{$nota->no_telp_penerima}}<br>
 					{{$nota->alamat}}<br>
-					{{$nota->kelurahan}}, {{$nota->kecamatan}}, {{$nota->kota}} <br>
+					{{$nota->kelurahan}}, {{$nota->kecamatan}}, {{$nota->kota}}
+					@else
+					<b>Ambil ditempat</b><br>
+					{{$nota->penerima}} | {{$nota->no_telp_penerima}}<br>
+					Toko AsFrozen, Jl. Mandala No. 1<br>
+					Birobuli Utara, Palu Selatan, Kota Palu					
+					@endif
 				</div>
 				<div class="col-md-4">
-					<b>Transfer melalui</b><br>
-					<div class="checkout-bank-transfer-item__card" style="display: flex;">
+					@if ($nota->pembayaran == 'COD')
+					<b>Cash On Delivery (COD)</b><br>
+					<div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.5em;">
 						<div class="checkout-bank-transfer-item__icon-container">
-							<img src="https://mall.shopee.co.id/static/images/img_bankid_bni.png" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
+							<img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_red.png" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
+						</div>
+					</div>
+					@else
+					<b>Transfer melalui</b><br>
+					<div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.3em;">
+						<div class="checkout-bank-transfer-item__icon-container">
+							<img src="<?=url('/')?>/bank/{{$nota->bank->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
 						</div>
 						<div>
 							<div class="checkout-bank-transfer-item__main" style="line-height: 0.8em;">
-								Bank BNI
+								{{$nota->bank->nama_bank}}
 							</div>
 							<div class="checkout-bank-transfer-item__description">
 								<small>Perlu upload bukti transfer</small>
@@ -169,9 +184,10 @@ $status_pesanan = "packaging";
 							<div>(Dicek Manual)</div>
 						</div>
 					</div>
+					@endif
 				</div>
 				<div class="col-md-4" style="display: flex;">
-					<img src="<?=url('/')?>/katalog_assets/assets/qrcode.png" style="width: 6em; height: 6em;">
+					<div style="margin-right: 1em; margin-top: 0.5em;">{{$qrcode->size(80)->generate($nota->id_pesanan)}}</div>
 					<div style="margin-top: 0.2em;width: 100%;">
 						<div class="row">
 							<div class="col-md-6">		

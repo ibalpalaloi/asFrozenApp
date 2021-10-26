@@ -10,6 +10,9 @@ use App\Models\User;
 use App\Models\pesanan;
 use App\Models\Produk;
 use App\Models\Diskon;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use SimpleSoftwareIO\QrCode\Generator;
+
 
 class AdminPesananController extends Controller
 {
@@ -21,9 +24,48 @@ class AdminPesananController extends Controller
         return view('admin.daftar_pesanan', compact('nota', 'menu', 'sub_menu'));
     }
 
+    public function control_pesanan($id, $status){
+        $nota = Nota::where('id', $id)->first();
+        if ($status == 'pause'){
+            $nota->time_status = "pause";
+            $nota->time_expired = null;
+            $nota->time_left = "00:".$_GET['waktu'];
+            $nota->save(); 
+            echo "sukses";
+        }
+        else {
+            $nota->time_status = "run";
+            $time_now = date('H:i:s');
+
+            $minutes = date('i', strtotime($nota->time_left));
+            $seconds = date('s', strtotime($nota->time_left));
+            $fix_time_future = strtotime("+".$minutes." minutes ".$seconds." seconds", strtotime($time_now));
+            $time_future = date("H:i:s", $fix_time_future);
+            
+            $nota->time_left = null;
+            $nota->time_expired = $time_future;
+            $nota->save();
+            // echo $nota->time_left;
+            // $nota->time_expired = null;
+            $data['menit'] = $minutes;
+            $data['detik'] = $seconds;
+            $data['id'] = $id;
+            echo json_encode($data);
+        }
+
+
+    }
+
     public function packaging(){
         $nota = Nota::where('status', 'packaging')->get();
         return view('admin.pesanan_packaging', compact('nota'));
+    }
+
+    public function detail_pesanan($id){
+        $nota = Nota::where('id', $id)->first();
+        $qrcode = new Generator;
+        // dd($nota);
+        return view('admin.detail_pesanan', compact('nota', 'qrcode'));
     }
 
     public function dalam_pengantaran(){
@@ -101,9 +143,9 @@ class AdminPesananController extends Controller
 
     public function input_pesanan_baru(Request $request){
         $pesanan = Pesanan::where([
-                                        ['nota_id', $request->id_nota],
-                                        ['produk_id', $request->produk_id]
-                        ])->first();
+            ['nota_id', $request->id_nota],
+            ['produk_id', $request->produk_id]
+        ])->first();
         if(!empty($pesanan)){
             $pesanan->jumlah = $request->jumlah;
             $pesanan->save();
@@ -142,9 +184,9 @@ class AdminPesananController extends Controller
         $date_today = date("Y-m-d");
         $produk = Produk::find($id_produk);
         $diskon = Diskon::where([
-                                ['produk_id', $id_produk],
-                                ['diskon_akhir', '>=', $date_today],
-                                ['diskon_mulai', '<=', $date_today]
+            ['produk_id', $id_produk],
+            ['diskon_akhir', '>=', $date_today],
+            ['diskon_mulai', '<=', $date_today]
         ])->first();
         if($diskon != null){
             $harga = $produk->harga - (($diskon->diskon/100) * $produk->harga);
@@ -160,9 +202,9 @@ class AdminPesananController extends Controller
         $date_today = date("Y-m-d");
         $produk = Produk::find($id_produk);
         $diskon = Diskon::where([
-                                ['produk_id', $id_produk],
-                                ['diskon_akhir', '>=', $date_today],
-                                ['diskon_mulai', '<=', $date_today]
+            ['produk_id', $id_produk],
+            ['diskon_akhir', '>=', $date_today],
+            ['diskon_mulai', '<=', $date_today]
         ])->first();
         if($diskon != null){
             $diskon = $diskon->diskon;

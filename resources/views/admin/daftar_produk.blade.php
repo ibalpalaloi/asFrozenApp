@@ -32,10 +32,8 @@ function tgl_indo($tanggal){
 @endsection
 @section('body')
 
-{{-- modal --}}
 
 
-{{--  modal detail produk--}}
 <div class="modal fade bd-example-modal-lg" id="modal_detail_produk" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div style="width: 100%;" class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -43,7 +41,6 @@ function tgl_indo($tanggal){
     </div>
   </div>
 </div>
-{{-- end modal detail produk --}}
 
 
 <div class="content-wrapper">

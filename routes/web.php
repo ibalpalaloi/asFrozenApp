@@ -3,7 +3,8 @@
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminProdukController;
-use App\Http\Controllers\AdminkController;
+// use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminBankController;
 use App\Http\Controllers\AdminKategoriController;
 use App\Http\Controllers\AdminPesananController;
 use App\Http\Controllers\AdminRiwayatPesanan;
@@ -98,8 +99,16 @@ Route::post('/admin-post-video', [AdminVideoController::class, 'post_video']);
 Route::get('/get-embed-link', [GetController::class, 'get_embed_video']);
 
 
+Route::post('/admin/bank/delete', [AdminBankController::class, 'delete']);
+Route::post('/admin/bank/update', [AdminBankController::class, 'update']);
+Route::post('/admin/bank/store', [AdminBankController::class, 'store']);
+Route::get('/admin/bank', [AdminBankController::class, 'index']);
+
 // admin pesanan
+Route::get('/admin/daftar-pesanan/{produk}/control/{status}', [AdminPesananController::class, 'control_pesanan']);
+Route::get('/admin/daftar-pesanan/{produk}', [AdminPesananController::class, 'detail_pesanan']);
 Route::get('/admin/daftar-pesanan', [AdminPesananController::class, 'daftar_pesanan']);
+
 Route::get('/admin/ubah_status_pesanan/{id}/{status}', [AdminPesananController::class, 'ubah_status_pesanan']);
 Route::get('/admin/pesanan-packaging', [AdminPesananController::class, 'packaging']);
 Route::get('/admin/pesanan-dalam-pengantaran', [AdminPesananController::class, 'dalam_pengantaran']);

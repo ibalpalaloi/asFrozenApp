@@ -8,11 +8,13 @@ use App\Models\Kota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Nota;
+use App\Models\Bank;
 use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\Diskon;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
+
 
 
 class UserKeranjangController extends Controller
@@ -136,6 +138,7 @@ class UserKeranjangController extends Controller
         ])->get();
         $total_harga_produk = $this->get_harga_total_no_json();
         $data_produk_checkout = array();
+        $bank = Bank::all();
         $i=0;
         foreach($list_keranjang as $data){
             $diskon = $this->get_diskon($data->produk_id, $date_today);
@@ -154,10 +157,10 @@ class UserKeranjangController extends Controller
 
         $agent = new Agent();
         if ($agent->isMobile()){
-            return view('user.payment.checkout.mobile', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk'));
+            return view('user.payment.checkout.mobile', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk', 'bank'));
         }
         else {
-            return view('user.payment.checkout.desktop', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk'));
+            return view('user.payment.checkout.desktop', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk', 'bank'));
         }
 
     }
@@ -205,6 +208,11 @@ class UserKeranjangController extends Controller
         $nota->pembayaran = $request->pembayaran;
         $nota->pengantaran = $request->pengantaran;
         $nota->catatan = $request->catatan_pesanan;
+        $time_now = date('H:i:s');
+        $time_expired = strtotime("+10 minutes", strtotime($time_now));
+        $nota->time_status = "run";
+        $nota->time_date = date('Y-m-d');
+        $nota->time_expired = date('H:i:s', $time_expired);
         $nota->status = "menunggu konfirmasi";
         $nota->save();
 

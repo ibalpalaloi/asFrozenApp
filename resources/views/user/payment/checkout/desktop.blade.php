@@ -118,7 +118,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 										<div style="width: 85%; margin-left: 1em; display: flex; align-items: center;">
 											{{$data['nama_produk']}}
 											@if ($data['diskon'] != 0)
-												<badge class="badge badge-success" style="display: flex; justify-content: center; align-items: center; margin-left: 4px">{{$data['diskon']}} %</badge>
+											<badge class="badge badge-success" style="display: flex; justify-content: center; align-items: center; margin-left: 4px">{{$data['diskon']}} %</badge>
 											@endif
 											
 										</div>
@@ -183,24 +183,21 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						<div id="btn_transfer" onclick="metode_pembayaran('transfer')" class="btn btn-outline-danger" style="margin-left: 0.5em; border: 1px solid #dc3545;">Transfer</div>
 					</div>
 					<div id="list_bank" hidden>
-						@php
-						$bank = array("Bank BCA", "Bank Mandiri", "Bank BNI", "Bank BRI", "Bank BSI");
-						$bank_icon = array("img_bankid_bca.png", "img_bankid_mandiri.png", 'img_bankid_bni.png', "img_bankid_bri.png","img_bankid_bsm.png");
-						@endphp
-						@for ($i = 0; $i < count($bank); $i++)
+						@foreach ($bank as $row)
 						<div class="stardust-radio__content" style="display: flex; margin-top: 1em;">
-							<div class="icheck-danger d-inline" style="width: 10%;">
-								<input type="checkbox" id="checkboxPrimary1" @if ($i == 0) checked @endif>
-								<label for="checkboxPrimary1">
-								</label>
+							<div class="form-group clearfix" style="margin-right: 1em;">
+								<div class="icheck-primary d-inline">
+									<input type="radio" id="radioPrimary_{{$row->id}}" onclick='radio_bank("{{$row->id}}")' name="id_bank" checked>
+									<label for="radioPrimary_{{$row->id}}"></label>
+								</div>
 							</div>
 							<div class="checkout-bank-transfer-item__card" style="display: flex;">
 								<div class="checkout-bank-transfer-item__icon-container">
-									<img src="https://mall.shopee.co.id/static/images/{{$bank_icon[$i]}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em;">
+									<img src="<?=url('/')?>/bank/{{$row->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em;">
 								</div>
 								<div>
 									<div class="checkout-bank-transfer-item__main" style="line-height: 0.8em;">
-										{{$bank[$i]}} (Dicek Manual)
+										{{$row->nama_bank}} (Dicek Manual)
 									</div>
 									<div class="checkout-bank-transfer-item__description">
 										<small>Perlu upload bukti transfer</small>
@@ -208,7 +205,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 								</div>
 							</div>
 						</div>
-						@endfor
+						@endforeach
 
 
 						<div class="bank-transfer-category__body">
@@ -312,6 +309,10 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 				$("#selectKecamatan").html(option);
 			}
 		})
+	}
+
+	function radio_bank(id){
+		$('#input_pembayaran').val(id);		
 	}
 
 	function get_kelurahan(){

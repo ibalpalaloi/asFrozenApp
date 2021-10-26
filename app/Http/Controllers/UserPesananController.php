@@ -7,6 +7,8 @@ use App\Models\Nota;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use SimpleSoftwareIO\QrCode\Generator;
 
 class UserPesananController extends Controller
 {
@@ -15,11 +17,14 @@ class UserPesananController extends Controller
     public function pesanan(){
         $notas = Nota::where('user_id', Auth()->user()->id)->get();
         $agent = new Agent();
+        $qrcode = new Generator;
+        // $qr = $qrcode->size(250)->generate($response['data']['code']);
+
         if ($agent->isMobile()){
             return view('user.payment.pesanan.mobile', compact('notas'));
         }
         else {
-            return view('user.payment.pesanan.desktop', compact('notas'));
+            return view('user.payment.pesanan.desktop', compact('notas', 'qrcode'));
         }
     }
 

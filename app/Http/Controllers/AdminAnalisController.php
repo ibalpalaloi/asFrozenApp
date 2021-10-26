@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use App\Models\Riwayat_nota_pesanan;
 use App\Models\Riwayat_pesanan;
 use App\Models\Biodata;
+use App\Models\Produk;
+use App\Models\Kategori;
+
+
 class AdminAnalisController extends Controller
 {
     //
@@ -20,6 +24,8 @@ class AdminAnalisController extends Controller
         $nama_produk = ["-"];
         $jumlah_produk = ["-"];
         $produk = array();
+        $kategori_show = Kategori::withCount('produk')->orderBy('produk_count', 'desc')->paginate(1);
+
         if(count($request->all()) != 0){
             $nama_produk = array();
             $jumlah_produk = array();
@@ -31,9 +37,9 @@ class AdminAnalisController extends Controller
                 array_push($nama_produk, $data->produk);
                 array_push($jumlah_produk, $data->jumlah);
             }
-            return view('admin.analisis_produk', compact('menu', 'sub_menu', 'nama_produk', 'jumlah_produk', 'produk', 'tgl_mulai', 'tgl_akhir'));
+            return view('admin.analisis_produk', compact('menu', 'sub_menu', 'nama_produk', 'jumlah_produk', 'produk', 'tgl_mulai', 'tgl_akhir', 'kategori_show'));
         }
-        return view('admin.analisis_produk', compact('menu', 'sub_menu','nama_produk', 'jumlah_produk', 'produk'));
+        return view('admin.analisis_produk', compact('menu', 'sub_menu','nama_produk', 'jumlah_produk', 'produk', 'kategori_show'));
     }
 
     public function transaksi(Request $request){
@@ -48,7 +54,7 @@ class AdminAnalisController extends Controller
         if(count($request->all())>0){
             $startDate = Carbon::createFromFormat('Y-m-d', $request->tgl_mulai);
             $endDate = Carbon::createFromFormat('Y-m-d', $request->tgl_akhir);
-      
+
             $CreateDateRange = CarbonPeriod::create($startDate, $endDate);
             $date = $CreateDateRange->toArray();
             
@@ -81,7 +87,7 @@ class AdminAnalisController extends Controller
     }
 
     public function pelanggan(Request $request){
-        
+
         $menu = 'analisis';
         $sub_menu = 'analisis pelanggan';
         $tgl_mulai = "";

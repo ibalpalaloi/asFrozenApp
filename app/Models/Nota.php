@@ -18,4 +18,8 @@ class Nota extends Model
     public function pesanan(){
         return $this->hasMany(Pesanan::class);
     }
+
+    public function bank(){
+    	return $this->belongsTo(Bank::class, 'pembayaran');
+    }
 }
