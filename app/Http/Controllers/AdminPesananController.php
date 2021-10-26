@@ -117,7 +117,16 @@ class AdminPesananController extends Controller
         $nota = Nota::find($id);
         $nota->status = $status;
         $nota->save();
-        return back();
+        if($status == "packaging"){
+            return redirect('/admin/daftar-pesanan');    
+        }
+        elseif($status == "dalam pengantaran"){
+            return redirect('/admin/pesanan-packaging');
+        }
+        else{
+            return redirect('/admin/pesanan-dalam-pengantaran');
+        }
+        
     }
 
     public function hapus_pesanan($id){

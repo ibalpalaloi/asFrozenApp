@@ -186,10 +186,11 @@ function tgl_indo($tanggal){
               <th style="text-align: center;">Harga Satuan</th>
               <th style="text-align: center;">Jumlah</th>
               <th style="text-align: center;">Subtotal</th>
+              <th></th>
             </thead>
             <tbody>
               @foreach ($nota->pesanan as $pesanan)
-              <tr>
+              <tr id="row_{{$pesanan->id}}">
                 <td>{{$loop->iteration}}</td>
                 <td>
                   <div style="width: 100%; display: flex; margin-bottom: 0em;">
@@ -211,6 +212,9 @@ function tgl_indo($tanggal){
                   <div style="display: flex; justify-content: space-between;">
                     <div>Rp.</div> <div>{{number_format($pesanan->jumlah * $pesanan->harga_satuan, 0, '.', '.')}}</div>
                   </div>                  
+                </td>
+                <td>
+                  <button onclick="hapus_pesanan('{{$pesanan->id}}', '{{$nota->id}}')">.</button>
                 </td>
               </tr>
               @endforeach
@@ -389,5 +393,5 @@ function tgl_indo($tanggal){
 
 
 </script>
-
+@include('script.daftar_pesanan_script')
 @endsection
