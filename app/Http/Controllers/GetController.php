@@ -116,4 +116,23 @@ class GetController extends Controller
         return response()->json(['data_diskon'=>$data_produk]);
         
     }
+
+    public function get_total_pesanan($id){
+        $nota = Nota::find($id);
+        $total_sub_harga = 0;
+        $ongkir = $nota->ongkos_kirim;
+        $total_harga = 0;
+        foreach($nota->pesanan as $pesanan){
+            $total_sub_harga += $pesanan->jumlah * $pesanan->harga_satuan;
+        }
+
+        $total_harga = $total_sub_harga + $ongkir;
+
+        $data = array();
+        $data['total_sub_harga'] = $total_sub_harga;
+        $data['ongkir'] = $ongkir;
+        $data['total_harga'] = $total_harga;
+
+        return response()->json(['data'=>$data]);
+    }
 }

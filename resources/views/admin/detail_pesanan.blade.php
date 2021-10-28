@@ -188,7 +188,7 @@ function tgl_indo($tanggal){
               <th style="text-align: center;">Subtotal</th>
               <th></th>
             </thead>
-            <tbody>
+            <tbody id="tbody_daftar_pesanan">
               @foreach ($nota->pesanan as $pesanan)
               <tr id="row_{{$pesanan->id}}">
                 <td>{{$loop->iteration}}</td>
@@ -270,7 +270,7 @@ function tgl_indo($tanggal){
                   </div>
                   <div class="col-md-6" style="display: flex; justify-content: space-between;">   
                     <div>: Rp.</div>
-                    <div>{{number_format($nota->total_harga, 0, '.', '.')}}</div>
+                    <div id="sub_total_pesanan"></div>
                   </div>
 
                 </div>
@@ -289,7 +289,7 @@ function tgl_indo($tanggal){
                   </div>
                   <div class="col-md-6" style="display: flex; justify-content: space-between;">   
                     <div>: Rp.</div>
-                    <div><b>{{number_format($nota->ongkos_kirim + $nota->total_harga, 0, '.', '.')}}</b></div>
+                    <div><b id="total_pesanan"></b></div>
                   </div>
 
                 </div>
@@ -392,6 +392,27 @@ function tgl_indo($tanggal){
   }
 
 
+
+
+</script>
+<script>
+  var nota = {!! json_encode($nota) !!};
+
+  $(document).ready(function(){
+    get_total_pesanan();
+  });
+  function get_total_pesanan()
+   {
+    $.ajax({
+      type: "get",
+      url: "/get-total-harga-pesanan/"+nota['id'],
+      success:function(data){
+        console.log(data.data['ongkir']);
+        $('#sub_total_pesanan').html(data.data['total_sub_harga'].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+        $('#total_pesanan').html(data.data['total_harga'].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+      }
+    })
+  }
 </script>
 @include('script.daftar_pesanan_script')
 @endsection

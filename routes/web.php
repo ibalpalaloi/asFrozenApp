@@ -86,6 +86,7 @@ Route::post('/get-embed-link', [GetController::class, 'get_embed_video']);
 Route::get('/get-jumlah-pesanan', [GetController::class, 'get_jumlah_pesanan']);
 Route::get('/get_jumlah_keranjang', [GetController::class, 'get_jumlah_keranjang']);
 Route::get('/get-data-diskon/{id}', [GetController::class, 'get_data_diskon']);
+Route::get('/get-total-harga-pesanan/{id}', [GetController::class, 'get_total_pesanan']);
 
 // admin Banner
 Route::post('/admin-banner-side-tambah', [AdminBannerController::class, 'store_side']);
@@ -134,6 +135,7 @@ Route::post('/admin/post-ubah-stok', [AdminProdukController::class, 'post_ubah_s
 Route::post('/admin/post-ubah-diskon', [AdminProdukController::class, 'post_ubah_diskon']);
 Route::post('/post-update-produk', [AdminProdukController::class, 'post_update_produk']);
 Route::get('/admin/get-data-cari-produk', [AdminProdukController::class, 'get_data_cari_produk']);
+Route::get('/admin/hapus-produk/{id}', [AdminProdukController::class, 'hapus_produk']);
 
 // wilayah
 Route::get('/admin-kota', [WilayahController::class, 'kota']);

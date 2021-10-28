@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\pesanan;
 use App\Models\Produk;
 use App\Models\Diskon;
+use App\Models\Keranjang;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use SimpleSoftwareIO\QrCode\Generator;
 
@@ -151,6 +152,7 @@ class AdminPesananController extends Controller
     }
 
     public function input_pesanan_baru(Request $request){
+        $nota = Nota::find($request->id_nota);
         $pesanan = Pesanan::where([
             ['nota_id', $request->id_nota],
             ['produk_id', $request->produk_id]
@@ -174,7 +176,9 @@ class AdminPesananController extends Controller
         $data_pesanan['jumlah'] = $pesanan->jumlah;
         $data_pesanan['harga_satuan'] = $pesanan->harga_satuan;
         $data_pesanan['harga_total'] = $pesanan->jumlah * $pesanan->harga_satuan;
-        return response()->json(['pesanan'=>$data_pesanan]);
+        $count = Pesanan::where('nota_id', $nota->id)->count();
+        $html = view('admin.include.trow_tambah_pesanan', compact('pesanan', 'nota', 'count'))->render();
+        return response()->json(['html'=>$html]);
     }
 
     public function get_total_pesanan($id_nota){
@@ -225,7 +229,16 @@ class AdminPesananController extends Controller
     }
 
     public function batalkan_pesanan($id){
-        Nota::find($id)->delete();
-        Pesanan::where('nota_id', $id)->delete();
+        $nota = Nota::find($id);
+        foreach($nota->pesanan as $pesanan){
+            $keranjang = new Keranjang;
+            $keranjang->user_id = $nota->user_id;
+            $keranjang->produk_id = $pesanan->produk_id;
+            $keranjang->jumlah = $pesanan->jumlah;
+            $keranjang->save();
+        }
+
+        Pesanan::where('nota_id', $nota->id)->delete();
+        $nota->delete();
     }
 }

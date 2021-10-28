@@ -84,6 +84,7 @@ function tgl_indo($tanggal){
 <script src="{{asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 
 
@@ -343,6 +344,33 @@ function tgl_indo($tanggal){
       });
       return view;
     }
+  }
+
+  function konfir_hapus_produk(id){
+    console.log(id);
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        hapus_produk(id)
+      }
+    });
+
+  }
+
+  function hapus_produk(id){
+    $.ajax({
+      type: "get",
+      url: "/admin/hapus-produk/"+id,
+      success:function(data){
+        $('#trow_daftar_produk_'+id).remove();
+      }
+    })
   }
 </script>
 

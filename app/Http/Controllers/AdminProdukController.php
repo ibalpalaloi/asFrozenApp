@@ -30,7 +30,6 @@ class AdminProdukController extends Controller
     public function admin_post_produk_baru(Request $request){
         $valdiator = Validator::make($request->all(), [
             'kategori' => 'required', 
-            'sub_kategori' => 'required',
             'nama_produk' => 'required',
             'satuan' => 'required',
             'harga' => 'required',
@@ -108,7 +107,11 @@ class AdminProdukController extends Controller
             $list_produk[$i]['harga'] = $data->harga;
             $list_produk[$i]['satuan'] = $data->satuan;
             $list_produk[$i]['kategori'] = $data->kategori->kategori;
-            $list_produk[$i]['sub_kategori'] = $data->sub_kategori->sub_kategori;
+            $list_produk[$i]['sub_kategori'] = "-";
+            if($data->sub_kategori != null){
+                $list_produk[$i]['sub_kategori'] = $data->sub_kategori->sub_kategori;
+            }
+            
             if($data->diskon != null){
                 $list_produk[$i]['diskon'] = $data->diskon->diskon;
             }
@@ -339,5 +342,9 @@ class AdminProdukController extends Controller
         }
         $view = view('admin.include.data_daftar_produk', compact('list_produk'))->render();
         return response()->json(['view'=>$view]);
+    }
+
+    public function hapus_produk($id){
+        Produk::where('id', $id)->delete();
     }
 }
