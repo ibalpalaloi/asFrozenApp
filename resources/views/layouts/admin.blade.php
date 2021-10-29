@@ -261,21 +261,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin-analisis/produk" class="nav-link @if($menu_ == 'analisis produk') active @endif">
+                <a href="/admin-analisis/produk" class="nav-link @if(Request::segment(2) == 'produk') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Analisis Produk</p>
                   <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-analisis/transaksi" class="nav-link @if($menu_ == 'analisis transaksi') active @endif">
+                <a href="/admin-analisis/transaksi" class="nav-link @if(Request::segment(2) == 'transaksi') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Analisis Transaksi</p>
                   <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-analisis/pelanggan" class="nav-link @if($menu_ == 'analisis Pelangan') active @endif">
+                <a href="/admin-analisis/pelanggan" class="nav-link @if(Request::segment(2) == 'pelanggan') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Analisis Pelanggan</p>
                   <span id="jumlah_pengantaran" class="right badge badge-danger"></span>

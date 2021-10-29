@@ -32,92 +32,119 @@
 @endsection
 
 @section('body')
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <div class="content-header">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header" style="position: relative;">
-              <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <text x="293" text-anchor="middle" class="highcharts-title" data-z-index="4" style="color:#333333;font-size:18px;fill:#333333;" y="24">Produk Paling Banyak Dibeli</text>
-                <text>Semua Kategori - 7 Hari Terakhir</text>
-              </div>
-              <div class="btn btn-danger" style="position: absolute; right: 1em; top: 1em;">
-                Filter
-              </div>
-              <div class="row" hidden>
-                <div class="col">
-                  <div class="form-group">
-                    <label>Tanggal Mulai:</label>
-                    <div class="input-group date" id="tgl_mulai" data-target-input="nearest">
-                      <input value="@if (isset($tgl_mulai)) {{$tgl_mulai}} @endif" type="text" id="input_tgl_mulai" class="form-control datetimepicker-input" data-target="#tgl_mulai"/>
-                      <div class="input-group-append" data-target="#tgl_mulai" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label>Tanggal Akhir:</label>
-                    <div class="input-group date" id="tgl_akhir" data-target-input="nearest">
-                      <input value="@if (isset($tgl_akhir)) {{$tgl_akhir}} @endif" type="text" id="input_tgl_akhir" class="form-control datetimepicker-input" data-target="#tgl_akhir"/>
-                      <div class="input-group-append" data-target="#tgl_akhir" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div style="padding: 30px">
-                    <button onclick="cari()">Cari</button>
+<div class="modal fade" id="modal_filter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filter Analisa Produk
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="right: 1em; position: absolute;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{ csrf_field() }}
+          <div class="form-group">
+            <label>Kategori</label>
+            <select class="form-control" name="kategori" id="kategori">
+              <option value="Semua Kategori">Semua Kategori</option>
+              @foreach ($kategori as $row)
+              <option value="{{$row->id}}" style="color: black;" @if ($row->id == $id_kategori) selected @endif>{{$row->kategori}}</option>
+              @endforeach
+            </select>
+          </div> 
+          <div class="form-group">
+            <label>Rentan Waktu</label>
+            <select class="form-control" name="rentan_waktu" id="rentan_waktu" onchange="select_rentan_waktu()">
+              <?php
+              $hari = array('Hari ini', '3 hari terakhir', '7 hari terakhir', '30 hari terakhir', '90 hari terakhir', 'Pilih Tanggal');
+
+              if (isset($_GET['rentan_waktu'])){
+                $select_rentan_waktu = $_GET['rentan_waktu'];
+              }
+              else {
+                $select_rentan_waktu = '7 hari terakhir';
+              }
+              ?>
+              @foreach ($hari as $row)
+              <option value="{{$row}}" @if ($row == $select_rentan_waktu) selected @endif>{{$row}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="row" id="div_pilih_tanggal" hidden>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Tanggal Mulai:</label>
+                <div class="input-group date" id="tgl_mulai" data-target-input="nearest">
+                  <input value="@if (isset($tgl_mulai)) {{$tgl_mulai}} @endif" type="text" id="input_tgl_mulai" class="form-control datetimepicker-input" data-target="#tgl_mulai"/>
+                  <div class="input-group-append" data-target="#tgl_mulai" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-9">
-                  <div id="diagram"></div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Tanggal Akhir:</label>
+                <div class="input-group date" id="tgl_akhir" data-target-input="nearest">
+                  <input value="@if (isset($tgl_akhir)) {{$tgl_akhir}} @endif" type="text" id="input_tgl_akhir" class="form-control datetimepicker-input" data-target="#tgl_akhir"/>
+                  <div class="input-group-append" data-target="#tgl_akhir" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
                 </div>
-                <div class="col-md-3">
-                  @foreach ($kategori_show as $data)
-                  <div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
-                    <div class="flash_sale" style="width: 100%;">
-                      @foreach ($data->produk as $produk)
-                      <div class="d-flex" style="margin-left: 0.5em; margin-right: 0.5em; padding-bottom: 0px;  -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%); margin-bottom: 1em; margin-top: 1em;">
-                        <div class="member" style="position: relative; margin-bottom: 0px;">
-                          <div class="member-img">
-                            <img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" alt="">
-                          </div>
-                          <div class="member-info" style=" padding: 0em 0.7em 0.8em;">
-                            @if ($produk->diskon != null)
-                            @php
-                            $harga = $produk->harga;
-                            $diskon = $produk->diskon->diskon;
-                            $harga_diskon = $harga - ($diskon/100 * $harga)
-                            @endphp
-                            <div style="margin-top: 0.5em; text-align: left; color: black;">
-                              @if (strlen($produk->nama) > 15) {{substr($produk->nama, 0, 15)}}... @else {{$produk->nama}} @endif<badge class="badge badge-warning">{{$diskon}}%</badge> 
+              </div>
+            </div>
+          </div> 
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" onclick="cari_filter()">Cari</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header" style="position: relative;">
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                  <text x="293" text-anchor="middle" class="highcharts-title" data-z-index="4" style="color:#333333;font-size:18px;fill:#333333;" y="24">Produk Paling Banyak Dibeli</text>
+                  <text>{{$text_rentan_waktu}}</text>
+                  <text>{{$nama_kategori}}</text>
+                </div>
+                <div class="btn btn-danger" onclick="modal_filter()" style="position: absolute; right: 1em; top: 1em;">
+                  Filter
+                </div>
+              </div>
+              <div class="card-body">
+                @if (count($nama_produk) > 0)
+                <div class="row">
+                  <div class="col-md-9">
+                    <div id="diagram"></div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+                      <div class="flash_sale" style="width: 100%;">
+                        @foreach ($produks as $produk)
+                        <div class="d-flex" style="margin-left: 0.5em; margin-right: 0.5em; padding-bottom: 0px;  -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%); margin-bottom: 1em; margin-top: 1em;">
+                          <div class="member" style="position: relative; margin-bottom: 0px;">
+                            <div class="member-img">
+                              <img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
                             </div>
-                            <div style="padding-top: 0px; position: relative; display: flex; flex-direction: row; justify-content: flex-start; margin-top: 0.3em;">
-                              <small><s>Rp {{number_format($produk->harga, 0, '.', '.')}}</s></small>&nbsp;&nbsp;
-                              <h6>Rp {{number_format($harga_diskon, 0, '.', '.')}}</h6>
-                            </div>
-                            @else
-                            <div style="margin-top: 0.5em; text-align: left; color: black;">
-                              @if (strlen($produk->nama) > 20) {{substr($produk->nama, 0, 20)}}... @else {{$produk->nama}} @endif</div>
-                              <div style="padding-top: 0px; position: relative; display: flex; flex-direction: row; justify-content: flex-start; margin-top: 0.3em;">
-                                <h6>Rp {{number_format($produk->harga, 0, '.', '.')}}</h6>
+                            <div class="member-info" style=" padding: 0em 0.7em 0.8em;">
+                              <div style="margin-top: 0.5em; text-align: left; color: black;">
+                                @if (strlen($produk->nama) > 20) {{substr($produk->nama, 0, 20)}}... @else {{$produk->nama}} @endif
                               </div>
-                              @endif
-                              <a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
-                                <div>
-                                  <span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
-                                </div>
-                                <div>Beli</div>
+                              <div style="padding-top: 0px; position: relative; display: flex; flex-direction: row; justify-content: flex-start; margin-top: 0em;">
+                                <small>Rp {{number_format($produk->harga, 0, '.', '.')}} - {{$produk->kategori}}</small>
+                              </div>
+                              <a onclick="tambah_keranjang()" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: column; color: white; align-items: center; margin-top: 0.4em;">
+                                <div>Top {{$loop->iteration}}</div>
                               </a>
                             </div>
                           </div>
@@ -125,9 +152,13 @@
                         @endforeach
                       </div>
                     </div>
-                    @endforeach
                   </div>
                 </div>
+                @else
+                <div style="text-align: center; padding: 3em;">
+                  <h1>Tidak ada transaksi</h1>
+                </div>
+                @endif
               </div>
             </div>
           </div>
@@ -149,6 +180,28 @@
       if(tgl_mulai != "" && tgl_akhir != ""){
         var this_url = window.location.origin;
         window.location.href = this_url+"/admin-analisis/produk/?tgl_mulai="+tgl_mulai+"&tgl_akhir="+tgl_akhir;
+      }
+    }
+
+    function cari_filter(){
+      var rentan_waktu = $("#rentan_waktu").val();
+      var kategori = $("#kategori").val();
+      var input_tgl_mulai = $("#input_tgl_mulai").val();
+      var input_tgl_akhir = $("#input_tgl_akhir").val();
+      location.href="{{url()->current()}}?rentan_waktu="+rentan_waktu+"&kategori="+kategori+"&tgl_mulai="+input_tgl_mulai+"&tgl_akhir="+input_tgl_akhir;
+    }
+
+    function modal_filter(){
+      $("#modal_filter").modal('show');
+    }
+
+    function select_rentan_waktu(){
+      var rentan = $("#rentan_waktu").val();
+      if (rentan == 'Pilih Tanggal'){
+        $("#div_pilih_tanggal").prop('hidden', false);
+      }
+      else {
+        $("#div_pilih_tanggal").prop('hidden', true);
       }
     }
 
@@ -216,7 +269,7 @@
       yAxis: {
         min: 0,
         title: {
-          text: 'Population (millions)',
+          text: 'Jumlah Terjual',
           align: 'high'
         },
         labels: {
@@ -237,6 +290,7 @@
         layout: 'vertical',
         align: 'right',
         verticalAlign: 'top',
+        enabled: false,
         x: -40,
         y: 80,
         floating: true,
@@ -250,6 +304,7 @@
       },
       series: [{
         name: 'Produk',
+        colorByPoint: true,
         data: {!! json_encode($jumlah_produk) !!}
       }]
     });

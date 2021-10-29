@@ -25,65 +25,199 @@ class AdminAnalisController extends Controller
         $jumlah_produk = ["-"];
         $produk = array();
         $kategori_show = Kategori::withCount('produk')->orderBy('produk_count', 'desc')->paginate(1);
+        $kategori = Kategori::get();
 
-        if(count($request->all()) != 0){
-            $nama_produk = array();
-            $jumlah_produk = array();
-            $tgl_mulai = $request->tgl_mulai;
-            $tgl_akhir = $request->tgl_akhir;
-            $produk = DB::select("select produk, sum(jumlah) as jumlah from riwayat_pesanan where DATE(created_at) between '".$tgl_mulai."' and '".$tgl_akhir."' group BY produk order By sum(jumlah) desc limit 0, 10");
-            
-            foreach($produk as $data){
-                array_push($nama_produk, $data->produk);
-                array_push($jumlah_produk, $data->jumlah);
-            }
-            return view('admin.analisis_produk', compact('menu', 'sub_menu', 'nama_produk', 'jumlah_produk', 'produk', 'tgl_mulai', 'tgl_akhir', 'kategori_show'));
+        // check rentan waktu
+        $rentan_waktu = "";
+        if (isset($_GET['rentan_waktu'])){
+            $rentan_waktu = $_GET['rentan_waktu']; 
         }
-        return view('admin.analisis_produk', compact('menu', 'sub_menu','nama_produk', 'jumlah_produk', 'produk', 'kategori_show'));
+
+        if ($rentan_waktu == ''){
+            $data = $this->filter_tanggal('7 hari terakhir');            
+        }
+        else if ($rentan_waktu == 'Pilih Tanggal'){
+            $data['tanggal_terakhir'] = $_GET['tgl_akhir'];
+            $data['tanggal_mulai'] = $_GET['tgl_mulai'];
+            $data['text_rentan_waktu'] = " (".$this->tgl_indo(date('Y-m-d', strtotime($_GET['tgl_mulai'])))." - ".$this->tgl_indo(date('Y-m-d', strtotime($_GET['tgl_akhir']))).")";
+        }
+        else {
+            $data = $this->filter_tanggal($rentan_waktu);                        
+        }
+
+        $nama_produk = array();
+        $jumlah_produk = array();
+        
+        $tgl_mulai = $data['tanggal_mulai'];
+        $tgl_akhir = $data['tanggal_terakhir'];
+        $text_rentan_waktu = $data['text_rentan_waktu'];
+
+        // check kategori
+        $id_kategori = "Semua Kategori";
+        $nama_kategori = "Semua Kategori";
+        if (isset($_GET['kategori'])){
+            $id_kategori = $_GET['kategori'];
+            if ($id_kategori == 'Semua Kategori'){
+                $produk = DB::select("select produk.foto, kategori, harga, nama, produk, sum(jumlah) as jumlah from riwayat_pesanan inner join produk on produk.id=riwayat_pesanan.produk_id inner join kategori on kategori.id=produk.kategori_id where DATE(riwayat_pesanan.created_at) between '".$tgl_mulai."' and '".$tgl_akhir."' group BY kategori, produk, nama, harga, foto order By sum(jumlah) desc limit 0, 10"); 
+            }
+            else {
+                $nama_kategori = Kategori::where('id', $id_kategori)->first()->kategori;
+                $produk = DB::select("select produk.foto, kategori, nama, harga, produk, sum(jumlah) as jumlah from riwayat_pesanan inner join produk on produk.id=riwayat_pesanan.produk_id inner join kategori on kategori.id=produk.kategori_id where produk.kategori_id='$id_kategori' and DATE(riwayat_pesanan.created_at) between '".$tgl_mulai."' and '".$tgl_akhir."' group BY produk, kategori, nama, harga, foto order By sum(jumlah) desc limit 0, 10");                 
+            }
+        }
+        else {
+            $produk = DB::select("select produk.foto, nama, kategori, harga, produk, sum(jumlah) as jumlah from riwayat_pesanan inner join produk on produk.id=riwayat_pesanan.produk_id inner join kategori on kategori.id=produk.kategori_id where DATE(riwayat_pesanan.created_at) between '".$tgl_mulai."' and '".$tgl_akhir."' group BY produk, kategori, nama, harga, foto order By sum(jumlah) desc limit 0, 10");            
+        }
+
+        foreach($produk as $data){
+            array_push($nama_produk, $data->produk);
+            array_push($jumlah_produk, $data->jumlah);
+        }
+
+        $produks = $produk;
+        return view('admin.analisis_produk', compact('menu', 'sub_menu','nama_produk', 'jumlah_produk', 'produk', 'kategori_show', 'kategori', 'text_rentan_waktu', 'nama_kategori', 'id_kategori', 'produks'));
     }
+
+    public function filter_tanggal($value){
+        if ($value == "Hari ini"){
+            $tanggal_terakhir = date('Y-m-d');
+            $tanggal_mulai = date('Y-m-d');             
+            $tanggal_terakhir_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_terakhir))); 
+            $tanggal_mulai_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_mulai)));
+        }        
+        else if ($value == "3 hari terakhir"){
+            $tanggal_terakhir = date('Y-m-d');
+            $tanggal_mulai = date('Y-m-d', strtotime($tanggal_terakhir."-3 days"));             
+            $tanggal_terakhir_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_terakhir))); 
+            $tanggal_mulai_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_mulai)));
+        }
+        else if ($value == "7 hari terakhir"){
+            $tanggal_terakhir = date('Y-m-d');
+            $tanggal_mulai = date('Y-m-d', strtotime($tanggal_terakhir."-7 days"));             
+            $tanggal_terakhir_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_terakhir))); 
+            $tanggal_mulai_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_mulai)));
+        }
+        else if ($value == "30 hari terakhir"){
+            $tanggal_terakhir = date('Y-m-d');
+            $tanggal_mulai = date('Y-m-d', strtotime($tanggal_terakhir."-30 days")); 
+            $tanggal_terakhir_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_terakhir))); 
+            $tanggal_mulai_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_mulai)));
+        }
+        else if ($value == "60 hari terakhir"){
+            $tanggal_terakhir = date('Y-m-d');
+            $tanggal_mulai = date('Y-m-d', strtotime($tanggal_terakhir."-60 days")); 
+            $tanggal_terakhir_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_terakhir))); 
+            $tanggal_mulai_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_mulai)));
+        }
+        else if ($value == "90 hari terakhir"){
+            $tanggal_terakhir = date('Y-m-d');
+            $tanggal_mulai = date('Y-m-d', strtotime($tanggal_terakhir."-90 days")); 
+            $tanggal_terakhir_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_terakhir))); 
+            $tanggal_mulai_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_mulai)));
+        }
+        else if ($value == "Tahun ini"){
+            $tanggal_terakhir = date('Y-m-d');
+            $tanggal_mulai = date('Y')."-01-01"; 
+            $tanggal_terakhir_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_terakhir))); 
+            $tanggal_mulai_text = $this->tgl_indo(date('Y-m-d', strtotime($tanggal_mulai)));
+        }
+
+        $data['tanggal_terakhir'] = $tanggal_terakhir;
+        $data['tanggal_mulai'] = $tanggal_mulai;
+        $data['tanggal_terakhir_text'] = $tanggal_terakhir_text;
+        $data['tanggal_mulai_text'] = $tanggal_mulai_text;
+        $data['text_rentan_waktu'] = $value." (".$tanggal_mulai_text." - ".$tanggal_terakhir_text.")";
+        if ($value == 'Hari ini'){
+            $data['text_rentan_waktu'] = $value." (".$tanggal_mulai_text.")";            
+        }
+        return $data;
+    }
+
+
+    public function tgl_indo($tanggal){
+        $bulan = array (
+            1 => 'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $tanggal);     
+        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+    }
+
 
     public function transaksi(Request $request){
         $menu = "analisis";
-        $sub_menu = "analisis transaksi";
-        $jumlah_transaksi = array();
-        $total_transaksi = array();
+        $sub_menu = "analisis produk";
+        $rentan_waktu = "";
+        if (isset($_GET['rentan_waktu'])){
+            $rentan_waktu = $_GET['rentan_waktu']; 
+        }
+
+        if ($rentan_waktu == ''){
+            $data = $this->filter_tanggal('7 hari terakhir');            
+        }
+        else if ($rentan_waktu == 'Pilih Tanggal'){
+            $data['tanggal_terakhir'] = $_GET['tgl_akhir'];
+            $data['tanggal_mulai'] = $_GET['tgl_mulai'];
+            $data['text_rentan_waktu'] = " (".$this->tgl_indo(date('Y-m-d', strtotime($_GET['tgl_mulai'])))." - ".$this->tgl_indo(date('Y-m-d', strtotime($_GET['tgl_akhir']))).")";
+        }
+        else {
+            $data = $this->filter_tanggal($rentan_waktu);                        
+        }
         $list_data = array();
+        $jumlah_transaksi = array();
         $dateRange = array();
+        $total_transaksi = array();
         $startDate ="";
         $endDate = "";
-        if(count($request->all())>0){
-            $startDate = Carbon::createFromFormat('Y-m-d', $request->tgl_mulai);
-            $endDate = Carbon::createFromFormat('Y-m-d', $request->tgl_akhir);
 
-            $CreateDateRange = CarbonPeriod::create($startDate, $endDate);
-            $date = $CreateDateRange->toArray();
-            
-            foreach($date as $data){
-                array_push($dateRange, $data->format('Y-m-d'));
-            }
-            
-            $i = 0;
-            foreach($dateRange as $data){
-                // total_transaksi
-                $list_data[$i]['tanggal'] = $data;
-                $get_total_transaksi = DB::select("select sum(total_harga) as jumlah from riwayat_nota_pesanan where DATE(waktu_pemesanan) = '".$data."'");
-                if($get_total_transaksi[0]->jumlah == null){
-                    array_push($total_transaksi, 0);
-                    $list_data[$i]['total_transaksi'] = 0;
-                }
-                else{
-                    array_push($total_transaksi, $get_total_transaksi[0]->jumlah);
-                    $list_data[$i]['total_transaksi'] = $get_total_transaksi[0]->jumlah;
-                }
-                
-                // jumlah_transaksi
-                $list_data[$i]['jumlah_transaksi'] = Riwayat_nota_pesanan::whereDate('created_at', $data)->count();
-                array_push($jumlah_transaksi, Riwayat_nota_pesanan::whereDate('created_at', $data)->count());
-                
-                $i++;
-            }
+        $tgl_mulai = $data['tanggal_mulai'];
+        $tgl_akhir = $data['tanggal_terakhir'];
+        $text_rentan_waktu = $data['text_rentan_waktu'];
+
+        $startDate = Carbon::createFromFormat('Y-m-d', $tgl_mulai);
+        $endDate = Carbon::createFromFormat('Y-m-d', $tgl_akhir);
+
+        $CreateDateRange = CarbonPeriod::create($startDate, $endDate);
+        $date = $CreateDateRange->toArray();
+
+        foreach($date as $data){
+            array_push($dateRange, $data->format('Y-m-d'));
         }
-        return view('admin.analisis_transaksi', compact('menu', 'sub_menu', 'dateRange', 'jumlah_transaksi', 'total_transaksi', 'startDate', 'endDate'));
+
+        $i = 0;
+        foreach($dateRange as $data){
+            $list_data[$i]['tanggal'] = date('d-m-Y', strtotime($data));
+            $get_total_transaksi = DB::select("select sum(total_harga) as jumlah from riwayat_nota_pesanan where DATE(waktu_pemesanan) = '".$data."'");
+            if($get_total_transaksi[0]->jumlah == null){
+                array_push($total_transaksi, 0);
+                $list_data[$i]['total_transaksi'] = 0;
+            }
+            else{
+                array_push($total_transaksi, $get_total_transaksi[0]->jumlah);
+                $list_data[$i]['total_transaksi'] = $get_total_transaksi[0]->jumlah;
+            }
+
+                // jumlah_transaksi
+            $list_data[$i]['jumlah_transaksi'] = Riwayat_nota_pesanan::whereDate('created_at', $data)->count();
+            array_push($jumlah_transaksi, Riwayat_nota_pesanan::whereDate('created_at', $data)->count());
+
+            $i++;
+        }
+
+        $top_transaksi['jumlah'] = collect($list_data)->sortBy('jumlah_transaksi')->reverse()->toArray();
+        $top_transaksi['total'] = collect($list_data)->sortBy('total_transaksi')->reverse()->toArray();
+        // dd($top_transaksi['jumlah']);
+        return view('admin.analisis_transaksi', compact('menu', 'sub_menu', 'dateRange', 'jumlah_transaksi', 'total_transaksi', 'startDate', 'endDate', 'text_rentan_waktu', 'tgl_mulai', 'tgl_akhir', 'top_transaksi'));
     }
 
     public function pelanggan(Request $request){
