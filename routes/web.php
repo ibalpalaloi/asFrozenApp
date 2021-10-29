@@ -66,6 +66,7 @@ Route::get('/admin-analisis/pelanggan/total-transaksi-terbanyak', [AdminAnalisCo
 // pesanan
 Route::get('/pesanan', [UserPesananController::class, 'pesanan'])->middleware('auth');
 Route::get('/batalkan-pesanan/{id}', [UserPesananController::class, 'batalkan_pesanan'])->middleware('auth');
+Route::get('/riwayat-pesanan', [UserPesananController::class, 'riwayat_pesanan']);
 
 // Kategori
 Route::get('/admin-index', [AdminController::class, 'index']);

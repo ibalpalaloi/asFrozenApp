@@ -15,7 +15,7 @@ class Riwayat_pesanan extends Model
         return $this->belongsTo(Riwayat_nota_pesanan::class);
     }
 
-    public function produk(){
-        return $this->belongsTo(Produk::class);
+    public function data_produk(){
+        return $this->belongsTo(Produk::class, 'produk_id');
     }
 }

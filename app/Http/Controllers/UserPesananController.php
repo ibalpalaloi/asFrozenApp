@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Pesanan;
 use App\Models\Nota;
 use App\Models\Keranjang;
+use App\Models\Riwayat_nota_pesanan;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
+
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use SimpleSoftwareIO\QrCode\Generator;
 
@@ -52,5 +54,10 @@ class UserPesananController extends Controller
         else {
             return view('user/biodata/desktop');            
         }
+    }
+
+    public function riwayat_pesanan(){
+        $riwayat_nota = Riwayat_nota_pesanan::where('user_id', Auth()->user()->id)->get();
+        return view('user.riwayat.riwayat_pesanan', compact('riwayat_nota'));
     }
 }
