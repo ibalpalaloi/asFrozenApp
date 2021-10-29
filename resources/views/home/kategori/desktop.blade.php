@@ -15,37 +15,38 @@ Keranjang Belanja
 		<div class="row">
 			<div class="col-md-12" style="padding: 0px;">
 				<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
-					<div class="icon-boxes" style="margin-top: 0em; display: flex; justify-content: space-between;"> 		
-						@php
-						$nama = array('Bakso', 'Buah Sayur', 'Bumbu', 'Daging', 'Ikan', 'Kecap Saus', 'Kue', 'Lainnya', 'Roti', 'Sosis','Kecap Saus', 'Kue', 'Lainnya', 'Roti', 'Sosis');
-						$file = array('baso_1.jpg', 'buah_sayur.jpg', 'bumbu.jpg', 'daging.jpg', 'ikan.jpg', 'kecap_saus.jpg', 'kue.jpg', 'lainnya.jpg', 'roti.jpg', 'sossis.jpg','kecap_saus.jpg', 'kue.jpg', 'lainnya.jpg', 'roti.jpg', 'sossis.jpg');
-						@endphp
-						<a href="#" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
+					<?php
+						$kategori=$list_kategori;
+					?>
+					<div class="icon-boxes" style="margin-top: 0em; display: flex; justify-content: space-between;"> 
+						@for ($i = 0; $i < 11; $i++)
+						<a href="<?=url('/')?>/kategori/{{$kategori[$i]->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 							<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 								@php
-								$url = url('/')."/icon_kategori/$kategori_current->logo";
+								$url = url('/')."/icon_kategori/thumbnail/150x150/".$kategori[$i]->logo;
 								@endphp
 								<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 								</div>
-								<div style="text-align: center; font-size: 1em;"><b>{{$kategori_current->kategori}}</b></div>
+								<div style="font-size: 1em; height: 2em; line-height: 1em; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; vertical-align: center;"><b>{{$kategori[$i]->kategori}}</b></div>
 							</div>
 						</a>
-						@foreach ($list_kategori as $data)
-						<a href="/kategori/{{$data->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
-							<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
-								@php
-								$url = url('/')."/icon_kategori/$data->logo";
-								@endphp
-								<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
-								</div>
-								<div style="text-align: center; font-size: 1em;"><b>{{$data->kategori}}</b></div>
-							</div>
-						</a>
-						@endforeach
+						@endfor
 					</div>
-					<div class="icon-boxes" style="margin-top: 0em; display: flex; justify-content: space-between; display: none;"> 		
+					<div class="icon-boxes" style="margin-top: 1em; display: flex; justify-content: space-between;"> 
+						@for ($i = 11; $i < 22; $i++)
+						<a href="<?=url('/')?>/kategori/{{$kategori[$i]->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
+							<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
+								@php
+								$url = url('/')."/icon_kategori/thumbnail/150x150/$kategori[$i]->logo";
+								@endphp
+								<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
+								</div>
+								<div style="font-size: 1em; height: 2em; line-height: 1em; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; vertical-align: center;"><b>{{$kategori[$i]->kategori}}</b></div>
+							</div>
+						</a>
+						@endfor
+					</div>
 
-					</div>
 				</div>
 			</div>
 		</div>
