@@ -47,7 +47,11 @@ class GetController extends Controller
 
     public function get_detail_produk($id){
         $data_produk = Produk::find($id);
-        $sub_kategori = Sub_kategori::where('id', $data_produk->sub_kategori->id)->get();
+        $sub_kategori = "";
+        if($data_produk->sub_kategori != null){
+            $sub_kategori = Sub_kategori::where('id', $data_produk->sub_kategori->id)->get();
+        }
+        
         $prodduk = array();
         $produk['id'] = $data_produk->id;
         $produk['nama'] = $data_produk->nama;
@@ -55,7 +59,7 @@ class GetController extends Controller
         $produk['satuan'] = $data_produk->satuan;
         $produk['deskripsi'] = $data_produk->deskripsi;
         $produk['kategori'] = $data_produk->kategori->kategori;
-        $produk['sub_kategori'] = $data_produk->sub_kategori->sub_kategori;
+        $produk['sub_kategori'] = "-";
         $produk['foto'] = $data_produk->foto;
         return response()->json(['produk'=>$produk, 'sub_kategori' => $sub_kategori]);
     }

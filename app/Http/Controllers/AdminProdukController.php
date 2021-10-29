@@ -238,7 +238,13 @@ class AdminProdukController extends Controller
         $data_produk['harga'] = $produk->harga;
         $data_produk['satuan'] = $produk->satuan;
         $data_produk['kategori'] = $produk->kategori->kategori;
-        $data_produk['sub_kategori'] = $produk->sub_kategori->sub_kategori;
+        if($produk->sub_kategori != null){
+            $data_produk['sub_kategori'] = $produk->sub_kategori->sub_kategori;
+        }
+        else{
+            $data_produk['sub_kategori'] = "-";
+        }
+        
 
 
         return response()->json(['produk'=>$data_produk]);
@@ -324,7 +330,13 @@ class AdminProdukController extends Controller
             $list_produk[$i]['harga'] = $data->harga;
             $list_produk[$i]['satuan'] = $data->satuan;
             $list_produk[$i]['kategori'] = $data->kategori->kategori;
-            $list_produk[$i]['sub_kategori'] = $data->sub_kategori->sub_kategori;
+            if($data->sub_kategori != null){
+                $list_produk[$i]['sub_kategori'] = $data->sub_kategori->sub_kategori;
+            }
+            else{
+                $list_produk[$i]['sub_kategori'] = "-";
+            }
+
             if($data->diskon != null){
                 $list_produk[$i]['diskon'] = $data->diskon->diskon;
             }

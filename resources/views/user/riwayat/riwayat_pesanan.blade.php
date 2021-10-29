@@ -43,7 +43,8 @@ Keranjang Belanja
 
                 </tbody>
             </table>
-            <br><br>
+            <button style="float: right; font-size: 20px" type="button" class="btn btn-danger btn-lg">Rp {{$nota->total_harga}}</button>
+            <br><br><br><br><br><br>
         @endforeach
         
         

@@ -37,7 +37,7 @@ Keranjang Belanja
 						<a href="<?=url('/')?>/kategori/{{$kategori[$i]->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 							<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 								@php
-								$url = url('/')."/icon_kategori/thumbnail/150x150/$kategori[$i]->logo";
+								$url = url('/')."/icon_kategori/thumbnail/150x150/".$kategori[$i]->logo;
 								@endphp
 								<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 								</div>
@@ -115,6 +115,18 @@ Keranjang Belanja
 					$('#div_data_sub_kategori').append(data.html);
 				}
 			});
+	}
+
+	function tambah_keranjang(id){
+		show_loader();
+		$.ajax({
+			url: "<?=url('/')?>/tambah_keranjang/"+id,
+			type:"get",
+			success:function(data){
+				setTimeout(hide_loader, 500);
+				console.log(data);
+			}
+		})
 	}
 
 	

@@ -295,9 +295,14 @@ class AdminAnalisController extends Controller
                     }
                 }
             }
+            $presentase_pria = ($jumlah_pria/$jumlah_riwayat_nota) * 100;
+            $presentase_wanita = ($jumlah_wanita/$jumlah_riwayat_nota) * 100;
         }
-        $presentase_pria = ($jumlah_pria/$jumlah_riwayat_nota) * 100;
-        $presentase_wanita = ($jumlah_wanita/$jumlah_riwayat_nota) * 100;
+        else{
+            $presentase_pria = 0;
+            $presentase_wanita = 0;
+        }
+        
         return view('admin.analisis-pelanggan-jenis-kelamin', compact('menu', 'sub_menu', 'presentase_pria', 'presentase_wanita', 'jumlah_wanita', 'jumlah_pria', 'tgl_mulai', 'tgl_akhir'));
     }
 }
