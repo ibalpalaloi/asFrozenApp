@@ -2,12 +2,21 @@
 <script>
     var token = $("meta[name='csrf-token']").attr("content");
    function hapus_pesanan(row, id_nota){
-      swal("Yakin Ingin Menghapus Pesanan")
-        .then((value) => {
-          $('#row_'+row).remove();
-          ajax_hapus_pesanan(row);
-          get_total_pesanan(id_nota);
-      });
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $('#row_'+row).remove();
+            ajax_hapus_pesanan(row);
+            get_total_pesanan(id_nota);
+            get_total_pesanan();
+        } 
+        });
    }
 
    function ajax_hapus_pesanan(id){
@@ -67,34 +76,25 @@
             data: {'id_nota': id_nota, 'id_produk':id_produk, 'jumlah':jumlah, 'harga_satuan':harga_satuan, '_token':token},
             success:function(data){
                 console.log(data);
-                var pesanan = data.pesanan;
-                var new_tr = "";
-                new_tr += "<tr class='border_table' id='row_"+pesanan['id']+"'>";
-                new_tr += "<td class='border_table'>"+pesanan['nama']+"</td>";
-                new_tr += "<td class='border_table'>"+pesanan['jumlah']+"</td>";
-                new_tr += "<td class='border_table'>"+pesanan['harga_satuan']+"</td>";
-                new_tr += "<td class='border_table'>"+pesanan['harga_total']+"</td>";
-                new_tr += "<td class='border_table'>";
-                new_tr += "<button onclick='hapus_pesanan("+pesanan['id']+")' class='btn btn-danger'></button><td><tr>"
 
-                $('#tbody_daftar_pesanan_'+id_nota).append(new_tr);
+                $('#tbody_daftar_pesanan').append(data.html);
                 $('#tambah_pesanan_modal').modal('hide');
-                get_total_pesanan(id_nota);
+                get_total_pesanan();
 
             }
         })
    }
 
-   function get_total_pesanan(id_nota){
-       $.ajax({
-           type: "get",
-           url: "/admin/get_total_pesanan/"+id_nota,
-           success:function(data){
-               console.log(data);
-               $('#total_pesanan_'+id_nota).html("Total Pesanan : Rp. "+data.total_harga);
-           }
-       })
-   }
+//    function get_total_pesanan(id_nota){
+//        $.ajax({
+//            type: "get",
+//            url: "/admin/get_total_pesanan/"+id_nota,
+//            success:function(data){
+//                console.log(data);
+//                $('#total_pesanan_'+id_nota).html("Total Pesanan : Rp. "+data.total_harga);
+//            }
+//        })
+//    }
 
    function hubungi_pesanan(id_pesanan){
        var no_hp = "628114588477";
@@ -108,7 +108,7 @@
            type: "GET",
            url: "/admin/batalkan_pesanan/"+id_nota,
            success:function(data){
-                $('#div_card'+id_nota).remove();
+                window.location.href = "/admin/daftar-pesanan"
            }
        })
    }

@@ -1,5 +1,5 @@
 @foreach ($list_produk as $data)
-    <tr>
+    <tr id="trow_daftar_produk_{{$data['id']}}">
     <td>
         <div style="display:flex;">
         <img src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100px;">
@@ -44,7 +44,7 @@
     <button class="btn btn-info" onclick="modal_detail_produk('{{$data['id']}}')">
         <ion-icon name="pencil-outline"></ion-icon>
     </button>
-    <button class="btn btn-danger">
+    <button onclick="konfir_hapus_produk('{{$data['id']}}')" class="btn btn-danger">
         <ion-icon name="trash-outline"></ion-icon>
     </button>
     <button class="btn btn-success">
