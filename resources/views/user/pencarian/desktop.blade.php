@@ -43,7 +43,7 @@ Keranjang Belanja
 								@endphp
 								<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 								</div>
-								<div style="font-size: 1em; height: 2em; line-height: 1em; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; vertical-align: center;"><b>{{$kategori[$i]->kategori}}</b></div>
+								<div style="font-size: 1em; height: 2em; line-height: 1em; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; vertical-align: center; color: #731313"><b>{{$kategori[$i]->kategori}}</b></div>
 							</div>
 						</a>
 						@endfor

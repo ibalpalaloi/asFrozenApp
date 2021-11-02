@@ -400,7 +400,7 @@
 			</div>
 		</div>
 	</div>
-	<header id="header" class="fixed-top" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); border-bottom: none; box-shadow:0 1px 1px rgb(0 0 0 / 20%);">
+	<header id="header" class="fixed-top" style="background: #CF0303">
 		<div class="container" style="display: flex; justify-content: space-between;">
 			<div style="width: 88%; display: flex;">
 				<h1 class="logo" style="margin-right: 1em;">
