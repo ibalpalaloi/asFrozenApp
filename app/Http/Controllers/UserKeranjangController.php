@@ -14,6 +14,7 @@ use App\Models\Produk;
 use App\Models\Diskon;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -106,24 +107,31 @@ class UserKeranjangController extends Controller
     }
 
     public function tambah_keranjang($id){
-        $keranjang = Keranjang::where([
-            ['user_id', Auth()->user()->id],
-            ['produk_id', $id]
-        ])->first();
+        if(Auth::check()){
+            $keranjang = Keranjang::where([
+                ['user_id', Auth()->user()->id],
+                ['produk_id', $id]
+            ])->first();
 
-        if($keranjang != null){
-            $keranjang->jumlah = $keranjang->jumlah+1;
-            $keranjang->save();
+            if($keranjang != null){
+                $keranjang->jumlah = $keranjang->jumlah+1;
+                $keranjang->save();
+            }
+            else{
+                $keranjang = new Keranjang;
+                $keranjang->user_id = Auth()->user()->id;
+                $keranjang->produk_id = $id;
+                $keranjang->jumlah =1;
+                $keranjang->save();
+            }
+            return "sukses";
         }
         else{
-            $keranjang = new Keranjang;
-            $keranjang->user_id = Auth()->user()->id;
-            $keranjang->produk_id = $id;
-            $keranjang->jumlah =1;
-            $keranjang->save();
+            return "gagal";
         }
+        
 
-        return "sukses";
+       
     }
 
     public function checkout(){
@@ -178,10 +186,11 @@ class UserKeranjangController extends Controller
     }
 
     public function post_checkout(Request $request){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
         $validator = Validator::make($request->all(), [
             'nama_penerima' => 'required',
             'ongkos_kirim' => 'required',
-            'total_harga_produk' => 'required',
             'alamat' => "required",
             'kota' => "required",
             'kecamatan' => "required",
@@ -200,7 +209,6 @@ class UserKeranjangController extends Controller
         $nota->penerima = $request->nama_penerima;
         $nota->id_pesanan = $this->autocode();
         $nota->no_telp_penerima = $request->no_telp_penerima;
-        $nota->total_harga = $request->total_harga_produk;
         $nota->alamat =  $request->alamat;
         $nota->kota = $request->kota;
         $nota->kecamatan = $request->kecamatan;
@@ -219,11 +227,13 @@ class UserKeranjangController extends Controller
         $keranjang = Keranjang::where([['user_id', Auth()->user()->id], ['checked', 'true']])->get();
 
         foreach($keranjang as $data){
+            $diskon = $this->get_diskon($data->produk_id, $date_today);
             $pesanan = new Pesanan;
             $pesanan->nota_id = $nota->id;
             $pesanan->produk_id = $data->produk_id;
             $pesanan->jumlah = $data->jumlah;
-            $pesanan->harga_satuan = $data->produk->harga;
+            $pesanan->diskon = $diskon;
+            $pesanan->harga_satuan = $this->get_harga_diskon($data->produk->harga, $diskon);
             $pesanan->save();
         }
 

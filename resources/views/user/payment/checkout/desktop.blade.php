@@ -160,8 +160,6 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						</div>
 					</div>
 				</div>
-
-
 				<div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;" id="alamat_penerima" hidden>
 					<div style="display: flex;">
 						<svg height="18" viewBox="0 0 12 16" width="18" class="shopee-svg-icon icon-location-marker" style="margin-top: 0.3em;"><path d="M6 3.2c1.506 0 2.727 1.195 2.727 2.667 0 1.473-1.22 2.666-2.727 2.666S3.273 7.34 3.273 5.867C3.273 4.395 4.493 3.2 6 3.2zM0 6c0-3.315 2.686-6 6-6s6 2.685 6 6c0 2.498-1.964 5.742-6 9.933C1.613 11.743 0 8.498 0 6z" fill-rule="evenodd"></path>
@@ -239,7 +237,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 							Ongkos Kirim
 						</div>
 						<div class="col-md-2" style="display: flex; justify-content: flex-end;">
-							<div>Rp.&nbsp;</div><div id="nilai_ongkir">{{number_format($ongkos_kirim, 0, '.', '.')}}</div>
+							<div>Rp.&nbsp;</div><div id="nilai_ongkir">0</div>
 						</div>
 					</div>
 					<div class="row">
@@ -249,7 +247,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 							Total
 						</div>
 						<div class="col-md-2" style="display: flex; justify-content: flex-end;">
-							<h3 id="nilai_total">Rp.&nbsp;{{number_format($total_harga_produk + $ongkos_kirim, 0, '.', '.')}}</h3>
+							<h3 id="nilai_total">Rp.&nbsp;{{number_format($total_harga_produk, 0, '.', '.')}}</h3>
 						</div>
 					</div>
 					
@@ -339,6 +337,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 			url: "<?=url('/')?>/get_ongkir/"+kelurahan_id,
 			success:function(data){
 				ongkos_kirim_get = data.ongkos_kirim;
+				ubah_penerima();
 			}
 		})
 
@@ -351,9 +350,15 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 		var kota = $('#selectKota option:selected').text();
 		var kecamatan = $('#selectKecamatan option:selected').text();
 		var kelurahan = $('#selectKelurahan option:selected').text();
+		ongkos_kirim = ongkos_kirim_get;
 		$("#input_nama_penerima").val(nama_penerima);
 		$('#input_no_telp_penerima').val(nomor_handphone);
-		ongkos_kirim = ongkos_kirim_get;
+		$('#input_ongkos_kirim').val(ongkos_kirim);
+		$('#input_alamat').val(alamat);
+		$('#input_kota').val(kota);
+		$('#input_kecamatan').val(kecamatan);
+		$('#input_kelurahan').val(kelurahan);
+		
 		var html = "";
 		html += "<b>Alamat Penerima&nbsp; (Ongkir : RP. "+ongkos_kirim+")</b><br>";
 		html += "<span>"+nama_penerima+" | "+nomor_handphone+"</span><br>";
@@ -362,11 +367,19 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 		console.log(html);
 
 		$("#div_alamat_penerima").html(html);
+		$('#nilai_ongkir').html(ongkos_kirim);
+		var total_harga = ongkos_kirim+total_harga_produk;
+		$('#nilai_total').html("Rp. "+total_harga);
 	}
 
 	function buat_pesanan(){
 		$('#input_catatan_pesanan').val($('#catatan_pesanan').val());
-		$("#form_data_pesanan").submit();
+		if($('#input_pembayaran').val() != "" && $('#input_pengantaran').val() != ""){
+			$("#form_data_pesanan").submit();
+		}else{
+			alert('Periksa kembali');
+		}
+		
 	}
 
 	function modal_pesan(){

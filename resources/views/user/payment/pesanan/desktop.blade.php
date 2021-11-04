@@ -78,10 +78,7 @@ Pesanan
 
 <!-- ======= Hero Section ======= -->
 @php
-$produk = ['Bakso Ikan', 'Fiesta chicken Nugget', 'Kulit Kebab'];
-$harga = ['20.000', '30.000', '12.000'];
-$jumlah = ['2', '3', '2'];
-$total_harga = ['40.000', '90.000', '24.000'];
+
 $status_pesanan = "packaging";
 // status_pesanan = ['menunggu konfirmasi', 'packaging', 'telah diantarakan']
 @endphp
@@ -119,6 +116,9 @@ $status_pesanan = "packaging";
 					<th style="text-align: center;">Subtotal</th>
 				</thead>
 				<tbody>
+					@php
+						$total_harga_pesanan = 0;
+					@endphp
 					@foreach ($nota->pesanan as $pesanan)
 					<tr>
 						<td>
@@ -143,6 +143,9 @@ $status_pesanan = "packaging";
 							</div>									
 						</td>
 					</tr>
+					@php
+						$total_harga_pesanan += $pesanan->jumlah * $pesanan->harga_satuan;
+					@endphp
 					@endforeach
 				</tbody>							
 			</table>
@@ -195,7 +198,7 @@ $status_pesanan = "packaging";
 							</div>
 							<div class="col-md-6" style="display: flex; justify-content: space-between;">		
 								<div>: Rp.</div>
-								<div>{{number_format($nota->total_harga, 0, '.', '.')}}</div>
+								<div>{{number_format($total_harga_pesanan, 0, '.', '.')}}</div>
 							</div>
 
 						</div>
@@ -214,7 +217,7 @@ $status_pesanan = "packaging";
 							</div>
 							<div class="col-md-6" style="display: flex; justify-content: space-between;">		
 								<div>: Rp.</div>
-								<div><b>{{number_format($nota->ongkos_kirim + $nota->total_harga, 0, '.', '.')}}</b></div>
+								<div><b>{{number_format($nota->ongkos_kirim + $total_harga_pesanan, 0, '.', '.')}}</b></div>
 							</div>
 
 						</div>
