@@ -76,6 +76,7 @@ Route::post('/admin-post-sub-kategori-baru', [AdminKategoriController::class, 'a
 Route::post('/admin-post-update-kategori', [AdminKategoriController::class, 'post_update_kategori']);
 Route::post('/admin-post-update-sub-kategori', [AdminKategoriController::class, 'post_update_sub_kategori']);
 Route::post('/admin-delete-kategori', [AdminKategoriController::class, 'delete_kategori']);
+Route::post('/admin/ubah_urutan', [AdminKategoriController::class, 'ubah_urutan']);
 // get
 Route::get('/get_list_sub_kategori/{id}', [GetController::class, 'get_sub_kategori']);
 Route::get('/get_kecamatan/{id}', [GetController::class, 'get_kecamatan']);

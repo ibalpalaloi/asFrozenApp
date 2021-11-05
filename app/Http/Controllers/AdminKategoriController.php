@@ -14,7 +14,7 @@ class AdminKategoriController extends Controller
 {
     //
     public function kategori(){
-        $kategori = Kategori::all();
+        $kategori = Kategori::orderBy('urutan', 'asc')->get();
         return view('admin.kategori', compact('kategori'));
     }
 
@@ -153,4 +153,20 @@ class AdminKategoriController extends Controller
         $current_date = date('mdYs'.$random, $timestamp); 
         return $kode.$current_date;
     }   
+
+    public function ubah_urutan(Request $request){
+        $kategori_ = Kategori::find($request->id_kategori);
+        $kategori = Kategori::where('urutan', $request->urutan)->first();
+        
+        $urutan_sekarang = $kategori_->urutan;
+        $urutan_ubah = $request->urutan;
+
+        $kategori_->urutan = $urutan_ubah;
+        $kategori_->save();
+
+        $kategori->urutan = $urutan_sekarang;
+        $kategori->save();
+
+        return back();
+    }
 }

@@ -4,6 +4,31 @@
 
 @endsection
 @section("body")
+
+
+{{-- modal ubah urutan --}}
+<div class="modal fade bd-example-modal-sm" id="modal_ubah_urutan" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form action="/admin/ubah_urutan" method="post">
+          @csrf
+          <input type="text" name="id_kategori" id="modal_ubah_urutan_id_kategori" hidden>
+          <select class="form-control" name="urutan" id="">
+            <option></option>
+            @for ($i = 0; $i < count($kategori); $i++)
+              <option value="{{$i+1}}">{{$i+1}}</option>
+            @endfor
+          </select>
+          <br>
+          <button class="" type="submit">Simpan</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
 {{-- modal tambah kategori --}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -187,12 +212,17 @@
                   <div style="width: 50px; margin-right: 1em;">
                     <img src="<?=url('/')?>/icon_kategori/thumbnail/75x75/{{$data->logo}}" style="width: 100%;">
                   </div>
-                  <div style="color: black;text-align: left; cursor: pointer;" onclick="get_sub_kategori('{{$data->id}}')">{{$data->kategori}}<br><small>Sub Kategori : {{$data->sub_kategori->count()}}</small>
+                  <div style="color: black;text-align: left; cursor: pointer;" onclick="get_sub_kategori('{{$data->id}}')">
+                    {{$data->kategori}}<br>
+                    <small>Sub Kategori : {{$data->sub_kategori->count()}}</small>
                   </div>
+                  <br>
+                  
                 </div>
                 <span>
                   <button class="btn btn-info" onclick="modal_ubah_kategori('{{$data->id}}', '{{$data->kategori}}')">Ubah</button>
                   <button class="btn btn-danger" onclick="modal_hapus_kategori('{{$data->id}}')">Hapus</button>
+                  <button class="btn btn-success" onclick="ubah_urutan('{{$data->id}}', '{{$data->urutan}}')">Urutan({{$data->urutan}})</button>
                 </span>
               </li>
               @endforeach
@@ -246,6 +276,11 @@
   function modal_hapus_kategori(id){
     $("#hapus_id").val(id);
     $("#modal_hapus").modal('show');
+  }
+
+  function ubah_urutan(id, urutan){
+    $('#modal_ubah_urutan').modal('show');
+    $('#modal_ubah_urutan_id_kategori').val(id);
   }
 </script>
 @endsection

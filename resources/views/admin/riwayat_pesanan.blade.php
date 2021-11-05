@@ -20,41 +20,47 @@
     <div class="content-header">
       <div class="container-fluid">
           <div class="card">
-            <table class="table table-bordered" >
-                <thead>
-                  <tr>
-                    <th scope="col">ID Pesanan</th>
-                    <th scope="col">Nama Pemesan</th>
-                    <th scope="col">Jam Pesanan</th>
-                    <th scope="col">Total Pesanan</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                    @foreach ($nota as $data)
-                        <tr>
-                            <th scope="row"><a onclick="detail_pesanan('{{$data->id}}')" href="#" style="color: black">{{$data->id_pesanan}}</a></th>
-                            <td>{{$data->nama_pemesan}}</td>
-                            <td>{{$data->waktu_pemesanan}}</td>
-                            <td>Rp. {{$data->total_harga}}</td>
-                            <td>
-                                @if ($data->pembayaran == "COD")
-                                    <button type="button" class="btn btn-warning btn-sm">COD</button>
-                                @else
-                                    <button type="button" class="btn btn-success btn-sm">Tranfer</button>
-                                @endif
-
-                                @if ($data->pengantaran == "Diantarkan")
-                                    <button type="button" class="btn btn-warning btn-sm">Diantarkan</button>
-                                @else
-                                    <button type="button" class="btn btn-success btn-sm">Ambil Sendiri</button>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
+              <div class="card-header">
                   
-                </tbody>
-              </table>
+              </div>
+              <div class="card-body">
+                  <table class="table table-bordered" >
+                    <thead>
+                        <tr>
+                            <th scope="col">ID Pesanan</th>
+                            <th scope="col">Nama Pemesan</th>
+                            <th scope="col">Jam Pesanan</th>
+                            <th scope="col">Total Pesanan</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data_nota as $data)
+                            <tr>
+                                <th scope="row"><a onclick="detail_pesanan('{{$data['id']}}')" href="#" style="color: black">{{$data['id_pesanan']}}</a></th>
+                                <td>{{$data['nama_pemesan']}}</td>
+                                <td>{{$data['waktu_pemesanan']}}</td>
+                                <td>Rp. {{number_format($data['total_pemesanan'],0,',','.')}}</td>
+                                <td>
+                                    @if ($data['pembayaran'] == "COD")
+                                        <button type="button" class="btn btn-warning btn-sm">COD</button>
+                                    @else
+                                        <button type="button" class="btn btn-success btn-sm">Tranfer</button>
+                                    @endif
+
+                                    @if ($data['pengantaran'] == "Diantarkan")
+                                        <button type="button" class="btn btn-warning btn-sm">Diantarkan</button>
+                                    @else
+                                        <button type="button" class="btn btn-success btn-sm">Ambil Sendiri</button>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    
+                    </tbody>
+                </table>
+              </div>
+            
           </div>
         
       </div>

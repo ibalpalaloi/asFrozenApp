@@ -86,7 +86,7 @@ class AdminPesananController extends Controller
         $riwayat_nota->nomor_pemesan = $nota->user->biodata->no_telp;
         $riwayat_nota->nomor_penerima = $nota->no_telp_penerima;
         $riwayat_nota->ongkos_kirim = $nota->ongkos_kirim;
-        $riwayat_nota->total_harga = $nota->total_harga;
+        $riwayat_nota->total_harga = $this->get_total_harga_pesanan($nota->id);
         $riwayat_nota->alamat = $nota->alamat;
         $riwayat_nota->pengantaran = $nota->pengantaran;
         $riwayat_nota->pembayaran = $nota->pembayaran;
@@ -112,6 +112,15 @@ class AdminPesananController extends Controller
         Pesanan::where('nota_id', $nota->id)->delete();
         $nota->delete();
         return back();
+    }
+
+    public function get_total_harga_pesanan($id){
+        $pesanan = Pesanan::where('nota_id', $id)->get();
+        $total_pesanan = 0;
+        foreach($pesanan as $data){
+            $total_pesanan += $data->jumlah * $data->harga_satuan;
+        }
+        return $total_pesanan;
     }
 
     public function ubah_status_pesanan($id, $status){
