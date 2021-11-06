@@ -1,8 +1,14 @@
 <script type="text/javascript">
+	@if(\Session::has('error'))
+		$(document).ready(function(){
+			alert_tutup("{!! \Session::get('error') !!}");
+		});
+	@endif
 
-	// var list_keranjang = {!! json_encode($data_keranjang) !!}
-	// var total_harga = parseInt("{{$total_harga}}");
-	// alert(total_harga);
+	function alert_tutup(pesan){
+		swal(pesan);
+	}
+
 	function checkbox_cek(id){
 		var checked = $('#checkboxPrimary'+id).is(":checked");
         console.log(checked);
@@ -38,17 +44,21 @@
 		var sub_total = (jumlah_pesanan * harga_diskon);
 		$('#jumlah_pesanan'+id).html(jumlah_pesanan);
 		$('#sub_total'+id).html(sub_total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
-		ubah_jumlah_ajax(id, jumlah_pesanan);
+		ubah_jumlah_ajax(id, jumlah_pesanan, harga_diskon);
 		get_harga_total();
 	}
 
-	function ubah_jumlah_ajax(id, jumlah){
+	function ubah_jumlah_ajax(id, jumlah, harga_diskon){
 		$.ajax({
 			type:"post",
 			url: "<?=url('/')?>/keranjang/ubah_jumlah",
 			data:{"id": id, "jumlah":jumlah, "_token" : "{{ csrf_token() }}"},
 			success:function(data){
-				console.log("sukses")
+				if(data.status == 'gagal'){
+					$('#jumlah_pesanan'+id).html(data.jumlah);
+					var sub_total = data.jumlah * harga_diskon;
+					$('#sub_total'+id).html(sub_total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+				}
 			}
 		})
 	}

@@ -21,6 +21,7 @@ use App\Htpp\Controllers\UserBiodataController;
 use App\Http\Controllers\AdminAnalisController;
 use App\Http\Controllers\AdminGetController;
 use App\Http\Controllers\AdminDiskonController;
+use App\Http\Controllers\JadwalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -166,5 +167,11 @@ Route::get('/pencarian', [UserKatalogController::class, 'pencarian']);
 Route::get('/get_produk_sub_kategori', [UserKatalogController::class, 'get_produK_sub_kategori']);
 Route::get('/kategori/{kategori}', [UserKatalogController::class, 'kategori']);
 
-// 
+// jadwal
+Route::get('/admin-jadwal-buka', [JadwalController::class, 'jadwal_buka']);
+Route::get('/admin-jadwal-tutup', [JadwalController::class, 'jadwal_tutup']);
+Route::get('/admin-get-jadwal-buka/{id}', [JadwalController::class, 'get_jadwal_buka']);
+Route::post('/admin-ubah-jadwal', [JadwalController::class, 'ubah_jadwal']);
+Route::post('/post-tambah-tgl-tutup', [JadwalController::class, 'post_tambah_tgl_tutup']);
+Route::get('/admin-hapus-jadwal-tutup/{id}', [JadwalController::class, 'hapus_jadwal_tutup']);
 

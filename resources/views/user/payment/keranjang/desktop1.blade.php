@@ -32,7 +32,11 @@ Keranjang
 								?>
 								<div class="col-md-1" style="display: flex;justify-content: center; align-items: center; margin-bottom: 1em;">
 									<div class="icheck-danger d-inline">
-										<input type="checkbox" id="checkboxPrimary{{$data['id']}}" onchange="checkbox_cek('{{$data['id']}}')" checked="false">
+										<input type="checkbox" id="checkboxPrimary{{$data['id']}}" onchange="checkbox_cek('{{$data['id']}}')" @if ($data['stok'] == 0)
+											disabled
+										@else
+											checked
+										@endif >
 										<label for="checkboxPrimary{{$data['id']}}">
 										</label>
 									</div>
@@ -57,12 +61,13 @@ Keranjang
 										@endif
 									</div>
 								</div>
-								<div class="col-2" style="padding: 0px; display: flex; align-items: center;">
-									<div style="display: flex; align-items: flex-start; padding: 0px; justify-content: flex-start; width: 100%;">
+								<div class="col-2" style="padding: 0px; display: flex; align-items: center; flex-direction: column;">
+									<div style="display: flex; align-items: flex-start; padding: 0px; justify-content: flex-start; width: 100%; margin-top: 20px">
 										<div onclick="kurang_pesanan('{{$data['id']}}', '{{$data['harga_diskon']}}')" class="btn btn-danger" style="color: black; color: white; width: 25%; border-radius: 0px;"> - </div>
 										<div style="width: 50%; border-radius: 0px;" class="btn" id="jumlah_pesanan{{$data['id']}}">{{$data['jumlah']}}</div>
 										<div onclick="tambah_pesanan('{{$data['id']}}', '{{$data['harga_diskon']}}')" class="btn btn-danger" style="color: black; color: white; width: 25%; border-radius: 0px;"> + </div>
 									</div>
+									<div style="font-size: 13px">stok : {{$data['stok']}}</div>
 								</div>
 								<div class="col-2" style="display: flex; align-items: center; justify-content: space-between; padding-right: 0px;">
 									
@@ -122,5 +127,6 @@ Keranjang
 @endsection
 
 @section('footer')
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('user.payment.keranjang.keranjang_script')
 @endsection

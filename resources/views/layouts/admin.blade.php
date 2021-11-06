@@ -155,6 +155,18 @@
                   <p>Kelurahan</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/admin-jadwal-buka" class="nav-link @if($sub_menu_ == 'jadwal_buka') jadwal_buka @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jadwal Buka</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin-jadwal-tutup" class="nav-link @if($sub_menu_ == 'jadwal_tutup') jadwal_tutup @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jadwal Tutup</p>
+                </a>
+              </li>
 
             </ul>
           </li>
