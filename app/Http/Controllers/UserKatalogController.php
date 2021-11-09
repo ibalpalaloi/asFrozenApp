@@ -15,7 +15,7 @@ class UserKatalogController extends Controller
     public function index(){
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
-        $kategori = Kategori::orderBy('urutan')->get();
+        $kategori = Kategori::orderBy('urutan', 'asc')->get();
         $flash_sale = Diskon::where('diskon_akhir', '>=', $date_today)->get();
 
         $kategori_show = Kategori::withCount('produk')->orderBy('produk_count', 'desc')->paginate(3);

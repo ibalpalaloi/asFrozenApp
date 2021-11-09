@@ -22,6 +22,7 @@ use App\Http\Controllers\AdminAnalisController;
 use App\Http\Controllers\AdminGetController;
 use App\Http\Controllers\AdminDiskonController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\ManajemenPengguanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,26 +51,26 @@ Route::post('/auth/post_registrasi', [AuthController::class, 'post_registrasi'])
 // keranjang
 Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
 
-    Route::get('/keranjang', [UserKeranjangController::class, 'keranjang'])->middleware('auth');
-    Route::get('/tambah_keranjang/{id}', [UserKeranjangController::class, 'tambah_keranjang'])->middleware('auth');
-    Route::get('/keranjang/checkout', [UserKeranjangController::class, 'checkout'])->middleware('auth');
-    Route::post('/keranjang/ubah_checked', [UserKeranjangController::class, 'ubah_checked'])->middleware('auth');
-    Route::post('/keranjang/ubah_jumlah', [UserKeranjangController::class, 'ubah_jumlah'])->middleware('auth');
-    Route::post('/keranjang/post_checkout', [UserKeranjangController::class, 'post_checkout'])->middleware('auth');
+    Route::get('/keranjang', [UserKeranjangController::class, 'keranjang']);
+    Route::get('/tambah_keranjang/{id}', [UserKeranjangController::class, 'tambah_keranjang']);
+    Route::get('/keranjang/checkout', [UserKeranjangController::class, 'checkout']);
+    Route::post('/keranjang/ubah_checked', [UserKeranjangController::class, 'ubah_checked']);
+    Route::post('/keranjang/ubah_jumlah', [UserKeranjangController::class, 'ubah_jumlah']);
+    Route::post('/keranjang/post_checkout', [UserKeranjangController::class, 'post_checkout']);
     Route::get('/keranjang/get-harga-total', [UserKeranjangController::class, 'get_harga_total']);
 
 
     // pesanan
-    Route::get('/pesanan', [UserPesananController::class, 'pesanan'])->middleware('auth');
-    Route::get('/batalkan-pesanan/{id}', [UserPesananController::class, 'batalkan_pesanan'])->middleware('auth');
+    Route::get('/pesanan', [UserPesananController::class, 'pesanan']);
+    Route::get('/batalkan-pesanan/{id}', [UserPesananController::class, 'batalkan_pesanan']);
     Route::get('/riwayat-pesanan', [UserPesananController::class, 'riwayat_pesanan']);
 
     // biodata
-    Route::get('/biodata', [UserPesananController::class, 'biodata'])->middleware('auth');
+    Route::get('/biodata', [UserPesananController::class, 'biodata']);
 
 });
 
-Route::group(['middlleware' => ['auth', 'checkRole:admin']], function(){
+Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
 
         // admin analisis
     Route::get('/admin-analisis/produk', [AdminAnalisController::class, 'produk']);
@@ -77,8 +78,6 @@ Route::group(['middlleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/admin-analisis/pelanggan', [AdminAnalisController::class, 'pelanggan']);
     Route::get('/admin-analisis/pelanggan/jenis-kelamin', [AdminAnalisController::class, 'jenis_kelamin']);
     Route::get('/admin-analisis/pelanggan/total-transaksi-terbanyak', [AdminAnalisController::class, 'total_transaksi_terbanyak']);
-
-
 
     // Kategori
     Route::get('/admin-index', [AdminController::class, 'index']);
@@ -171,7 +170,6 @@ Route::group(['middlleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/get-produk/{id}', [AdminGetController::class, 'get_produk']);
 
 
-
     // katalog
     Route::get('/', [UserKatalogController::class, 'index']);
     Route::get('/pencarian', [UserKatalogController::class, 'pencarian']);
@@ -186,6 +184,12 @@ Route::group(['middlleware' => ['auth', 'checkRole:admin']], function(){
     Route::post('/post-tambah-tgl-tutup', [JadwalController::class, 'post_tambah_tgl_tutup']);
     Route::get('/admin-hapus-jadwal-tutup/{id}', [JadwalController::class, 'hapus_jadwal_tutup']);
 
+    // manajemen pengguan
+    Route::get('/admin-daftar-admin', [ManajemenPengguanController::class, 'daftar_admin']);
+    Route::post('/post-admin-baru', [ManajemenPengguanController::class, 'post_admin_baru']);
+    Route::get('/admin-get-data-admin/{id}', [ManajemenPengguanController::class, 'get_data_admin']);
+    Route::post('/post-ubah-admin', [ManajemenPengguanController::class, 'post_ubah_admin']);
+    Route::get('/admin-hapus-admin/{id}', [ManajemenPengguanController::class, 'hapus_admin']);
 });
 
 

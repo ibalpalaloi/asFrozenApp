@@ -171,6 +171,30 @@
             </ul>
           </li>
 
+          <li class="nav-item has-treeview">
+            <a href="/admin-daftar-produk" class="nav-link">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                User
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin-daftar-pengguan" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pengguna</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin-daftar-admin" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admin</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li class="nav-item has-treeview @if($menu_ == 'produk') menu-open @endif">
             <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'produk') active @endif">
               <i class="nav-icon fas fa-tree"></i>
