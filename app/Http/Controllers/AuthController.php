@@ -52,11 +52,19 @@ class AuthController extends Controller
     }
 
     public function post_login(Request $request){
-        $no_telp = $request->no_telp;
+        
+    }
+
+    public function admin_login(){
+        return view('auth.admin_login');
+    }
+
+    public function post_admin_login(Request $request){
+        $name = $request->name;
         $password = $request->password;
 
-        if(Auth::attempt(['no_telp' => $no_telp, 'password'=>$password])){
-            return redirect('/');
+        if(Auth::attempt(['name' => $name, 'password'=>$password])){
+            return redirect('/admin-index');
         }
         return back();
     }
