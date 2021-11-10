@@ -22,6 +22,8 @@
       </div>                  
     </td>
     <td>
-      <button onclick="hapus_pesanan('{{$pesanan->id}}', '{{$nota->id}}')">.</button>
+      <button class="btn btn-danger" onclick="hapus_pesanan('{{$pesanan->id}}', '{{$nota->id}}')">
+        <i class="fa fa-trash"></i>
+      </button>
     </td>
 </tr>

@@ -50,13 +50,26 @@ Route::post('/post-admin-login', [AuthController::class, 'post_admin_login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/auth/post_registrasi', [AuthController::class, 'post_registrasi']);
 
+ // get
+ Route::get('/get_list_sub_kategori/{id}', [GetController::class, 'get_sub_kategori']);
+ Route::get('/get_kecamatan/{id}', [GetController::class, 'get_kecamatan']);
+ Route::get('/get_kelurahan/{id}', [GetController::class, 'get_kelurahan']);
+ Route::get('/get_ongkir/{id}', [GetController::class, 'get_ongkir']);
+ Route::get('/get-detail-produk/{id}', [GetController::class, 'get_detail_produk']);
+ Route::get('/get-kategori', [GetController::class, 'get_kategori']);
+ Route::post('/get-embed-link', [GetController::class, 'get_embed_video']);
+ Route::get('/get-jumlah-pesanan', [GetController::class, 'get_jumlah_pesanan']);
+ Route::get('/get_jumlah_keranjang', [GetController::class, 'get_jumlah_keranjang']);
+ Route::get('/get-data-diskon/{id}', [GetController::class, 'get_data_diskon']);
+ Route::get('/get-total-harga-pesanan/{id}', [GetController::class, 'get_total_pesanan']);
+
 // keranjang
 Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
 
-// pesanan
-Route::post('/testimoni/delete', [UserTestimoniController::class, 'delete'])->middleware('auth');
-Route::post('/testimoni/store', [UserTestimoniController::class, 'store'])->middleware('auth');
-Route::get('/testimoni', [UserTestimoniController::class, 'index'])->middleware('auth');
+    // pesanan
+    Route::post('/testimoni/delete', [UserTestimoniController::class, 'delete'])->middleware('auth');
+    Route::post('/testimoni/store', [UserTestimoniController::class, 'store'])->middleware('auth');
+    Route::get('/testimoni', [UserTestimoniController::class, 'index'])->middleware('auth');
 
 
 
@@ -98,18 +111,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::post('/admin-post-update-sub-kategori', [AdminKategoriController::class, 'post_update_sub_kategori']);
     Route::post('/admin-delete-kategori', [AdminKategoriController::class, 'delete_kategori']);
     Route::post('/admin/ubah_urutan', [AdminKategoriController::class, 'ubah_urutan']);
-    // get
-    Route::get('/get_list_sub_kategori/{id}', [GetController::class, 'get_sub_kategori']);
-    Route::get('/get_kecamatan/{id}', [GetController::class, 'get_kecamatan']);
-    Route::get('/get_kelurahan/{id}', [GetController::class, 'get_kelurahan']);
-    Route::get('/get_ongkir/{id}', [GetController::class, 'get_ongkir']);
-    Route::get('/get-detail-produk/{id}', [GetController::class, 'get_detail_produk']);
-    Route::get('/get-kategori', [GetController::class, 'get_kategori']);
-    Route::post('/get-embed-link', [GetController::class, 'get_embed_video']);
-    Route::get('/get-jumlah-pesanan', [GetController::class, 'get_jumlah_pesanan']);
-    Route::get('/get_jumlah_keranjang', [GetController::class, 'get_jumlah_keranjang']);
-    Route::get('/get-data-diskon/{id}', [GetController::class, 'get_data_diskon']);
-    Route::get('/get-total-harga-pesanan/{id}', [GetController::class, 'get_total_pesanan']);
+   
 
     // admin Banner
     Route::post('/admin-banner-side-tambah', [AdminBannerController::class, 'store_side']);

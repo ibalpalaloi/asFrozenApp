@@ -163,6 +163,8 @@ class AdminPesananController extends Controller
     }
 
     public function input_pesanan_baru(Request $request){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
         $nota = Nota::find($request->id_nota);
         $pesanan = Pesanan::where([
             ['nota_id', $request->id_nota],
@@ -173,11 +175,14 @@ class AdminPesananController extends Controller
             $pesanan->save();
         }
         else{
+            $produk = Produk::find($request->id_produk);
+            $diskon = $this->get_diskon($request->id_produk, $date_today);
             $pesanan = new Pesanan;
             $pesanan->nota_id = $request->id_nota;
             $pesanan->produk_id = $request->id_produk;
             $pesanan->jumlah = $request->jumlah;
-            $pesanan->harga_satuan = $request->harga_satuan;
+            $pesanan->diskon = $diskon;
+            $pesanan->harga_satuan = $this->get_harga_diskon($produk->harga, $diskon);
             $pesanan->save();
         }
 
@@ -190,6 +195,27 @@ class AdminPesananController extends Controller
         $count = Pesanan::where('nota_id', $nota->id)->count();
         $html = view('admin.include.trow_tambah_pesanan', compact('pesanan', 'nota', 'count'))->render();
         return response()->json(['html'=>$html]);
+    }
+
+    public function get_harga_diskon($harga, $diskon){
+        $harga_diskon = $harga - (($diskon/100) * $harga);
+        return $harga_diskon;
+    }
+
+    public function get_diskon($id_produk, $date){
+        
+        $cek_diskon = Diskon::where([
+            ['produk_id', $id_produk],
+            ['diskon_akhir', '>=', $date],
+            ['diskon_mulai', '<=', $date]
+        ])->first();
+
+        if(!empty($cek_diskon)){
+            $diskon = $cek_diskon->diskon;
+        }else{
+            $diskon = 0;
+        }
+        return $diskon;
     }
 
     public function get_total_pesanan($id_nota){

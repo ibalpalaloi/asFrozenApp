@@ -122,7 +122,7 @@ Keranjang Belanja
 			<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 				<div class="icon-boxes" style="margin-top: 0em; display: flex; justify-content: space-between;"> 
 
-					@for ($i = 0; $i < 11; $i++)
+					@for ($i = 0; $i < 12; $i++)
 					<a href="<?=url('/')?>/kategori/{{$kategori[$i]->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 						<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 							@php
@@ -136,7 +136,7 @@ Keranjang Belanja
 					@endfor
 				</div>
 				<div class="icon-boxes" style="margin-top: 1em; display: flex; justify-content: space-between;"> 
-					@for ($i = 11; $i < 22; $i++)
+					@for ($i = 11; $i < 24; $i++)
 					<a href="<?=url('/')?>/kategori/{{$kategori[$i]->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 						<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 							@php
