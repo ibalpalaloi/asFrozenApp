@@ -110,6 +110,7 @@ Keranjang Belanja
 
 
 </style>
+<link href="<?=url('/')?>/katalog_assets/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen" href="<?=url('/')?>/AdminLTE/plugins/retro-plugins/css/flip-clock.css" />
 @endsection
 
