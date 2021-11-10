@@ -16,6 +16,97 @@ Keranjang Belanja
 	display: inline-block;
 	width: 25%;
 }		
+/*--------------------------------------------------------------
+# Testimonials
+--------------------------------------------------------------*/
+.testimonials .testimonial-item {
+	box-sizing: content-box;
+	text-align: center;
+	min-height: 320px;
+}
+
+.testimonials .testimonial-item .testimonial-img {
+	width: 90px;
+	border-radius: 50%;
+	margin: 0 auto;
+}
+
+.testimonials .testimonial-item h3 {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 10px 0 5px 0;
+	color: #111;
+}
+
+.testimonials .testimonial-item h4 {
+	font-size: 14px;
+	color: #999;
+	margin: 0;
+}
+
+.testimonials .testimonial-item .quote-icon-left, .testimonials .testimonial-item .quote-icon-right {
+	color: #c9e3f5;
+	font-size: 26px;
+}
+
+.testimonials .testimonial-item .quote-icon-left {
+	display: inline-block;
+	left: -5px;
+	position: relative;
+}
+
+.testimonials .testimonial-item .quote-icon-right {
+	display: inline-block;
+	right: -5px;
+	position: relative;
+	top: 10px;
+}
+
+.testimonials .testimonial-item p {
+	font-style: italic;
+	margin: 0 15px 15px 15px;
+	padding: 20px;
+	background: #f3f9fd;
+	position: relative;
+	margin-bottom: 35px;
+	border-radius: 6px;
+}
+
+.testimonials .testimonial-item p::after {
+	content: "";
+	width: 0;
+	height: 0;
+	border-top: 20px solid #f3f9fd;
+	border-right: 20px solid transparent;
+	border-left: 20px solid transparent;
+	position: absolute;
+	bottom: -20px;
+	left: calc(50% - 20px);
+}
+
+.testimonials .owl-nav, .testimonials .owl-dots {
+	margin-top: 5px;
+	text-align: center;
+}
+
+.testimonials .owl-dot {
+	display: inline-block;
+	margin: 0 5px;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background-color: #ddd !important;
+}
+
+.testimonials .owl-dot.active {
+	background-color: #2487ce !important;
+}
+
+@media (max-width: 767px) {
+	.testimonials {
+		margin: 30px 10px;
+	}
+}
 
 
 </style>
@@ -262,6 +353,33 @@ Keranjang Belanja
 	</div>
 
 </div>
+<!-- ======= Testimonials Section ======= -->
+<section id="testimonials" class="testimonials">
+	<div class="container" data-aos="fade-up">
+
+		<div class="section-title">
+			<h2>Testimonials</h2>
+		</div>
+
+		<div class="owl-carousel testimonials-carousel">
+			@foreach ($testimoni as $row)
+			<div class="testimonial-item">
+				<p style="height: 150px; display: flex; align-items: center;">
+					<span>
+						<i class="bx bxs-quote-alt-left quote-icon-left"></i>
+						@if (strlen($row->text) > 130) {{substr($row->text, 0, 130)}}... @else {{$row->text}} @endif
+						<i class="bx bxs-quote-alt-right quote-icon-right"></i>
+					</span>
+				</p>
+				<h3>{{$row->tester}}</h3>
+				<h4>Pelanggan</h4>
+			</div>
+			@endforeach
+
+		</div>
+
+	</div>
+</section><!-- End Testimonials Section -->
 <section id="clients" class="clients section-bg">
 	<div class="container">
 
@@ -283,6 +401,7 @@ Keranjang Belanja
 @endsection
 
 @section('footer')
+<script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
 <script type="text/javascript" src="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript">
 	<?php  $date_tomorrow = date("m/d/Y", strtotime("+1 day", strtotime(date("Y-m-d")))); ?>
@@ -405,5 +524,23 @@ Keranjang Belanja
 		]
 	});	
 </script>
+<script>
+	$(".testimonials-carousel").owlCarousel({
+		autoplay: true,
+		dots: true,
+		loop: true,
+		responsive: {
+			0: {
+				items: 1
+			},
+			768: {
+				items: 2
+			},
+			900: {
+				items: 3
+			}
+		}
+	});
+  </script>
 @include('script.home_script')
 @endsection
