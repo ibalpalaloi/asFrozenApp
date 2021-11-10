@@ -6,6 +6,7 @@ use App\Models\Pesanan;
 use App\Models\Nota;
 use App\Models\Keranjang;
 use App\Models\Riwayat_pesanan;
+use App\Models\Stok_produk;
 use App\Models\Riwayat_nota_pesanan;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
@@ -41,12 +42,13 @@ class UserPesananController extends Controller
             $keranjang->jumlah = $data->jumlah;
             $keranjang->checked = "true";
             $keranjang->save();
+
+            $this->ubah_stok($data->produk_id, $data->jumlah);
         }
         Pesanan::where('nota_id', $id)->delete();
         Nota::find($id)->delete();
         return redirect('/keranjang');
     }
-
 
     public function biodata(){
         $agent = new Agent();

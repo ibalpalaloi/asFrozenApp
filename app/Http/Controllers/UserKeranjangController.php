@@ -12,6 +12,9 @@ use App\Models\Bank;
 use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\Diskon;
+use App\Models\Stok_produk;
+use App\Models\Waktu_buka;
+use App\Models\Waktu_tutup;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\Auth;
@@ -83,14 +86,32 @@ class UserKeranjangController extends Controller
         foreach($keranjang as $data){
             $diskon = $this->get_diskon($data->produk_id, $date_today);
             $harga = $data->produk->harga;
+            $stok_produk = Stok_produk::where('produk_id', $data->produk_id)->first();
+
+            if($data->jumlah < $stok_produk->stok){
+                $jumlah = $data->jumlah;
+            }else{
+                $jumlah = $stok_produk->stok;
+                $ubah_jumlah = Keranjang::find($data->id);
+                $ubah_jumlah->jumlah = $jumlah;
+                $ubah_jumlah->save();
+            }
+
+            if($stok_produk->stok == 0){
+                $ubah_checked = Keranjang::find($data->id);
+                $ubah_checked->checked = 'false';
+                $ubah_checked->save();
+            }
+
             $data_keranjang[$i]['id'] = $data->id;
             $data_keranjang[$i]['produk_id'] = $data->produk_id;
             $data_keranjang[$i]['nama_produk'] = $data->produk->nama;
             $data_keranjang[$i]['harga'] = $data->produk->harga;
-            $data_keranjang[$i]['jumlah'] = $data->jumlah;
+            $data_keranjang[$i]['jumlah'] = $jumlah;
             $data_keranjang[$i]['checked'] = $data->checked;
             $data_keranjang[$i]['diskon'] = $diskon;
             $data_keranjang[$i]['foto'] = $data->produk->foto;
+            $data_keranjang[$i]['stok'] = $stok_produk->stok;
             $data_keranjang[$i]['harga_diskon'] = $this->get_harga_diskon($data->produk->harga, $diskon);
             $i++;
         }
@@ -135,42 +156,104 @@ class UserKeranjangController extends Controller
     }
 
     public function checkout(){
+        $this->cek_jadwal();
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
-        $kota = Kota::all();
-        $kecamatan = Kecamatan::where('kota_id', Auth()->user()->biodata->kelurahan->kecamatan->kota->id)->get();
-        $kelurahan = Kelurahan::where('kecamatan_id', Auth()->user()->biodata->kelurahan->kecamatan->id)->get();
-        $list_keranjang = Keranjang::where([
-            ['user_id', Auth()->user()->id],
-            ['checked', "true"]
-        ])->get();
-        $total_harga_produk = $this->get_harga_total_no_json();
-        $data_produk_checkout = array();
-        $bank = Bank::all();
-        $i=0;
-        foreach($list_keranjang as $data){
-            $diskon = $this->get_diskon($data->produk_id, $date_today);
-            $harga = $data->produk->harga;
-            $data_produk_checkout[$i]['id'] = $data->id;
-            $data_produk_checkout[$i]['produk_id'] = $data->produk_id;
-            $data_produk_checkout[$i]['nama_produk'] = $data->produk->nama;
-            $data_produk_checkout[$i]['harga'] = $data->produk->harga;
-            $data_produk_checkout[$i]['jumlah'] = $data->jumlah;
-            $data_produk_checkout[$i]['checked'] = $data->checked;
-            $data_produk_checkout[$i]['diskon'] = $diskon;
-            $data_produk_checkout[$i]['foto'] = $data->produk->foto;
-            $data_produk_checkout[$i]['harga_diskon'] = $this->get_harga_diskon($data->produk->harga, $diskon);
-            $i++;
+        $status_jadwal = $this->cek_jadwal();
+        if($status_jadwal){
+            $kota = Kota::all();
+            $kecamatan = Kecamatan::where('kota_id', Auth()->user()->biodata->kelurahan->kecamatan->kota->id)->get();
+            $kelurahan = Kelurahan::where('kecamatan_id', Auth()->user()->biodata->kelurahan->kecamatan->id)->get();
+            $list_keranjang = Keranjang::where([
+                ['user_id', Auth()->user()->id],
+                ['checked', "true"]
+            ])->get();
+            $total_harga_produk = $this->get_harga_total_no_json();
+            $data_produk_checkout = array();
+            $bank = Bank::all();
+            $i=0;
+            foreach($list_keranjang as $data){
+                $diskon = $this->get_diskon($data->produk_id, $date_today);
+                $harga = $data->produk->harga;
+                $data_produk_checkout[$i]['id'] = $data->id;
+                $data_produk_checkout[$i]['produk_id'] = $data->produk_id;
+                $data_produk_checkout[$i]['nama_produk'] = $data->produk->nama;
+                $data_produk_checkout[$i]['harga'] = $data->produk->harga;
+                $data_produk_checkout[$i]['jumlah'] = $data->jumlah;
+                $data_produk_checkout[$i]['checked'] = $data->checked;
+                $data_produk_checkout[$i]['diskon'] = $diskon;
+                $data_produk_checkout[$i]['foto'] = $data->produk->foto;
+                $data_produk_checkout[$i]['harga_diskon'] = $this->get_harga_diskon($data->produk->harga, $diskon);
+                $i++;
+            }
+
+            $agent = new Agent();
+            if ($agent->isMobile()){
+                return view('user.payment.checkout.mobile', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk', 'bank'));
+            }
+            else {
+                return view('user.payment.checkout.desktop', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk', 'bank'));
+            }
+        }else{
+            return redirect()->back()->with('error', "Hari Ini Kami Telah Tutup, Silahkan Pesan Pada Hari Lain");
+        }
+        
+
+    }
+
+    public function cek_jadwal(){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $hari = date("D");
+        $date_today = date("Y-m-d");
+        $jam = date('H:i:s');
+        switch($hari){
+            case 'Sun':
+                $hari_ini = "minggu";
+            break;
+     
+            case 'Mon':			
+                $hari_ini = "senin";
+            break;
+     
+            case 'Tue':
+                $hari_ini = "selasa";
+            break;
+     
+            case 'Wed':
+                $hari_ini = "rabu";
+            break;
+     
+            case 'Thu':
+                $hari_ini = "kamis";
+            break;
+     
+            case 'Fri':
+                $hari_ini = "jumat";
+            break;
+     
+            case 'Sat':
+                $hari_ini = "sabtu";
+            break;
+            
+            default:
+                $hari_ini = "Tidak di ketahui";		
+            break;
+        }
+        $status = true;
+        $jadwal = Waktu_buka::where('hari', $hari_ini)
+                            ->where('keterangan', 'buka')
+                            ->whereTime('waktu_buka', '<', $jam)
+                            ->whereTime('waktu_tutup', '>', $jam)
+                            ->get();
+        if(count($jadwal) == 0){
+            $status = false;
         }
 
-        $agent = new Agent();
-        if ($agent->isMobile()){
-            return view('user.payment.checkout.mobile', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk', 'bank'));
+        $cek_jadwal_tutup = Waktu_tutup::where('tgl_tutup', $date_today)->get();
+        if(count($cek_jadwal_tutup)>0){
+            $status = false;
         }
-        else {
-            return view('user.payment.checkout.desktop', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk', 'bank'));
-        }
-
+        return $status;
     }
 
     public function ubah_checked(Request $request){
@@ -181,8 +264,16 @@ class UserKeranjangController extends Controller
 
     public function ubah_jumlah(Request $request){
         $keranjang = Keranjang::find($request->id);
-        $keranjang->jumlah = $request->jumlah;
-        $keranjang->save();
+        $stok_produk = Stok_produk::where('produk_id', $keranjang->produk_id)->first();
+        if($request->jumlah > $stok_produk->stok){
+            return response()->json(['status'=>'gagal', 'jumlah'=>$stok_produk->stok]);
+        }
+        else{
+            $keranjang->jumlah = $request->jumlah;
+            $keranjang->save();
+            return response()->json(['status'=>'sukses', 'jumlah'=>$request->jumlah]);
+        }
+        
     }
 
     public function post_checkout(Request $request){
@@ -235,10 +326,25 @@ class UserKeranjangController extends Controller
             $pesanan->diskon = $diskon;
             $pesanan->harga_satuan = $this->get_harga_diskon($data->produk->harga, $diskon);
             $pesanan->save();
+
+            $this->ubah_stok($data->produk_id, $data->jumlah);
         }
 
         $keranjang = Keranjang::where([['user_id', Auth()->user()->id], ['checked', 'true']])->delete();
         return redirect('/pesanan');
+    }
+
+    public function ubah_stok($id_produk, $jumlah_dikurangi){
+        $stok_produk = Stok_produk::where('produk_id', $id_produk)->first();
+        if(!empty($stok_produk)){
+            $stok = $stok_produk->stok - $jumlah_dikurangi;
+            if($stok < 0){
+                $stok = 0;
+            }
+            $stok_produk->stok = $stok;
+            $stok_produk->save();
+        }
+        
     }
 
     public function get_harga_total(){

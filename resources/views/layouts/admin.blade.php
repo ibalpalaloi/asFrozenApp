@@ -155,7 +155,43 @@
                   <p>Kelurahan</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/admin-jadwal-buka" class="nav-link @if($sub_menu_ == 'jadwal_buka') jadwal_buka @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jadwal Buka</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin-jadwal-tutup" class="nav-link @if($sub_menu_ == 'jadwal_tutup') jadwal_tutup @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jadwal Tutup</p>
+                </a>
+              </li>
 
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="/admin-daftar-produk" class="nav-link">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                User
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin-daftar-pengguan" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pengguna</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin-daftar-admin" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admin</p>
+                </a>
+              </li>
             </ul>
           </li>
 
