@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pesanan;
 use App\Models\Nota;
 use App\Models\Keranjang;
+use App\Models\Riwayat_pesanan;
 use App\Models\Riwayat_nota_pesanan;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
@@ -46,6 +47,7 @@ class UserPesananController extends Controller
         return redirect('/keranjang');
     }
 
+
     public function biodata(){
         $agent = new Agent();
         if ($agent->isMobile()){
@@ -58,6 +60,17 @@ class UserPesananController extends Controller
 
     public function riwayat_pesanan(){
         $riwayat_nota = Riwayat_nota_pesanan::where('user_id', Auth()->user()->id)->get();
+        // dd($riwayat_nota);
         return view('user.riwayat.riwayat_pesanan', compact('riwayat_nota'));
     }
+
+    public function riwayat_pesanan_detail($id){
+        $riwayat_nota = Riwayat_nota_pesanan::where('id_pesanan', $id)->first();
+        $riwayat = Riwayat_pesanan::where('riwayat_nota_pesanan_id', $riwayat_nota->id)->get();
+        // dd($riwayat);    
+        $qrcode = new Generator;
+        return view('user.riwayat.riwayat_pesanan_detail', compact('riwayat_nota', 'riwayat', 'qrcode'));
+
+    }
 }
+

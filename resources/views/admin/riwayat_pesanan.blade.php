@@ -1,19 +1,32 @@
 @extends('layouts.admin')
 
+@section('header')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+@endsection
+
 @section('body')
+<?php
+function tgl_indo($tanggal){
+  $bulan = array (
+    1 =>   'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember'
+);
 
-
-{{--  --}}
-<div class="modal fade bd-example-modal-lg" id="modal_detail_pesanan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content" id="content_modal_detail">
-          
-      </div>
-    </div>
-</div>
-
-{{--  --}}
-
+  $pecahkan = explode('-', $tanggal);     
+  return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+}
+?>
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -21,65 +34,81 @@
       <div class="container-fluid">
           <div class="card">
               <div class="card-header">
-                  
-              </div>
-              <div class="card-body">
-                  <table class="table table-bordered" >
+                <div class="col-sm-6"><h1>Riwayat Pesanan</h1></div>
+            </div>
+            <div class="card-body">
+                <table id="example1" class="table table-bordered" >
                     <thead>
                         <tr>
+                            <th scope="col">No</th>
                             <th scope="col">ID Pesanan</th>
-                            <th scope="col">Nama Pemesan</th>
-                            <th scope="col">Jam Pesanan</th>
+                            <th scope="col">Tanggal Pesanan</th>
                             <th scope="col">Total Pesanan</th>
-                            <th scope="col"></th>
+                            <th scope="col">Transaksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($data_nota as $data)
-                            <tr>
-                                <th scope="row"><a onclick="detail_pesanan('{{$data['id']}}')" href="#" style="color: black">{{$data['id_pesanan']}}</a></th>
-                                <td>{{$data['nama_pemesan']}}</td>
-                                <td>{{$data['waktu_pemesanan']}}</td>
-                                <td>Rp. {{number_format($data['total_pemesanan'],0,',','.')}}</td>
-                                <td>
-                                    @if ($data['pembayaran'] == "COD")
-                                        <button type="button" class="btn btn-warning btn-sm">COD</button>
-                                    @else
-                                        <button type="button" class="btn btn-success btn-sm">Tranfer</button>
-                                    @endif
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td scope="row">
+                                <a href="{{url()->current()}}/{{$data['id_pesanan']}}" style="color: black;">
+                                    {{$data['id_pesanan']}}
+                                </a>
+                            </td>
+                            <td>{{tgl_indo(date('Y-m-d', strtotime($data['waktu_pemesanan'])))}} [{{date('H:i', strtotime($data['waktu_pemesanan']))}}]</td>
+                            <td>Rp. {{number_format($data['total_pemesanan'],0,',','.')}}</td>
+                            <td>
+                                @if ($data['pembayaran'] == "COD")
+                                <button type="button" class="btn btn-warning btn-sm">COD</button>
+                                @else
+                                <button type="button" class="btn btn-success btn-sm">Transfer</button>
+                                @endif
 
-                                    @if ($data['pengantaran'] == "Diantarkan")
-                                        <button type="button" class="btn btn-warning btn-sm">Diantarkan</button>
-                                    @else
-                                        <button type="button" class="btn btn-success btn-sm">Ambil Sendiri</button>
-                                    @endif
-                                </td>
-                            </tr>
+                                @if ($data['pengantaran'] == "Diantarkan")
+                                <button type="button" class="btn btn-warning btn-sm">Diantarkan</button>
+                                @else
+                                <button type="button" class="btn btn-success btn-sm">Ambil Sendiri</button>
+                                @endif
+                            </td>
+                        </tr>
                         @endforeach
-                    
+
                     </tbody>
                 </table>
-              </div>
-            
-          </div>
-        
-      </div>
+            </div>
+
+        </div>
+
     </div>
+</div>
 </div>
 @endsection
 
 @section('footer')
-    <script>
-        function detail_pesanan(id_pesanan){
-            $.ajax({
-                type: "get",
-                url: "<?=url('/')?>/admin/get_riwayat_pesanan/"+id_pesanan,
-                success:function(data){
-                    console.log(data);
-                    $("#content_modal_detail").html(data.html);
-                    $('#modal_detail_pesanan').modal('show');
-                }
-            })
+<script src="{{asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+  });
+});
+
+
+  function detail_pesanan(id_pesanan){
+    alert(id_pesanan);
+    $.ajax({
+        type: "get",
+        url: "<?=url('/')?>/admin/get_riwayat_pesanan/"+id_pesanan,
+        success:function(data){
+            console.log(data);
+            $("#content_modal_detail").html(data.html);
+            $('#modal_detail_pesanan').modal('show');
         }
-    </script>
+    })
+}
+</script>
 @endsection

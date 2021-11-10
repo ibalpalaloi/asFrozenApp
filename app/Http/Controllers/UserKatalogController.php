@@ -8,6 +8,7 @@ use App\Models\Produk;
 use App\Models\Banner;
 use Jenssegers\Agent\Agent;
 use App\Models\Diskon;
+use App\Models\Testimoni;
 
 class UserKatalogController extends Controller
 {
@@ -22,11 +23,13 @@ class UserKatalogController extends Controller
         $agent = new Agent();
         $banner_main = Banner::where('posisi', 'main')->get();
         $banner_not_main = Banner::where('posisi', '!=', 'main')->orderBy('posisi', 'asc')->get();
+        $testimoni = Testimoni::get();
+        // dd($testimoni);
         if ($agent->isMobile()){
             return view('home.landing_page.mobile', compact('kategori', 'kategori_show', 'flash_sale', 'banner_main', 'banner_not_main'));
         }
         else {
-            return view('home.landing_page.desktop', compact('kategori', 'kategori_show', 'flash_sale', 'banner_main', 'banner_not_main'));            
+            return view('home.landing_page.desktop', compact('kategori', 'kategori_show', 'flash_sale', 'banner_main', 'banner_not_main', 'testimoni'));            
         }
     }
 

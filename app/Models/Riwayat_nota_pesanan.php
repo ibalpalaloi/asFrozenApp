@@ -7,15 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Riwayat_nota_pesanan extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = "riwayat_nota_pesanan";
+	protected $table = "riwayat_nota_pesanan";
 
-    public function riwayat_pesanan(){
-        return $this->hasMany(Riwayat_pesanan::class);
-    }
+	public function riwayat_pesanan(){
+		return $this->hasMany(Riwayat_pesanan::class);
+	}
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
+	public function user(){
+		return $this->belongsTo(User::class);
+	}
+
+	public function bank(){
+		return $this->belongsTo(Bank::class, 'pembayaran');
+	}
+
 }

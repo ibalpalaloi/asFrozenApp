@@ -59,7 +59,8 @@ class AdminPesananController extends Controller
 
     public function packaging(){
         $nota = Nota::where('status', 'packaging')->get();
-        return view('admin.pesanan_packaging', compact('nota'));
+        $qrcode = new Generator;
+        return view('admin.pesanan_packaging', compact('nota', 'qrcode'));
     }
 
     public function detail_pesanan($id){
@@ -71,7 +72,8 @@ class AdminPesananController extends Controller
 
     public function dalam_pengantaran(){
         $nota = Nota::where('status', 'dalam pengantaran')->get();
-        return view('admin.pesanan_dalam_pengantaran', compact('nota'));
+        $qrcode = new Generator;
+        return view('admin.pesanan_dalam_pengantaran', compact('nota', 'qrcode'));
     }
 
     public function pesanan_selesai($id){

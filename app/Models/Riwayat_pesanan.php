@@ -18,4 +18,9 @@ class Riwayat_pesanan extends Model
     public function data_produk(){
         return $this->belongsTo(Produk::class, 'produk_id');
     }
+
+
+    // public function produk(){
+    // 	return 
+    // }
 }

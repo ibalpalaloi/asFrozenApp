@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminVideoController;
 use App\Http\Controllers\GetController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\UserKatalogController;
+use App\Http\Controllers\UserTestimoniController;
 use App\Http\Controllers\UserKeranjangController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserPesananController;
@@ -64,8 +65,12 @@ Route::get('/admin-analisis/pelanggan/jenis-kelamin', [AdminAnalisController::cl
 Route::get('/admin-analisis/pelanggan/total-transaksi-terbanyak', [AdminAnalisController::class, 'total_transaksi_terbanyak']);
 
 // pesanan
+Route::post('/testimoni/delete', [UserTestimoniController::class, 'delete'])->middleware('auth');
+Route::post('/testimoni/store', [UserTestimoniController::class, 'store'])->middleware('auth');
+Route::get('/testimoni', [UserTestimoniController::class, 'index'])->middleware('auth');
 Route::get('/pesanan', [UserPesananController::class, 'pesanan'])->middleware('auth');
 Route::get('/batalkan-pesanan/{id}', [UserPesananController::class, 'batalkan_pesanan'])->middleware('auth');
+Route::get('/riwayat-pesanan/{id}', [UserPesananController::class, 'riwayat_pesanan_detail']);
 Route::get('/riwayat-pesanan', [UserPesananController::class, 'riwayat_pesanan']);
 
 // Kategori
@@ -125,6 +130,7 @@ Route::get('//admin/batalkan_pesanan/{id}', [AdminPesananController::class, 'bat
 
 
 // admin riwayat
+Route::get('/admin/riwayat-pesanan/{id}', [AdminRiwayatPesanan::class, 'detail_riwayat_pesanan']);
 Route::get('/admin/riwayat-pesanan', [AdminRiwayatPesanan::class, 'daftar_riwayat']);
 Route::get('/admin/get_riwayat_pesanan/{id}', [AdminRiwayatPesanan::class, 'get_riwayat_pesanan']);
 
