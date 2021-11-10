@@ -40,6 +40,7 @@ use App\Http\Controllers\ManajemenPengguanController;
 // });
 
 // auth
+Route::get('/', [UserKatalogController::class, 'index']);
 Route::get('/user_login', [AuthController::class, 'user_login'])->name('login');
 Route::get('/admin_login', [AuthController::class, 'admin_login']);
 Route::get('/registrasi', [AuthController::class, 'registrasi']);
@@ -171,7 +172,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
 
 
     // katalog
-    Route::get('/', [UserKatalogController::class, 'index']);
+    
     Route::get('/pencarian', [UserKatalogController::class, 'pencarian']);
     Route::get('/get_produk_sub_kategori', [UserKatalogController::class, 'get_produK_sub_kategori']);
     Route::get('/kategori/{kategori}', [UserKatalogController::class, 'kategori']);

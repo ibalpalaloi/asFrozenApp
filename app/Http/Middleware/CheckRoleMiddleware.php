@@ -16,8 +16,16 @@ class CheckRoleMiddleware
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
+        
         if(in_array($request->user()->role, $roles)){
             return $next($request);
+        }
+
+        if($roles[0] == "admin"){
+            return redirect('/admin_login');
+        }
+        else{
+            return redirect('/user_login');
         }
         return back();
     }
