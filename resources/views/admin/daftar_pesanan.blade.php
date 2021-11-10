@@ -121,7 +121,7 @@ function tgl_indo($tanggal){
                         @if ($data->pembayaran == 'COD')
                         {{$data->pembayaran}}
                         @else
-                        Transfer {{$data->bank->nama_bank}}
+                        Transfer {{$data->bank->nama_bank ?? ""}}
                         @endif
                       </small>
                     </td>

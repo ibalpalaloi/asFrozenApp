@@ -386,6 +386,8 @@
 			text-decoration: none;
 		}
 	</style>
+	@yield('header')
+
   <!-- =======================================================
   * Template Name: OnePage - v2.2.2
   * Template URL: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/
@@ -516,10 +518,10 @@
 					<div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">
 						<div class="row" style="padding: 0.5em 1em;">
 							<div style="width: 30%; border-radius: 50%;">
-								<img src="img/default.png" style="width: 100%; border-radius: 50%;">
+								<img src="<?=url('/')?>/img/default.png" style="width: 100%; border-radius: 50%;">
 							</div>
 							<div style="width: 70%; padding-left: 0.8em; display: flex; justify-content: center; flex-direction: column;">
-								<div>Iqbal Ramadhan</div>
+								<div>{{Auth()->user()->biodata->nama}}</div>
 								<small>Member</small>
 							</div>
 						</div>
@@ -536,18 +538,19 @@
 								<li style="margin-top: 0.5em;">
 									<a href="<?=url('/')?>/riwayat-pesanan">Riwayat Pesanan</a>
 								</li>
+								<li style="margin-top: 0.5em;">
+									<a href="<?=url('/')?>/testimoni">Testimoni</a>
+								</li>
+								<li style="margin-top: 0.5em;">
+									<a href="<?=url('/')?>/logout">Logout</a>
+								</li>
 							</ul>
 
 						</div>
 					</div>
 				</div>
 				<div class="col-9">
-					<div class="card shadow p-3 mb-5 bg-white rounded">
-						<div tabindex="0" data-slick-index="1" aria-hidden="false" role="tabpanel" id="slick-slide11">
-							@yield('content')
-						</div>
-
-					</div>
+					@yield('content')
 				</div>
 			</div>
 

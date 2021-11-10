@@ -84,101 +84,8 @@ function tgl_indo($tanggal){
     <div class="container-fluid">
       <div class="card">
         <div class="card-header" style="display: flex; justify-content: space-between; width: 100%;">
-          <div style="display: flex; align-items: flex-start;">
-            <?php
-            if ($nota->time_status == 'run'){
-
-              $time_left = "";
-              $date_now = date('Y-m-d');
-              $time_date = date('Y-m-d', strtotime($nota->time_date));
-
-              if (strtotime($date_now) > strtotime($time_date)){
-                echo "Expired 1";
-              }
-              else {
-                $time_now = date('H:i:s');
-                $time_expired = date('H:i:s', strtotime($nota->time_expired));
-
-                if (strtotime($time_now) > strtotime($time_expired)){
-                  echo "Expired 2";
-                }
-                else {
-                  $text_a = $time_date." ".$time_expired;
-                  $text_b = $date_now." ".$time_now;
-
-                  $date_a = new DateTime($text_a);
-                  $date_b = new DateTime($text_b);
-
-                  $interval = date_diff($date_a,$date_b);
-
-                  $str_time_left = (strtotime($time_expired)-strtotime($time_now)) / 60;
-                  $time_left = $interval->format('%i:%s');
-                  ?>
-                  <h4  id="countdown_{{$nota->id}}" style="color: red">{{$time_left}}</h4>
-                  <h4  id="pause_countdown_{{$nota->id}}" style="color: red" hidden>{{$time_left}}</h4>
-                  <div class="badge badge-warning" id="btn_pause_{{$nota->id}}" onclick='control_time("{{$nota->id}}", "pause")' style="margin-left: 0.5em; margin-top: 0.5em;">
-                    <i class="fas fa-pause" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Pause
-                  </div>
-                  <div class="badge badge-info" id="btn_play_{{$nota->id}}" onclick='control_time("{{$nota->id}}", "start")' style="margin-left: 0.5em; margin-top: 0.5em;" hidden>
-                    <i class="fas fa-play" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Start
-                  </div>
-                  <div onclick="show_modal_tambah_pesanan('{{$nota->id}}');" class="badge badge-success" style="margin-left: 0.8em; margin-top: 0.5em;">
-                    <i class="fa fa-plus"></i>&nbsp;Tambah Pesananan
-                  </div>
-
-                  <script type="text/javascript">
-                    <?php
-                    $time = explode(":", $time_left);
-                    ?>
-                    var menit = "{{$time[0]}}";
-                    var detik = "{{$time[1]}}";
-                    var id_pesanan = "{{$nota->id}}";
-                    var timeoutHandle;
-                    countdown(menit, detik, id_pesanan);
-
-                    function countdown(minutes, seconds, id_pesanan) {
-                      function tick(){
-                        var counter = document.getElementById("countdown_"+id_pesanan);
-                        counter.innerHTML =
-                        minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
-                        seconds--;
-                        if (seconds >= 0) {
-                          timeoutHandle = setTimeout(tick, 1000);
-
-                        } 
-                        else {
-                          if (minutes >= 1) {
-                            setTimeout(function () {countdown(minutes - 1, 59, id_pesanan);}, 1000);
-                          }
-                        }
-                      }
-                      tick();
-                    }
-                  </script>
-                  <?php
-                }
-              }
-            }
-            else {
-              ?>
-
-              <h4  id="countdown_{{$nota->id}}" style="color: red"></h4>
-              <h4  id="pause_countdown_{{$nota->id}}" style="color: red">{{date('i:s', strtotime($nota->time_left))}}</h4>
-              <div class="badge badge-warning" id="btn_pause_{{$nota->id}}" onclick='control_time("{{$nota->id}}", "pause")' style="margin-left: 0.5em; margin-top: 0.5em;" hidden>
-                <i class="fas fa-pause" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Pause
-              </div>
-              <div class="badge badge-info" id="btn_play_{{$nota->id}}" onclick='control_time("{{$nota->id}}", "start")' style="margin-left: 0.5em; margin-top: 0.5em;">
-                <i class="fas fa-play" style="font-size: 0.8em;"></i>&nbsp;&nbsp;Start
-              </div>
-              <div onclick="show_modal_tambah_pesanan('{{$nota->id}}');" class="badge badge-success" style="margin-left: 0.8em; margin-top: 0.5em;">
-                <i class="fa fa-plus"></i>&nbsp;Tambah Pesananan
-              </div>
-            <?php } ?>
-          </div>
           <div style="display: flex; align-items: center;">
-            <span class="time" style="font-size: 15px">ID: {{$nota->id_pesanan}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <i class="fas fa-clock"></i> 12:05
-            </span>
+            <span class="time" style="font-size: 15px">ID: {{$riwayat_nota->id_pesanan}}</span>
           </div>
         </div>
         <div class="card-body">
@@ -189,19 +96,22 @@ function tgl_indo($tanggal){
               <th style="text-align: center;">Harga Satuan</th>
               <th style="text-align: center;">Jumlah</th>
               <th style="text-align: center;">Subtotal</th>
-              <th></th>
             </thead>
             <tbody id="tbody_daftar_pesanan">
-              @foreach ($nota->pesanan as $pesanan)
+              @php
+              $total_pesanan = 0;
+              @endphp
+
+              @foreach ($riwayat as $pesanan)
               <tr id="row_{{$pesanan->id}}">
                 <td>{{$loop->iteration}}</td>
                 <td>
                   <div style="width: 100%; display: flex; margin-bottom: 0em;">
                     <div style="width: 10%;">
-                      <img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$pesanan->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+                      <img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$pesanan->data_produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
                     </div>
                     <div style="width: 85%; margin-left: 1em; display: flex; align-items: center;">
-                      {{$pesanan->produk->nama}}
+                      {{$pesanan->data_produk->nama}}
                     </div>
                   </div>
                 </td>
@@ -213,13 +123,9 @@ function tgl_indo($tanggal){
                 <td style="text-align: center;">x{{$pesanan->jumlah}}</td>
                 <td>
                   <div style="display: flex; justify-content: space-between;">
+                    <?php $total_pesanan += $pesanan->jumlah * $pesanan->harga_satuan; ?>
                     <div>Rp.</div> <div>{{number_format($pesanan->jumlah * $pesanan->harga_satuan, 0, '.', '.')}}</div>
                   </div>                  
-                </td>
-                <td>
-                  <button class="btn btn-danger" onclick="hapus_pesanan('{{$pesanan->id}}', '{{$nota->id}}')">
-                    <i class="fa fa-trash"></i>
-                  </button>
                 </td>
               </tr>
               @endforeach
@@ -228,20 +134,20 @@ function tgl_indo($tanggal){
           <hr>
           <div class="row" style="margin-left: 0.5em;margin-right: 0.5em;">
             <div class="col-md-4">
-              @if ($nota->pengantaran == 'Diantarkan')
+              @if ($riwayat_nota->pengantaran == 'Diantarkan')
               <b>Diantarkan ke alamat</b><br>
-              {{$nota->penerima}} | {{$nota->no_telp_penerima}}<br>
-              {{$nota->alamat}}<br>
-              {{$nota->kelurahan}}, {{$nota->kecamatan}}, {{$nota->kota}}
+              {{$riwayat_nota->nama_penerima}} | {{$riwayat_nota->nomor_penerima}}<br>
+              {{$riwayat_nota->alamat}}<br>
+              {{$riwayat_nota->kelurahan}}, {{$riwayat_nota->kecamatan}}, {{$riwayat_nota->kota}}
               @else
               <b>Ambil ditempat</b><br>
-              {{$nota->penerima}} | {{$nota->no_telp_penerima}}<br>
+              {{$riwayat_nota->nama_penerima}} | {{$riwayat_nota->nomor_penerima}}<br>
               Toko AsFrozen, Jl. Mandala No. 1<br>
               Birobuli Utara, Palu Selatan, Kota Palu         
               @endif
             </div>
             <div class="col-md-4">
-              @if ($nota->pembayaran == 'COD')
+              @if ($riwayat_nota->pembayaran == 'COD')
               <b>Cash On Delivery (COD)</b><br>
               <div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.5em;">
                 <div class="checkout-bank-transfer-item__icon-container">
@@ -252,11 +158,11 @@ function tgl_indo($tanggal){
               <b>Transfer melalui</b><br>
               <div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.3em;">
                 <div class="checkout-bank-transfer-item__icon-container">
-                  <img src="<?=url('/')?>/bank/{{$nota->bank->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
+                  <img src="<?=url('/')?>/bank/{{$riwayat_nota->bank->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
                 </div>
                 <div>
                   <div class="checkout-bank-transfer-item__main" style="line-height: 0.8em;">
-                    {{$nota->bank->nama_bank}}
+                    {{$riwayat_nota->bank->nama_bank}}
                   </div>
                   <div class="checkout-bank-transfer-item__description">
                     <small>Perlu upload bukti transfer</small>
@@ -267,25 +173,20 @@ function tgl_indo($tanggal){
               @endif
             </div>
             <div class="col-md-4" style="display: flex;">
-              <div style="margin-right: 1em; margin-top: 0.5em;">{{$qrcode->size(80)->generate($nota->id_pesanan)}}</div>
+              <div style="margin-right: 1em; margin-top: 0.5em;">{{$qrcode->size(80)->generate($riwayat_nota->id_pesanan)}}</div>
               <div style="margin-top: 0.2em;width: 100%;">
                 <div class="row">
-                  <div class="col-md-6">    
-                    Subtotal
-                  </div>
+                  <div class="col-md-6">Subtotal</div>
                   <div class="col-md-6" style="display: flex; justify-content: space-between;">   
-                    <div>: Rp.</div>
-                    <div id="sub_total_pesanan"></div>
+                    <div>: Rp. </div>
+                    <div id="sub_total_pesanan">{{number_format($total_pesanan, 0, ".", ".")}}</div>
                   </div>
-
                 </div>
                 <div class="row">
-                  <div class="col-md-6">    
-                    Ongkir
-                  </div>
+                  <div class="col-md-6">Ongkir</div>
                   <div class="col-md-6" style="display: flex; justify-content: space-between;">   
                     <div>: Rp.</div>
-                    <div>{{number_format($nota->ongkos_kirim, 0, '.', '.')}}</div>
+                    <div>{{number_format($riwayat_nota->ongkos_kirim, 0, '.', '.')}}</div>
                   </div>
                 </div>
                 <div class="row">
@@ -294,20 +195,13 @@ function tgl_indo($tanggal){
                   </div>
                   <div class="col-md-6" style="display: flex; justify-content: space-between;">   
                     <div>: Rp.</div>
-                    <div><b id="total_pesanan"></b></div>
+                    <div><b id="total_pesanan">{{number_format($riwayat_nota->ongkos_kirim+$total_pesanan, 0, ".", ".")}}</b></div>
                   </div>
-
                 </div>
-
               </div>
             </div>
+
           </div>
-        </div>
-        <hr>
-        <div class="template-demo" style="display: flex; padding-bottom: 1em; padding-left: 1em;">
-          <a href="/admin/ubah_status_pesanan/{{$nota->id}}/packaging" class="btn btn-primary" style="margin-right: 0.5em;">Terima Pesanan</a>
-          <a class="btn btn-success" onclick="hubungi_pesanan('{{$nota->id_pesanan}}')" style="margin-right: 0.5em; color: white;">Hubungi Pembeli</a>
-          <a class="btn btn-danger" onclick="batalkan_pesanan('{{$nota->id}}')" style="margin-right: 0.5em; color: white;">Batalkan Pesanan</a>
         </div>
       </div>
     </div>
@@ -401,7 +295,7 @@ function tgl_indo($tanggal){
 
 </script>
 <script>
-  var nota = {!! json_encode($nota) !!};
+  var nota = {!! json_encode($riwayat_nota) !!};
 
   $(document).ready(function(){
     get_total_pesanan();

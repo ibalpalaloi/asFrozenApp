@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminVideoController;
 use App\Http\Controllers\GetController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\UserKatalogController;
+use App\Http\Controllers\UserTestimoniController;
 use App\Http\Controllers\UserKeranjangController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserPesananController;
@@ -52,6 +53,13 @@ Route::post('/auth/post_registrasi', [AuthController::class, 'post_registrasi'])
 // keranjang
 Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
 
+// pesanan
+Route::post('/testimoni/delete', [UserTestimoniController::class, 'delete'])->middleware('auth');
+Route::post('/testimoni/store', [UserTestimoniController::class, 'store'])->middleware('auth');
+Route::get('/testimoni', [UserTestimoniController::class, 'index'])->middleware('auth');
+
+
+
     Route::get('/keranjang', [UserKeranjangController::class, 'keranjang']);
     Route::get('/tambah_keranjang/{id}', [UserKeranjangController::class, 'tambah_keranjang']);
     Route::get('/keranjang/checkout', [UserKeranjangController::class, 'checkout']);
@@ -64,7 +72,8 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
     // pesanan
     Route::get('/pesanan', [UserPesananController::class, 'pesanan']);
     Route::get('/batalkan-pesanan/{id}', [UserPesananController::class, 'batalkan_pesanan']);
-    Route::get('/riwayat-pesanan', [UserPesananController::class, 'riwayat_pesanan']);
+    Route::get('/riwayat-pesanan/{id}', [UserPesananController::class, 'riwayat_pesanan_detail']);
+    Route::get('/riwayat-pesanan', [UserPesananController::class, 'riwayat_pesanan']);  
 
     // biodata
     Route::get('/biodata', [UserPesananController::class, 'biodata']);
