@@ -401,7 +401,7 @@ Keranjang Belanja
 @endsection
 
 @section('footer')
-<script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="katalog_assets/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
 <script type="text/javascript" src="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript">
 	<?php  $date_tomorrow = date("m/d/Y", strtotime("+1 day", strtotime(date("Y-m-d")))); ?>
