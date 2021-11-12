@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
 use App\Models\Nota;
+use App\Models\Kota;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
+use App\Models\Biodata;
 use App\Models\Keranjang;
 use App\Models\Riwayat_pesanan;
 use App\Models\Stok_produk;
 use App\Models\Riwayat_nota_pesanan;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
-
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use SimpleSoftwareIO\QrCode\Generator;
 
@@ -50,13 +53,39 @@ class UserPesananController extends Controller
         return redirect('/keranjang');
     }
 
+    public function update_biodata(Request $request){
+        $db = Biodata::where('id', Auth()->user()->biodata->id)->first();
+        $db->nama = $request->nama;
+        $db->no_telp = $request->no_telp;
+        $db->jenis_kelamin = $request->jenis_kelamin;
+        $db->alamat = $request->alamat;
+        $db->kelurahan_id = $request->kelurahan;
+        $db->save();
+
+        if ($request->from == 'keranjang'){
+            return redirect('/keranjang/checkout');
+        }
+        return redirect()->back();
+
+    }
+
     public function biodata(){
         $agent = new Agent();
+        $kota = Kota::all();
+        $user = Biodata::where('id', Auth()->user()->biodata->id)->first();   
+        $kecamatan = "";
+        $kelurahan = "";
+        if ($user->kelurahan_id){
+            $kota_id = Auth()->user()->biodata->kelurahan->kecamatan->kota->id;
+            $kecamatan_id = Auth()->user()->biodata->kelurahan->kecamatan->id;
+            $kecamatan = Kecamatan::where('kota_id', $kota_id)->get();
+            $kelurahan = kelurahan::where('kecamatan_id', $kecamatan_id)->get();
+        }        
         if ($agent->isMobile()){
-            return view('user/biodata/mobile');
+            return view('user/biodata/mobile', compact('user', 'kota', 'kecamatan', 'kelurahan'));
         }
         else {
-            return view('user/biodata/desktop');            
+            return view('user/biodata/desktop', compact('user', 'kota','kecamatan', 'kelurahan'));            
         }
     }
 

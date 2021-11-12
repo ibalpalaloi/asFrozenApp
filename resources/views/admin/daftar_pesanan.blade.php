@@ -9,6 +9,9 @@
     font-size: 17px;
   }
 </style>
+<script type="text/javascript">
+  var pause_trigger = false;
+</script>
 @endsection
 
 @section("body")
@@ -178,18 +181,25 @@ function tgl_indo($tanggal){
                                     function tick(){
                                       counter[loop] = document.getElementById("countdown_"+id_pesanan[loop]);
                                       counter[loop].innerHTML = minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+                                      console.log(pause_trigger + " ini 2 " + minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds));
+                                      
                                       seconds--;
-                                      if (seconds >= 0) {
-                                        timeoutHandle[loop] = setTimeout(tick, 1000);
+                                      if (pause_trigger == false){
 
-                                      } 
-                                      else {
-                                        if (minutes >= 1) {
-                                          setTimeout(function () {countdown(minutes - 1, 59, loop);}, 1000);
+                                        if (seconds >= 0) {
+                                          timeoutHandle[loop] = setTimeout(tick, 1000);
+
+                                        } 
+                                        else {
+                                          if (minutes >= 1) {
+                                            setTimeout(function () {countdown(minutes - 1, 59, loop);}, 1000);
+                                          }
                                         }
                                       }
                                     }
-                                    tick();
+                                    if (pause_trigger == false){
+                                      tick();                                      
+                                    }
                                   }
                                 </script>
                               <?php }
@@ -250,6 +260,7 @@ function tgl_indo($tanggal){
 
   function control_time(id_pesanan, status){
     if (status == 'pause'){
+      pause_trigger = true;
       var countdown = $("#countdown_"+id_pesanan).html();
       $("#pause_countdown_"+id_pesanan).html(countdown);
       $("#pause_countdown_"+id_pesanan).prop('hidden', false);
@@ -263,8 +274,10 @@ function tgl_indo($tanggal){
           // alert(data);
         }
       });
+
     }
     else {
+      pause_trigger = false;
       $("#pause_countdown_"+id_pesanan).prop('hidden', true);
       $("#countdown_"+id_pesanan).prop('hidden', false);      
       $("#btn_pause_"+id_pesanan).prop('hidden', false);
@@ -274,9 +287,11 @@ function tgl_indo($tanggal){
         url: "<?=url('/')?>/admin/daftar-pesanan/"+id_pesanan+"/control/run",
         dataType: "json",
         success:function(data){
+          // location.reload();
           var menit = data.menit;
           var detik = data.detik;
           var id = data.id;
+          // alert(count)
           countdown_start(menit, detik, id);
 
           function countdown_start(minutes, seconds, id) {
@@ -284,17 +299,21 @@ function tgl_indo($tanggal){
               counter = document.getElementById("countdown_"+id);
               counter.innerHTML = minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
               seconds--;
-              if (seconds >= 0) {
-                setTimeout(tick, 1000);
+              if (pause_trigger == false){
+                if (seconds >= 0) {
+                  setTimeout(tick, 1000);
 
-              } 
-              else {
-                if (minutes >= 1) {
-                  setTimeout(function () {countdown_start(minutes - 1, 59, id);}, 1000);
+                } 
+                else {
+                  if (minutes >= 1) {
+                    setTimeout(function () {countdown_start(minutes - 1, 59, id);}, 1000);
+                  }
                 }
               }
             }
-            tick();
+            if (pause_trigger == false){
+              tick();
+            }
           }
         }
       });

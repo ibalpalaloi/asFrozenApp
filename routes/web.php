@@ -89,6 +89,7 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
     Route::get('/riwayat-pesanan', [UserPesananController::class, 'riwayat_pesanan']);  
 
     // biodata
+    Route::post('/biodata/update', [UserPesananController::class, 'update_biodata']);
     Route::get('/biodata', [UserPesananController::class, 'biodata']);
 
 });

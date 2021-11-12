@@ -33,8 +33,8 @@
             <div class="form-group">
               <label class="control-label">JENIS KELAMIN</label>
               <select class="form-control" name="jenis_kelamin">
-                <option value="L">Laki-Laki</option>
-                <option value="P">Perempuan</option>
+                <option value="Laki-Laki">Laki-Laki</option>
+                <option value="Perempuan">Perempuan</option>
               </select>
             </div>
           </div>

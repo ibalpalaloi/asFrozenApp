@@ -34,6 +34,9 @@ function tgl_indo($tanggal){
     content: none;
   }
 </style>
+<script type="text/javascript">
+  var pause_trigger = false;
+</script>
 @endsection
 @section('body')
 <div id="tambah_pesanan_modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -142,17 +145,22 @@ function tgl_indo($tanggal){
                         counter.innerHTML =
                         minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
                         seconds--;
-                        if (seconds >= 0) {
-                          timeoutHandle = setTimeout(tick, 1000);
+                        if (pause_trigger == false){
 
-                        } 
-                        else {
-                          if (minutes >= 1) {
-                            setTimeout(function () {countdown(minutes - 1, 59, id_pesanan);}, 1000);
+                          if (seconds >= 0) {
+                            timeoutHandle = setTimeout(tick, 1000);
+
+                          } 
+                          else {
+                            if (minutes >= 1) {
+                              setTimeout(function () {countdown(minutes - 1, 59, id_pesanan);}, 1000);
+                            }
                           }
                         }
                       }
-                      tick();
+                      if (pause_trigger == false){
+                        tick();
+                      }
                     }
                   </script>
                   <?php
@@ -337,6 +345,7 @@ function tgl_indo($tanggal){
 
   function control_time(id_pesanan, status){
     if (status == 'pause'){
+      pause_trigger = true;
       var countdown = $("#countdown_"+id_pesanan).html();
       $("#pause_countdown_"+id_pesanan).html(countdown);
       $("#pause_countdown_"+id_pesanan).prop('hidden', false);
@@ -352,6 +361,8 @@ function tgl_indo($tanggal){
       });
     }
     else {
+      pause_trigger = false;
+
       $("#pause_countdown_"+id_pesanan).prop('hidden', true);
       $("#countdown_"+id_pesanan).prop('hidden', false);      
       $("#btn_pause_"+id_pesanan).prop('hidden', false);
@@ -371,17 +382,23 @@ function tgl_indo($tanggal){
               counter = document.getElementById("countdown_"+id);
               counter.innerHTML = minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
               seconds--;
-              if (seconds >= 0) {
-                setTimeout(tick, 1000);
+              if (pause_trigger == false){
 
-              } 
-              else {
-                if (minutes >= 1) {
-                  setTimeout(function () {countdown_start(minutes - 1, 59, id);}, 1000);
+                if (seconds >= 0) {
+                  setTimeout(tick, 1000);
+
+                } 
+                else {
+                  if (minutes >= 1) {
+                    setTimeout(function () {countdown_start(minutes - 1, 59, id);}, 1000);
+                  }
                 }
               }
             }
-            tick();
+            if (pause_trigger == false){
+
+              tick();
+            }
           }
         }
       });

@@ -17,7 +17,10 @@
   </section>
   <section class="login-content">
     <div class="login-box" style="min-height: 330px;">
-      <img src="<?=url('/')?>/katalog_assets/assets/img/logo.png" style="width: 8em; border-radius: 50%; position: absolute; top: -4em; border: 5px solid white; left: 35%;">
+      @php $url = url('/')."/katalog_assets/assets/img/logo.png"; @endphp
+      <div style="width: 8em; border-radius: 50%; height: 8em; position: absolute; top: -4em; background-image: url('<?=$url?>'); border: 5px solid white; left: 35%; background-size: cover;">
+        
+      </div>
       <form class="login-form" action="/post_login" method="post" style="margin-top: 1.5em;">
         @csrf
         <div class="form-group">
