@@ -444,11 +444,11 @@
 				<div class="row">
 
 					<div class="col-lg-3 col-md-6 footer-contact">
-						<h3>OnePage</h3>
+						<h3>AsFrozen Palu</h3>
 						<p>
-							A108 Adam Street <br>
-							New York, NY 535022<br>
-							United States <br><br>
+							Jl. Mandala No. 1 <br>
+							Kel. Birobuli Utara, Kec. Palu Selatan<br>
+							Kota Palu <br><br>
 							<strong>Phone:</strong> +1 5589 55488 55<br>
 							<strong>Email:</strong> info@example.com<br>
 						</p>
@@ -480,7 +480,7 @@
 						<h4>Join Our Newsletter</h4>
 						<p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
 						<form action="" method="post">
-							<input type="email" name="email"><input type="submit" value="Subscribe">
+							<input type="email" name="email"><input type="submit" value="Subscribe"  style="background: #ec1f25;">
 						</form>
 					</div>
 
@@ -492,23 +492,23 @@
 
 			<div class="mr-md-auto text-center text-md-left">
 				<div class="copyright">
-					&copy; Copyright <strong><span>OnePage</span></strong>. All Rights Reserved
+					{{date('Y')}}&nbpsp;&copy; Copyright <strong><span>AsFrozen Palu</span></strong>.
 				</div>
 				<div class="credits">
-					Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+					All Rights Reserved
 				</div>
 			</div>
 			<div class="social-links text-center text-md-right pt-3 pt-md-0">
-				<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-				<a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-				<a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-				<a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-				<a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+				<a href="#" class="twitter" style="background: #ec1f25;"><i class="bx bxl-twitter"></i></a>
+				<a href="#" class="facebook" style="background: #ec1f25;"><i class="bx bxl-facebook"></i></a>
+				<a href="#" class="instagram" style="background: #ec1f25;"><i class="bx bxl-instagram"></i></a>
+				<a href="#" class="google-plus" style="background: #ec1f25;"><i class="bx bxl-skype"></i></a>
+				<a href="#" class="linkedin" style="background: #ec1f25;"><i class="bx bxl-linkedin"></i></a>
 			</div>
 		</div>
 	</footer><!-- End Footer -->
 
-	<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+	<a href="#" class="back-to-top"><i class="ri-arrow-up-line" style="background: #ec1f25;"></i></a>
 	<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery/jquery.min.js"></script>
 	<script src="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
