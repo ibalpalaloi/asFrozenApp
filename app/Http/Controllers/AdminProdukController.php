@@ -31,7 +31,6 @@ class AdminProdukController extends Controller
         $valdiator = Validator::make($request->all(), [
             'kategori' => 'required', 
             'nama_produk' => 'required',
-            'satuan' => 'required',
             'harga' => 'required',
             'stok' => 'required',
             // 'foto_produk' => 'required|mimes:jpg,png,jpeg',
@@ -47,7 +46,7 @@ class AdminProdukController extends Controller
 
         $produk = new Produk;
         $produk->nama = $request->nama_produk;
-        $produk->harga = $request->harga;
+        $produk->harga = str_replace(',', '', $request->harga);
         $produk->satuan = $request->satuan;
         $produk->deskripsi = $request->deskripsi;
         $produk->kategori_id = $request->kategori;
@@ -65,13 +64,13 @@ class AdminProdukController extends Controller
             \Storage::disk('public')->put("img/produk/$foto", file_get_contents($file));
             \Storage::disk('public')->put("img/produk/thumbnail/500x500/$foto", file_get_contents($file));
             \Storage::disk('public')->put("img/produk/thumbnail/300x300/$foto", file_get_contents($file));
-            $img = Image::make("img/produk/thumbnail/500x500/$foto")->fit(500,500);
+            $img = Image::make("public/img/produk/thumbnail/500x500/$foto")->fit(500,500);
             $img->save();
-            $img = Image::make("img/produk/thumbnail/300x300/$foto")->fit(300,300);
+            $img = Image::make("public/img/produk/thumbnail/300x300/$foto")->fit(300,300);
             $img->save();
+            $produk->foto = $foto;
         }
 
-        $produk->foto = $foto;
         $produk->save();
 
         // if($request->diskon != null){
@@ -209,23 +208,23 @@ class AdminProdukController extends Controller
     public function post_update_produk(Request $request){
         $produk = Produk::find($request->id);
         $produk->nama = $request->nama;
-        $produk->harga = $request->harga;
+        $produk->harga = str_replace(',', '', $request->harga);
         $produk->satuan =  $request->satuan;
         $produk->kategori_id = $request->kategori;
         $produk->sub_kategori_id = $request->sub_kategori;
 
         if ($request->file('foto')) {
-            \File::delete("img/produk/$produk->foto");                 
-            \File::delete("img/produk/thumbnail/500x500/$produk->foto");                 
-            \File::delete("img/produk/thumbnail/300x300/$produk->foto");                 
+            \File::delete("public/img/produk/$produk->foto");                 
+            \File::delete("public/img/produk/thumbnail/500x500/$produk->foto");                 
+            \File::delete("public/img/produk/thumbnail/300x300/$produk->foto");                 
             $file = $request->file('foto');
             $foto = "produk-".$this->autocode('prd').".".$file->getClientOriginalExtension();
             \Storage::disk('public')->put("img/produk/$foto", file_get_contents($file));
             \Storage::disk('public')->put("img/produk/thumbnail/500x500/$foto", file_get_contents($file));
             \Storage::disk('public')->put("img/produk/thumbnail/300x300/$foto", file_get_contents($file));
-            $img = Image::make("img/produk/thumbnail/500x500/$foto")->fit(500,500);
+            $img = Image::make("public/img/produk/thumbnail/500x500/$foto")->fit(500,500);
             $img->save();
-            $img = Image::make("img/produk/thumbnail/300x300/$foto")->fit(300,300);
+            $img = Image::make("public/img/produk/thumbnail/300x300/$foto")->fit(300,300);
             $img->save();
             $produk->foto = $foto;
         }
@@ -235,9 +234,10 @@ class AdminProdukController extends Controller
 
         $data_produk['id'] = $produk->id;
         $data_produk['nama'] = $produk->nama;
-        $data_produk['harga'] = $produk->harga;
+        $data_produk['harga'] = "Rp. ".number_format($produk->harga, 0, ".", ".");
         $data_produk['satuan'] = $produk->satuan;
         $data_produk['kategori'] = $produk->kategori->kategori;
+        $data_produk['foto'] = $produk->foto;
         if($produk->sub_kategori != null){
             $data_produk['sub_kategori'] = $produk->sub_kategori->sub_kategori;
         }

@@ -85,7 +85,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/admin-post-video",
+                url: "<?=url('/')?>/admin-post-video",
                 data: {'id':id, 'link':link},
                 success:function(data){
                     $('#iframe_'+id).attr('src', 'https://www.youtube.com/embed/'+data.embed_link);
@@ -99,7 +99,7 @@
             var link = $('#modal_link_video').val();
             $.ajax({
                 type: "POST",
-                url: "/get-embed-link/",
+                url: "<?=url('/')?>/get-embed-link/",
                 data: {'link':link},
                 success:function(data){
                     $('#modal_video_embed').attr('src', 'https://www.youtube.com/embed/'+data.link_embed);

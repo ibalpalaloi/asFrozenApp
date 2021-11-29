@@ -10,24 +10,24 @@
 	<meta content="" name="keywords">
 
 	<!-- Favicons -->
-	<link href="<?=url('/')?>/katalog_assets/assets/img/favicon.png" rel="icon">
-	<link href="<?=url('/')?>/katalog_assets/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/img/favicon.png" rel="icon">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
 	<!-- Vendor CSS Files -->
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/venobox/venobox.css" rel="stylesheet">
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/aos/aos.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/venobox/venobox.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/aos/aos.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick-theme.css"/>
 	<link rel="stylesheet" type="text/css" href="https://adminlte.io/themes/v3/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 	<!-- Template Main CSS File -->
-	<link href="<?=url('/')?>/katalog_assets/assets/css/style.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/css/style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
 	<style type="text/css">
 		.nav-menu a{
@@ -494,7 +494,7 @@
 			<div class="d-flex">
 				<h1 class="logo mr-auto">
 					<a href="<?=url('/')?>">
-						<img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_white.png">
+						<img src="<?=url('/')?>/public/katalog_assets/assets/img/logo/frozen_palu_white.png">
 					</a>
 				</h1>
 				<div style="width: 100%; padding-left: 1%; margin-left: 2.5%; margin-right: 5%; border-left: 2px solid white;display: flex; align-items: center;">
@@ -518,7 +518,7 @@
 					<div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">
 						<div class="row" style="padding: 0.5em 1em;">
 							<div style="width: 30%; border-radius: 50%;">
-								<img src="<?=url('/')?>/img/default.png" style="width: 100%; border-radius: 50%;">
+								<img src="<?=url('/')?>/public/img/default.png" style="width: 100%; border-radius: 50%;">
 							</div>
 							<div style="width: 70%; padding-left: 0.8em; display: flex; justify-content: center; flex-direction: column;">
 								<div>{{Auth()->user()->biodata->nama}}</div>
@@ -637,22 +637,22 @@
 	<div id="preloader" style=""></div>
 
 	<!-- Vendor JS Files -->
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/php-email-form/validate.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/counterup/counterup.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/venobox/venobox.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/aos/aos.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/php-email-form/validate.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/counterup/counterup.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/venobox/venobox.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/aos/aos.js"></script>
 	<script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
-	<script type="text/javascript" src="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.min.js"></script>
+	<script type="text/javascript" src="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick.min.js"></script>
 	<script type="text/javascript">
 	</script>
 	<!-- Template Main JS File -->
-	<script src="<?=url('/')?>/katalog_assets/assets/js/main.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/js/main.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

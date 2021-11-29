@@ -3,7 +3,7 @@
 
 @section('header')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="<?=url('/')?>/public/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <style>
   ion-icon {
     font-size: 17px;
@@ -78,7 +78,7 @@ function tgl_indo($tanggal){
     </div>
   </div>
 </div>
-{{--  --}}
+
 
 
 <div class="content-wrapper">
@@ -248,8 +248,8 @@ function tgl_indo($tanggal){
 @endsection
 
 @section('footer')
-<script src="{{asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
   $(function () {
     $("#example1").DataTable({

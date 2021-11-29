@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('header')
-<link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-<link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="<?=url('/')?>/public/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="<?=url('/')?>/public/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <style>
   th, td {
     padding: 15px;
@@ -20,7 +20,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="admin-banner-side-update" method="post" enctype="multipart/form-data">
+      <form action="<?=url('/')?>/admin-banner-side-update" method="post" enctype="multipart/form-data">
         <div class="modal-body">
           {{ csrf_field() }}
           <div class="form-group">
@@ -48,7 +48,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="admin-banner-side-tambah" method="post" enctype="multipart/form-data">
+      <form action="<?=url('/')?>/admin-banner-side-tambah" method="post" enctype="multipart/form-data">
         <div class="modal-body">
           {{ csrf_field() }}
           <div class="form-group">
@@ -109,7 +109,7 @@
                   @php $i=0; @endphp
                   @foreach ($banner_main as $data)
                   <div class="carousel-item @if ($i == 0) active @endif">
-                    <img src="<?=url('/')?>/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100">
+                    <img src="<?=url('/')?>/public/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100">
                   </div>
                   @php $i++; @endphp
                   @endforeach 
@@ -126,7 +126,7 @@
             </div>
             <div class="col-lg-4" style="padding: 0px; padding-left: 0.2em;">
               @foreach ($banner_not_main as $data)
-              <img src="<?=url('/')?>/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100" alt="..." @if ($data->posisi == 'kanan-bawah') style="margin-top: 0.2em;" @endif>
+              <img src="<?=url('/')?>/public/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100" alt="..." @if ($data->posisi == 'kanan-bawah') style="margin-top: 0.2em;" @endif>
               @endforeach
             </div>
           </div>
@@ -157,7 +157,7 @@
               <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>
-                  <img style="width: 300px;" src="<?=url('/')?>/banner/thumbnail/488x150/{{$data->foto}}" alt="...">
+                  <img style="width: 300px;" src="<?=url('/')?>/public/banner/thumbnail/488x150/{{$data->foto}}" alt="...">
                 </td>
                 <td>{{$data->posisi}}</td>
                 <td>
@@ -171,7 +171,7 @@
               <tr>
                 <td>{{$loop->iteration+2}}</td>
                 <td>
-                  <img style="width: 300px;" src="<?=url('/')?>/banner/thumbnail/488x150/{{$data->foto}}" alt="...">
+                  <img style="width: 300px;" src="<?=url('/')?>/public/banner/thumbnail/488x150/{{$data->foto}}" alt="...">
                 </td>
                 <td>{{$data->posisi}}</td>
                 <td>
@@ -194,10 +194,10 @@
 @endsection
 
 @section('footer')
-<script src="{{asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script type="text/javascript">
   $(function () {
     $("#example1").DataTable({

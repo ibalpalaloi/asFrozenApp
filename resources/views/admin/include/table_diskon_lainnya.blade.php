@@ -42,7 +42,7 @@ function tgl_indo2($tanggal){
             <td>
                 <div style="display: flex;">
                     <div>
-                        <img src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 50px;">
+                        <img src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 50px;">
                     </div>
                     <div style="margin-left: 0.5em;">
                         <div style="line-height: 1em;">{{$data->produk->nama}}

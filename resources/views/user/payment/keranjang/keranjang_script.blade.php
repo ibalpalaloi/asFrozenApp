@@ -66,7 +66,7 @@
 	function get_harga_total(){
 		$.ajax({
 			type: "get",
-			url: "/keranjang/get-harga-total",
+			url: "<?=url('/')?>/keranjang/get-harga-total",
 			success:function(data){
 				$('#harga_total').html(data.harga_total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
 			}

@@ -149,6 +149,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
 
 
     // admin riwayat
+    Route::get('/admin/riwayat-pesanan/{id}', [AdminRiwayatPesanan::class, 'daftar_riwayat_detail']);
     Route::get('/admin/riwayat-pesanan', [AdminRiwayatPesanan::class, 'daftar_riwayat']);
     Route::get('/admin/get_riwayat_pesanan/{id}', [AdminRiwayatPesanan::class, 'get_riwayat_pesanan']);
 

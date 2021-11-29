@@ -20,13 +20,13 @@ class AdminBannerController extends Controller
     public function update_side(Request $request){
     	$banner = Banner::where('id', $request->id)->first();
         if ($request->file('banner')) {
-            \File::delete("banner/$banner->foto");                 
-            \File::delete("banner/thumbnail/488x150/$banner->foto");                 
+            \File::delete("public/banner/$banner->foto");                 
+            \File::delete("public/banner/thumbnail/488x150/$banner->foto");                 
             $file = $request->file('banner');
             $logo = "banner-".$this->autocode('bnr').".".$file->getClientOriginalExtension();
             \Storage::disk('public')->put("banner/$logo", file_get_contents($file));
             \Storage::disk('public')->put("banner/thumbnail/488x150/$logo", file_get_contents($file));
-            $img = Image::make("banner/thumbnail/488x150/$logo")->fit(488,150);
+            $img = Image::make("public/banner/thumbnail/488x150/$logo")->fit(488,150);
             $img->save();
             $banner->foto = $logo;
         }
@@ -40,7 +40,7 @@ class AdminBannerController extends Controller
             $logo = "banner-".$this->autocode('bnr').".".$file->getClientOriginalExtension();
             \Storage::disk('public')->put("banner/$logo", file_get_contents($file));
             \Storage::disk('public')->put("banner/thumbnail/488x150/$logo", file_get_contents($file));
-            $img = Image::make("banner/thumbnail/488x150/$logo")->fit(488,150);
+            $img = Image::make("public/banner/thumbnail/488x150/$logo")->fit(488,150);
             $img->save();
             $banner = new Banner;
             $banner->foto = $logo;
@@ -52,8 +52,8 @@ class AdminBannerController extends Controller
 
     public function delete(Request $request){
         $banner = Banner::where('id', $request->id)->first();
-        \File::delete("banner/$banner->foto");                 
-        \File::delete("banner/thumbnail/488x150/$banner->foto");    
+        \File::delete("public/banner/$banner->foto");                 
+        \File::delete("public/banner/thumbnail/488x150/$banner->foto");    
         $banner->delete();             
         return redirect()->back();
     }

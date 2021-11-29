@@ -2,7 +2,11 @@
     <tr id="trow_daftar_produk_{{$data['id']}}">
     <td>
         <div style="display:flex;">
-        <img src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100px;">
+        @if ($data['foto'] == '')
+        <img id="foto_{{$data['id']}}" src="<?=url('/')?>/public/img/produk/thumbnail/300x300/image_not_available.png" style="width: 100px;">
+        @else
+        <img id="foto_{{$data['id']}}" src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100px;">
+        @endif
         <div style="display: flex; flex-direction: column; margin-left: 0.5em;">
             <div id="nama_{{$data['id']}}">{{$data['nama']}}</div>
             <div>

@@ -298,14 +298,19 @@ class AdminAnalisController extends Controller
         }
 
         $jenis_kelamin = DB::table('riwayat_nota_pesanan')->select('jenis_kelamin', DB::raw('count(id) as jumlah'))->whereBetween('created_at', [$startDate, $endDate])->orderBy('jenis_kelamin', 'asc')->groupBy('jenis_kelamin')->get();
+        $jenis_kelamin_laki = DB::table('riwayat_nota_pesanan')->select('jenis_kelamin', DB::raw('count(id) as jumlah'))->whereBetween('created_at', [$startDate, $endDate])->orderBy('jenis_kelamin', 'asc')->groupBy('jenis_kelamin')->where('jenis_kelamin', 'Laki-Laki')->get()->count();
+        $jenis_kelamin_perempuan = DB::table('riwayat_nota_pesanan')->select('jenis_kelamin', DB::raw('count(id) as jumlah'))->whereBetween('created_at', [$startDate, $endDate])->orderBy('jenis_kelamin', 'asc')->groupBy('jenis_kelamin')->where('jenis_kelamin', 'Perempuan')->get()->count();
+
         $jenkel['jenis'] = array();
         $jenkel['jumlah'] = array();
-        foreach($jenis_kelamin as $data){
-            array_push($jenkel['jenis'], $data->jenis_kelamin);
-            array_push($jenkel['jumlah'], $data->jumlah);
-        }
+        array_push($jenkel['jenis'], 'Laki-Laki');
+        array_push($jenkel['jumlah'], $jenis_kelamin_laki);
+        array_push($jenkel['jenis'], 'Perempuan');
+        array_push($jenkel['jumlah'], $jenis_kelamin_perempuan);
+
 
         // dd($jenis_kelamin);
+        // dd($jenkel);    
 
 
         return view('admin.analisis-pelanggan-transaksi-terbanyak', compact('menu', 'sub_menu', 'list_data_transaksi', 'tgl_mulai', 'tgl_akhir', 'text_rentan_waktu', 'jumlah', 'total', 'top_transaksi', 'jenis_kelamin', 'jenkel'));
@@ -362,7 +367,7 @@ class AdminAnalisController extends Controller
     //         $presentase_pria = 0;
     //         $presentase_wanita = 0;
     //     }
-        
+
     //     return view('admin.analisis-pelanggan-jenis-kelamin', compact('menu', 'sub_menu', 'presentase_pria', 'presentase_wanita', 'jumlah_wanita', 'jumlah_pria', 'tgl_mulai', 'tgl_akhir'));
     // }
 }

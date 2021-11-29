@@ -42,7 +42,7 @@ Keranjang
 									</div>
 								</div>
 								<div class="col-2">
-									<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100%; border-radius: 0.2em; margin-bottom: 0.5em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+									<img class="img-fluid" src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100%; border-radius: 0.2em; margin-bottom: 0.5em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 								</div>
 								<div class="col-5">
 									<div class="row">
@@ -88,7 +88,7 @@ Keranjang
 						</div>
 					</div>
 				</div>
-				<a href="/keranjang/checkout" class="btn btn-danger" style="padding: 0.8em; font-size: 0.8em;">Proses Pembayaran</a>
+				<a href="<?=url('/')?>/keranjang/checkout" class="btn btn-danger" style="padding: 0.8em; font-size: 0.8em;">Proses Pembayaran</a>
 				@else
 				<a href="<?=url('/')?>" class="btn btn-danger" style="padding: 0.7em; font-size: 1.1em;">Belanja Sekarang</a>
 				@endif
@@ -99,7 +99,7 @@ Keranjang
 						@foreach ($rekomendasi_produk as $data)
 						<div class="member" style="position: relative; width: 50%; padding: 0.5em;">
 							<div class="member-img">
-								<img src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->foto}}" class="img-fluid" alt="">
+								<img src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$data->foto}}" class="img-fluid" alt="">
 							</div>
 							<div class="member-info" style="padding-top: 0.4em;">
 								<small style="font-family: 'Segoe UI',Roboto; font-size: 0.7em;"><s>Rp. {{number_format($data->harga, 0, '.', '.')}}</s>

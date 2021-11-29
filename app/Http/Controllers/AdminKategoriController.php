@@ -45,9 +45,9 @@ class AdminKategoriController extends Controller
             \Storage::disk('public')->put("icon_kategori/$logo", file_get_contents($file));
             \Storage::disk('public')->put("icon_kategori/thumbnail/75x75/$logo", file_get_contents($file));
             \Storage::disk('public')->put("icon_kategori/thumbnail/150x150/$logo", file_get_contents($file));
-            $img = Image::make("icon_kategori/thumbnail/75x75/$logo")->fit(75,75);
+            $img = Image::make("public/icon_kategori/thumbnail/75x75/$logo")->fit(75,75);
             $img->save();
-            $img = Image::make("icon_kategori/thumbnail/150x150/$logo")->fit(150,150);
+            $img = Image::make("public/icon_kategori/thumbnail/150x150/$logo")->fit(150,150);
             $img->save();
             $kategori->logo = $logo;
         }
@@ -98,15 +98,15 @@ class AdminKategoriController extends Controller
         $kategori = Kategori::where('id', $request->kategori_id)->first();
         $kategori->kategori = $request->kategori;
         if ($request->file('logo')) {
-            \File::delete("icon_kategori/$kategori->logo");                 
+            \File::delete("public/icon_kategori/$kategori->logo");                 
             $file = $request->file('logo');
             $logo = "kategori-".$this->autocode('ktgr').".".$file->getClientOriginalExtension();
             \Storage::disk('public')->put("icon_kategori/$logo", file_get_contents($file));
             \Storage::disk('public')->put("icon_kategori/thumbnail/75x75/$logo", file_get_contents($file));
             \Storage::disk('public')->put("icon_kategori/thumbnail/150x150/$logo", file_get_contents($file));
-            $img = Image::make("icon_kategori/thumbnail/75x75/$logo")->fit(75,75);
+            $img = Image::make("public/icon_kategori/thumbnail/75x75/$logo")->fit(75,75);
             $img->save();
-            $img = Image::make("icon_kategori/thumbnail/150x150/$logo")->fit(150,150);
+            $img = Image::make("public/icon_kategori/thumbnail/150x150/$logo")->fit(150,150);
             $img->save();
             $kategori->logo = $logo;
         }
@@ -132,9 +132,9 @@ class AdminKategoriController extends Controller
     public function delete_kategori(Request $request){
         $kategori = Kategori::where('id', $request->id)->first();       
         // dd($kategori); 
-        \File::delete("icon_kategori/$kategori->logo");                 
-        \File::delete("icon_kategori/thumbnail/75x75/$kategori->logo"); 
-        \File::delete("icon_kategori/thumbnail/150x150/$kategori->logo"); 
+        \File::delete("public/icon_kategori/$kategori->logo");                 
+        \File::delete("public/icon_kategori/thumbnail/75x75/$kategori->logo"); 
+        \File::delete("public/icon_kategori/thumbnail/150x150/$kategori->logo"); 
         Sub_kategori::where('kategori_id', $request->id)->delete();                
         Kategori::where('id', $request->id)->delete();        
         $notification = array(

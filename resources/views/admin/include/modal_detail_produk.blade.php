@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-3">
-                    <img src="{{asset('/img/produk/produk-10.jpg')}}" id="detail_produk_foto_" alt="" width="140px" height="140px" style="-webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+                    <img src="<?=url('/')?>/public/img/produk/produk-10.jpg" id="detail_produk_foto_" alt="" width="140px" height="140px" style="-webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
                     <br> <br>
                     <input type="file" name="foto" id="detail_produk_foto">
                 </div>

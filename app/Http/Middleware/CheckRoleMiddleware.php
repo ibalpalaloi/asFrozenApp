@@ -22,10 +22,10 @@ class CheckRoleMiddleware
         }
 
         if($roles[0] == "admin"){
-            return redirect('/admin_login');
+            return redirect(url('/').'/admin_login');
         }
         else{
-            return redirect('/user_login');
+            return redirect(url('/').'/user_login');
         }
         return back();
     }

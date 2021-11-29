@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Main CSS-->
-  <link rel="stylesheet" type="text/css" href="<?=url('/')?>/vali-template/css/main.css">
+  <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/vali-template/css/main.css">
   <!-- Font-icon css-->
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Login - Vali Admin</title>
@@ -17,11 +17,11 @@
   </section>
   <section class="login-content">
     <div class="login-box" style="min-height: 330px;">
-      @php $url = url('/')."/katalog_assets/assets/img/logo.png"; @endphp
+      @php $url = url('/')."/public/katalog_assets/assets/img/logo.png"; @endphp
       <div style="width: 8em; border-radius: 50%; height: 8em; position: absolute; top: -4em; background-image: url('<?=$url?>'); border: 5px solid white; left: 35%; background-size: cover;">
         
       </div>
-      <form class="login-form" action="/post_login" method="post" style="margin-top: 1.5em;">
+      <form class="login-form" action="<?=url('/')?>/post_login" method="post" style="margin-top: 1.5em;">
         @csrf
         <div class="form-group">
           <label class="control-label">NOMOR HANDPHONE</label>
@@ -67,12 +67,12 @@
     </div>
   </section>
   <!-- Essential javascripts for application to work-->
-  <script src="<?=url('/')?>/vali-template/js/jquery-3.3.1.min.js"></script>
-  <script src="<?=url('/')?>/vali-template/js/popper.min.js"></script>
-  <script src="<?=url('/')?>/vali-template/js/bootstrap.min.js"></script>
-  <script src="<?=url('/')?>/vali-template/js/main.js"></script>
+  <script src="<?=url('/')?>/public/vali-template/js/jquery-3.3.1.min.js"></script>
+  <script src="<?=url('/')?>/public/vali-template/js/popper.min.js"></script>
+  <script src="<?=url('/')?>/public/vali-template/js/bootstrap.min.js"></script>
+  <script src="<?=url('/')?>/public/vali-template/js/main.js"></script>
   <!-- The javascript plugin to display page loading on top-->
-  <script src="<?=url('/')?>/vali-template/js/plugins/pace.min.js"></script>
+  <script src="<?=url('/')?>/public/vali-template/js/plugins/pace.min.js"></script>
   <script type="text/javascript">
       // Login Page Flipbox control
       $('.login-content [data-toggle="flip"]').click(function() {

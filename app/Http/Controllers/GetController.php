@@ -55,7 +55,7 @@ class GetController extends Controller
         $prodduk = array();
         $produk['id'] = $data_produk->id;
         $produk['nama'] = $data_produk->nama;
-        $produk['harga'] = $data_produk->harga;
+        $produk['harga'] = number_format($data_produk->harga, 0, ",", ",");
         $produk['satuan'] = $data_produk->satuan;
         $produk['deskripsi'] = $data_produk->deskripsi;
         $produk['kategori'] = $data_produk->kategori->kategori;

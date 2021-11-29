@@ -11,7 +11,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-body">
-        <form action="/admin/ubah_urutan" method="post">
+        <form action="<?=url('/')?>/admin/ubah_urutan" method="post">
           @csrf
           <input type="text" name="id_kategori" id="modal_ubah_urutan_id_kategori" hidden>
           <select class="form-control" name="urutan" id="">
@@ -39,7 +39,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="admin-post-kategori-baru" method="POST" enctype="multipart/form-data">
+      <form action="<?=url('/')?>/admin-post-kategori-baru" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal-body">
 
@@ -72,7 +72,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="admin-post-sub-kategori-baru" method="POST" enctype="multipart/form-data">
+      <form action="<?=url('/')?>/admin-post-sub-kategori-baru" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal-body">
 
@@ -111,7 +111,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="admin-post-update-kategori" method="POST" enctype="multipart/form-data">
+      <form action="<?=url('/')?>/admin-post-update-kategori" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal-body">
           <input hidden name="kategori_id" id="kategori_id_ubah_kategori" type="text" class="form-control" required>
@@ -146,7 +146,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="admin-post-update-sub-kategori" method="POST" enctype="multipart/form-data">
+      <form action="<?=url('/')?>/admin-post-update-sub-kategori" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal-body">
           <input hidden name="sub_kategori_id" id="kategori_id_ubah_sub_kategori" type="text" class="form-control" required>
@@ -210,7 +210,7 @@
               <li class="list-group-item" style="display: flex; justify-content: space-between;">
                 <div style="display: flex;">
                   <div style="width: 50px; margin-right: 1em;">
-                    <img src="<?=url('/')?>/icon_kategori/thumbnail/75x75/{{$data->logo}}" style="width: 100%;">
+                    <img src="<?=url('/')?>/public/icon_kategori/thumbnail/75x75/{{$data->logo}}" style="width: 100%;">
                   </div>
                   <div style="color: black;text-align: left; cursor: pointer;" onclick="get_sub_kategori('{{$data->id}}')">
                     {{$data->kategori}}<br>
@@ -246,7 +246,7 @@
   function get_sub_kategori(id_kategori){
     $.ajax({
       type: "GET",
-      url: "/get_list_sub_kategori/"+id_kategori,
+      url: "<?=url('/')?>/get_list_sub_kategori/"+id_kategori,
       success:function(data){
         sub_kategori = data.sub_kategori;
         console.log(sub_kategori.length);
