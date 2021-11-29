@@ -110,8 +110,8 @@ Keranjang Belanja
 
 
 </style>
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" media="screen" href="<?=url('/')?>/AdminLTE/plugins/retro-plugins/css/flip-clock.css" />
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen" href="<?=url('/')?>/public/AdminLTE/plugins/retro-plugins/css/flip-clock.css" />
 @endsection
 
 @section('body')
@@ -126,7 +126,7 @@ Keranjang Belanja
 					<a href="<?=url('/')?>/kategori/{{$kategori[$i]->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 						<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 							@php
-							$url = url('/')."/icon_kategori/thumbnail/150x150/".$kategori[$i]->logo;
+							$url = url('/')."/public/icon_kategori/thumbnail/150x150/".$kategori[$i]->logo;
 							@endphp
 							<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 							</div>
@@ -136,11 +136,11 @@ Keranjang Belanja
 					@endfor
 				</div>
 				<div class="icon-boxes" style="margin-top: 1em; display: flex; justify-content: space-between;"> 
-					@for ($i = 11; $i < 24; $i++)
+					@for ($i = 12; $i < 24; $i++)
 					<a href="<?=url('/')?>/kategori/{{$kategori[$i]->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 						<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 							@php
-							$url = url('/')."/icon_kategori/thumbnail/150x150/".$kategori[$i]->logo;
+							$url = url('/')."/public/icon_kategori/thumbnail/150x150/".$kategori[$i]->logo;
 							@endphp
 							<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 							</div>
@@ -161,7 +161,7 @@ Keranjang Belanja
 					<a href="#" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 						<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 							@php
-							$url = url('/')."/katalog_assets/assets/img/kategori_icon/$file[$i]";
+							$url = url('/')."/public/katalog_assets/assets/img/kategori_icon/$file[$i]";
 							@endphp
 							<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid white;" >
 							</div>
@@ -186,7 +186,7 @@ Keranjang Belanja
 					@php $i=0; @endphp
 					@foreach ($banner_main as $data)
 					<div class="carousel-item @if ($i == 0) active @endif">
-						<img src="<?=url('/')?>/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100">
+						<img src="<?=url('/')?>/public/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100">
 					</div>
 					@php $i++; @endphp
 					@endforeach 
@@ -203,7 +203,7 @@ Keranjang Belanja
 		</div>
 		<div class="col-lg-4" style="padding: 0px; padding-left: 0.2em;">
 			@foreach ($banner_not_main as $data)
-			<img src="<?=url('/')?>/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100" alt="..." @if ($data->posisi == 'kanan-bawah') style="margin-top: 0.2em;" @endif>
+			<img src="<?=url('/')?>/public/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100" alt="..." @if ($data->posisi == 'kanan-bawah') style="margin-top: 0.2em;" @endif>
 			@endforeach
 		</div>
 	</div>
@@ -230,10 +230,10 @@ Keranjang Belanja
 			<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 				<div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center;">
 					<div>
-						<img src="<?=url('/')?>/icon_kategori/thumbnail/75x75/{{$data->logo}}" style="width: 2.5em; border-radius: 50%; border: 2px solid #ec1f25;">
+						<img src="<?=url('/')?>/public/icon_kategori/thumbnail/75x75/{{$data->logo}}" style="width: 2.5em; border-radius: 50%; border: 2px solid #ec1f25;">
 						<span style="margin-left: -0.4em; padding-left: 0.7em; padding-right: 0.5em; box-shadow: 0 4px 2px -2px gray; padding-bottom: 0.2em;"><b>{{$data->kategori}}</b></span>
 					</div>
-					<a href="<?=url('/')?>/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
+					<a href="<?=url('/')?>/public/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
 				</div>
 				<hr>
 				<div class="row team" style="padding: 0em 1em;">
@@ -242,7 +242,11 @@ Keranjang Belanja
 						<div class="d-flex" style="margin-right: 1em; padding-bottom: 0px;  -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%); margin-bottom: 1em; margin-top: 1em;">
 							<div class="member" style="position: relative; margin-bottom: 0px;">
 								<div class="member-img">
-									<img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" alt="">
+									@if ($produk->foto)
+									<img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" alt="">
+									@else
+									<img src="<?=url('/')?>/public/img/produk/thumbnail/300x300/image_not_available.png" class="img-fluid" alt="">
+									@endif
 								</div>
 								<div class="member-info" style=" padding: 0em 0.7em 0.8em;">
 									@if ($produk->diskon != null)
@@ -265,6 +269,7 @@ Keranjang Belanja
 											<h6>Rp {{number_format($produk->harga, 0, '.', '.')}}</h6>
 										</div>
 										@endif
+										@if ($produk->stok_produk)
 										@if ($produk->stok_produk->stok != 0)
 											<a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
 												<div>
@@ -276,6 +281,7 @@ Keranjang Belanja
 											<a class="btn btn-secondary" style="display: flex; justify-content: center; flex-direction: row;">
 												<div>Stok Habis</div>
 											</a>
+										@endif
 										@endif
 										
 									</div>
@@ -391,7 +397,7 @@ Keranjang Belanja
 				@endphp
 				@for ($i = 0; $i < count($brand); $i++)
 				<div data-aos="zoom-in" style="width: 18%;">
-					<img src="<?=url('/')?>/katalog_assets/assets/img/brand/{{$brand[$i]}}" class="img-fluid" alt="" style='width: 100%; filter: none;'>
+					<img src="<?=url('/')?>/public/katalog_assets/assets/img/brand/{{$brand[$i]}}" class="img-fluid" alt="" style='width: 100%; filter: none;'>
 				</div>
 				@endfor
 			</div>
@@ -402,8 +408,8 @@ Keranjang Belanja
 @endsection
 
 @section('footer')
-<script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-<script type="text/javascript" src="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script type="text/javascript" src="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript">
 	<?php  $date_tomorrow = date("m/d/Y", strtotime("+1 day", strtotime(date("Y-m-d")))); ?>
 	var end = new Date("{{$date_tomorrow}} 0:00 AM");
@@ -438,17 +444,6 @@ Keranjang Belanja
 </script>
 
 <script>
-	function tambah_keranjang(id){
-		show_loader();
-		$.ajax({
-			url: "<?=url('/')?>/tambah_keranjang/"+id,
-			type:"get",
-			success:function(data){
-				setTimeout(hide_loader, 500);
-				console.log(data);
-			}
-		})
-	}
 
 	$(document).ready(function() {
 		$('#age-select-1').popover({

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('header')
-<link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="<?=url('/')?>/public/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <style>
   ion-icon {
     font-size: 17px;
@@ -34,6 +34,9 @@ function tgl_indo($tanggal){
     content: none;
   }
 </style>
+<script type="text/javascript">
+  var pause_trigger = false;
+</script>
 @endsection
 @section('body')
 <div id="tambah_pesanan_modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -142,17 +145,22 @@ function tgl_indo($tanggal){
                         counter.innerHTML =
                         minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
                         seconds--;
-                        if (seconds >= 0) {
-                          timeoutHandle = setTimeout(tick, 1000);
+                        if (pause_trigger == false){
 
-                        } 
-                        else {
-                          if (minutes >= 1) {
-                            setTimeout(function () {countdown(minutes - 1, 59, id_pesanan);}, 1000);
+                          if (seconds >= 0) {
+                            timeoutHandle = setTimeout(tick, 1000);
+
+                          } 
+                          else {
+                            if (minutes >= 1) {
+                              setTimeout(function () {countdown(minutes - 1, 59, id_pesanan);}, 1000);
+                            }
                           }
                         }
                       }
-                      tick();
+                      if (pause_trigger == false){
+                        tick();
+                      }
                     }
                   </script>
                   <?php
@@ -198,7 +206,7 @@ function tgl_indo($tanggal){
                 <td>
                   <div style="width: 100%; display: flex; margin-bottom: 0em;">
                     <div style="width: 10%;">
-                      <img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$pesanan->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+                      <img class="img-fluid" src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$pesanan->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
                     </div>
                     <div style="width: 85%; margin-left: 1em; display: flex; align-items: center;">
                       {{$pesanan->produk->nama}}
@@ -245,14 +253,14 @@ function tgl_indo($tanggal){
               <b>Cash On Delivery (COD)</b><br>
               <div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.5em;">
                 <div class="checkout-bank-transfer-item__icon-container">
-                  <img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_red.png" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
+                  <img src="<?=url('/')?>/public/katalog_assets/assets/img/logo/frozen_palu_red.png" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
                 </div>
               </div>
               @else
               <b>Transfer melalui</b><br>
               <div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.3em;">
                 <div class="checkout-bank-transfer-item__icon-container">
-                  <img src="<?=url('/')?>/bank/{{$nota->bank->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
+                  <img src="<?=url('/')?>/public/bank/{{$nota->bank->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
                 </div>
                 <div>
                   <div class="checkout-bank-transfer-item__main" style="line-height: 0.8em;">
@@ -305,7 +313,7 @@ function tgl_indo($tanggal){
         </div>
         <hr>
         <div class="template-demo" style="display: flex; padding-bottom: 1em; padding-left: 1em;">
-          <a href="/admin/ubah_status_pesanan/{{$nota->id}}/packaging" class="btn btn-primary" style="margin-right: 0.5em;">Terima Pesanan</a>
+          <a href="<?=url('/')?>/admin/ubah_status_pesanan/{{$nota->id}}/packaging" class="btn btn-primary" style="margin-right: 0.5em;">Terima Pesanan</a>
           <a class="btn btn-success" onclick="hubungi_pesanan('{{$nota->id_pesanan}}')" style="margin-right: 0.5em; color: white;">Hubungi Pembeli</a>
           <a class="btn btn-danger" onclick="batalkan_pesanan('{{$nota->id}}')" style="margin-right: 0.5em; color: white;">Batalkan Pesanan</a>
         </div>
@@ -317,10 +325,10 @@ function tgl_indo($tanggal){
 
 @endsection
 @section('footer')
-<script src="{{asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script type="text/javascript">
@@ -337,6 +345,7 @@ function tgl_indo($tanggal){
 
   function control_time(id_pesanan, status){
     if (status == 'pause'){
+      pause_trigger = true;
       var countdown = $("#countdown_"+id_pesanan).html();
       $("#pause_countdown_"+id_pesanan).html(countdown);
       $("#pause_countdown_"+id_pesanan).prop('hidden', false);
@@ -352,6 +361,8 @@ function tgl_indo($tanggal){
       });
     }
     else {
+      pause_trigger = false;
+
       $("#pause_countdown_"+id_pesanan).prop('hidden', true);
       $("#countdown_"+id_pesanan).prop('hidden', false);      
       $("#btn_pause_"+id_pesanan).prop('hidden', false);
@@ -371,17 +382,23 @@ function tgl_indo($tanggal){
               counter = document.getElementById("countdown_"+id);
               counter.innerHTML = minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
               seconds--;
-              if (seconds >= 0) {
-                setTimeout(tick, 1000);
+              if (pause_trigger == false){
 
-              } 
-              else {
-                if (minutes >= 1) {
-                  setTimeout(function () {countdown_start(minutes - 1, 59, id);}, 1000);
+                if (seconds >= 0) {
+                  setTimeout(tick, 1000);
+
+                } 
+                else {
+                  if (minutes >= 1) {
+                    setTimeout(function () {countdown_start(minutes - 1, 59, id);}, 1000);
+                  }
                 }
               }
             }
-            tick();
+            if (pause_trigger == false){
+
+              tick();
+            }
           }
         }
       });
@@ -410,7 +427,7 @@ function tgl_indo($tanggal){
   {
     $.ajax({
       type: "get",
-      url: "/get-total-harga-pesanan/"+nota['id'],
+      url: "<?=url('/')?>/get-total-harga-pesanan/"+nota['id'],
       success:function(data){
         console.log(data.data['ongkir']);
         $('#sub_total_pesanan').html(data.data['total_sub_harga'].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));

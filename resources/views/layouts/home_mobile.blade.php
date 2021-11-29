@@ -6,9 +6,9 @@
     <meta name="HandheldFriendly" content="true"/>
     <title>@yield('title')Yoomam</title>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="icon" type="image/png" sizes="60x60" href="{{asset('public/img/yoomam.png')}}">
-    <link rel="stylesheet" type="text/css" href="<?=url('/')?>/template_mobile/admin/dist/css/style.min.css">
-    <link rel="stylesheet" type="text/css" href="<?=url('/')?>/template_mobile/css/kitapura.css">
+    <link rel="icon" type="image/png" sizes="60x60" href="<?=url('/')?>/public/img/yoomam.png">
+    <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template_mobile/admin/dist/css/style.min.css">
+    <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template_mobile/css/kitapura.css">
     <style type="text/css">
         body {
             font-family: 'Roboto', sans-serif;
@@ -41,8 +41,8 @@
     </div>
     <header class="style__Container-sc-3fiysr-0 header" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); border-bottom: none; box-shadow:0 1px 1px rgb(0 0 0 / 20%);">
         <div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
-            <a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; display: flex; justify-content: center; align-items: center;" href="/">
-                <img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_white.png" style="width: 2.5em">
+            <a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; display: flex; justify-content: center; align-items: center;" href="<?=url('/')?>">
+                <img src="<?=url('/')?>/public/katalog_assets/assets/img/logo/frozen_palu_white.png" style="width: 2.5em">
             </a>
             <div id="defaultheader_search" class="style__SearchInput-sc-3fiysr-3 sUjAJ">
                 <span></span>

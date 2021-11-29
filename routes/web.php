@@ -89,6 +89,7 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
     Route::get('/riwayat-pesanan', [UserPesananController::class, 'riwayat_pesanan']);  
 
     // biodata
+    Route::post('/biodata/update', [UserPesananController::class, 'update_biodata']);
     Route::get('/biodata', [UserPesananController::class, 'biodata']);
 
 });
@@ -148,6 +149,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
 
 
     // admin riwayat
+    Route::get('/admin/riwayat-pesanan/{id}', [AdminRiwayatPesanan::class, 'daftar_riwayat_detail']);
     Route::get('/admin/riwayat-pesanan', [AdminRiwayatPesanan::class, 'daftar_riwayat']);
     Route::get('/admin/get_riwayat_pesanan/{id}', [AdminRiwayatPesanan::class, 'get_riwayat_pesanan']);
 

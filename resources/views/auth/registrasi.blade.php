@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Main CSS-->
-  <link rel="stylesheet" type="text/css" href="<?=url('/')?>/vali-template/css/main.css">
+  <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/vali-template/css/main.css">
   <!-- Font-icon css-->
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Login - Vali Admin</title>
@@ -17,8 +17,8 @@
   </section>
   <section class="login-content">
     <div class="login-box" style="min-height: 400px; min-width: 50%;">
-      <img src="<?=url('/')?>/katalog_assets/assets/img/logo.png" style="width: 8em; border-radius: 50%; position: absolute; top: -4em; border: 5px solid white; left: 42%;">
-      <form class="login-form" action="/auth/post_registrasi" style="margin-top: 1.5em;" method="post">
+      <img src="<?=url('/')?>/public/katalog_assets/assets/img/logo.png" style="width: 8em; border-radius: 50%; position: absolute; top: -4em; border: 5px solid white; left: 42%;">
+      <form class="login-form" action="<?=url('/')?>/auth/post_registrasi" style="margin-top: 1.5em;" method="post">
         @csrf
         <div class="row">
           <div class="col-md-6">
@@ -33,8 +33,8 @@
             <div class="form-group">
               <label class="control-label">JENIS KELAMIN</label>
               <select class="form-control" name="jenis_kelamin">
-                <option value="L">Laki-Laki</option>
-                <option value="P">Perempuan</option>
+                <option value="Laki-Laki">Laki-Laki</option>
+                <option value="Perempuan">Perempuan</option>
               </select>
             </div>
           </div>
@@ -58,7 +58,7 @@
           <button type="submit" class="btn btn-primary btn-block" style="background:#ec1f25; border: 2px solid  #ec1f25;"><i class="fa fa-sign-in fa-lg fa-fw"></i>Daftar</button>
           <div class="form-group">
             <div class="utility">
-              <p class="semibold-text mb-2"><a href="<?=url('/')?>/login" style='color:  #ec1f25;'>Sudah punya akun? Login </a></p>
+              <p class="semibold-text mb-2"><a href="<?=url('/')?>/user_login" style='color:  #ec1f25;'>Sudah punya akun? Login </a></p>
             </div>
           </div>
         </div>
@@ -74,12 +74,12 @@
     </div>
   </section>
   <!-- Essential javascripts for application to work-->
-  <script src="<?=url('/')?>/vali-template/js/jquery-3.3.1.min.js"></script>
-  <script src="<?=url('/')?>/vali-template/js/popper.min.js"></script>
-  <script src="<?=url('/')?>/vali-template/js/bootstrap.min.js"></script>
-  <script src="<?=url('/')?>/vali-template/js/main.js"></script>
+  <script src="<?=url('/')?>/public/vali-template/js/jquery-3.3.1.min.js"></script>
+  <script src="<?=url('/')?>/public/vali-template/js/popper.min.js"></script>
+  <script src="<?=url('/')?>/public/vali-template/js/bootstrap.min.js"></script>
+  <script src="<?=url('/')?>/public/vali-template/js/main.js"></script>
   <!-- The javascript plugin to display page loading on top-->
-  <script src="<?=url('/')?>/vali-template/js/plugins/pace.min.js"></script>
+  <script src="<?=url('/')?>/public/vali-template/js/plugins/pace.min.js"></script>
   <script type="text/javascript">
       // Login Page Flipbox control
       $('.login-content [data-toggle="flip"]').click(function() {

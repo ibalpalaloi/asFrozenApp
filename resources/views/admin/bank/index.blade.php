@@ -97,7 +97,7 @@ function tgl_indo($tanggal){
                 <td>{{$row->nama_bank}}</td>
                 <td>{{$row->nomor_rekening}}</td>
                 <td>
-                  <img src="<?=url('/')?>/bank/{{$row->img}}" style="width: 50px;"></td>
+                  <img src="<?=url('/')?>/public/bank/{{$row->img}}" style="width: 50px;"></td>
                 <td></td>
               </tr>
               @endforeach 

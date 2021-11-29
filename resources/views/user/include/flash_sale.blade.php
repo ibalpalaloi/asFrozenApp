@@ -3,7 +3,7 @@
         <div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
             <div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center;">
                 <div style="display: flex; align-items: center;">
-                    <img src="<?=url('/')?>/katalog_assets/assets/img/flash-sale2.png" style="width: 10em;">
+                    <img src="<?=url('/')?>/public/katalog_assets/assets/img/flash-sale2.png" style="width: 10em;">
                     <div id="countdown" class="btn-dark" style="display: flex; margin-left: 1em; border-radius: 0.2em;">
                         <div id="countdown_jam" style="padding:0.5em 0em 0.5em 1em; font-size: 1em; font-weight: 600;"></div>
                         <div style="padding:0.5em 1em; font-size: 1em; font-weight: 600;">:</div>
@@ -21,7 +21,7 @@
                     <div class="d-flex" style="margin-right: 1em; padding-bottom: 0px;  -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%); margin-bottom: 1em; margin-top: 1em;">
                         <div class="member" style="position: relative; margin-bottom: 0px;">
                             <div class="member-img">
-                                <img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$data->produk->foto}}" class="img-fluid" alt="">
+                                <img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$data->produk->foto}}" class="img-fluid" alt="">
                             </div>
                             <div class="member-info" style=" padding: 0em 0.7em 0.8em;">
                                 @php

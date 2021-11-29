@@ -32,7 +32,7 @@ function tgl_indo($tanggal){
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="/update-diskon" enctype="multipart/form-data">
+                <form method="POST" action="<?=url('/')?>/update-diskon" enctype="multipart/form-data">
                     @csrf
                     <input type="text" id="input_id_produk" hidden>
                     <div class="row">
@@ -107,7 +107,7 @@ function tgl_indo($tanggal){
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="/update-diskon" enctype="multipart/form-data">
+                <form method="POST" action="<?=url('/')?>/update-diskon" enctype="multipart/form-data">
                     @csrf
                     <input type="text" id="input_id_produk" hidden>
                     <div class="row">

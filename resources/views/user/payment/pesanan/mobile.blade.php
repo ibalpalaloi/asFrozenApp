@@ -93,21 +93,21 @@ $status_pesanan = "packaging";
 			<div class="alert alert-primary" style="font-size: 17px" role="alert">
 				Menunggu Konfirmasi Pesanan
 				<div style="float: right">
-					<img src="<?=url('/')?>/katalog_assets/img/icons/chronometer.png" alt="" width="30px">
+					<img src="<?=url('/')?>/public/katalog_assets/img/icons/chronometer.png" alt="" width="30px">
 				</div>
 			</div>
 			@elseif ($nota->status == "packaging")
 			<div class="alert alert-warning"  role="alert">
 				Pesanan Sementara Packaging
 				<div style="float: right">
-					<img src="<?=url('/')?>/katalog_assets/img/icons/packaging.png" alt="" width="35px">
+					<img src="<?=url('/')?>/public/katalog_assets/img/icons/packaging.png" alt="" width="35px">
 				</div>
 			</div>
 			@else
 			<div class="alert alert-success"  role="alert">
 				Pesanan Telah Diantarkan
 				<div style="float: right">
-					<img src="<?=url('/')?>/katalog_assets/img/icons/delivery.png" alt="" width="35px">
+					<img src="<?=url('/')?>/public/katalog_assets/img/icons/delivery.png" alt="" width="35px">
 				</div>
 			</div>
 			@endif
@@ -117,7 +117,7 @@ $status_pesanan = "packaging";
 			@foreach ($nota->pesanan as $data)
 			<div style="width: 100%; display: flex; margin-bottom: 0.5em;">
 				<div style="width: 30%;">
-					<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+					<img class="img-fluid" src="<?=url('/')?>./public/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 				</div>
 				<div style="width: 70%; margin-left: 1em; display: flex; align-items: flex-start; flex-direction: column; justify-content: space-between;">
 					<div>
@@ -175,7 +175,7 @@ $status_pesanan = "packaging";
 				</div>
 				<hr>
 				<div style="width: 100%; display: flex;">
-					<img src="<?=url('/')?>/katalog_assets/assets/qrcode.png" style="width: 5em; height: 5em;">
+					<img src="<?=url('/')?>/public/katalog_assets/assets/qrcode.png" style="width: 5em; height: 5em;">
 					<div style="margin-top: 0.2em;width: 100%;">
 						<div style="display: flex; justify-content: space-between;">
 							<div>		

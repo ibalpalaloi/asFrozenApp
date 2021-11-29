@@ -13,16 +13,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet">
 <!-- Vendor CSS Files -->
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/venobox/venobox.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/aos/aos.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick-theme.css"/>
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/venobox/venobox.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/aos/aos.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick-theme.css"/>
 <!-- Template Main CSS File -->
-<link href="<?=url('/')?>/katalog_assets/assets/css/style.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
 <style type="text/css">
 	.banner {
@@ -268,58 +268,72 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 
 
 <section id="hero" class="d-flex align-items-center" style="background: none; ">
-	<div class="container" style="padding-top: 1em;">
+	<div class="container" style="padding-top: 0em;">
 		<div class="row" style="display: flex; justify-content: center;">
 			<div class="col-12">
-				<b>Produk Dipesan</b>	
 				<div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">
+					@foreach ($data_produk_checkout as $data)
 
-					@foreach ($list_keranjang as $data)
-					@php $diskon = "0"; @endphp
-					@if ($data->produk->diskon != null)
-					@php $diskon = $data->produk->diskon->diskon; @endphp
-					@endif
-					<div style="width: 100%; display: flex; margin-bottom: 0.5em;">
-						<div style="width: 30%;">
-							<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+					<?php
+					$diskon = "0";
+					if($data['diskon'] != null){
+						$diskon = $data['diskon'];
+					}
+					$harga = $data['harga_diskon'];
+					if($diskon != "0"){
+						$harga = $harga - (($diskon / 100) * $harga);
+					}
+					?>
+					<div class="row mb-2">
+						<div style="display: flex;justify-content: center; align-items: center; margin-bottom: 1em; width: 10%;">
+							<div class="icheck-danger d-inline">
+								@php $data_id = $data["id"]; @endphp
+								<input type="checkbox" id="checkboxPrimary{{$data_id}}" onchange="checkbox_cek('$data_id')" checked="false">
+								<label for="checkboxPrimary{{$data_id}}">
+								</label>
+							</div>
 						</div>
-						<div style="width: 70%; margin-left: 1em; display: flex; align-items: flex-start; flex-direction: column; justify-content: space-between;">
-							<div>
-								<div>{{$data->produk->nama}}</div>						
-								<div style="display: flex; justify-content: space-between;">
-									@if ($diskon != "0")
-
-									@php 
-									$potongan_harga = round($data->produk->harga*$diskon/100,0); 
-									$harga_diskon = $data->produk->harga-$potongan_harga;
-									@endphp
-									<div>Rp.</div> <div>{{number_format($harga_diskon, 0, '.', '.')}}</div>
-									@else
-									@php 
-									$harga_diskon = $data->produk->harga;
-									@endphp
-									<div>Rp.</div> <div>{{number_format($harga_diskon, 0, '.', '.')}}</div>
-									@endif
-									&nbsp;x&nbsp;{{$data->jumlah}}
-								</div>
+						<div style="width: 22%;">
+							<img class="img-fluid" src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100%; border-radius: 0.2em; margin-bottom: 0.5em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+						</div>
+						<div style="width: 60%; padding-left: 0.8em;">
+							<div style="display: flex;">
+								<div>{{$data['nama_produk']}}</div>	&nbsp;							
+								@if ($diskon != "0")
+								<badge class="badge badge-success" style="display: flex; justify-content: center; align-items: center;">
+									{{$diskon}} %
+								</badge>	
+								@endif
 							</div>
-							<div>
-								<b>
-									@php
-
-									$sub_total = $harga_diskon * $data->jumlah;
-									$total_harga_produk += $sub_total;
-
-									@endphp
-									<div style="display: flex; justify-content: space-between;">
-										<div>Rp.</div> <div>{{number_format($sub_total, 0, '.', '.')}}</div>
-									</div>	
-								</b>								
+							<div class="text-muted" style="display: flex;">
+								@if ($diskon != "0")
+								<span style="display: flex; margin-top: 0.2em;">
+									<small><s>{{number_format($harga,0,'.','.')}}</s>&nbsp;</small>
+								</span>
+								@php 
+								$potongan_harga = round($harga*$diskon/100,0); 
+								$harga_diskon = $harga-$potongan_harga;
+								@endphp
+								<span>{{number_format($harga_diskon,0,'.','.')}}</span>
+								@else
+								@php 
+								$harga_diskon = $harga;
+								@endphp
+								<span>{{number_format($harga,0,'.','.')}}&nbsp;</span>
+								@endif
 							</div>
+							<div style="display: flex; align-items: center; justify-content: flex-start; padding-right: 0px; margin-top: 0.7em;">
+								@php
+								$jumlah = $data['jumlah'];
+								$jumlah_harga = round($jumlah * $harga_diskon,0);
+								@endphp	
+								<span >Rp.</span> <span id="sub_total{{$data_id}}">{{number_format($data['harga_diskon'], 0, '.', '.')}}</span>
+							</div>
+
 						</div>
 					</div>
-					<hr>
 					@endforeach
+
 				</div>
 				<div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">
 					<div>Metode Pengantaran</div>
@@ -340,8 +354,6 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						</div>
 					</div>
 				</div>
-
-
 				<div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;" id="alamat_penerima" hidden>
 					<div style="display: flex;">
 						<svg height="18" viewBox="0 0 12 16" width="18" class="shopee-svg-icon icon-location-marker" style="margin-top: 0.3em;"><path d="M6 3.2c1.506 0 2.727 1.195 2.727 2.667 0 1.473-1.22 2.666-2.727 2.666S3.273 7.34 3.273 5.867C3.273 4.395 4.493 3.2 6 3.2zM0 6c0-3.315 2.686-6 6-6s6 2.685 6 6c0 2.498-1.964 5.742-6 9.933C1.613 11.743 0 8.498 0 6z" fill-rule="evenodd"></path>
@@ -363,24 +375,21 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						<div id="btn_transfer" onclick="metode_pembayaran('transfer')" class="btn btn-outline-danger" style="margin-left: 0.5em; border: 1px solid #dc3545;">Transfer</div>
 					</div>
 					<div id="list_bank" hidden>
-						@php
-						$bank = array("Bank BCA", "Bank Mandiri", "Bank BNI", "Bank BRI", "Bank BSI");
-						$bank_icon = array("img_bankid_bca.png", "img_bankid_mandiri.png", 'img_bankid_bni.png', "img_bankid_bri.png","img_bankid_bsm.png");
-						@endphp
-						@for ($i = 0; $i < count($bank); $i++)
+						@foreach ($bank as $row)
 						<div class="stardust-radio__content" style="display: flex; margin-top: 1em;">
-							<div class="icheck-danger d-inline" style="width: 10%;">
-								<input type="checkbox" id="checkboxPrimary1" @if ($i == 0) checked @endif>
-								<label for="checkboxPrimary1">
-								</label>
+							<div class="form-group clearfix" style="margin-right: 1em;">
+								<div class="icheck-primary d-inline">
+									<input type="radio" id="radioPrimary_{{$row->id}}" onclick='radio_bank("{{$row->id}}")' name="id_bank" checked>
+									<label for="radioPrimary_{{$row->id}}"></label>
+								</div>
 							</div>
 							<div class="checkout-bank-transfer-item__card" style="display: flex;">
 								<div class="checkout-bank-transfer-item__icon-container">
-									<img src="https://mall.shopee.co.id/static/images/{{$bank_icon[$i]}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em;">
+									<img src="<?=url('/')?>/public/bank/{{$row->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em;">
 								</div>
 								<div>
 									<div class="checkout-bank-transfer-item__main" style="line-height: 0.8em;">
-										{{$bank[$i]}} (Dicek Manual)
+										{{$row->nama_bank}} (Dicek Manual)
 									</div>
 									<div class="checkout-bank-transfer-item__description">
 										<small>Perlu upload bukti transfer</small>
@@ -388,7 +397,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 								</div>
 							</div>
 						</div>
-						@endfor
+						@endforeach
 
 
 						<div class="bank-transfer-category__body">
@@ -405,37 +414,30 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 				</div>
 				<div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">
 					<div class="row">
-						<div class="col-md-8">
-
-						</div>
-						<div class="col-md-2">
+						<div class="col-6">
 							Subtotal Produk
 						</div>
-						<div class="col-md-2" style="display: flex; justify-content: flex-end;">
-							<div>Rp.&nbsp;</div><div>{{number_format($total_harga_produk,0,'.','.')}}</div>
+						<div class="col-6" style="display: flex; justify-content: flex-end;">
+							<div></div><div>{{number_format($total_harga_produk,0,'.','.')}}</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-8">
-						</div>
-						<div class="col-md-2">
+						<div class="col-6">
 							Ongkos Kirim
 						</div>
-						<div class="col-md-2" style="display: flex; justify-content: flex-end;">
-							<div>Rp.&nbsp;</div><div id="nilai_ongkir">{{number_format($ongkos_kirim, 0, '.', '.')}}</div>
+						<div class="col-6" style="display: flex; justify-content: flex-end;">
+							<div></div><div id="nilai_ongkir">0</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-8">
-						</div>
-						<div class="col-md-2" >
+						<div class="col-6">
 							Total
 						</div>
-						<div class="col-md-2" style="display: flex; justify-content: flex-end;">
-							<h3 id="nilai_total">Rp.&nbsp;{{number_format($total_harga_produk + $ongkos_kirim, 0, '.', '.')}}</h3>
+						<div class="col-6" style="display: flex; justify-content: flex-end;">
+							<h3 id="nilai_total">Rp.&nbsp;{{number_format($total_harga_produk, 0, '.', '.')}}</h3>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-md-8">
 						</div>
@@ -446,7 +448,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 
 
 				</div>	
-				<form action="/keranjang/post_checkout" method="post" id="form_data_pesanan">
+				<form action="<?=url('/')?>/keranjang/post_checkout" method="post" id="form_data_pesanan">
 					@csrf
 					<input hidden type="text" name="nama_penerima" id="input_nama_penerima" value="{{Auth()->user()->biodata->nama}}" required>
 					<input hidden type="text" name="no_telp_penerima", id="input_no_telp_penerima" value="{{Auth()->user()->biodata->no_telp}}">
@@ -528,6 +530,10 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 				$("#selectKelurahan").html(option);
 			}
 		})
+	}
+
+	function radio_bank(id){
+		$('#input_pembayaran').val(id);		
 	}
 
 	function get_ongkir(){

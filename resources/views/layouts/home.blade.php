@@ -10,8 +10,8 @@
 	<meta content="" name="keywords">
 
 	<!-- Favicons -->
-	<link href="<?=url('/')?>/katalog_assets/assets/img/favicon.png" rel="icon">
-	<link href="<?=url('/')?>/katalog_assets/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/img/favicon.png" rel="icon">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 	<!-- Google Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,16 +21,16 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet">
 	<!-- Vendor CSS Files -->
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/venobox/venobox.css" rel="stylesheet">
-	<link href="<?=url('/')?>/katalog_assets/assets/vendor/aos/aos.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.css"/>
-	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick-theme.css"/>
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/venobox/venobox.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/aos/aos.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick-theme.css"/>
 	<!-- Template Main CSS File -->
-	<link href="<?=url('/')?>/katalog_assets/assets/css/style.css" rel="stylesheet">
+	<link href="<?=url('/')?>/public/katalog_assets/assets/css/style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
 	<style type="text/css">
 		.nav-menu a{
@@ -405,7 +405,7 @@
 			<div style="width: 88%; display: flex;">
 				<h1 class="logo" style="margin-right: 1em;">
 					<a href="<?=url('/')?>">
-						<img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_white.png">
+						<img src="<?=url('/')?>/public/katalog_assets/assets/img/logo/frozen_palu_white.png">
 					</a>
 				</h1>
 
@@ -444,11 +444,11 @@
 				<div class="row">
 
 					<div class="col-lg-3 col-md-6 footer-contact">
-						<h3>OnePage</h3>
+						<h3>AsFrozen Palu</h3>
 						<p>
-							A108 Adam Street <br>
-							New York, NY 535022<br>
-							United States <br><br>
+							Jl. Mandala No. 1 <br>
+							Kel. Birobuli Utara, Kec. Palu Selatan<br>
+							Kota Palu <br><br>
 							<strong>Phone:</strong> +1 5589 55488 55<br>
 							<strong>Email:</strong> info@example.com<br>
 						</p>
@@ -480,7 +480,7 @@
 						<h4>Join Our Newsletter</h4>
 						<p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
 						<form action="" method="post">
-							<input type="email" name="email"><input type="submit" value="Subscribe">
+							<input type="email" name="email"><input type="submit" value="Subscribe"  style="background: #ec1f25;">
 						</form>
 					</div>
 
@@ -492,41 +492,41 @@
 
 			<div class="mr-md-auto text-center text-md-left">
 				<div class="copyright">
-					&copy; Copyright <strong><span>OnePage</span></strong>. All Rights Reserved
+					{{date('Y')}}&nbpsp;&copy; Copyright <strong><span>AsFrozen Palu</span></strong>.
 				</div>
 				<div class="credits">
-					Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+					All Rights Reserved
 				</div>
 			</div>
 			<div class="social-links text-center text-md-right pt-3 pt-md-0">
-				<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-				<a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-				<a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-				<a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-				<a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+				<a href="#" class="twitter" style="background: #ec1f25;"><i class="bx bxl-twitter"></i></a>
+				<a href="#" class="facebook" style="background: #ec1f25;"><i class="bx bxl-facebook"></i></a>
+				<a href="#" class="instagram" style="background: #ec1f25;"><i class="bx bxl-instagram"></i></a>
+				<a href="#" class="google-plus" style="background: #ec1f25;"><i class="bx bxl-skype"></i></a>
+				<a href="#" class="linkedin" style="background: #ec1f25;"><i class="bx bxl-linkedin"></i></a>
 			</div>
 		</div>
 	</footer><!-- End Footer -->
 
-	<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/php-email-form/validate.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/counterup/counterup.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/venobox/venobox.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	<script src="<?=url('/')?>/katalog_assets/assets/vendor/aos/aos.js"></script>
+	<a href="#" class="back-to-top"><i class="ri-arrow-up-line" style="background: #ec1f25;"></i></a>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/php-email-form/validate.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/counterup/counterup.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/venobox/venobox.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/aos/aos.js"></script>
 	<script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
 
 	<!-- Template Main JS File -->
-	<script src="<?=url('/')?>/katalog_assets/assets/js/main.js"></script>
+	<script src="<?=url('/')?>/public/katalog_assets/assets/js/main.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-	<script src="{{asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+	<script src="<?=url('/')?>/public/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript">
 		function show_loader(){
 			console.log('show');

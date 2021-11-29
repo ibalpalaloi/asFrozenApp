@@ -13,16 +13,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet">
 <!-- Vendor CSS Files -->
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/venobox/venobox.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/aos/aos.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick-theme.css"/>
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/venobox/venobox.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/aos/aos.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick-theme.css"/>
 <!-- Template Main CSS File -->
-<link href="<?=url('/')?>/katalog_assets/assets/css/style.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
 <style type="text/css">
 	.banner {
@@ -226,10 +226,10 @@ function hari_indo($hari){
 
 			<div style="display: flex; flex-flow: row wrap;">
 				@foreach($kategori as $data)
-				<a href="<?=url('/')?>/kategori/{{$data->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 16.6%; display: flex; flex-direction: column;justify-content: center; align-items: center; margin-bottom: 0.5em;">
+				<a href="<?=url('/')?>/public/kategori/{{$data->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 16.6%; display: flex; flex-direction: column;justify-content: center; align-items: center; margin-bottom: 0.5em;">
 					<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 						@php
-						$url = url('/')."/icon_kategori/thumbnail/150x150/$data->logo";
+						$url = url('/')."/public/icon_kategori/thumbnail/150x150/$data->logo";
 						@endphp
 						<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 50px; width: 50px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 						</div>
@@ -256,7 +256,7 @@ function hari_indo($hari){
 								@php $i=0; @endphp
 								@foreach ($banner_main as $data)
 								<div class="carousel-item @if ($i == 0) active @endif">
-									<img src="<?=url('/')?>/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100">
+									<img src="<?=url('/')?>/public/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100">
 								</div>
 								@php $i++; @endphp
 								@endforeach 
@@ -278,7 +278,7 @@ function hari_indo($hari){
 	<div class="row-mall" style="padding: 0.7em 0em 0.7em 0em; background: white;">
 		<div style="margin-left: 0.6em;">
 			<div style="display: flex; align-items: center;">
-				<img src="<?=url('/')?>/katalog_assets/assets/img/flash-sale2.png" style="width: 10em;">
+				<img src="<?=url('/')?>/public/katalog_assets/assets/img/flash-sale2.png" style="width: 10em;">
 				<div id="countdown" class="btn-dark" style="display: flex; margin-left: 1em; border-radius: 0.2em;">
 					<div id="countdown_jam" style="padding:0.5em 0em 0.5em 1em; font-size: 1em; font-weight: 600;"></div>
 					<div style="padding:0.5em 1em; font-size: 1em; font-weight: 600;">:</div>
@@ -295,7 +295,7 @@ function hari_indo($hari){
 				@foreach ($flash_sale as $data)
 				<div class="slider-toko" style="@if ($loop->iteration == 0) margin-left: 1em;@endif box-shadow: 0 0 5px #ccc; border-radius: 0.5em !important;">
 					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-					<img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$data->produk->foto}}" style="border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
+					<img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$data->produk->foto}}" style="border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
 					@php
 					$diskon = $data->diskon;
 					$potongan_harga = round($diskon/100 * $data->produk->harga, 0);
@@ -334,11 +334,11 @@ function hari_indo($hari){
 	<div class="row-mall" style="padding: 0.7em 0em 0.7em 0em; background: white;">
 		<div style="padding-left: 0.5em; padding-right: 0.5em; display: flex; justify-content: space-between; align-items: center;">
 			<div style="display: flex; align-items: center; margin-bottom: 0.8em;">
-				@php $img_kategori = url('/')."/icon_kategori/thumbnail/75x75/$data->logo"; @endphp
+				@php $img_kategori = url('/')."/public/icon_kategori/thumbnail/75x75/$data->logo"; @endphp
 				<div style="width: 2.5em; height: 2.5em; background-image: url('{{$img_kategori}}'); background-size: cover; border-radius: 50%; border: 2px solid #ec1f25;"></div>
 				<span style="margin-left: -0.4em; padding-left: 0.7em; padding-right: 0.5em; box-shadow: 0 4px 2px -2px gray; padding-bottom: 0.2em;"><b>{{$data->kategori}}</b></span>
 			</div>
-			<a href="<?=url('/')?>/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
+			<a href="<?=url('/')?>/public/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
 		</div>
 		<div class="slider" style="padding-bottom: 1em; margin-top: 0.5em;">
 			<div style="display: flex; align-items: center;">
@@ -347,7 +347,7 @@ function hari_indo($hari){
 				@foreach ($data->produk as $produk)
 				<div class="slider-toko" style="@if ($loop->iteration == 0) margin-left: 1em; @endif box-shadow: 0 0 5px #ccc; border-radius: 0.5em !important;">
 					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-					<img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$produk->foto}}" style="border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
+					<img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$produk->foto}}" style="border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
 
 					<div style='text-align: left; font-size: 1em; padding: 0.5em 0.7em 0em 0.7em; width: 100%; background: white border:1px solid #ccc; color: #70767a; background-size: cover; position: relative; border-radius: 0.5em; word-wrap: break-word; line-height: 1.1em;'> 
 						@if ($produk->diskon != null)
@@ -417,24 +417,24 @@ function hari_indo($hari){
 @endsection
 
 @section('footer-scripts')
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery/jquery.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/php-email-form/validate.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/counterup/counterup.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/venobox/venobox.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/aos/aos.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/jquery/jquery.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/php-email-form/validate.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/counterup/counterup.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/venobox/venobox.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/aos/aos.js"></script>
 <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
 
 <!-- Template Main JS File -->
-<script src="<?=url('/')?>/katalog_assets/assets/js/main.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/js/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-<script src="{{asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 	<?php  $date_tomorrow = date("m/d/Y", strtotime("+1 day", strtotime(date("Y-m-d")))); ?>
 	var end = new Date("{{$date_tomorrow}} 0:00 AM");

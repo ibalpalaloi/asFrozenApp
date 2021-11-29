@@ -15,7 +15,7 @@
             <div class="d-flex" style="padding-bottom: 0px;  -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
                 <div class="member" style="position: relative; margin-bottom: 0px;">
                     <div class="member-img">
-                        <img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" alt="">
+                        <img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" alt="">
                     </div>
                     <div class="member-info" style=" padding: 0em 0.7em 0.8em;">
                         @if ($produk->diskon != null)
@@ -55,7 +55,7 @@
         <div class="d-flex" style="padding-bottom: 0px;  -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
             <div class="member" style="position: relative; margin-bottom: 0px;">
                 <div class="member-img">
-                    <img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" alt="">
+                    <img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" alt="">
                 </div>
                 <div class="member-info" style=" padding: 0em 0.7em 0.8em;">
                     @if ($produk->diskon != null)

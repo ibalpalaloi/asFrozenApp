@@ -40,7 +40,7 @@
                                                     <td>
                                                         <div style="width: 100%; display: flex; margin-bottom: 0em;">
                                                             <div style="width: 10%;">
-                                                                <img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$pesanan->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+                                                                <img class="img-fluid" src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$pesanan->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
                                                             </div>
                                                             <div style="width: 85%; margin-left: 1em; display: flex; align-items: center;">{{$pesanan->produk->nama}}</div>
                                                         </div>
@@ -82,14 +82,14 @@
                                                 <b>Cash On Delivery (COD)</b><br>
                                                 <div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.5em;">
                                                     <div class="checkout-bank-transfer-item__icon-container">
-                                                        <img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_red.png" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
+                                                        <img src="<?=url('/')?>/public/katalog_assets/assets/img/logo/frozen_palu_red.png" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
                                                     </div>
                                                 </div>
                                                 @else
                                                 <b>Transfer melalui</b><br>
                                                 <div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.3em;">
                                                     <div class="checkout-bank-transfer-item__icon-container">
-                                                        <img src="<?=url('/')?>/bank/{{$data->bank->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
+                                                        <img src="<?=url('/')?>/public/bank/{{$data->bank->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
                                                     </div>
                                                     <div>
                                                         <div class="checkout-bank-transfer-item__main" style="line-height: 0.8em;">
@@ -142,7 +142,7 @@
                                 <hr>
                                 <div class="template-demo" style="display: flex; padding-bottom: 1em; padding-left: 1em;">
                                     <div class="text-right">
-                                        <a href="/admin/ubah_status_pesanan/{{$data->id}}/dalam pengantaran" class="btn btn-primary btn-sm" style="color: white">Antar Pesanan</a>
+                                        <a href="<?=url('/')?>/admin/ubah_status_pesanan/{{$data->id}}/dalam pengantaran" class="btn btn-primary btn-sm" style="color: white">Antar Pesanan</a>
                                         <a class="btn btn-success btn-sm" style="color: white">Hubungi Pembeli</a>
                                     </div>
                                 </div>

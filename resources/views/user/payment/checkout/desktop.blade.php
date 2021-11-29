@@ -113,7 +113,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 								<td>
 									<div style="width: 100%; display: flex; margin-bottom: 0.5em;">
 										<div style="width: 12%;">
-											<img class="img-fluid" src="<?=url('/')?>/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+											<img class="img-fluid" src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 										</div>
 										<div style="width: 85%; margin-left: 1em; display: flex; align-items: center;">
 											{{$data['nama_produk']}}
@@ -191,7 +191,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 							</div>
 							<div class="checkout-bank-transfer-item__card" style="display: flex;">
 								<div class="checkout-bank-transfer-item__icon-container">
-									<img src="<?=url('/')?>/bank/{{$row->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em;">
+									<img src="<?=url('/')?>/public/bank/{{$row->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em;">
 								</div>
 								<div>
 									<div class="checkout-bank-transfer-item__main" style="line-height: 0.8em;">
@@ -261,7 +261,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 
 
 				</div>	
-				<form action="/keranjang/post_checkout" method="post" id="form_data_pesanan">
+				<form action="<?=url('/')?>/keranjang/post_checkout" method="post" id="form_data_pesanan">
 					@csrf
 					<input hidden type="text" name="nama_penerima" id="input_nama_penerima" value="{{Auth()->user()->biodata->nama}}" required>
 					<input hidden type="text" name="no_telp_penerima", id="input_no_telp_penerima" value="{{Auth()->user()->biodata->no_telp}}">

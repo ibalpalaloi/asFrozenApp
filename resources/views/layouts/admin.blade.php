@@ -8,23 +8,22 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{asset('AdminLTE/plugins/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="<?=url('/')?>/public/AdminLTE/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{{asset('AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+  <link rel="stylesheet" href="<?=url('/')?>/public/AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="{{asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  <link rel="stylesheet" href="<?=url('/')?>/public/AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
-  <link rel="stylesheet" href="{{asset('AdminLTE/plugins/jqvmap/jqvmap.min.css')}}">
+  <link rel="stylesheet" href="<?=url('/')?>/public/AdminLTE/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('AdminLTE/dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="<?=url('/')?>/public/AdminLTE/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="{{asset('AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+  <link rel="stylesheet" href="<?=url('/')?>/public/AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
 
   <!-- summernote -->
-  <link rel="stylesheet" href="{{asset('AdminLTE/plugins/summernote/summernote-bs4.min.css')}}">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   @yield('header')
 </head>
@@ -77,9 +76,9 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
-        <img src="{{asset('AdminLTE/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <a href="<?=url('/')?>" class="brand-link">
+        <img src="<?=url('/')?>/public/katalog_assets/assets/img/logo/frozen_admin_logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-2" style="opacity: .8">
+        <span class="brand-text font-weight-light">Manajemen Toko</span>
       </a>
 
       <!-- Sidebar -->
@@ -87,10 +86,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="{{asset('AdminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+            <img src="<?=url('/')?>/public/img/default.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a href="#" class="d-block">Admin</a>
           </div>
         </div>
 
@@ -120,49 +119,49 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin-banner" class="nav-link @if($sub_menu_ == 'banner') active @endif">
+                <a href="<?=url('/')?>/admin-banner" class="nav-link @if($sub_menu_ == 'banner') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Banner</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-video" class="nav-link @if($sub_menu_ == 'video') active @endif">
+                <a href="<?=url('/')?>/admin-video" class="nav-link @if($sub_menu_ == 'video') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Video</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-kategori" class="nav-link @if($sub_menu_ == 'banner') kategori @endif">
+                <a href="<?=url('/')?>/admin-kategori" class="nav-link @if($sub_menu_ == 'banner') kategori @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kategori</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-kota" class="nav-link @if($sub_menu_ == 'banner') kota @endif">
+                <a href="<?=url('/')?>/admin-kota" class="nav-link @if($sub_menu_ == 'banner') kota @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kota</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-kecamatan" class="nav-link @if($sub_menu_ == 'banner') kecamatan @endif">
+                <a href="<?=url('/')?>/admin-kecamatan" class="nav-link @if($sub_menu_ == 'banner') kecamatan @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kecamatan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-kelurahan" class="nav-link @if($sub_menu_ == 'banner') kelurahan @endif">
+                <a href="<?=url('/')?>/admin-kelurahan" class="nav-link @if($sub_menu_ == 'banner') kelurahan @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kelurahan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-jadwal-buka" class="nav-link @if($sub_menu_ == 'jadwal_buka') jadwal_buka @endif">
+                <a href="<?=url('/')?>/admin-jadwal-buka" class="nav-link @if($sub_menu_ == 'jadwal_buka') jadwal_buka @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jadwal Buka</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-jadwal-tutup" class="nav-link @if($sub_menu_ == 'jadwal_tutup') jadwal_tutup @endif">
+                <a href="<?=url('/')?>/admin-jadwal-tutup" class="nav-link @if($sub_menu_ == 'jadwal_tutup') jadwal_tutup @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jadwal Tutup</p>
                 </a>
@@ -172,7 +171,7 @@
           </li>
 
           <li class="nav-item has-treeview">
-            <a href="/admin-daftar-produk" class="nav-link">
+            <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
                 User
@@ -181,13 +180,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin-daftar-pengguan" class="nav-link">
+                <a href="<?=url('/')?>/admin-daftar-pengguan" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pengguna</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-daftar-admin" class="nav-link">
+                <a href="<?=url('/')?>/admin-daftar-admin" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Admin</p>
                 </a>
@@ -196,7 +195,7 @@
           </li>
 
           <li class="nav-item has-treeview @if($menu_ == 'produk') menu-open @endif">
-            <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'produk') active @endif">
+            <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'produk') active @endif">
               <i class="nav-icon fas fa-tree"></i>
               <p>
                 Produk
@@ -205,13 +204,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'daftar produk') active @endif">
+                <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'daftar produk') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Daftar Produk</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-tambah-produk" class="nav-link @if($menu_ == 'tambah produk') active @endif">
+                <a href="<?=url('/')?>/admin-tambah-produk" class="nav-link @if($menu_ == 'tambah produk') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Produk</p>
                 </a>
@@ -220,7 +219,7 @@
           </li>
 
           <li class="nav-item has-treeview @if($menu_ == 'diskon') menu-open @endif">
-            <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'diskon') active @endif">
+            <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'diskon') active @endif">
               <i class="nav-icon fas fa-tree"></i>
               <p>
                 Diskon
@@ -229,13 +228,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin-diskon-produk" class="nav-link @if($menu_ == 'daftar produk') active @endif">
+                <a href="<?=url('/')?>/admin-diskon-produk" class="nav-link @if($menu_ == 'daftar produk') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Lihat Diskon</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-manajemen-diskon" class="nav-link @if($menu_ == 'tambah produk') active @endif">
+                <a href="<?=url('/')?>/admin-manajemen-diskon" class="nav-link @if($menu_ == 'tambah produk') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manajemen Diskon</p>
                 </a>
@@ -243,13 +242,13 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="/admin/bank" class="nav-link @if($menu_ == 'bank') active @endif">
+            <a href="<?=url('/')?>/admin/bank" class="nav-link @if($menu_ == 'bank') active @endif">
               <i class="nav-icon fas fa-tree"></i>
               <p>Bank</p>
             </a>
           </li>
           <li class="nav-item has-treeview @if($menu_ == 'pesanan') menu-open @endif">
-            <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'pesanan') active @endif">
+            <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'pesanan') active @endif">
               <i class="nav-icon fas fa-tree"></i>
               <p>
                 Pesanan
@@ -258,28 +257,28 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin/daftar-pesanan" class="nav-link @if($menu_ == 'daftar pesanan') active @endif">
+                <a href="<?=url('/')?>/admin/daftar-pesanan" class="nav-link @if($menu_ == 'daftar pesanan') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Daftar Pesanan</p>
                   <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/pesanan-packaging" class="nav-link @if($menu_ == 'packaging') active @endif">
+                <a href="<?=url('/')?>/admin/pesanan-packaging" class="nav-link @if($menu_ == 'packaging') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Packing</p>
                   <span id="jumlah_packaging" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/pesanan-dalam-pengantaran" class="nav-link @if($menu_ == 'dalam pengantaran') active @endif">
+                <a href="<?=url('/')?>/admin/pesanan-dalam-pengantaran" class="nav-link @if($menu_ == 'dalam pengantaran') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dalam Pengantaran</p>
                   <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/riwayat-pesanan" class="nav-link @if($menu_ == 'daftar pesanan') riwayat @endif">
+                <a href="<?=url('/')?>/admin/riwayat-pesanan" class="nav-link @if($menu_ == 'daftar pesanan') riwayat @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Riwayat</p>
                 </a>
@@ -288,7 +287,7 @@
           </li>
 
           <li class="nav-item has-treeview @if($menu_ == 'analisis') menu-open @endif">
-            <a href="/admin-daftar-produk" class="nav-link @if($menu_ == 'analisis') active @endif">
+            <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'analisis') active @endif">
               <i class="nav-icon fas fa-tree"></i>
               <p>
                 Analisis
@@ -297,21 +296,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin-analisis/produk" class="nav-link @if(Request::segment(2) == 'produk') active @endif">
+                <a href="<?=url('/')?>/admin-analisis/produk" class="nav-link @if(Request::segment(2) == 'produk') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Analisis Produk</p>
                   <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-analisis/transaksi" class="nav-link @if(Request::segment(2) == 'transaksi') active @endif">
+                <a href="<?=url('/')?>/admin-analisis/transaksi" class="nav-link @if(Request::segment(2) == 'transaksi') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Analisis Transaksi</p>
                   <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin-analisis/pelanggan" class="nav-link @if(Request::segment(2) == 'pelanggan') active @endif">
+                <a href="<?=url('/')?>/admin-analisis/pelanggan" class="nav-link @if(Request::segment(2) == 'pelanggan') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Analisis Pelanggan</p>
                   <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
@@ -362,38 +361,38 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{asset('AdminLTE/plugins/jquery/jquery.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="{{asset('AdminLTE/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="{{asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
-<script src="{{asset('AdminLTE/plugins/chart.js/Chart.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
-<script src="{{asset('AdminLTE/plugins/sparklines/sparkline.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
-<script src="{{asset('AdminLTE/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
 <!-- jQuery Knob Chart -->
-<script src="{{asset('AdminLTE/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
-<script src="{{asset('AdminLTE/plugins/moment/moment.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/moment/moment.min.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="{{asset('AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
-<script src="{{asset('AdminLTE/plugins/summernote/summernote-bs4.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
-<script src="{{asset('AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="{{asset('AdminLTE/dist/js/adminlte.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/dist/js/adminlte.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('AdminLTE/dist/js/pages/dashboard.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('AdminLTE/dist/js/demo.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/dist/js/demo.js"></script>
 <script>
   @if(Session::get('kode-notif'))
   $("#pesan-error-notif").html("{{Session::get('message')}}");
@@ -408,7 +407,7 @@
   function get_jumlah_pesanan(){
     $.ajax({
       type: "GET",
-      url: "/get-jumlah-pesanan",
+      url: "<?=url('/')?>/get-jumlah-pesanan",
       success:function(data){
         var jumlah = data.jumlah;
         $('#jumlah_menunggu_konfirmasi').html(jumlah['menunggu_konfirmasi']);

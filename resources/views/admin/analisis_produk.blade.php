@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('header')
-<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick-theme.css"/>
-<link rel="stylesheet" type="text/css" media="screen" href="<?=url('/')?>/AdminLTE/plugins/retro-plugins/css/flip-clock.css" />
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick-theme.css"/>
+<link rel="stylesheet" type="text/css" media="screen" href="<?=url('/')?>/public/AdminLTE/plugins/retro-plugins/css/flip-clock.css" />
 <style type="text/css">
   .slick-track {
     float: left;
@@ -134,7 +134,7 @@
                         <div class="d-flex" style="margin-left: 0.5em; margin-right: 0.5em; padding-bottom: 0px;  -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%); margin-bottom: 1em; margin-top: 1em;">
                           <div class="member" style="position: relative; margin-bottom: 0px;">
                             <div class="member-img">
-                              <img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                              <img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
                             </div>
                             <div class="member-info" style=" padding: 0em 0.7em 0.8em;">
                               <div style="margin-top: 0.5em; text-align: left; color: black;">
@@ -169,7 +169,7 @@
   @endsection
 
   @section('footer')
-  <script type="text/javascript" src="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.min.js"></script>
+  <script type="text/javascript" src="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick.min.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
 
   <script>

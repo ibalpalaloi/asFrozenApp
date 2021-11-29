@@ -84,6 +84,7 @@ class AdminPesananController extends Controller
         $riwayat_nota->user_id = $nota->user->id;
         $riwayat_nota->id_pesanan = $nota->id_pesanan;
         $riwayat_nota->nama_pemesan = $nota->penerima;
+        $riwayat_nota->jenis_kelamin = $nota->user->biodata->jenis_kelamin;
         $riwayat_nota->nama_penerima = $nota->user->biodata->nama;
         $riwayat_nota->nomor_pemesan = $nota->user->biodata->no_telp;
         $riwayat_nota->nomor_penerima = $nota->no_telp_penerima;

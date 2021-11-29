@@ -12,7 +12,7 @@ Keranjang Belanja
         <div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">
           <div style="padding: 0.5em 1em; width: 100%; align-items: center; display: flex; flex-direction: column; justify-content: center;">
             <div style="width: 30%; border-radius: 50%;">
-              <img src="img/default.png" style="width: 100%; border-radius: 50%;">
+              <img src="<?=url('/')?>/public/img/default.png" style="width: 100%; border-radius: 50%;">
             </div>
             <div style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center; margin-top: 1em;">
               <h4>Iqbal Ramadhan</h4>

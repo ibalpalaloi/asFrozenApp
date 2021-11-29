@@ -13,4 +13,8 @@ class Biodata extends Model
     public function kelurahan(){
         return $this->belongsTo(Kelurahan::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

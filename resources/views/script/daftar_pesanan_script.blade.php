@@ -23,7 +23,7 @@
     
      $.ajax({
         type: "delete",
-        url: '/admin/hapus_pesanan/'+id,
+        url: '<?=url('/')?>/admin/hapus_pesanan/'+id,
         data: {'id': id, '_token':token},
         success:function(data){
 
@@ -47,7 +47,7 @@
         var keyword = $('#cari_produk').val();
         $.ajax({
             type: "get",
-            url: "/admin/get_list_produk/"+keyword,
+            url: "<?=url('/')?>/admin/get_list_produk/"+keyword,
             success:function(data){
                 console.log(data);
                 $('#tbody_tabel_tambah_produk').empty();
@@ -72,7 +72,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/admin/input_pesanan_baru",
+            url: "<?=url('/')?>/admin/input_pesanan_baru",
             data: {'id_nota': id_nota, 'id_produk':id_produk, 'jumlah':jumlah, 'harga_satuan':harga_satuan, '_token':token},
             success:function(data){
                 console.log(data);
@@ -106,9 +106,9 @@
    function batalkan_pesanan(id_nota){
        $.ajax({
            type: "GET",
-           url: "/admin/batalkan_pesanan/"+id_nota,
+           url: "<?=url('/')?>/admin/batalkan_pesanan/"+id_nota,
            success:function(data){
-                window.location.href = "/admin/daftar-pesanan"
+                window.location.href = "<?=url('/')?>/admin/daftar-pesanan"
            }
        })
    }

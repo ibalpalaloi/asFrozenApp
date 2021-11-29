@@ -214,6 +214,7 @@ class AdminAnalisController extends Controller
             $i++;
         }
 
+
         $top_transaksi['jumlah'] = collect($list_data)->sortBy('jumlah_transaksi')->reverse()->toArray();
         $top_transaksi['total'] = collect($list_data)->sortBy('total_transaksi')->reverse()->toArray();
         // dd($top_transaksi['jumlah']);
@@ -221,19 +222,47 @@ class AdminAnalisController extends Controller
     }
 
     public function pelanggan(Request $request){
+        $menu = "analisis";
+        $sub_menu = "analisis pelanggan";
+        $rentan_waktu = "";
+        if (isset($_GET['rentan_waktu'])){
+            $rentan_waktu = $_GET['rentan_waktu']; 
+        }
 
-        $menu = 'analisis';
-        $sub_menu = 'analisis pelanggan';
-        $tgl_mulai = "";
-        $tgl_akhir = "";
+        if ($rentan_waktu == ''){
+            $data = $this->filter_tanggal('7 hari terakhir');            
+        }
+        else if ($rentan_waktu == 'Pilih Tanggal'){
+            $data['tanggal_terakhir'] = $_GET['tgl_akhir'];
+            $data['tanggal_mulai'] = $_GET['tgl_mulai'];
+            $data['text_rentan_waktu'] = " (".$this->tgl_indo(date('Y-m-d', strtotime($_GET['tgl_mulai'])))." - ".$this->tgl_indo(date('Y-m-d', strtotime($_GET['tgl_akhir']))).")";
+        }
+        else {
+            $data = $this->filter_tanggal($rentan_waktu);                        
+        }
         $list_data_transaksi = array();
+        $dateRange = array();
+        $total_transaksi = array();
+        $startDate ="";
+        $endDate = "";
+
+        $tgl_mulai = $data['tanggal_mulai'];
+        $tgl_akhir = $data['tanggal_terakhir'];
+        $text_rentan_waktu = $data['text_rentan_waktu'];
+
+        $startDate = Carbon::createFromFormat('Y-m-d', $tgl_mulai);
+        $endDate = Carbon::createFromFormat('Y-m-d', $tgl_akhir);
+
+        // $CreateDateRange = CarbonPeriod::create($startDate, $endDate);
+        // $date = $CreateDateRange->toArray();
+
         if(count($request->all())>0){
             $tgl_mulai = $request->tgl_mulai;
             $tgl_akhir = $request->tgl_akhir;
-            $list_transaksi = DB::select("select user_id, count(*) as jumlah from riwayat_nota_pesanan where DATE(created_at) between'".$request->tgl_mulai."' and '".$request->tgl_akhir."' group by user_id limit 0, 10");
+            $list_transaksi = DB::select("select user_id, count(*) as jumlah, sum(total_harga) as total_transaksi from riwayat_nota_pesanan where DATE(created_at) between'".$startDate."' and '".$endDate."' group by user_id limit 0, 10");
         }
         else{
-            $list_transaksi = DB::select("select user_id, count(*) as jumlah from riwayat_nota_pesanan group by user_id limit 0, 10");
+            $list_transaksi = DB::select("select user_id, count(*) as jumlah, sum(total_harga) as total_transaksi from riwayat_nota_pesanan group by user_id limit 0, 10");
         }
         
         $i = 0;
@@ -243,66 +272,102 @@ class AdminAnalisController extends Controller
             if(!empty($biodata)){
                 $list_data_transaksi[$i]['user_id'] = $data->user_id;
                 $list_data_transaksi[$i]['nama'] = $biodata->nama; 
+                $list_data_transaksi[$i]['no_telp'] = $biodata->no_telp;
+                $list_data_transaksi[$i]['jenis_kelamin'] = $biodata->jenis_kelamin;                  
                 $list_data_transaksi[$i]['jumlah_transaksi'] = $data->jumlah;
+                $list_data_transaksi[$i]['total_transaksi'] = $data->total_transaksi;
                 $i++;
             }
             
         }
-        return view('admin.analisis-pelanggan-transaksi-terbanyak', compact('menu', 'sub_menu', 'list_data_transaksi', 'tgl_mulai', 'tgl_akhir'));
+
+        $top_transaksi['jumlah'] = collect($list_data_transaksi)->sortBy('jumlah_transaksi')->reverse()->toArray();
+        $jumlah['nama_pelanggan'] = array();
+        $jumlah['transaksi'] = array();
+        foreach($top_transaksi['jumlah'] as $data){
+            array_push($jumlah['nama_pelanggan'], $data['nama']);
+            array_push($jumlah['transaksi'], $data['jumlah_transaksi']);
+        }
+
+        $top_transaksi['total'] = collect($list_data_transaksi)->sortBy('total_transaksi')->reverse()->toArray();
+        $total['nama_pelanggan'] = array();
+        $total['transaksi'] = array();
+        foreach($top_transaksi['total'] as $data){
+            array_push($total['nama_pelanggan'], $data['nama']);
+            array_push($total['transaksi'], $data['total_transaksi']);
+        }
+
+        $jenis_kelamin = DB::table('riwayat_nota_pesanan')->select('jenis_kelamin', DB::raw('count(id) as jumlah'))->whereBetween('created_at', [$startDate, $endDate])->orderBy('jenis_kelamin', 'asc')->groupBy('jenis_kelamin')->get();
+        $jenis_kelamin_laki = DB::table('riwayat_nota_pesanan')->select('jenis_kelamin', DB::raw('count(id) as jumlah'))->whereBetween('created_at', [$startDate, $endDate])->orderBy('jenis_kelamin', 'asc')->groupBy('jenis_kelamin')->where('jenis_kelamin', 'Laki-Laki')->get()->count();
+        $jenis_kelamin_perempuan = DB::table('riwayat_nota_pesanan')->select('jenis_kelamin', DB::raw('count(id) as jumlah'))->whereBetween('created_at', [$startDate, $endDate])->orderBy('jenis_kelamin', 'asc')->groupBy('jenis_kelamin')->where('jenis_kelamin', 'Perempuan')->get()->count();
+
+        $jenkel['jenis'] = array();
+        $jenkel['jumlah'] = array();
+        array_push($jenkel['jenis'], 'Laki-Laki');
+        array_push($jenkel['jumlah'], $jenis_kelamin_laki);
+        array_push($jenkel['jenis'], 'Perempuan');
+        array_push($jenkel['jumlah'], $jenis_kelamin_perempuan);
+
+
+        // dd($jenis_kelamin);
+        // dd($jenkel);    
+
+
+        return view('admin.analisis-pelanggan-transaksi-terbanyak', compact('menu', 'sub_menu', 'list_data_transaksi', 'tgl_mulai', 'tgl_akhir', 'text_rentan_waktu', 'jumlah', 'total', 'top_transaksi', 'jenis_kelamin', 'jenkel'));
     }
 
-    public function total_transaksi_terbanyak(){
-        $menu = 'analisis';
-        $sub_menu = 'analisis pelanggan';
-        $list_pelanggan = array();
-        $nota_pesanan = DB::select("select user_id, sum(total_harga) as total from riwayat_nota_pesanan group by user_id order by sum(total_harga) desc");
-        $i=0;
-        foreach($nota_pesanan as $data){
-            $biodata = Biodata::where('user_id', $data->user_id)->first();
-            if(!empty($biodata)){
-                $list_pelanggan[$i]['user_id'] = $data->user_id;
-                $list_pelanggan[$i]['nama'] = $biodata->nama;
-                $list_pelanggan[$i]['total_transaksi'] = $data->total;
-                $i++;
-            }
-        }
-        return view('admin.analisis-pelanggan-terbanyak-total-transaksi', compact('menu', 'sub_menu', 'list_pelanggan'));
-    }
+    // public function total_transaksi_terbanyak(){
+    //     $menu = 'analisis';
+    //     $sub_menu = 'analisis pelanggan';
+    //     $list_pelanggan = array();
+    //     $nota_pesanan = DB::select("select user_id, sum(total_harga) as total from riwayat_nota_pesanan group by user_id order by sum(total_harga) desc");
+    //     $i=0;
+    //     foreach($nota_pesanan as $data){
+    //         $biodata = Biodata::where('user_id', $data->user_id)->first();
+    //         if(!empty($biodata)){
+    //             $list_pelanggan[$i]['user_id'] = $data->user_id;
+    //             $list_pelanggan[$i]['nama'] = $biodata->nama;
+    //             $list_pelanggan[$i]['total_transaksi'] = $data->total;
+    //             $i++;
+    //         }
+    //     }
+    //     return view('admin.analisis-pelanggan-terbanyak-total-transaksi', compact('menu', 'sub_menu', 'list_pelanggan'));
+    // }
 
-    public function jenis_kelamin(Request $request){
-        $menu = 'analisis';
-        $sub_menu = 'analisis pelanggan';
-        $tgl_mulai = "";
-        $tgl_akhir = "";
-        $jumlah_pria = 0;
-        $jumlah_wanita = 0;
-        $presentase_pria = 0;
-        $presentase_wanita = 0;
-        $jumlah_riwayat_nota= 0;
-        if(count($request->all()) > 0){
-            $tgl_mulai = $request->tgl_mulai;
-            $tgl_akhir = $request->tgl_akhir;
-            $riwayat_nota = Riwayat_nota_pesanan::whereDate('created_at', '>=' , date($tgl_mulai))->whereDate('created_at', '<=' , date($tgl_akhir))->get();
-            $jumlah_riwayat_nota = count($riwayat_nota);
-            foreach($riwayat_nota as $data){
-                $biodata = Biodata::where('user_id', $data->user_id)->first();
-                if(!empty($biodata)){
-                    if($biodata->jenis_kelamin == "L"){
-                        $jumlah_pria += 1;
-                    }
-                    else{
-                        $jumlah_wanita += 1;
-                    }
-                }
-            }
-            $presentase_pria = ($jumlah_pria/$jumlah_riwayat_nota) * 100;
-            $presentase_wanita = ($jumlah_wanita/$jumlah_riwayat_nota) * 100;
-        }
-        else{
-            $presentase_pria = 0;
-            $presentase_wanita = 0;
-        }
-        
-        return view('admin.analisis-pelanggan-jenis-kelamin', compact('menu', 'sub_menu', 'presentase_pria', 'presentase_wanita', 'jumlah_wanita', 'jumlah_pria', 'tgl_mulai', 'tgl_akhir'));
-    }
+    // public function jenis_kelamin(Request $request){
+    //     $menu = 'analisis';
+    //     $sub_menu = 'analisis pelanggan';
+    //     $tgl_mulai = "";
+    //     $tgl_akhir = "";
+    //     $jumlah_pria = 0;
+    //     $jumlah_wanita = 0;
+    //     $presentase_pria = 0;
+    //     $presentase_wanita = 0;
+    //     $jumlah_riwayat_nota= 0;
+    //     if(count($request->all()) > 0){
+    //         $tgl_mulai = $request->tgl_mulai;
+    //         $tgl_akhir = $request->tgl_akhir;
+    //         $riwayat_nota = Riwayat_nota_pesanan::whereDate('created_at', '>=' , date($tgl_mulai))->whereDate('created_at', '<=' , date($tgl_akhir))->get();
+    //         $jumlah_riwayat_nota = count($riwayat_nota);
+    //         foreach($riwayat_nota as $data){
+    //             $biodata = Biodata::where('user_id', $data->user_id)->first();
+    //             if(!empty($biodata)){
+    //                 if($biodata->jenis_kelamin == "L"){
+    //                     $jumlah_pria += 1;
+    //                 }
+    //                 else{
+    //                     $jumlah_wanita += 1;
+    //                 }
+    //             }
+    //         }
+    //         $presentase_pria = ($jumlah_pria/$jumlah_riwayat_nota) * 100;
+    //         $presentase_wanita = ($jumlah_wanita/$jumlah_riwayat_nota) * 100;
+    //     }
+    //     else{
+    //         $presentase_pria = 0;
+    //         $presentase_wanita = 0;
+    //     }
+
+    //     return view('admin.analisis-pelanggan-jenis-kelamin', compact('menu', 'sub_menu', 'presentase_pria', 'presentase_wanita', 'jumlah_wanita', 'jumlah_pria', 'tgl_mulai', 'tgl_akhir'));
+    // }
 }

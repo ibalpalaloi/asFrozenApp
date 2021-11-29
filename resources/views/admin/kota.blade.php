@@ -12,7 +12,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="/admin-post-kota" method="post">
+        <form action="<?=url('/')?>/admin-post-kota" method="post">
             @csrf
             <div class="modal-body">
                 <div class="form-group">
@@ -59,7 +59,7 @@
                                 <td>{{$data->kota}}</td>
                                 <td>{{count($data->kecamatan)}}</td>
                                 <td>
-                                    <a href="/admin-kecamatan/{{$data->id}}" class="btn btn-primary btn-sm">Kecamatan</a>
+                                    <a href="<?=url('/')?>/admin-kecamatan/{{$data->id}}" class="btn btn-primary btn-sm">Kecamatan</a>
                                     <a href="" class="btn btn-warning btn-sm">Ubah</a>
                                     <a href="" class="btn btn-danger btn-sm">Hapus</a>
                                 </td>

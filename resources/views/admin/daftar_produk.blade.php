@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('header')
-<link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="<?=url('/')?>/public/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <style>
   ion-icon {
     font-size: 17px;
@@ -69,19 +69,19 @@ function tgl_indo($tanggal){
             <tbody id="tbody_daftar_produk">
               @include('admin.include.data_daftar_produk')
             </tbody>
-        </table>
+          </table>
+        </div>
+        <!-- /.card-body -->
       </div>
-      <!-- /.card-body -->
     </div>
   </div>
 </div>
-</div>
 @endsection
 @section('footer')
-<script src="{{asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=url('/')?>/public/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -110,10 +110,10 @@ function tgl_indo($tanggal){
     e.preventDefault();
     let formData = new FormData(this);
     console.log(formData);
-
+    show_loader();
     $.ajax({
       type:'POST',
-      url: `/post-update-produk`,
+      url: "<?=url('/')?>/post-update-produk",
       data: formData,
       contentType: false,
       processData: false,
@@ -127,6 +127,11 @@ function tgl_indo($tanggal){
          $('#satuan_'+id).html(produk['satuan']);
          $('#kategori'+id).html(produk['kategori']);
          $('#sub_kategori_'+id).html(produk['sub_kategori']);
+         $('#foto_'+id).prop('src', "<?=url('/')?>/public/img/produk/thumbnail/300x300/"+produk['foto']);
+         setTimeout(hide_loader, 5000);
+
+         // $)$
+         // location.reload();
        }
      },
      error: function(response){
@@ -153,7 +158,7 @@ function tgl_indo($tanggal){
     var id_kategori = $('#detail_produk_kategori').val();
     $.ajax({
       type: "GET",
-      url: "/get_list_sub_kategori/"+id_kategori,
+      url: "<?=url('/')?>/get_list_sub_kategori/"+id_kategori,
       success:function(data){
         var sub_kategori = data.sub_kategori;
         sub_kategori_lenght = Object.keys(sub_kategori).length;
@@ -176,12 +181,13 @@ function tgl_indo($tanggal){
       success:function(data){
         var produk = data.produk;
         var sub_kategori = data.sub_kategori;
+        // alert(produk['harga']);
         $('#detail_produk_id').val(produk['id']);
         $('#detail_produk_nama').val(produk['nama']);
         $('#detail_produk_harga').val(produk['harga']);
         $('#detail_produk_satuan').val(produk['satuan']);
         $('#detail_produk_foto').val("");
-        $('#detail_produk_foto_').attr("src", "<?=url('/')?>/img/produk/thumbnail/300x300/"+produk['foto']);
+        $('#detail_produk_foto_').attr("src", "<?=url('/')?>/public/img/produk/thumbnail/300x300/"+produk['foto']);
 
         var kategori_html = "";
         kategori_lenght = Object.keys(kategori).length;
@@ -295,7 +301,7 @@ function tgl_indo($tanggal){
 
         $('#tbody_daftar_produk').append(view);
       }
-        
+
     }
   });
 
@@ -307,7 +313,7 @@ function tgl_indo($tanggal){
       var table = $.ajax({
         async: false,
         type: "get",
-        url: "/admin-daftar-produk?page="+page,
+        url: "<?=url('/')?>/admin-daftar-produk?page="+page,
         success:function(data){
           page = data.page;
           status_scroll = data.status_scroll;
@@ -337,7 +343,7 @@ function tgl_indo($tanggal){
       var table = $.ajax({
         async: false,
         type: "get",
-        url: "/admin/get-data-cari-produk?keyword="+keyword,
+        url: "<?=url('/')?>/admin/get-data-cari-produk?keyword="+keyword,
         success:function(data){
           view = data.view;
         }
@@ -366,12 +372,42 @@ function tgl_indo($tanggal){
   function hapus_produk(id){
     $.ajax({
       type: "get",
-      url: "/admin/hapus-produk/"+id,
+      url: "<?=url('/')?>/admin/hapus-produk/"+id,
       success:function(data){
         $('#trow_daftar_produk_'+id).remove();
       }
     })
   }
+
+  $("#detail_produk_harga").on("keydown", function(e) {
+    var keycode = (event.which) ? event.which : event.keyCode;
+    if (e.shiftKey == true || e.ctrlKey == true) return false;
+    if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || (keycode == 190 && this.value.indexOf('.') === -1) || (keycode == 110 && this.value.indexOf('.') === -1) || (keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105)) {
+      var parts = this.value.split('.');
+      if (parts.length > 1 && parts[1].length >= 2 && ((keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105))) {
+        return false;
+      } 
+      else {
+        if (keycode == 110) {
+          this.value += ".";
+          return false;
+        }
+        return true;
+      }
+    } 
+    else {
+      return false;
+    }
+  }).on("keyup", function() {
+    var parts = this.value.split('.');
+    parts[0] = parts[0].replace(/,/g, '').replace(/^0+/g, '');
+    if (parts[0] == "") parts[0] = "0";
+    var calculated = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    if (parts.length >= 2) calculated += "." + parts[1].substring(0, 2);
+    this.value = calculated;
+    if (this.value == "NaN" || this.value == "") this.value = 0;
+  });
+
 </script>
 
 @endsection

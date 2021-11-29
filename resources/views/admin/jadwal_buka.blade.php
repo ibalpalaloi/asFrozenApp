@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('header')
-<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick-theme.css"/>
-<link rel="stylesheet" type="text/css" media="screen" href="<?=url('/')?>/AdminLTE/plugins/retro-plugins/css/flip-clock.css" />
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick-theme.css"/>
+<link rel="stylesheet" type="text/css" media="screen" href="<?=url('/')?>/public/AdminLTE/plugins/retro-plugins/css/flip-clock.css" />
 <style type="text/css">
   .slick-track {
     float: left;
@@ -39,7 +39,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body">
-            <form action="/admin-ubah-jadwal" method="post">
+            <form action="<?=url('/')?>/admin-ubah-jadwal" method="post">
                 @csrf
                 <div class="form-group">
                   <input type="text" name="hari" class="form-control" id="hari" placeholder="" readonly>
@@ -119,7 +119,7 @@
           
           $.ajax({
               type: "get",
-              url: '/admin-get-jadwal-buka/'+id,
+              url: '<?=url('/')?>/admin-get-jadwal-buka/'+id,
               success:function(data){
                   console.log(data);
                   var jadwal = data.jadwal;

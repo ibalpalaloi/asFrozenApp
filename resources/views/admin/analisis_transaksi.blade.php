@@ -113,12 +113,17 @@
                                     <div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
                                         <h6 style="text-align: center;">Top 5 Jumlah Transaksi</h6>
                                         <hr style="margin-top: 0px;">
-                                        @for ($i = 0; $i < 5; $i++)
+                                        @php $i = 1; @endphp
+                                        @foreach ($top_transaksi['jumlah'] as $row)
                                         <div>
-                                            <small>{{$i+1}}. Minggu, {{tgl_indo(date('Y-m-d', strtotime($top_transaksi['jumlah'][$i]['tanggal'])))}}</small>
-                                            <div style="margin-left: 0.7em;">{{$top_transaksi['jumlah'][$i]['jumlah_transaksi']}} Transaksi</div>
+                                            <small>{{$i++}}. Minggu, {{tgl_indo(date('Y-m-d', strtotime($row['tanggal'])))}}</small>
+                                            <div style="margin-left: 0.7em;">{{$row['jumlah_transaksi']}} Transaksi</div>
                                         </div>
-                                        @endfor
+                                        <?php
+                                        if ($i == 6){
+                                            break;
+                                        }?>
+                                        @endforeach
                                         <hr>
                                         <h6 style="text-align: center;">Lihat Selengkapnya</h6>
                                     </div>
@@ -133,12 +138,17 @@
                                     <div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
                                         <h6 style="text-align: center;">Top 5 Transaksi Terbesar</h6>
                                         <hr style="margin-top: 0px;">
-                                        @for ($i = 0; $i < 5; $i++)
+                                        @php $i = 1; @endphp
+                                        @foreach ($top_transaksi['total'] as $row)
                                         <div>
-                                            <small>{{$i+1}}. Minggu, {{tgl_indo(date('Y-m-d', strtotime($top_transaksi['total'][$i]['tanggal'])))}}</small>
-                                            <div style="margin-left: 0.7em;">Rp. {{number_format($top_transaksi['total'][$i]['total_transaksi'], 0, '.', '.')}}</div>
+                                            <small>{{$i++}}. Minggu, {{tgl_indo(date('Y-m-d', strtotime($row['tanggal'])))}}</small>
+                                            <div style="margin-left: 0.7em;">Rp. {{number_format($row['total_transaksi'], 0, '.', '.')}}</div>
                                         </div>
-                                        @endfor
+                                        <?php
+                                        if ($i == 6){
+                                            break;
+                                        }?>
+                                        @endforeach
                                         <hr>
                                         <h6 style="text-align: center;">Lihat Selengkapnya</h6>
                                     </div>

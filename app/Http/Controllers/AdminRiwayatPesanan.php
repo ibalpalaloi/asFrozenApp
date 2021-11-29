@@ -31,7 +31,9 @@ class AdminRiwayatPesanan extends Controller
         return view('admin.riwayat_pesanan', compact('data_nota')); 
     }
 
-    public function detail_riwayat_pesanan($id){
+
+
+    public function daftar_riwayat_detail($id){
         $riwayat_nota = Riwayat_nota_pesanan::where('id_pesanan', $id)->first();
         $riwayat = Riwayat_pesanan::where('riwayat_nota_pesanan_id', $riwayat_nota->id)->get();
         // dd($riwayat);    

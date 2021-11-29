@@ -44,7 +44,7 @@
             },
             error:function(data){
                 if(data.status > 400){
-                    window.location.href = "/user_login";
+                    window.location.href = "<?=url('/')?>/user_login";
                 }
             }
         })
