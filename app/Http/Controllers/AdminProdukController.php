@@ -208,15 +208,17 @@ class AdminProdukController extends Controller
     public function post_update_produk(Request $request){
         $produk = Produk::find($request->id);
         $produk->nama = $request->nama;
-        $produk->harga = str_replace(',', '', $request->harga);
-        $produk->satuan =  $request->satuan;
-        $produk->kategori_id = $request->kategori;
-        $produk->sub_kategori_id = $request->sub_kategori;
+        // $produk->harga = str_replace(',', '', $request->harga);
+        // $produk->satuan =  $request->satuan;
+        // $produk->kategori_id = $request->kategori;
+        // $produk->sub_kategori_id = $request->sub_kategori;
 
         if ($request->file('foto')) {
-            \File::delete("public/img/produk/$produk->foto");                 
-            \File::delete("public/img/produk/thumbnail/500x500/$produk->foto");                 
-            \File::delete("public/img/produk/thumbnail/300x300/$produk->foto");                 
+            if ($produk->foto != 'image_not_available.png'){
+                \File::delete("public/img/produk/$produk->foto");                 
+                \File::delete("public/img/produk/thumbnail/500x500/$produk->foto");                 
+                \File::delete("public/img/produk/thumbnail/300x300/$produk->foto");                 
+            }
             $file = $request->file('foto');
             $foto = "produk-".$this->autocode('prd').".".$file->getClientOriginalExtension();
             \Storage::disk('public')->put("img/produk/$foto", file_get_contents($file));
@@ -231,7 +233,7 @@ class AdminProdukController extends Controller
         $produk->save();
 
         $produk = Produk::find($request->id);
-
+        $data_produk = array();
         $data_produk['id'] = $produk->id;
         $data_produk['nama'] = $produk->nama;
         $data_produk['harga'] = "Rp. ".number_format($produk->harga, 0, ".", ".");
@@ -244,7 +246,7 @@ class AdminProdukController extends Controller
         else{
             $data_produk['sub_kategori'] = "-";
         }
-        
+        // $data_produk = array();        
 
 
         return response()->json(['produk'=>$data_produk]);
