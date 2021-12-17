@@ -1,4 +1,4 @@
-@if (count($kategori_current->sub_kategori) >0)
+{{-- @if (count($kategori_current->sub_kategori) >0)
     @foreach ($kategori_current->sub_kategori as $sub_kategori)
     <div class="row" style="padding-left: 1em; padding-right: 1em; display: flex; justify-content: space-between; align-items: center; ">
         <div>
@@ -89,4 +89,4 @@
     @endforeach
 @endif
 
-
+ --}}

@@ -549,7 +549,7 @@
 			var keyword = $("#pencarian").val();
 			if(keyword != ''){
 				var this_url = window.location.origin;
-				window.location.href = this_url+"/pencarian?keyword="+keyword;
+				window.location.href = "<?=url('/')?>/"+"pencarian?keyword="+keyword;
 			}
 		}
 

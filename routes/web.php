@@ -63,6 +63,12 @@ Route::post('/auth/post_registrasi', [AuthController::class, 'post_registrasi'])
  Route::get('/get-data-diskon/{id}', [GetController::class, 'get_data_diskon']);
  Route::get('/get-total-harga-pesanan/{id}', [GetController::class, 'get_total_pesanan']);
 
+ // katalog
+    
+ Route::get('/pencarian', [UserKatalogController::class, 'pencarian']);
+ Route::get('/get_produk_sub_kategori', [UserKatalogController::class, 'get_produK_sub_kategori']);
+ Route::get('/kategori/{kategori}', [UserKatalogController::class, 'kategori']);
+
 // keranjang
 Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
 
@@ -184,11 +190,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/get-produk/{id}', [AdminGetController::class, 'get_produk']);
 
 
-    // katalog
     
-    Route::get('/pencarian', [UserKatalogController::class, 'pencarian']);
-    Route::get('/get_produk_sub_kategori', [UserKatalogController::class, 'get_produK_sub_kategori']);
-    Route::get('/kategori/{kategori}', [UserKatalogController::class, 'kategori']);
 
     // jadwal
     Route::get('/admin-jadwal-buka', [JadwalController::class, 'jadwal_buka']);
