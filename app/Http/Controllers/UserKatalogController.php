@@ -34,7 +34,7 @@ class UserKatalogController extends Controller
     }
 
     public function kategori($kategori){
-        $list_kategori = Kategori::where('kategori', '!=', $kategori)->get();
+        $list_kategori = Kategori::all();
         $kategori_current = Kategori::where('kategori', $kategori)->first();
         $agent = new Agent();
         if ($agent->isMobile()){
