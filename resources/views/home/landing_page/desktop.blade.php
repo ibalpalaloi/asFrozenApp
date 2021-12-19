@@ -270,18 +270,22 @@ Keranjang Belanja
 										</div>
 										@endif
 										@if ($produk->stok_produk)
-										@if ($produk->stok_produk->stok != 0)
-											<a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
-												<div>
-													<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
-												</div>
-												<div>Beli</div>
-											</a>
+											@if ($produk->stok_produk->stok != 0)
+												<a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
+													<div>
+														<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
+													</div>
+													<div>Beli</div>
+												</a>
+											@else
+												<a class="btn btn-secondary" style="display: flex; justify-content: center; flex-direction: row;">
+													<div>Stok Habis</div>
+												</a>
+											@endif
 										@else
 											<a class="btn btn-secondary" style="display: flex; justify-content: center; flex-direction: row;">
 												<div>Stok Habis</div>
 											</a>
-										@endif
 										@endif
 										
 									</div>
