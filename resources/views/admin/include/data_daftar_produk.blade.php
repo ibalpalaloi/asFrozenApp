@@ -39,7 +39,7 @@
     </div>
     </td>
     <td id="stok_{{$data['id']}}">
-    <a href="#" onclick="show_input_stok('{{$data['id']}}', '{{$data['stok']}}')">{{$data['stok']}}</a>
+    <a href="##" onclick="show_input_stok('{{$data['id']}}', '{{$data['stok']}}')">{{$data['stok']}}</a>
     </td>
     <td id="satuan_{{$data['id']}}">{{$data['satuan']}}</td>
     <td id="kategori_{{$data['id']}}">{{$data['kategori']}}</td>

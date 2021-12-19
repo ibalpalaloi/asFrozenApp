@@ -260,7 +260,7 @@ function tgl_indo($tanggal){
         success:function(data){
           console.log(data.status);
           if(data.status == "Success"){
-            var html = "<a href='#' onclick='show_input("+id+", "+stok+")'>"+stok+"</a>";
+            var html = "<a href='##' onclick='show_input_stok("+id+", "+stok+")'>"+stok+"</a>";
             $('#stok_'+id).html(html);
           }
         }

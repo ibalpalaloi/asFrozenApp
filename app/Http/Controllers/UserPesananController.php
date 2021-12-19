@@ -9,6 +9,7 @@ use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Biodata;
 use App\Models\Keranjang;
+use App\Models\Produk;
 use App\Models\Riwayat_pesanan;
 use App\Models\Stok_produk;
 use App\Models\Riwayat_nota_pesanan;
@@ -51,6 +52,14 @@ class UserPesananController extends Controller
         Pesanan::where('nota_id', $id)->delete();
         Nota::find($id)->delete();
         return redirect('/keranjang');
+    }
+
+    public function ubah_stok($produk_id, $jumlah){
+        $stok = Stok_produk::where('produk_id', $produk_id)->first();
+        if(!empty($stok)){
+            $stok->stok = $stok->stok + $jumlah;
+            $stok->save();
+        }
     }
 
     public function update_biodata(Request $request){

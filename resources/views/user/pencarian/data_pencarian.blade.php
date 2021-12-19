@@ -4,7 +4,11 @@
         <div class="d-flex" style="padding-bottom: 0px;  -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
             <div class="member" style="position: relative; margin-bottom: 0px;">
                 <div class="member-img">
-                    <img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" alt="">
+                    @if ($produk->foto)
+                    <img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$produk->foto}}" class="img-fluid" alt="">
+                    @else
+                    <img src="<?=url('/')?>/public/img/produk/thumbnail/300x300/image_not_available.png" class="img-fluid" alt="">
+                    @endif
                 </div>
                 <div class="member-info" style=" padding: 0em 0.7em 0.8em;">
                     @if ($produk->diskon != null)
@@ -24,12 +28,24 @@
                         <h6>Rp {{number_format($produk->harga, 0, '.', '.')}}</h6>
                     </div>
                     @endif
-                    <a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
-                        <div>
-                            <span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
-                        </div>
-                        <div style="color: white;">Beli</div>
-                    </a>
+                    @if ($produk->stok_produk)
+                        @if ($produk->stok_produk->stok != 0)
+                            <a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
+                                <div>
+                                    <span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
+                                </div>
+                                <div>Beli</div>
+                            </a>
+                        @else
+                            <a class="btn btn-secondary" style="display: flex; justify-content: center; flex-direction: row;">
+                                <div>Stok Habis</div>
+                            </a>
+                        @endif
+                    @else
+                        <a class="btn btn-secondary" style="display: flex; justify-content: center; flex-direction: row;">
+                            <div>Stok Habis</div>
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

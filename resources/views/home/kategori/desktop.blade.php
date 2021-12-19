@@ -117,24 +117,6 @@ Keranjang Belanja
 			});
 	}
 
-	function tambah_keranjang(id){
-		show_loader();
-		$.ajax({
-			url: "<?=url('/')?>/tambah_keranjang/"+id,
-			type:"get",
-			success:function(data){
-				setTimeout(hide_loader, 500);
-				console.log(data);
-			},
-			error: function(xhr, status, error){
-				var errorMessage = xhr.status + ': ' + xhr.statusText
-				 if(xhr.statusText == "Unauthorized"){
-					window.location.href = "<?=url('/')?>/user_login";
-				 }
-			}
-		})
-	}
-
 	
 </script>
 

@@ -31,24 +31,6 @@
 </script>
 
 <script>
-    function tambah_keranjang(id){
-        show_loader();
-        setTimeout(hide_loader, 1000);
-        $.ajax({
-            url: "<?=url('/')?>/tambah_keranjang/"+id,
-            type:"get",
-            success:function(data){
-                
-                get_jumlah_keranjang();
-                console.log(data);
-            },
-            error:function(data){
-                if(data.status > 400){
-                    window.location.href = "<?=url('/')?>/user_login";
-                }
-            }
-        })
-    }
 
     $(document).ready(function() {
         $('#age-select-1').popover({

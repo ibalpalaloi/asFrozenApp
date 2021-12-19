@@ -82,7 +82,7 @@ Keranjang Belanja
 								<button class="pagination_button_active">{{$data}}</button>
 							</a>
 							@else
-							<a href="/pencarian?keyword={{$keyword}}&page={{$data}}">
+							<a href="<?=url('/')?>/pencarian?keyword={{$keyword}}&page={{$data}}">
 								<button class="pagination_button">{{$data}}</button>
 							</a>
 							@endif
