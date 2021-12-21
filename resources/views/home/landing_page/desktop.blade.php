@@ -233,7 +233,7 @@ Keranjang Belanja
 						<img src="<?=url('/')?>/public/icon_kategori/thumbnail/75x75/{{$data->logo}}" style="width: 2.5em; border-radius: 50%; border: 2px solid #ec1f25;">
 						<span style="margin-left: -0.4em; padding-left: 0.7em; padding-right: 0.5em; box-shadow: 0 4px 2px -2px gray; padding-bottom: 0.2em;"><b>{{$data->kategori}}</b></span>
 					</div>
-					<a href="<?=url('/')?>/public/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
+					<a href="<?=url('/')?>/public/kategori/{{$data->kategori}}" style="color: #ec1f25;">Selengkapnya</a>
 				</div>
 				<hr>
 				<div class="row team" style="padding: 0em 1em;">

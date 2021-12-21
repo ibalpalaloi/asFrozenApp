@@ -89,6 +89,15 @@ class UserKeranjangController extends Controller
             $harga = $data->produk->harga;
             $stok_produk = Stok_produk::where('produk_id', $data->produk_id)->first();
 
+            if(empty($stok_produk)){
+                $stok = new Stok_produk;
+                $stok->produk_id = $data->produk_id;
+                $stok->stok = 0;
+                $stok->save();
+
+                $stok_produk = Stok_produk::where('produk_id', $data->produk_id)->first();
+            }
+
             if($data->jumlah < $stok_produk->stok){
                 $jumlah = $data->jumlah;
             }else{
