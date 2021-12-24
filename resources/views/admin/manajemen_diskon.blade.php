@@ -168,7 +168,7 @@
   function modal_ubah_diskon(id){
     $.ajax({
       type: "get",
-      url: "/get-data-diskon/"+id,
+      url: "<?=url('/')?>/get-data-diskon/"+id,
       success:function(data){
         var diskon = data.data_diskon;
         console.log(diskon);
@@ -190,7 +190,7 @@
 
     $.ajax({
       type: "post",
-      url: "/admin/post_ubah_diskon",
+      url: "<?=url('/')?>/admin/post_ubah_diskon",
       data: {'diskon': diskon, 'tgl_mulai': tgl_mulai, 'tgl_akhir': tgl_akhir, 'id_produk': id_produk},
       success:function(data){
         console.log(data);
@@ -228,7 +228,7 @@
   function hapus_diskon(id){
     $.ajax({
       type: "get",
-      url: "/admin/hapus_diskon/"+id,
+      url: "<?=url('/')?>/admin/hapus_diskon/"+id,
       success:function(data){
         var data_diskon = data.data_diskon;
         console.log(data_diskon);
@@ -244,7 +244,7 @@
     if(tgl_mulai != "" && tgl_akhir != ""){
       $.ajax({
         type: "get",
-        url: "/admin/cari-produk-diskon-tanggal?tgl_mulai="+tgl_mulai+"&tgl_akhir="+tgl_akhir,
+        url: "<?=url('/')?>/admin/cari-produk-diskon-tanggal?tgl_mulai="+tgl_mulai+"&tgl_akhir="+tgl_akhir,
         success:function(data){
           $('#tbody_daftar_produk').html(data.view);
         }

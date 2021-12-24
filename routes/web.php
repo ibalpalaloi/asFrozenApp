@@ -69,7 +69,9 @@ Route::post('/auth/post_registrasi', [AuthController::class, 'post_registrasi'])
  Route::get('/get_produk_sub_kategori', [UserKatalogController::class, 'get_produK_sub_kategori']);
  Route::get('/kategori/{kategori}', [UserKatalogController::class, 'kategori']);
 
-// keranjang
+//  pesanan
+Route::get('/cek_pesanan_expired', [AdminPesananController::class, 'cek_pesanan_expired']);
+
 Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
 
     // pesanan

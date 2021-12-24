@@ -1,6 +1,18 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     var token = $("meta[name='csrf-token']").attr("content");
+
+    $(document).ready(function(){
+		@if (session('error'))
+			swal({
+				title: "Pesanan Expired",
+				text: "",
+				icon: "error",
+				button: "Oke",
+			});
+		@endif
+		
+    });
    function hapus_pesanan(row, id_nota){
     swal({
         title: "Are you sure?",

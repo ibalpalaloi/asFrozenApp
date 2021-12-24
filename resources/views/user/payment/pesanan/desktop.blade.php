@@ -227,7 +227,7 @@ $status_pesanan = "packaging";
 			</div>
 			<hr>
 			<div class="template-demo" style="display: flex;">
-				@if ($status_pesanan != "telah diantarakan")
+				@if ($nota->status == "menunggu konfirmasi")
 				<a href="<?=url('/')?>/batalkan-pesanan/{{$nota->id}}" type="button" class="btn btn-danger btn-lg" style="margin: 10px">Batalkan</a>
 
 				@endif
@@ -242,7 +242,21 @@ $status_pesanan = "packaging";
 
 
 @section('footer')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+
+	$(document).ready(function(){
+		@if (session('error'))
+			swal({
+				title: "Pesanan Tidak Dapat Dibatalkan!",
+				text: "Pesanan telah dikonfirmasi",
+				icon: "error",
+				button: "Oke",
+			});
+		@endif
+		
+    });
+
 	function modal_pesan(){
 		$('#exampleModal').modal('show');
 	}

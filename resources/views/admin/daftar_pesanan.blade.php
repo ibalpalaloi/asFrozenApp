@@ -115,7 +115,7 @@ function tgl_indo($tanggal){
 
                   </script>
                   @foreach ($nota as $data)
-                  <tr>
+                  <tr id="tr_pesanan_id{{$data->id}}">
                     <td>{{$loop->iteration}}</td>
                     <td>{{$data->penerima}} <small>({{$data->user->biodata->no_telp}})</small><br><small>ID Pesanan : {{$data->id_pesanan}}</small></td>
                     <td>{{$data->pesanan->sum('jumlah')}} Produk<br><small>{{$data->pengantaran}}</small></td>

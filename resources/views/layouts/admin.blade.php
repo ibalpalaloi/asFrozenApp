@@ -254,6 +254,7 @@
                 Pesanan
                 <i class="fas fa-angle-left right"></i>
               </p>
+              <span id="jumlah_semua_pesanan" class="right badge badge-danger"></span>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
@@ -410,6 +411,13 @@
       url: "<?=url('/')?>/get-jumlah-pesanan",
       success:function(data){
         var jumlah = data.jumlah;
+        if(jumlah['menunggu_konfirmasi']+jumlah['packaging']+jumlah['dalam_pengantaran'] > 0){
+          $('#jumlah_semua_pesanan').html("!!");
+        }
+        else{
+          $('#jumlah_semua_pesanan').empty();
+        }
+        
         $('#jumlah_menunggu_konfirmasi').html(jumlah['menunggu_konfirmasi']);
         $('#jumlah_packaging').html(jumlah['packaging']);
         $('#jumlah_pengantaran').html(jumlah['dalam_pengantaran'])
@@ -417,8 +425,27 @@
     })
   }
 
+  function cek_pesanan_expired(){
+    $.ajax({
+      type: "GET",
+      url: "<?=url('/')?>/cek_pesanan_expired",
+      success:function(data){
+        var list_id_pesanan_expired = data.list_id_pesanan_expired;
+        
+        for(let i = 0; i<list_id_pesanan_expired.length; i++){
+          $('#tr_pesanan_id'+list_id_pesanan_expired[i]).remove();
+          console.log(list_id_pesanan_expired[i]);
+        }
+      }
+    })
+  }
+
   $(document).ready ( function(){
     get_jumlah_pesanan();
+    timer = setInterval(function() {
+              get_jumlah_pesanan();
+              cek_pesanan_expired();
+            }, 10000);
   })
 
 

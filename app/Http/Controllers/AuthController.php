@@ -44,6 +44,10 @@ class AuthController extends Controller
         $biodata->no_telp = $request->no_telp;
         $biodata->save();
 
+        if(Auth::attempt(['no_telp' => $request->no_telp, 'password'=>$request->password])){
+            return redirect('/');
+        }
+
         return redirect('/');
     }
 

@@ -37,21 +37,26 @@ class UserPesananController extends Controller
     }
 
     public function batalkan_pesanan($id){
-        $pesanan = Pesanan::where('nota_id', $id)->get();
-        $id_user = Auth()->user()->id;
-        foreach($pesanan as $data){
-            $keranjang = new Keranjang;
-            $keranjang->user_id = $id_user;
-            $keranjang->produk_id = $data->produk_id;
-            $keranjang->jumlah = $data->jumlah;
-            $keranjang->checked = "true";
-            $keranjang->save();
+        $nota = Nota::find($id);
+        if($nota->status == "menunggu konfirmasi"){
+            $pesanan = Pesanan::where('nota_id', $id)->get();
+            $id_user = Auth()->user()->id;
+            foreach($pesanan as $data){
+                $keranjang = new Keranjang;
+                $keranjang->user_id = $id_user;
+                $keranjang->produk_id = $data->produk_id;
+                $keranjang->jumlah = $data->jumlah;
+                $keranjang->checked = "true";
+                $keranjang->save();
 
-            $this->ubah_stok($data->produk_id, $data->jumlah);
+                $this->ubah_stok($data->produk_id, $data->jumlah);
+            }
+            Pesanan::where('nota_id', $id)->delete();
+            Nota::find($id)->delete();
+            return redirect('/keranjang');
         }
-        Pesanan::where('nota_id', $id)->delete();
-        Nota::find($id)->delete();
-        return redirect('/keranjang');
+        
+        return redirect()->back()->with('error', 'Pesanan Tidak Dapat Dibatalkan Karena Telah Dikonfirmasi');
     }
 
     public function ubah_stok($produk_id, $jumlah){

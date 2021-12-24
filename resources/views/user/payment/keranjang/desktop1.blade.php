@@ -102,10 +102,25 @@ Keranjang
 								<img src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$data->foto}}" class="img-fluid" alt="">
 							</div>
 							<div class="member-info" style="padding-top: 0.4em;">
-								<small style="font-family: 'Segoe UI',Roboto; font-size: 0.7em;"><s>Rp. {{number_format($data->harga, 0, '.', '.')}}</s>
-									<badge class="badge badge-warning" style="font-size: 0.9em;">-50%</badge> 
-								</small>
-								<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. 25.000</h6>
+								@if ($data->diskon)
+									@php
+										$potongan_diskon = ($data->diskon->diskon/100) * $data->harga;
+										$harga_diskon = $data->harga - $potongan_diskon;
+ 									@endphp
+									@if ($data->diskon->diskon > 0)
+										<small style="font-family: 'Segoe UI',Roboto; font-size: 0.7em;"><s>Rp. {{number_format($data->harga, 0, '.', '.')}}</s>
+											<badge class="badge badge-warning" style="font-size: 0.9em;">-{{$data->diskon->diskon}}%</badge> 
+										</small>
+										<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. {{number_format($harga_diskon, 0, '.', '.')}}</h6>
+									
+									@else
+										<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. {{number_format($harga_diskon, 0, '.', '.')}}</h6>
+									@endif
+								@else
+									<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. {{number_format($data->harga, 0, '.', '.')}}</h6>
+								@endif
+								
+								
 								<span style="font-size: 0.8em; line-height: 0.5em;"> @if (strlen($data->nama) > 15) {{substr($data->nama, 0, 15)}}... @else {{$data->nama}} @endif</span>
 								<div class="btn btn-outline-danger" style="margin-top: 0.4em; display: flex; justify-content: center; flex-direction: row; border: 1px solid #dc3545;">
 									<div>

@@ -33,7 +33,6 @@
 			$('#jumlah_pesanan'+id).html(jumlah_pesanan);
 			$('#sub_total'+id).html(sub_total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
 			ubah_jumlah_ajax(id, jumlah_pesanan);
-			get_harga_total();
 		}
 		
 	}
@@ -45,7 +44,7 @@
 		$('#jumlah_pesanan'+id).html(jumlah_pesanan);
 		$('#sub_total'+id).html(sub_total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
 		ubah_jumlah_ajax(id, jumlah_pesanan, harga_diskon);
-		get_harga_total();
+		
 	}
 
 	function ubah_jumlah_ajax(id, jumlah, harga_diskon){
@@ -54,6 +53,7 @@
 			url: "<?=url('/')?>/keranjang/ubah_jumlah",
 			data:{"id": id, "jumlah":jumlah, "_token" : "{{ csrf_token() }}"},
 			success:function(data){
+				get_harga_total();
 				if(data.status == 'gagal'){
 					$('#jumlah_pesanan'+id).html(data.jumlah);
 					var sub_total = data.jumlah * harga_diskon;

@@ -11,6 +11,7 @@ use App\Models\pesanan;
 use App\Models\Produk;
 use App\Models\Diskon;
 use App\Models\Keranjang;
+use App\Models\Nota_expired;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use SimpleSoftwareIO\QrCode\Generator;
 
@@ -65,6 +66,9 @@ class AdminPesananController extends Controller
 
     public function detail_pesanan($id){
         $nota = Nota::where('id', $id)->first();
+        if(empty($nota)){
+            return back()->with('error', 'Pesanan Expired');
+        }
         $qrcode = new Generator;
         // dd($nota);
         return view('admin.detail_pesanan', compact('nota', 'qrcode'));
@@ -128,6 +132,9 @@ class AdminPesananController extends Controller
 
     public function ubah_status_pesanan($id, $status){
         $nota = Nota::find($id);
+        if(empty($nota)){
+            return redirect('/daftar-pesanan')->with('error', 'Pesanan Expired');
+        }
         $nota->status = $status;
         $nota->save();
         if($status == "packaging"){
@@ -278,5 +285,30 @@ class AdminPesananController extends Controller
 
         Pesanan::where('nota_id', $nota->id)->delete();
         $nota->delete();
+    }
+
+    public function cek_pesanan_expired(){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
+        $time = date("H:i:s");
+        $nota = Nota::where('time_expired', '<', $time)->get();
+        $list_id_pesanan_expired = array();
+        foreach($nota as $data){
+            array_push($list_id_pesanan_expired, $data->id);
+            $nota_expired = new Nota_expired;
+            $nota_expired->user_id = $data->user_id;
+            $nota_expired->alamat = $data->alamat;
+            $nota_expired->kota = $data->kota;
+            $nota_expired->kecamatan = $data->kecamatan;
+            $nota_expired->kelurahan = $data->kelurahan;
+            $nota_expired->pembayaran = $data->pembayaran;
+            $nota_expired->pengantaran = $data->pengantaran;
+            $nota_expired->catatan = $data->catatan;
+            $nota_expired->time_expired = $data->time_expired;
+            $nota_expired->save();
+        }
+        Nota::where('time_expired', '<', $time)->delete();
+
+        return response()->json(['list_id_pesanan_expired'=>$list_id_pesanan_expired]);
     }
 }
