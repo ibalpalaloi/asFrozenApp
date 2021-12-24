@@ -210,6 +210,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="<?=url('/')?>/admin-daftar-produk-kosong" class="nav-link @if($menu_ == 'daftar produk kosong') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Produk Kosong</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?=url('/')?>/admin-tambah-produk" class="nav-link @if($menu_ == 'tambah produk') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Produk</p>

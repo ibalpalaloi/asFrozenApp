@@ -53,22 +53,7 @@ function tgl_indo($tanggal){
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" style="width: 400px" id="cari_produk" onchange="cari_produk()" placeholder="Cari Produk">
-
-            </div>
-            <div class="col">
-              <select name="" class="form-control" id="select_kategori" onchange="produk_perkategori()">
-                <option disabled selected value="">Pilih Kategori</option>
-                @foreach ($kategori as $data)
-                    <option value="{{$data->id}}">{{$data->kategori}}</option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-          <br>
-
+          
           <br>
           <table id="example1" class="table table-bordered table-striped">
             <thead>
@@ -118,9 +103,10 @@ function tgl_indo($tanggal){
     format: 'L',
     format: 'YYYY-MM-DD'
   });
+
   var kategori;
-  
-    $('#post-update-produk').submit(function(e){
+
+  $('#post-update-produk').submit(function(e){
     e.preventDefault();
     let formData = new FormData(this);
     console.log(formData);
@@ -167,11 +153,6 @@ function tgl_indo($tanggal){
       }
     })
   })
-
-  function produk_perkategori(){
-    var kategori_ = $('#select_kategori').val();
-    window.location.href = "<?=url('/')?>/admin-daftar-produk-perkategori/"+kategori_;
-  }
 
   function change_sub_kategori(){
     var id_kategori = $('#detail_produk_kategori').val();
@@ -315,11 +296,10 @@ function tgl_indo($tanggal){
     var scrollHeight = $(document).height();
     var scrollPosition = $(window).height() + $(window).scrollTop();
     if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
-      if($('#cari_produk').val() == ""){
+        console.log('dddd');
         var view = get_data_produk();
-
+        
         $('#tbody_daftar_produk').append(view);
-      }
 
     }
   });
@@ -332,7 +312,7 @@ function tgl_indo($tanggal){
       var table = $.ajax({
         async: false,
         type: "get",
-        url: "<?=url('/')?>/admin-daftar-produk?page="+page,
+        url: "<?=url('/')?>/admin-daftar-produk-kosong?page="+page,
         success:function(data){
           page = data.page;
           status_scroll = data.status_scroll;
