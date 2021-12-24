@@ -38,6 +38,9 @@ class UserPesananController extends Controller
 
     public function batalkan_pesanan($id){
         $nota = Nota::find($id);
+        if(empty($nota)){
+            return redirect('/keranjang');
+        }
         if($nota->status == "menunggu konfirmasi"){
             $pesanan = Pesanan::where('nota_id', $id)->get();
             $id_user = Auth()->user()->id;

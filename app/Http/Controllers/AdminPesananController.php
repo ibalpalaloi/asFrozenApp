@@ -12,6 +12,7 @@ use App\Models\Produk;
 use App\Models\Diskon;
 use App\Models\Keranjang;
 use App\Models\Nota_expired;
+use App\Models\Stok_produk;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use SimpleSoftwareIO\QrCode\Generator;
 
@@ -306,9 +307,51 @@ class AdminPesananController extends Controller
             $nota_expired->catatan = $data->catatan;
             $nota_expired->time_expired = $data->time_expired;
             $nota_expired->save();
+
+            $pesanan = Pesanan::where('nota_id', $data->id)->get();
+            $id_user = $data->user_id;
+            foreach($pesanan as $row){
+                $keranjang = new Keranjang;
+                $keranjang->user_id = $id_user;
+                $keranjang->produk_id = $row->produk_id;
+                $keranjang->jumlah = $row->jumlah;
+                $keranjang->checked = "true";
+                $keranjang->save();
+
+                $this->ubah_stok($row->produk_id, $row->jumlah);
+            }
         }
         Nota::where('time_expired', '<', $time)->delete();
 
         return response()->json(['list_id_pesanan_expired'=>$list_id_pesanan_expired]);
+    }
+
+    public function ubah_stok($produk_id, $jumlah){
+        $stok = Stok_produk::where('produk_id', $produk_id)->first();
+        if(!empty($stok)){
+            $stok->stok = $stok->stok + $jumlah;
+            $stok->save();
+        }
+    }
+
+    public function daftar_pesanan_expired(Request $request){
+        $nota = Nota_expired::orderBy('created_at', 'desc')->paginate(30);
+        $data_nota = array();
+        $i = 0;
+        foreach($nota as $data){
+            $data_nota[$i]['nama_pemesan'] = $data->user->biodata->nama;
+            $data_nota[$i]['alamat'] = $data->alamat;
+            $data_nota[$i]['pembayaran'] = $data->pembayaran;
+            $data_nota[$i]['pengantaran'] = $data->pengantaran;
+            $data_nota[$i]['time_expired'] = $data->time_expired;
+            $newtime = strtotime($data->created_at);
+            $data_nota[$i]['date_expired'] = date('d, M, Y', $newtime);
+            $i++;
+        }
+        if(count($request->all()) > 0){
+            $view = view('admin.data_pesanan_expired', compact('data_nota'))->render();
+            return response()->json(['view'=>$view]);
+        }
+        return view('admin.daftar_pesanan_expired', compact('data_nota'));
     }
 }

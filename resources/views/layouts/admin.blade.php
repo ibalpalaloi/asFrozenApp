@@ -279,6 +279,13 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="<?=url('/')?>/admin/daftar-pesanan-expired" class="nav-link @if($menu_ == 'pesanan expired') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pesanan Expired</p>
+                  <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?=url('/')?>/admin/riwayat-pesanan" class="nav-link @if($menu_ == 'daftar pesanan') riwayat @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Riwayat</p>

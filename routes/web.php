@@ -153,7 +153,8 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::post('/admin/input_pesanan_baru', [AdminPesananController::class, 'input_pesanan_baru']);
     Route::get('/admin/get_total_pesanan/{id_nota}', [AdminPesananController::class, 'get_total_pesanan']);
     Route::get('/admin/get_harga_produk/{id_produk}', [AdminPesananController::class, 'get_harga']);
-    Route::get('//admin/batalkan_pesanan/{id}', [AdminPesananController::class, 'batalkan_pesanan']);
+    Route::get('/admin/batalkan_pesanan/{id}', [AdminPesananController::class, 'batalkan_pesanan']);
+    Route::get('/admin/daftar-pesanan-expired', [AdminPesananController::class, 'daftar_pesanan_expired']);
 
 
     // admin riwayat
