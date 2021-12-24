@@ -81,6 +81,7 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
 
 
 
+    Route::post('/keranjang/delete', [UserKeranjangController::class, 'keranjang_delete']);
     Route::get('/keranjang', [UserKeranjangController::class, 'keranjang']);
     Route::get('/tambah_keranjang/{id}', [UserKeranjangController::class, 'tambah_keranjang']);
     Route::get('/keranjang/checkout', [UserKeranjangController::class, 'checkout']);

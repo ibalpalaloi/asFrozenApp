@@ -5,6 +5,27 @@ Keranjang
 @endsection
 
 @section('body')
+<div class="modal fade" id="modal_hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form action="{{url()->current()}}/delete" method="post">
+        <div class="modal-body">
+          {{ csrf_field() }}
+          <div style="text-align: center;">
+            <input type="text" name="id" id="hapus_id" hidden>
+            <i class="fa fa-trash" style="font-size: 5em; color: #dc3545;"></i>
+            <h4 style="margin-top: 0.5em;">Apakah anda yakin ingin menghapus produk dari keranjang ?</h4>
+            <div style="margin-top: 0.5em;"></div>
+          </div>  
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-secondary">Hapus</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" style=" background: #dc3545; border: 1px solid #dc3545;">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center" style="background: none; ">
 	<div class="container" style="padding-top: 1em;">
@@ -33,9 +54,9 @@ Keranjang
 								<div class="col-md-1" style="display: flex;justify-content: center; align-items: center; margin-bottom: 1em;">
 									<div class="icheck-danger d-inline">
 										<input type="checkbox" id="checkboxPrimary{{$data['id']}}" onchange="checkbox_cek('{{$data['id']}}')" @if ($data['stok'] == 0)
-											disabled
+										disabled
 										@else
-											checked
+										checked
 										@endif >
 										<label for="checkboxPrimary{{$data['id']}}">
 										</label>
@@ -59,6 +80,7 @@ Keranjang
 										@else
 										Rp. {{number_format($data['harga'],0,'.','.')}}&nbsp;
 										@endif
+										<div><span class="iconify" data-icon="bi:trash-fill" style="color:#dc3545;" onclick="hapus_keranjang('{{$data['id']}}')"></span></div>
 									</div>
 								</div>
 								<div class="col-2" style="padding: 0px; display: flex; align-items: center; flex-direction: column;">
@@ -103,21 +125,21 @@ Keranjang
 							</div>
 							<div class="member-info" style="padding-top: 0.4em;">
 								@if ($data->diskon)
-									@php
-										$potongan_diskon = ($data->diskon->diskon/100) * $data->harga;
-										$harga_diskon = $data->harga - $potongan_diskon;
- 									@endphp
-									@if ($data->diskon->diskon > 0)
-										<small style="font-family: 'Segoe UI',Roboto; font-size: 0.7em;"><s>Rp. {{number_format($data->harga, 0, '.', '.')}}</s>
-											<badge class="badge badge-warning" style="font-size: 0.9em;">-{{$data->diskon->diskon}}%</badge> 
-										</small>
-										<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. {{number_format($harga_diskon, 0, '.', '.')}}</h6>
-									
-									@else
-										<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. {{number_format($harga_diskon, 0, '.', '.')}}</h6>
-									@endif
+								@php
+								$potongan_diskon = ($data->diskon->diskon/100) * $data->harga;
+								$harga_diskon = $data->harga - $potongan_diskon;
+								@endphp
+								@if ($data->diskon->diskon > 0)
+								<small style="font-family: 'Segoe UI',Roboto; font-size: 0.7em;"><s>Rp. {{number_format($data->harga, 0, '.', '.')}}</s>
+									<badge class="badge badge-warning" style="font-size: 0.9em;">-{{$data->diskon->diskon}}%</badge> 
+								</small>
+								<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. {{number_format($harga_diskon, 0, '.', '.')}}</h6>
+
 								@else
-									<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. {{number_format($data->harga, 0, '.', '.')}}</h6>
+								<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. {{number_format($harga_diskon, 0, '.', '.')}}</h6>
+								@endif
+								@else
+								<h6 style="font-family: 'Segoe UI',Roboto; line-height: 0.7em; font-size: 0.9em;">Rp. {{number_format($data->harga, 0, '.', '.')}}</h6>
 								@endif
 								
 								
@@ -142,6 +164,14 @@ Keranjang
 @endsection
 
 @section('footer')
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('user.payment.keranjang.keranjang_script')
+<script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@include('user.payment.keranjang.keranjang_script')
+<script type="text/javascript">
+	function hapus_keranjang(id){
+		$("#hapus_id").val(id);
+		// alert(id);
+		$("#modal_hapus").modal('show');
+	}
+</script>
 @endsection

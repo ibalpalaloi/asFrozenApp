@@ -47,6 +47,11 @@ class UserKeranjangController extends Controller
         return $diskon;
     }
 
+    public function keranjang_delete(Request $request){
+        Keranjang::where('id', $request->id)->delete();
+        return back()->with('success', 'Produk berhasil dihapus dari keranjang');
+    }
+
     public function get_harga_total_no_json(){
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $user_id = Auth()->user()->id;
