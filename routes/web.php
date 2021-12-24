@@ -172,6 +172,8 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::post('/post-update-produk', [AdminProdukController::class, 'post_update_produk']);
     Route::get('/admin/get-data-cari-produk', [AdminProdukController::class, 'get_data_cari_produk']);
     Route::get('/admin/hapus-produk/{id}', [AdminProdukController::class, 'hapus_produk']);
+    Route::get('/admin-daftar-produk-kosong', [AdminProdukController::class, 'daftar_produk_kosong']);
+    Route::get('/admin-daftar-produk-perkategori/{id_kategori}', [AdminProdukController::class, 'produk_perkategori']);
 
     // wilayah
     Route::get('/admin-kota', [WilayahController::class, 'kota']);

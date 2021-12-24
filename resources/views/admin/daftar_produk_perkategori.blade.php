@@ -53,22 +53,19 @@ function tgl_indo($tanggal){
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" style="width: 400px" id="cari_produk" onchange="cari_produk()" placeholder="Cari Produk">
-
+            <div class="row">
+                <div class="col">
+    
+                </div>
+                <div class="col">
+                  <select name="" class="form-control" id="select_kategori" onchange="produk_perkategori()">
+                    <option disabled selected value="">Pilih Kategori</option>
+                    @foreach ($kategori as $data)
+                        <option @if ($data->id == $id_kategori) selected @endif value="{{$data->id}}">{{$data->kategori}}</option>
+                    @endforeach
+                  </select>
+                </div>
             </div>
-            <div class="col">
-              <select name="" class="form-control" id="select_kategori" onchange="produk_perkategori()">
-                <option disabled selected value="">Pilih Kategori</option>
-                @foreach ($kategori as $data)
-                    <option value="{{$data->id}}">{{$data->kategori}}</option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-          <br>
-
           <br>
           <table id="example1" class="table table-bordered table-striped">
             <thead>
@@ -118,9 +115,10 @@ function tgl_indo($tanggal){
     format: 'L',
     format: 'YYYY-MM-DD'
   });
+
   var kategori;
-  
-    $('#post-update-produk').submit(function(e){
+
+  $('#post-update-produk').submit(function(e){
     e.preventDefault();
     let formData = new FormData(this);
     console.log(formData);
@@ -158,19 +156,9 @@ function tgl_indo($tanggal){
 
   })
 
-  $(function(){
-    $.ajax({
-      type: "GET",
-      url: "<?=url('/')?>/get-kategori",
-      success:function(data){
-        kategori = data.kategori;
-      }
-    })
-  })
-
   function produk_perkategori(){
-    var kategori_ = $('#select_kategori').val();
-    window.location.href = "<?=url('/')?>/admin-daftar-produk-perkategori/"+kategori_;
+    var kategori = $('#select_kategori').val();
+    window.location.href = "<?=url('/')?>/admin-daftar-produk-perkategori/"+kategori;
   }
 
   function change_sub_kategori(){
@@ -311,28 +299,36 @@ function tgl_indo($tanggal){
     
   }
 
+  $(function(){
+    $.ajax({
+      type: "GET",
+      url: "<?=url('/')?>/get-kategori",
+      success:function(data){
+        kategori = data.kategori;
+      }
+    })
+  })
+
   $(window).on("scroll", function() {
     var scrollHeight = $(document).height();
     var scrollPosition = $(window).height() + $(window).scrollTop();
     if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
-      if($('#cari_produk').val() == ""){
         var view = get_data_produk();
 
         $('#tbody_daftar_produk').append(view);
-      }
-
     }
   });
 
   var page = 2;
   var status_scroll = true;
+
   function get_data_produk(keyword){
     if(status_scroll){
       var view = null
       var table = $.ajax({
         async: false,
         type: "get",
-        url: "<?=url('/')?>/admin-daftar-produk?page="+page,
+        url: "?page="+page,
         success:function(data){
           page = data.page;
           status_scroll = data.status_scroll;

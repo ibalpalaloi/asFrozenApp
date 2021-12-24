@@ -92,6 +92,7 @@ class AdminProdukController extends Controller
     }  
 
     public function daftar_produk(Request $request){
+        $kategori = Kategori::all();
         $produk = Produk::paginate(30);
         // dd($produk);
         $list_produk = array();
@@ -142,7 +143,7 @@ class AdminProdukController extends Controller
             $view = view('admin.include.data_daftar_produk', compact('list_produk', 'menu', 'sub_menu'))->render();
             return response()->json(['view'=>$view, 'page'=>$page, 'status_scroll'=>$status_scroll]);
         }
-        return view('admin.daftar_produk', compact('list_produk', 'menu', 'sub_menu'));
+        return view('admin.daftar_produk', compact('list_produk', 'menu', 'sub_menu', 'kategori'));
     }
 
     public function post_ubah_stok(Request $request){
@@ -360,5 +361,108 @@ class AdminProdukController extends Controller
 
     public function hapus_produk($id){
         Produk::where('id', $id)->delete();
+    }
+
+    public function daftar_produk_kosong(Request $request){
+        $produk = Produk::whereDoesntHave('stok_produk')->orWhereHas('stok_produk', function($query){
+            $query->where('stok', 0);
+        })->paginate(50);
+        $list_produk = array();
+        $i=0;
+        foreach($produk as $data){
+            $list_produk[$i]['id'] = $data->id;
+            $list_produk[$i]['nama'] = $data->nama;
+            $list_produk[$i]['foto'] = $data->foto;
+            $list_produk[$i]['diskon_id'] = $data->diskon->id ?? 0;
+            $list_produk[$i]['diskon_mulai'] = $data->diskon->diskon_mulai ?? null;
+            $list_produk[$i]['diskon_akhir'] = $data->diskon->diskon_akhir ?? null;
+            $list_produk[$i]['harga'] = $data->harga;
+            $list_produk[$i]['satuan'] = $data->satuan;
+            $list_produk[$i]['kategori'] = $data->kategori->kategori;
+            $list_produk[$i]['sub_kategori'] = "-";
+            if($data->sub_kategori != null){
+                $list_produk[$i]['sub_kategori'] = $data->sub_kategori->sub_kategori;
+            }
+            
+            if($data->diskon != null){
+                $list_produk[$i]['diskon'] = $data->diskon->diskon;
+            }
+            else{
+                $list_produk[$i]['diskon'] = 0;
+            }
+
+            if($data->stok_produk != null){
+                $list_produk[$i]['stok'] = $data->stok_produk->stok;
+            }
+            else{
+                $list_produk[$i]['stok'] = 0;
+            }
+            $i++;
+        }
+        if(count($request->all()) != 0){
+            $keyword = $request->keyword;
+            $page = $request->page;
+            if(count($list_produk) == 50){
+                $page++;
+                $status_scroll = true;
+            }
+            else{
+                $status_scroll = false;
+            }
+            $view = view('admin.include.data_daftar_produk', compact('list_produk'))->render();
+            return response()->json(['view'=>$view, 'page'=>$page, 'status_scroll'=>$status_scroll]);
+        }
+        return view('admin.daftar_produk_kosong', compact('list_produk'));
+    }
+
+    public function produk_perkategori($id_kategori, Request $request){
+        $kategori = Kategori::all();
+        $produk = Produk::where('kategori_id', $id_kategori)->paginate(50);
+        $list_produk = array();
+        $i=0;
+        foreach($produk as $data){
+            $list_produk[$i]['id'] = $data->id;
+            $list_produk[$i]['nama'] = $data->nama;
+            $list_produk[$i]['foto'] = $data->foto;
+            $list_produk[$i]['diskon_id'] = $data->diskon->id ?? 0;
+            $list_produk[$i]['diskon_mulai'] = $data->diskon->diskon_mulai ?? null;
+            $list_produk[$i]['diskon_akhir'] = $data->diskon->diskon_akhir ?? null;
+            $list_produk[$i]['harga'] = $data->harga;
+            $list_produk[$i]['satuan'] = $data->satuan;
+            $list_produk[$i]['kategori'] = $data->kategori->kategori;
+            $list_produk[$i]['sub_kategori'] = "-";
+            if($data->sub_kategori != null){
+                $list_produk[$i]['sub_kategori'] = $data->sub_kategori->sub_kategori;
+            }
+            
+            if($data->diskon != null){
+                $list_produk[$i]['diskon'] = $data->diskon->diskon;
+            }
+            else{
+                $list_produk[$i]['diskon'] = 0;
+            }
+
+            if($data->stok_produk != null){
+                $list_produk[$i]['stok'] = $data->stok_produk->stok;
+            }
+            else{
+                $list_produk[$i]['stok'] = 0;
+            }
+            $i++;
+        }
+        if(count($request->all()) != 0){
+            $keyword = $request->keyword;
+            $page = $request->page;
+            if(count($list_produk) == 50){
+                $page++;
+                $status_scroll = true;
+            }
+            else{
+                $status_scroll = false;
+            }
+            $view = view('admin.include.data_daftar_produk', compact('list_produk'))->render();
+            return response()->json(['view'=>$view, 'page'=>$page, 'status_scroll'=>$status_scroll]);
+        }
+        return view('admin.daftar_produk_perkategori', compact('list_produk', 'kategori', 'id_kategori'));
     }
 }
