@@ -131,7 +131,7 @@ class UserKeranjangController extends Controller
             $i++;
         }
         $harga_total = $this->get_harga_total_no_json();
-        $rekomendasi_produk = Produk::take(4)->get();
+        $rekomendasi_produk = Produk::inRandomOrder()->take(4)->get();
         $agent = new Agent();
         if ($agent->isMobile()){
             return view('user.payment.keranjang.mobile', compact('keranjang', 'data_keranjang', 'rekomendasi_produk', 'harga_total'));
