@@ -51,9 +51,9 @@
     <button onclick="konfir_hapus_produk('{{$data['id']}}')" class="btn btn-danger">
         <ion-icon name="trash-outline"></ion-icon>
     </button>
-    <button class="btn btn-success">
+    {{-- <button class="btn btn-success">
         <ion-icon name="eye-outline"></ion-icon>
-    </button>
+    </button> --}}
     </td>
 </tr>
 
