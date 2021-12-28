@@ -83,7 +83,7 @@
                             <div>
                                 <span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
                             </div>
-                            <div>Beli</div>
+                            <div style="color: white">Beli</div>
                         </a>
                         @else
                         <a class="btn btn-secondary" style="display: flex; justify-content: center; flex-direction: row;">
