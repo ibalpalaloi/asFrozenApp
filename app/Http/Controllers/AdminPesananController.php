@@ -62,7 +62,9 @@ class AdminPesananController extends Controller
     public function packaging(){
         $nota = Nota::where('status', 'packaging')->get();
         $qrcode = new Generator;
-        return view('admin.pesanan_packaging', compact('nota', 'qrcode'));
+        $menu = "pesanan";
+        $sub_menu = "daftar pesanan";
+        return view('admin.pesanan_packaging', compact('nota', 'qrcode', 'menu', 'sub_menu'));
     }
 
     public function detail_pesanan($id){
@@ -78,7 +80,9 @@ class AdminPesananController extends Controller
     public function dalam_pengantaran(){
         $nota = Nota::where('status', 'dalam pengantaran')->get();
         $qrcode = new Generator;
-        return view('admin.pesanan_dalam_pengantaran', compact('nota', 'qrcode'));
+        $menu = "pesanan";
+        $sub_menu = "dalam pengantaran";
+        return view('admin.pesanan_dalam_pengantaran', compact('nota', 'qrcode', 'menu', 'sub_menu'));
     }
 
     public function pesanan_selesai($id){
@@ -292,7 +296,10 @@ class AdminPesananController extends Controller
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
         $time = date("H:i:s");
-        $nota = Nota::where('time_expired', '<', $time)->get();
+        $nota = Nota::where([
+            ['time_expired', '<', $time],
+            ['status', 'menunggu konfirmasi']
+        ])->get();
         $list_id_pesanan_expired = array();
         foreach($nota as $data){
             array_push($list_id_pesanan_expired, $data->id);
@@ -352,6 +359,8 @@ class AdminPesananController extends Controller
             $view = view('admin.data_pesanan_expired', compact('data_nota'))->render();
             return response()->json(['view'=>$view]);
         }
-        return view('admin.daftar_pesanan_expired', compact('data_nota'));
+        $menu = "pesanan";
+        $sub_menu = "pesanan expired";
+        return view('admin.daftar_pesanan_expired', compact('data_nota', 'menu', 'sub_menu'));
     }
 }

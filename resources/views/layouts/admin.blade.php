@@ -264,35 +264,35 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin/daftar-pesanan" class="nav-link @if($menu_ == 'daftar pesanan') active @endif">
+                <a href="<?=url('/')?>/admin/daftar-pesanan" class="nav-link @if($sub_menu_ == 'daftar pesanan') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Daftar Pesanan</p>
                   <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin/pesanan-packaging" class="nav-link @if($menu_ == 'packaging') active @endif">
+                <a href="<?=url('/')?>/admin/pesanan-packaging" class="nav-link @if($sub_menu_ == 'packaging') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Packing</p>
                   <span id="jumlah_packaging" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin/pesanan-dalam-pengantaran" class="nav-link @if($menu_ == 'dalam pengantaran') active @endif">
+                <a href="<?=url('/')?>/admin/pesanan-dalam-pengantaran" class="nav-link @if($sub_menu_ == 'dalam pengantaran') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dalam Pengantaran</p>
                   <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin/daftar-pesanan-expired" class="nav-link @if($menu_ == 'pesanan expired') active @endif">
+                <a href="<?=url('/')?>/admin/daftar-pesanan-expired" class="nav-link @if($sub_menu_ == 'pesanan expired') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pesanan Expired</p>
                   <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin/riwayat-pesanan" class="nav-link @if($menu_ == 'daftar pesanan') riwayat @endif">
+                <a href="<?=url('/')?>/admin/riwayat-pesanan" class="nav-link @if($sub_menu_ == 'riwayat pesanan') riwayat @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Riwayat</p>
                 </a>

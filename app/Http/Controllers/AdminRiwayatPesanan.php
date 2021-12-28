@@ -15,7 +15,7 @@ class AdminRiwayatPesanan extends Controller
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
         $data_nota = array();
-        $nota = Riwayat_nota_pesanan::get();
+        $nota = Riwayat_nota_pesanan::orderBy('created_at', 'desc')->get();
         $i = 0;
         foreach($nota as $data){
             $data_nota[$i]['id'] = $data->id;
