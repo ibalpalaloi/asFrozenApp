@@ -136,7 +136,7 @@
                                     <hr>
                                 </div>
                                 <div class="col-4">
-                                    <p style="font-weight: 700; margin-left: 10px; color: red">Waktu Konfirmasi : 13.00 Wita</p>
+                                    <p style="font-weight: 700; margin-left: 10px; color: red">Waktu Konfirmasi : {{date('H:i', strtotime($data->updated_at))}} Wita</p>
 
                                 </div>
                                 <hr>

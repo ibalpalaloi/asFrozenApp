@@ -165,7 +165,12 @@ class AdminPesananController extends Controller
         foreach($produk as $data){
             $list_produk[$i]['id'] = $data->id;
             $list_produk[$i]['nama'] = $data->nama;
-            $list_produk[$i]['stok'] = $data->stok_produk->stok;
+            if($data->stok_produk){
+                $list_produk[$i]['stok'] = $data->stok_produk->stok;
+            }else{
+                $list_produk[$i]['stok'] = 0;
+            }
+            
             $list_produk[$i]['harga'] = $this->get_harga($data->id);
             $list_produk[$i]['diskon'] = $this->get_diskon_produk($data->id);
             $i++;
