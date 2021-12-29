@@ -62,6 +62,8 @@ Route::post('/auth/post_registrasi', [AuthController::class, 'post_registrasi'])
  Route::get('/get_jumlah_keranjang', [GetController::class, 'get_jumlah_keranjang']);
  Route::get('/get-data-diskon/{id}', [GetController::class, 'get_data_diskon']);
  Route::get('/get-total-harga-pesanan/{id}', [GetController::class, 'get_total_pesanan']);
+ 
+
 
  // katalog
     
@@ -181,6 +183,12 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::post('/admin-post-kota', [WilayahController::class, 'post_kota']);
     Route::get('/admin-kecamatan/{id}', [WilayahController::class, 'list_kecamatan']);
     Route::post('/admin-post-kecamatan', [WilayahController::class, 'post_kecamatan']);
+    Route::get('/admin-kelurahan', [WilayahController::class, 'kelurahan']);
+    Route::post('/admin-post-kelurahan', [WilayahController::class, 'post_kelurahan']);
+
+    //  ongkos kirim
+    Route::get('/admin/ongkos-kirim', [WilayahController::class, 'ongkos_kirim']);
+    Route::post('/admin-post-ubah-ongkir', [WilayahController::class, 'post_ubah_ongkir']);
 
     // diskon
     Route::get('/admin/get/sub-kategori/{id}', [AdminGetController::class, 'get_sub_kategori']);
