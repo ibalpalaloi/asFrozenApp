@@ -7,7 +7,7 @@ use App\Models\Nota;
 use App\Models\Riwayat_nota_pesanan;
 use App\Models\Riwayat_pesanan;
 use App\Models\User;
-use App\Models\pesanan;
+use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\Diskon;
 use App\Models\Keranjang;
