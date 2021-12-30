@@ -304,7 +304,7 @@ class AdminPesananController extends Controller
         $nota = Nota::where([
             ['time_expired', '<', $time],
             ['status', 'menunggu konfirmasi']
-        ])->get();
+        ])->orWhere('time_date', '<', $date_today)->get();
         $list_id_pesanan_expired = array();
         foreach($nota as $data){
             array_push($list_id_pesanan_expired, $data->id);
