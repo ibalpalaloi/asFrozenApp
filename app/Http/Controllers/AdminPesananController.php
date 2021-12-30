@@ -317,6 +317,7 @@ class AdminPesananController extends Controller
             $nota_expired->pembayaran = $data->pembayaran;
             $nota_expired->pengantaran = $data->pengantaran;
             $nota_expired->catatan = $data->catatan;
+            $nota_expired->notif = "true";
             $nota_expired->time_expired = $data->time_expired;
             $nota_expired->save();
 
@@ -356,10 +357,12 @@ class AdminPesananController extends Controller
             $data_nota[$i]['pembayaran'] = $data->pembayaran;
             $data_nota[$i]['pengantaran'] = $data->pengantaran;
             $data_nota[$i]['time_expired'] = $data->time_expired;
+            $data_nota[$i]['notif'] = $data->notif;
             $newtime = strtotime($data->created_at);
             $data_nota[$i]['date_expired'] = date('d, M, Y', $newtime);
             $i++;
         }
+        Nota_expired::where('notif', 'true')->update(['notif' => "false"]);
         if(count($request->all()) > 0){
             $view = view('admin.data_pesanan_expired', compact('data_nota'))->render();
             return response()->json(['view'=>$view]);

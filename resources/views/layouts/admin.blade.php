@@ -294,7 +294,7 @@
                 <a href="<?=url('/')?>/admin/daftar-pesanan-expired" class="nav-link @if($sub_menu_ == 'pesanan expired') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pesanan Expired</p>
-                  <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
+                  <span id="jumlah_pesanan_expired" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
@@ -439,7 +439,8 @@
         
         $('#jumlah_menunggu_konfirmasi').html(jumlah['menunggu_konfirmasi']);
         $('#jumlah_packaging').html(jumlah['packaging']);
-        $('#jumlah_pengantaran').html(jumlah['dalam_pengantaran'])
+        $('#jumlah_pengantaran').html(jumlah['dalam_pengantaran']);
+        $('#jumlah_pesanan_expired').html(jumlah['pesanan_expired']);
       }
     })
   }
