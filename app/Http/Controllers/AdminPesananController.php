@@ -334,7 +334,10 @@ class AdminPesananController extends Controller
                 $this->ubah_stok($row->produk_id, $row->jumlah);
             }
         }
-        Nota::where('time_expired', '<', $time)->delete();
+        Nota::where([
+            ['time_expired', '<', $time],
+            ['status', 'menunggu konfirmasi']
+        ])->orWhere('time_date', '<', $date_today)->delete();
 
         return response()->json(['list_id_pesanan_expired'=>$list_id_pesanan_expired]);
     }

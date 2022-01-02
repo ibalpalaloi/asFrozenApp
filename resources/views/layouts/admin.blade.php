@@ -177,7 +177,7 @@
           </li>
 
           <li class="nav-item has-treeview">
-            <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link">
+            <a href="##" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
                 User
@@ -186,9 +186,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin-daftar-pengguan" class="nav-link">
+                <a href="<?=url('/')?>/admin-daftar-pengguna" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pengguna</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?=url('/')?>/admin-daftar-pengguna-banned" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pengguna Banned</p>
                 </a>
               </li>
               <li class="nav-item">

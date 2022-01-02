@@ -11,11 +11,11 @@ use SimpleSoftwareIO\QrCode\Generator;
 class AdminRiwayatPesanan extends Controller
 {
     //
-    public function daftar_riwayat(){
-        date_default_timezone_set( 'Asia/Singapore' ) ;
+    public function daftar_riwayat(Request $request){
+        date_default_timezone_set( 'Asia/Singapore' );
         $date_today = date("Y-m-d");
         $data_nota = array();
-        $nota = Riwayat_nota_pesanan::orderBy('created_at', 'desc')->get();
+        $nota = Riwayat_nota_pesanan::orderBy('created_at', 'desc')->paginate(50);
         $i = 0;
         foreach($nota as $data){
             $data_nota[$i]['id'] = $data->id;
@@ -27,6 +27,10 @@ class AdminRiwayatPesanan extends Controller
             $data_nota[$i]['pembayaran'] = $data->pembayaran;
             $data_nota[$i]['pengantaran'] = $data->pengantaran;
             $i++;
+        }
+        if(count($request->all()) > 0){
+            $html = view('admin.include.data_riwayat_pesanan', compact('data_nota'))->render();
+            return response()->json(['html'=>$html]);
         }
         return view('admin.riwayat_pesanan', compact('data_nota')); 
     }
