@@ -14,6 +14,7 @@ use App\Models\Produk;
 use App\Models\Kategori;
 use App\Models\Nota;
 use App\Models\Keranjang;
+use App\Models\Nota_expired;
 
 class GetController extends Controller
 {
@@ -86,6 +87,7 @@ class GetController extends Controller
         $jumlah['menunggu_konfirmasi'] = Nota::where('status', 'menunggu konfirmasi')->count();
         $jumlah['packaging'] = Nota::where('status', 'packaging')->count();
         $jumlah['dalam_pengantaran'] = Nota::where('status', 'dalam pengantaran')->count();
+        $jumlah['pesanan_expired'] = Nota_expired::where('notif', 'true')->count();
 
         return response()->json(['jumlah'=>$jumlah]);
     }

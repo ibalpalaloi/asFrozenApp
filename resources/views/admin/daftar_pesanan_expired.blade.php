@@ -38,7 +38,7 @@
             </thead>
             <tbody id="tbody_daftar_pesanan_expired">
                 @foreach ($data_nota as $data)
-                    <tr>
+                    <tr @if ($data['notif'] == 'true') style="background-color: #EB9292" @endif >
                         <td>{{$data['nama_pemesan']}}</td>
                         <td>{{$data['alamat']}}</td>
                         <td>{{$data['pembayaran']}}</td>

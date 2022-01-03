@@ -3,6 +3,19 @@
 @section('header')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+<style>
+    .btn-default {
+        font-family: Raleway-SemiBold;
+        font-size: 13px;
+        color: rgba(108, 88, 179, 0.75);
+        letter-spacing: 1px;
+        line-height: 15px;
+        border: 2px solid rgba(108, 89, 179, 0.75);
+        border-radius: 40px;
+        background: transparent;
+        transition: all 0.3s ease 0s;
+        }
+</style>
 @endsection
 
 @section('body')
@@ -40,17 +53,15 @@ function tgl_indo($tanggal){
                 <table id="example1" class="table table-bordered" >
                     <thead>
                         <tr>
-                            <th scope="col">No</th>
                             <th scope="col">ID Pesanan</th>
                             <th scope="col">Tanggal Pesanan</th>
                             <th scope="col">Total Pesanan</th>
                             <th scope="col">Transaksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody_riwayat_pesanan">
                         @foreach ($data_nota as $data)
                         <tr>
-                            <td>{{$loop->iteration}}</td>
                             <td scope="row">
                                 <a href="{{url()->current()}}/{{$data['id_pesanan']}}" style="color: black;">
                                     {{$data['id_pesanan']}}
@@ -76,6 +87,11 @@ function tgl_indo($tanggal){
 
                     </tbody>
                 </table>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <button onclick="load_more()" type="button" class="btn btn-default">Load More</button>
+                </div>
+                
             </div>
 
         </div>
@@ -96,19 +112,30 @@ function tgl_indo($tanggal){
       "autoWidth": false,
   });
 });
+    var page =2;
 
+    function detail_pesanan(id_pesanan){
+        alert(id_pesanan);
+        $.ajax({
+            type: "get",
+            url: "<?=url('/')?>/admin/get_riwayat_pesanan/"+id_pesanan,
+            success:function(data){
+                console.log(data);
+                $("#content_modal_detail").html(data.html);
+                $('#modal_detail_pesanan').modal('show');
+            }
+        })
+    }
 
-  function detail_pesanan(id_pesanan){
-    alert(id_pesanan);
-    $.ajax({
-        type: "get",
-        url: "<?=url('/')?>/admin/get_riwayat_pesanan/"+id_pesanan,
-        success:function(data){
-            console.log(data);
-            $("#content_modal_detail").html(data.html);
-            $('#modal_detail_pesanan').modal('show');
-        }
-    })
-}
+    function load_more(){
+        $.ajax({
+            type: "GET",
+            url: "?page="+page,
+            success:function(data){
+                $('#tbody_riwayat_pesanan').append(data.html);
+                page++;
+            }
+        })
+    }
 </script>
 @endsection

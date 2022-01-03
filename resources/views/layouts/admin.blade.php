@@ -131,37 +131,43 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin-kategori" class="nav-link @if($sub_menu_ == 'banner') kategori @endif">
+                <a href="<?=url('/')?>/admin-kategori" class="nav-link @if($sub_menu_ == 'kategori') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kategori</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin-kota" class="nav-link @if($sub_menu_ == 'banner') kota @endif">
+                <a href="<?=url('/')?>/admin-kota" class="nav-link @if($sub_menu_ == 'kota') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kota</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin-kecamatan" class="nav-link @if($sub_menu_ == 'banner') kecamatan @endif">
+                <a href="<?=url('/')?>/admin-kecamatan" class="nav-link @if($sub_menu_ == 'kecamatan') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kecamatan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin-kelurahan" class="nav-link @if($sub_menu_ == 'banner') kelurahan @endif">
+                <a href="<?=url('/')?>/admin-kelurahan" class="nav-link @if($sub_menu_ == 'kelurahan') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kelurahan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin-jadwal-buka" class="nav-link @if($sub_menu_ == 'jadwal_buka') jadwal_buka @endif">
+                <a href="<?=url('/')?>/admin/ongkos-kirim" class="nav-link @if($sub_menu_ == 'ongkos kirim') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ongkos Kirim</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?=url('/')?>/admin-jadwal-buka" class="nav-link @if($sub_menu_ == 'jadwal_buka') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jadwal Buka</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin-jadwal-tutup" class="nav-link @if($sub_menu_ == 'jadwal_tutup') jadwal_tutup @endif">
+                <a href="<?=url('/')?>/admin-jadwal-tutup" class="nav-link @if($sub_menu_ == 'jadwal_tutup') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jadwal Tutup</p>
                 </a>
@@ -171,7 +177,7 @@
           </li>
 
           <li class="nav-item has-treeview">
-            <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link">
+            <a href="##" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
                 User
@@ -180,9 +186,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin-daftar-pengguan" class="nav-link">
+                <a href="<?=url('/')?>/admin-daftar-pengguna" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pengguna</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?=url('/')?>/admin-daftar-pengguna-banned" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pengguna Banned</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -288,7 +300,7 @@
                 <a href="<?=url('/')?>/admin/daftar-pesanan-expired" class="nav-link @if($sub_menu_ == 'pesanan expired') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pesanan Expired</p>
-                  <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
+                  <span id="jumlah_pesanan_expired" class="right badge badge-danger"></span>
                 </a>
               </li>
               <li class="nav-item">
@@ -433,7 +445,8 @@
         
         $('#jumlah_menunggu_konfirmasi').html(jumlah['menunggu_konfirmasi']);
         $('#jumlah_packaging').html(jumlah['packaging']);
-        $('#jumlah_pengantaran').html(jumlah['dalam_pengantaran'])
+        $('#jumlah_pengantaran').html(jumlah['dalam_pengantaran']);
+        $('#jumlah_pesanan_expired').html(jumlah['pesanan_expired']);
       }
     })
   }

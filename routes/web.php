@@ -24,6 +24,7 @@ use App\Http\Controllers\AdminGetController;
 use App\Http\Controllers\AdminDiskonController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\ManajemenPengguanController;
+use App\Http\Controllers\AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,8 @@ Route::post('/auth/post_registrasi', [AuthController::class, 'post_registrasi'])
  Route::get('/get_jumlah_keranjang', [GetController::class, 'get_jumlah_keranjang']);
  Route::get('/get-data-diskon/{id}', [GetController::class, 'get_data_diskon']);
  Route::get('/get-total-harga-pesanan/{id}', [GetController::class, 'get_total_pesanan']);
+ 
+
 
  // katalog
     
@@ -181,6 +184,12 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::post('/admin-post-kota', [WilayahController::class, 'post_kota']);
     Route::get('/admin-kecamatan/{id}', [WilayahController::class, 'list_kecamatan']);
     Route::post('/admin-post-kecamatan', [WilayahController::class, 'post_kecamatan']);
+    Route::get('/admin-kelurahan', [WilayahController::class, 'kelurahan']);
+    Route::post('/admin-post-kelurahan', [WilayahController::class, 'post_kelurahan']);
+
+    //  ongkos kirim
+    Route::get('/admin/ongkos-kirim', [WilayahController::class, 'ongkos_kirim']);
+    Route::post('/admin-post-ubah-ongkir', [WilayahController::class, 'post_ubah_ongkir']);
 
     // diskon
     Route::get('/admin/get/sub-kategori/{id}', [AdminGetController::class, 'get_sub_kategori']);
@@ -196,8 +205,6 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/get-produk/{id}', [AdminGetController::class, 'get_produk']);
 
 
-    
-
     // jadwal
     Route::get('/admin-jadwal-buka', [JadwalController::class, 'jadwal_buka']);
     Route::get('/admin-jadwal-tutup', [JadwalController::class, 'jadwal_tutup']);
@@ -212,6 +219,14 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/admin-get-data-admin/{id}', [ManajemenPengguanController::class, 'get_data_admin']);
     Route::post('/post-ubah-admin', [ManajemenPengguanController::class, 'post_ubah_admin']);
     Route::get('/admin-hapus-admin/{id}', [ManajemenPengguanController::class, 'hapus_admin']);
+
+    // user
+    Route::get('/admin-daftar-pengguna', [AdminUserController::class, 'daftar_pengguna']);
+    Route::get('/admin-daftar-pengguna/get-data-pengguna/{id}', [AdminUserController::class, 'get_data_pengguna']);
+    Route::post('/admin-daftar-pengguna/post-ubah-pengguna', [AdminUserController::class, 'post_ubah_pengguna']);
+    Route::get('/admin-daftar-pengguna/banned/{id}', [AdminUserController::class, 'banned_pengguna']);
+    Route::get('/admin-daftar-pengguna/hapus/{id}', [AdminUserController::class, 'hapus_pengguna']);
+    Route::get('/admin-daftar-pengguna-banned', [AdminUserController::class, 'daftar_pengguna_banned']);
 });
 
 

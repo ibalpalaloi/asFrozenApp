@@ -7,7 +7,7 @@ use App\Models\Nota;
 use App\Models\Riwayat_nota_pesanan;
 use App\Models\Riwayat_pesanan;
 use App\Models\User;
-use App\Models\pesanan;
+use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\Diskon;
 use App\Models\Keranjang;
@@ -304,7 +304,7 @@ class AdminPesananController extends Controller
         $nota = Nota::where([
             ['time_expired', '<', $time],
             ['status', 'menunggu konfirmasi']
-        ])->get();
+        ])->orWhere('time_date', '<', $date_today)->get();
         $list_id_pesanan_expired = array();
         foreach($nota as $data){
             array_push($list_id_pesanan_expired, $data->id);
@@ -317,6 +317,7 @@ class AdminPesananController extends Controller
             $nota_expired->pembayaran = $data->pembayaran;
             $nota_expired->pengantaran = $data->pengantaran;
             $nota_expired->catatan = $data->catatan;
+            $nota_expired->notif = "true";
             $nota_expired->time_expired = $data->time_expired;
             $nota_expired->save();
 
@@ -333,7 +334,10 @@ class AdminPesananController extends Controller
                 $this->ubah_stok($row->produk_id, $row->jumlah);
             }
         }
-        Nota::where('time_expired', '<', $time)->delete();
+        Nota::where([
+            ['time_expired', '<', $time],
+            ['status', 'menunggu konfirmasi']
+        ])->orWhere('time_date', '<', $date_today)->delete();
 
         return response()->json(['list_id_pesanan_expired'=>$list_id_pesanan_expired]);
     }
@@ -356,10 +360,12 @@ class AdminPesananController extends Controller
             $data_nota[$i]['pembayaran'] = $data->pembayaran;
             $data_nota[$i]['pengantaran'] = $data->pengantaran;
             $data_nota[$i]['time_expired'] = $data->time_expired;
+            $data_nota[$i]['notif'] = $data->notif;
             $newtime = strtotime($data->created_at);
             $data_nota[$i]['date_expired'] = date('d, M, Y', $newtime);
             $i++;
         }
+        Nota_expired::where('notif', 'true')->update(['notif' => "false"]);
         if(count($request->all()) > 0){
             $view = view('admin.data_pesanan_expired', compact('data_nota'))->render();
             return response()->json(['view'=>$view]);
