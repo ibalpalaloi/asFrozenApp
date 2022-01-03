@@ -417,7 +417,7 @@ Keranjang Belanja
 
 	</div>
 	<!-- ======= Testimonials Section ======= -->
-	<section id="testimonials" class="testimonials">
+	<section id="testimonials" class="testimonials section-bg">
 		<div class="container" data-aos="fade-up">
 
 			<div class="section-title">
@@ -443,24 +443,6 @@ Keranjang Belanja
 
 		</div>
 	</section><!-- End Testimonials Section -->
-	<section id="clients" class="clients section-bg">
-		<div class="container">
-
-			<div class="row">
-				<div class="list_brand" style="width: 100%;">
-					@php
-					$brand = array('client-6.png', 'client-1.png', 'client-2.png', 'client-3.png', 'client-4.png', 'client-5.png', 'client-7.png')
-					@endphp
-					@for ($i = 0; $i < count($brand); $i++)
-					<div data-aos="zoom-in" style="width: 18%;">
-						<img src="<?=url('/')?>/public/katalog_assets/assets/img/brand/{{$brand[$i]}}" class="img-fluid" alt="" style='width: 100%; filter: none;'>
-					</div>
-					@endfor
-				</div>
-			</div>
-
-		</div>
-	</section><!-- End Clients Section -->
 	@endsection
 
 	@section('footer')

@@ -383,7 +383,7 @@
         text: ''
       },
       xAxis: {
-        categories: {!! json_encode($total['nama_pelanggan']) !!},
+        categories: {!! json_encode($total_diagram['nama_pelanggan']) !!},
         title: {
           text: null
         }
@@ -427,7 +427,7 @@
       series: [{
         name: 'Produk',
         colorByPoint: true,
-        data: {!! json_encode($total['transaksi']) !!}
+        data: {!! json_encode($total_diagram['transaksi']) !!}
       }]
     });
 
