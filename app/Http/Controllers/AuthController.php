@@ -61,6 +61,10 @@ class AuthController extends Controller
         $password = $request->password;
 
         if(Auth::attempt(['no_telp' => $no_telp, 'password'=>$password])){
+            
+            if(Auth()->user()->blokir == "true"){
+                return redirect('/user_login');
+            }
             return redirect('/');
         }
         return back();
