@@ -290,7 +290,7 @@ function hari_indo($hari){
 									@php 
 									$harga_diskon = $harga;
 									@endphp
-									<span>{{number_format($harga,0,'.','.')}}&nbsp;</span>
+									<span>Rp. {{number_format($harga,0,'.','.')}}&nbsp;</span>
 									@endif
 								</div>
 								<div style="padding: 0px; display: flex; align-items: center;">
@@ -299,14 +299,15 @@ function hari_indo($hari){
 										<div style="width: 50%; border-radius: 0px; display: flex; align-items: center; justify-content: center; border:1px solid #dfdfdf; height: 1.5em;" class="btn" id="jumlah_pesanan{{$index}}">{{$data->jumlah}}</div>
 										<div onclick="tambah_pesanan('{{$index}}', '{{$harga_diskon}}')" class="btn btn-danger" style="color: black; color: white; height: 1.5em; width: 25%; border-radius: 0px; display: flex; align-items: center; justify-content: center;"> + </div>
 									</div>
+									<div style="margin-left: 0.5em; padding-top: 0.3em;">Stok : 0</div>
 								</div>
-								<div style="display: flex; align-items: center; justify-content: flex-start; padding-right: 0px; margin-top: 0.7em;">
+								<div style="display: flex; align-items: center; justify-content: flex-start; padding-right: 0px; margin-top: 0.5em;">
 									@php
 									$jumlah = $data->jumlah;
 									$jumlah_harga = round($jumlah * $harga_diskon,0);
 									$total_harga += $jumlah_harga;
 									@endphp	
-									<span >Rp.</span> <span id="sub_total{{$index}}">{{number_format($jumlah_harga, 0, '.', '.')}}</span>
+									<span >Rp.&nbsp;</span> <span id="sub_total{{$index}}">{{number_format($jumlah_harga, 0, '.', '.')}}</span>
 								</div>
 
 							</div>
@@ -379,6 +380,8 @@ function hari_indo($hari){
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script src="<?=url('/')?>/public/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@include('user.payment.keranjang.keranjang_script')
 <script type="text/javascript">
 	<?php  $date_tomorrow = date("m/d/Y", strtotime("+1 day", strtotime(date("Y-m-d")))); ?>
 	var end = new Date("{{$date_tomorrow}} 0:00 AM");

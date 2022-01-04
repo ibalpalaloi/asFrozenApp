@@ -107,17 +107,27 @@ class UserPesananController extends Controller
     }
 
     public function riwayat_pesanan(){
+        $agent = new Agent();
         $riwayat_nota = Riwayat_nota_pesanan::where('user_id', Auth()->user()->id)->get();
-        // dd($riwayat_nota);
-        return view('user.riwayat.riwayat_pesanan', compact('riwayat_nota'));
-    }
+        if ($agent->isMobile()){
+            return view('user.riwayat.riwayat_pesanan/mobile', compact('riwayat_nota'));
+        }
+        else {
+            return view('user.riwayat.riwayat_pesanan/desktop', compact('riwayat_nota'));
+        }
+    }   
 
     public function riwayat_pesanan_detail($id){
         $riwayat_nota = Riwayat_nota_pesanan::where('id_pesanan', $id)->first();
         $riwayat = Riwayat_pesanan::where('riwayat_nota_pesanan_id', $riwayat_nota->id)->get();
-        // dd($riwayat);    
         $qrcode = new Generator;
-        return view('user.riwayat.riwayat_pesanan_detail', compact('riwayat_nota', 'riwayat', 'qrcode'));
+        $agent = new Agent();
+        if ($agent->isMobile()){
+            return view('user.riwayat.riwayat_pesanan_detail.mobile', compact('riwayat_nota', 'riwayat', 'qrcode'));
+        }
+        else {
+            return view('user.riwayat.riwayat_pesanan_detail.desktop', compact('riwayat_nota', 'riwayat', 'qrcode'));
+        }
 
     }
 }

@@ -290,11 +290,11 @@ class AdminAnalisController extends Controller
         }
 
         $top_transaksi['total'] = collect($list_data_transaksi)->sortBy('total_transaksi')->reverse()->toArray();
-        $total['nama_pelanggan'] = array();
-        $total['transaksi'] = array();
+        $total_diagram['nama_pelanggan'] = array();
+        $total_diagram['transaksi'] = array();
         foreach($top_transaksi['total'] as $data){
-            array_push($total['nama_pelanggan'], $data['nama']);
-            array_push($total['transaksi'], $data['total_transaksi']);
+            array_push($total_diagram['nama_pelanggan'], $data['nama']);
+            array_push($total_diagram['transaksi'], $data['total_transaksi']);
         }
 
         $jenis_kelamin = DB::table('riwayat_nota_pesanan')->select('jenis_kelamin', DB::raw('count(id) as jumlah'))->whereBetween('created_at', [$startDate, $endDate])->orderBy('jenis_kelamin', 'asc')->groupBy('jenis_kelamin')->get();
@@ -308,12 +308,12 @@ class AdminAnalisController extends Controller
         array_push($jenkel['jenis'], 'Perempuan');
         array_push($jenkel['jumlah'], $jenis_kelamin_perempuan);
 
-
+        // dd($total);
         // dd($jenis_kelamin);
         // dd($jenkel);    
 
 
-        return view('admin.analisis-pelanggan-transaksi-terbanyak', compact('menu', 'sub_menu', 'list_data_transaksi', 'tgl_mulai', 'tgl_akhir', 'text_rentan_waktu', 'jumlah', 'total', 'top_transaksi', 'jenis_kelamin', 'jenkel'));
+        return view('admin.analisis-pelanggan-transaksi-terbanyak', compact('menu', 'sub_menu', 'list_data_transaksi', 'tgl_mulai', 'tgl_akhir', 'text_rentan_waktu', 'jumlah', 'total_diagram', 'top_transaksi', 'jenis_kelamin', 'jenkel'));
     }
 
     // public function total_transaksi_terbanyak(){

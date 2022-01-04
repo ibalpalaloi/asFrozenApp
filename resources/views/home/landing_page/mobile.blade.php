@@ -438,7 +438,6 @@ function hari_indo($hari){
 <script type="text/javascript">
 	<?php  $date_tomorrow = date("m/d/Y", strtotime("+1 day", strtotime(date("Y-m-d")))); ?>
 	var end = new Date("{{$date_tomorrow}} 0:00 AM");
-	alert(end);
 	var _second = 1000;
 	var _minute = _second * 60;
 	var _hour = _minute * 60;
@@ -447,8 +446,6 @@ function hari_indo($hari){
 
 	function showRemaining() {
 		var now = new Date();
-			alert(end);
-
 		var distance = end - now;
 		if (distance < 0) {
 
