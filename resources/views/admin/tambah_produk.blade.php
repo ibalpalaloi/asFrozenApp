@@ -63,7 +63,7 @@
 
 
             <div class="row">
-              <div class="col-sm-3" hidden>
+              <div class="col-sm-3">
                 <div class="form-group">
                   <label>Satuan</label>
                   <input type="text" class="form-control" name="satuan">

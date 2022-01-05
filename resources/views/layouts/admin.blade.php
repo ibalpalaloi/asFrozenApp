@@ -143,12 +143,6 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin-kecamatan" class="nav-link @if($sub_menu_ == 'kecamatan') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kecamatan</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="<?=url('/')?>/admin-kelurahan" class="nav-link @if($sub_menu_ == 'kelurahan') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kelurahan</p>

@@ -33,7 +33,7 @@ class AdminProdukController extends Controller
             'nama_produk' => 'required',
             'harga' => 'required',
             'stok' => 'required',
-            // 'foto_produk' => 'required|mimes:jpg,png,jpeg',
+            'foto_produk' => 'required|mimes:jpg,png,jpeg',
         ]);
         if($valdiator->fails()){
             return back()->with('error', 'Kesalahan Penginputan data!!');
