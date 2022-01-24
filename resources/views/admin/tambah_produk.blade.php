@@ -37,7 +37,7 @@
                 </div>
               </div>
               <div class="col-sm-6">
-                <div class="form-group">
+                <div class="form-group" hidden>
                   <label>Sub Kategori</label>
                   <select name="sub_kategori" id="sub_kategori" class="form-control">
                     <option value="">---</option>

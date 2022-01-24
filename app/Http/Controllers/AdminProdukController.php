@@ -50,7 +50,7 @@ class AdminProdukController extends Controller
         $produk->satuan = $request->satuan;
         $produk->deskripsi = $request->deskripsi;
         $produk->kategori_id = $request->kategori;
-        $produk->sub_kategori_id = $request->sub_kategori;
+        $produk->sub_kategori_id = 0;
         $produk->save();
 
         $stok = new Stok_produk;
@@ -365,7 +365,7 @@ class AdminProdukController extends Controller
 
     public function daftar_produk_kosong(Request $request){
         $produk = Produk::whereDoesntHave('stok_produk')->orWhereHas('stok_produk', function($query){
-            $query->where('stok', 0);
+            $query->where('stok', '<=', 5);
         })->paginate(50);
         $list_produk = array();
         $i=0;

@@ -62,7 +62,6 @@ function tgl_indo($tanggal){
                 <th>Stok</th>
                 <th>Satuan</th>
                 <th>Kategori</th>
-                <th>Sub Kategori</th>
                 <th></th>
               </tr>
             </thead>

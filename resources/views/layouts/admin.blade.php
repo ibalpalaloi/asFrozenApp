@@ -291,6 +291,13 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="<?=url('/')?>/admin/pesanan-siap-diambil" class="nav-link @if($sub_menu_ == 'siap diambil') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Siap Diambil</p>
+                  <span id="jumlah_siap_diambil" class="right badge badge-danger"></span>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?=url('/')?>/admin/daftar-pesanan-expired" class="nav-link @if($sub_menu_ == 'pesanan expired') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pesanan Expired</p>
@@ -441,6 +448,7 @@
         $('#jumlah_packaging').html(jumlah['packaging']);
         $('#jumlah_pengantaran').html(jumlah['dalam_pengantaran']);
         $('#jumlah_pesanan_expired').html(jumlah['pesanan_expired']);
+        $('#jumlah_siap_diambil').html(jumlah['siap_diambil']);
       }
     })
   }

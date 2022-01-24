@@ -151,6 +151,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/admin/ubah_status_pesanan/{id}/{status}', [AdminPesananController::class, 'ubah_status_pesanan']);
     Route::get('/admin/pesanan-packaging', [AdminPesananController::class, 'packaging']);
     Route::get('/admin/pesanan-dalam-pengantaran', [AdminPesananController::class, 'dalam_pengantaran']);
+    Route::get('/admin/pesanan-siap-diambil', [AdminPesananController::class, 'siap_diambil']);
     Route::get('/admin/pesanan-selesai/{id}', [AdminPesananController::class, 'pesanan_selesai']);
     Route::delete('/admin/hapus_pesanan/{id}', [AdminPesananController::class, 'hapus_pesanan']);
     Route::get('/admin/get_list_produk/{produk}', [AdminPesananController::class, 'get_list_produk']);

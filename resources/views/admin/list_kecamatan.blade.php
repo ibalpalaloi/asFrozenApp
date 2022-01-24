@@ -12,7 +12,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="/admin-post-kecamatan" method="post">
+        <form action="<?=url('/')?>/admin-post-kecamatan" method="post">
             @csrf
             <input type="text" name="kota_id" hidden value="{{$kota->id}}">
             <div class="modal-body">

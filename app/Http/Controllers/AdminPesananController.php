@@ -78,10 +78,24 @@ class AdminPesananController extends Controller
     }
 
     public function dalam_pengantaran(){
-        $nota = Nota::where('status', 'dalam pengantaran')->get();
+        $nota = Nota::where([
+            ['status', 'dalam pengantaran'],
+            ['pengantaran', 'Diantarkan']
+        ])->get();
         $qrcode = new Generator;
         $menu = "pesanan";
         $sub_menu = "dalam pengantaran";
+        return view('admin.pesanan_dalam_pengantaran', compact('nota', 'qrcode', 'menu', 'sub_menu'));
+    }
+
+    public function siap_diambil(){
+        $nota = Nota::where([
+            ['status', 'dalam pengantaran'],
+            ['pengantaran', 'Ambil Sendiri']
+        ])->get();
+        $qrcode = new Generator;
+        $menu = "pesanan";
+        $sub_menu = "siap diambil";
         return view('admin.pesanan_dalam_pengantaran', compact('nota', 'qrcode', 'menu', 'sub_menu'));
     }
 

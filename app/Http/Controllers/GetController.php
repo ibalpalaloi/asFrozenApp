@@ -86,7 +86,14 @@ class GetController extends Controller
         $jumlah = array();
         $jumlah['menunggu_konfirmasi'] = Nota::where('status', 'menunggu konfirmasi')->count();
         $jumlah['packaging'] = Nota::where('status', 'packaging')->count();
-        $jumlah['dalam_pengantaran'] = Nota::where('status', 'dalam pengantaran')->count();
+        $jumlah['dalam_pengantaran'] = Nota::where([
+            ['status', 'dalam pengantaran'],
+            ['pengantaran', 'Diantarkan']
+        ])->count();
+        $jumlah['siap_diambil'] = Nota::where([
+            ['status', 'dalam pengantaran'],
+            ['pengantaran', 'Ambil Sendiri']
+        ])->count();
         $jumlah['pesanan_expired'] = Nota_expired::where('notif', 'true')->count();
 
         return response()->json(['jumlah'=>$jumlah]);

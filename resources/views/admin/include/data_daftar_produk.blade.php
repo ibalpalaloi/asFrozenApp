@@ -43,7 +43,6 @@
     </td>
     <td id="satuan_{{$data['id']}}">{{$data['satuan']}}</td>
     <td id="kategori_{{$data['id']}}">{{$data['kategori']}}</td>
-    <td id="sub_kategori_{{$data['id']}}">{{$data['sub_kategori']}}</td>
     <td>
     <button class="btn btn-info" onclick="modal_detail_produk('{{$data['id']}}')">
         <ion-icon name="pencil-outline"></ion-icon>
