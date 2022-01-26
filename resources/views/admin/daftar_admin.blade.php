@@ -44,7 +44,7 @@ function tgl_indo($tanggal){
           </button>
         </div>
         <div class="modal-body">
-            <form action="/post-admin-baru" method="post">
+            <form action="<?=url('/')?>/post-admin-baru" method="post">
                 @csrf
                 <div class="form-group">
                     <label for="exampleInputEmail1">Username</label>
@@ -52,7 +52,7 @@ function tgl_indo($tanggal){
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
-                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">No Telp</label>
@@ -91,7 +91,7 @@ function tgl_indo($tanggal){
           </button>
         </div>
         <div class="modal-body">
-            <form action="/post-ubah-admin" method="post">
+            <form action="<?=url('/')?>/post-ubah-admin" method="post">
                 @csrf
                 <input type="text" name="id_user" id="ubah_id_user" hidden>
                 <div class="form-group">
@@ -100,7 +100,7 @@ function tgl_indo($tanggal){
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
-                    <input type="email" name="email" class="form-control" id="ubah_email" aria-describedby="emailHelp">
+                    <input type="text" name="email" class="form-control" id="ubah_email" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">No Telp</label>
@@ -168,7 +168,7 @@ function tgl_indo($tanggal){
                         <td>{{$data->no_telp}}</td>
                         <td>
                             <button onclick="modal_ubah_admin('{{$data->id}}')" class="btn btn-warning">Edit</button>
-                            <a href="/admin-hapus-admin/{{$data->id}}" class="btn btn-danger">hapus</a>
+                            <a href="<?=url('/')?>/admin-hapus-admin/{{$data->id}}" class="btn btn-danger">hapus</a>
                         </td>
                     </tr>
                 @endforeach
@@ -210,7 +210,7 @@ function tgl_indo($tanggal){
     function modal_ubah_admin(id){
         $.ajax({
             type: "get",
-            url: "/admin-get-data-admin/"+id,
+            url: "<?=url('/')?>/admin-get-data-admin/"+id,
             success:function(data){
                 var user = data.user;
                 $('#ubah_id_user').val(user['id']);

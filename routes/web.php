@@ -106,7 +106,7 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
 
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
+Route::group(['middleware' => ['auth', 'checkRole:admin,super admin']], function(){
 
         // admin analisis
     Route::get('/admin-analisis/produk', [AdminAnalisController::class, 'produk']);
@@ -228,6 +228,10 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/admin-daftar-pengguna/banned/{id}', [AdminUserController::class, 'banned_pengguna']);
     Route::get('/admin-daftar-pengguna/hapus/{id}', [AdminUserController::class, 'hapus_pengguna']);
     Route::get('/admin-daftar-pengguna-banned', [AdminUserController::class, 'daftar_pengguna_banned']);
+
+    // manajemen testimoni
+    Route::get('/admin-testimoni', [ManajemenPengguanController::class, 'testimoni']);
+    Route::get('/admin-testimoni-delete/{id}', [ManajemenPengguanController::class, 'hapus_testimoni']);
 });
 
 

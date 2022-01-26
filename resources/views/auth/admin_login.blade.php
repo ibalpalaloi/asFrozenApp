@@ -27,7 +27,7 @@
         <form action="<?=url('/')?>/post-admin-login" method="post">
             @csrf
             <div class="input-group mb-3">
-            <input type="text" name="name" class="form-control" placeholder="text">
+            <input type="text" name="name" class="form-control" placeholder="text" autocomplete="off" value="">
             <div class="input-group-append">
                 <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
