@@ -362,12 +362,22 @@
                 </ul>
               </li>
             @endif
+            
+            <li class="nav-item">
+              <a href="<?=url('/')?>/admin-lupa-password" class="nav-link @if($menu_ == 'lupa password') active @endif">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Lupa Password</p>
+                <span id="jumlah_lupa_password" class="right badge badge-danger">0</span>
+              </a>
+            </li>
+
             <li class="nav-item">
               <a href="<?=url('/')?>/logout" class="nav-link @if($menu_ == 'bank') active @endif">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>Keluar</p>
               </a>
             </li>
+            
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -491,11 +501,23 @@
     })
   }
 
+  function get_lupa_password(){
+    $.ajax({
+      type: "get",
+      url: "<?=url('/')?>/cek_lupa_password",
+      success:function(data){
+        console.log(data);
+        $('#jumlah_lupa_password').html(data.jumlah_lupa_password);
+      }
+    })
+  }
+
   $(document).ready ( function(){
     get_jumlah_pesanan();
     timer = setInterval(function() {
               get_jumlah_pesanan();
               cek_pesanan_expired();
+              get_lupa_password();
             }, 10000);
   })
 

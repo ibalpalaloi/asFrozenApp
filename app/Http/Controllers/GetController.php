@@ -15,6 +15,7 @@ use App\Models\Kategori;
 use App\Models\Nota;
 use App\Models\Keranjang;
 use App\Models\Nota_expired;
+use App\Models\User_lupa_password;
 
 class GetController extends Controller
 {
@@ -147,5 +148,11 @@ class GetController extends Controller
         $data['total_harga'] = $total_harga;
 
         return response()->json(['data'=>$data]);
+    }
+
+    public function cek_lupa_password(){
+        $jumlah_lupa_password = User_lupa_password::count();
+
+        return response()->json(['jumlah_lupa_password'=>$jumlah_lupa_password]);
     }
 }

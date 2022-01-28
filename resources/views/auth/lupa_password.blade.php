@@ -21,50 +21,22 @@
       <div style="width: 8em; border-radius: 50%; height: 8em; position: absolute; top: -4em; background-image: url('<?=$url?>'); border: 5px solid white; left: 35%; background-size: cover;">
         
       </div>
-      <form class="login-form" action="<?=url('/')?>/post_login" method="post" style="margin-top: 1.5em;">
+      <form class="login-form" action="<?=url('/')?>/post-lupa-password" method="post" style="margin-top: 1.5em;">
         @csrf
         <div class="form-group">
           <label class="control-label">NOMOR HANDPHONE</label>
           <input class="form-control" type="text" placeholder="Nomor Handphone" name="no_telp" autofocus>
         </div>
-        <div class="form-group">
-          <label class="control-label">PASSWORD</label>
-          <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
         <div class="form-group btn-container">
-          <button class="btn btn-primary btn-block" style="background:#ec1f25; border: 2px solid  #ec1f25;"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
+          <button class="btn btn-primary btn-block" style="background:#ec1f25; border: 2px solid  #ec1f25;"><i class="fa fa-sign-in fa-lg fa-fw"></i>Lupa Password</button>
           <div class="form-group">
             <div class="utility">
-              <p class="semibold-text mb-2"><a href="<?=url('/')?>/registrasi" style='color:  #ec1f25;'>Belum ada akun? Daftar </a></p>
-              <p class="semibold-text mb-2"><a href="<?=url('/')?>/lupa-password" style='color: black'>Lupa Password? </a></p>
+              <p class="semibold-text mb-2"><a href="<?=url('/')?>/registrasi" style='color:  #ec1f25;'>Kembali ke Login </a></p>
             </div>
           </div>
         </div>
       </form>
-      <form class="forget-form" action="index.html" style="margin-top: 1.5em;">
-        <div class="form-group">
-          <label class="control-label">NAMA</label>
-          <input class="form-control" type="text" placeholder="Nama" autofocus>
-        </div>
-        <div class="form-group">
-          <label class="control-label">NOMOR HANDPHONE</label>
-          <input class="form-control" type="text" placeholder="Nomor Handphone" autofocus>
-        </div>
-        <div class="form-group">
-          <label class="control-label">ALAMAT</label>
-          <input class="form-control" type="text" placeholder="Alamat">
-        </div>
-        <div class="form-group">
-          <label class="control-label">PASSWORD</label>
-          <input class="form-control" type="password" placeholder="Password">
-        </div>
-        <div class="form-group btn-container">
-          <button class="btn btn-primary btn-block">Daftar</button>
-        </div>
-        <div class="form-group mt-3">
-          <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Back to Login</a></p>
-        </div>
-      </form>
+      
     </div>
   </section>
   <!-- Essential javascripts for application to work-->
@@ -73,18 +45,17 @@
   <script src="<?=url('/')?>/public/vali-template/js/bootstrap.min.js"></script>
   <script src="<?=url('/')?>/public/vali-template/js/main.js"></script>
   <!-- The javascript plugin to display page loading on top-->
-  <script src="<?=url('/')?>/public/vali-template/js/plugins/pace.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
   <script type="text/javascript">
       // Login Page Flipbox control
       $('.login-content [data-toggle="flip"]').click(function() {
       	$('.login-box').toggleClass('flipped');
       	return false;
       });
+
       $(document).ready(function(){
-        @if (session('success'))
-          swal("Password baru akan dikirimkan ke akun whatsappa anda");
+        @if (session('error'))
+          swal("Akun Tidak Tersedia");
         @endif
         
       })
