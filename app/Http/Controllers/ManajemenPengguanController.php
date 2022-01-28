@@ -11,7 +11,7 @@ class ManajemenPengguanController extends Controller
 {
     //
     public function daftar_admin(){
-        $user = User::where('role', 'admin')->orWhere('role', 'super admin')->get();
+        $user = User::where('role', 'super admin')->orWhere('role', 'admin pesanan')->orWhere('role', 'admin produk')->get();
 
         return view('admin.daftar_admin', compact('user'));
     }

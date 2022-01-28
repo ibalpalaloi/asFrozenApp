@@ -61,7 +61,8 @@ function tgl_indo($tanggal){
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Role</label>
                     <select name="role" class="form-control" id="exampleFormControlSelect1">
-                      <option value="admin">Admin</option>
+                      <option value="admin pesanan">Admin Pesanan</option>
+                      <option value="admin produk">Admin Produk</option>
                       <option value="super admin">Super Admin</option>
                     </select>
                 </div>

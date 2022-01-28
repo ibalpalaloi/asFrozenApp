@@ -109,7 +109,7 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
 
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:admin,super admin']], function(){
+Route::group(['middleware' => ['auth', 'checkRole:admin produk,admin pesanan,super admin']], function(){
 
         // admin analisis
     Route::get('/admin-analisis/produk', [AdminAnalisController::class, 'produk']);
