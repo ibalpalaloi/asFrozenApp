@@ -10,5 +10,7 @@ class Testimoni extends Model
 	use HasFactory;
 	protected $table = "testimoni";
 
-
+	public function user(){
+		return $this->belongsTo(User::class);
+	}
 }

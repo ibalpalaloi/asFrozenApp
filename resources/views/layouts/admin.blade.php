@@ -109,103 +109,107 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-           <li class="nav-item has-treeview @if($menu_ == 'data dukung') menu-open @endif">
-            <a href="#" class="nav-link @if($menu_ == 'data dukung') active @endif">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>
-                Data Dukung
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-banner" class="nav-link @if($sub_menu_ == 'banner') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Banner</p>
+           @if (Auth()->user()->role == "super admin")
+              <li class="nav-item has-treeview @if($menu_ == 'data dukung') menu-open @endif">
+                <a href="#" class="nav-link @if($menu_ == 'data dukung') active @endif">
+                  <i class="nav-icon fas fa-tree"></i>
+                  <p>
+                    Data Dukung
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-video" class="nav-link @if($sub_menu_ == 'video') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Video</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-kategori" class="nav-link @if($sub_menu_ == 'kategori') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kategori</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-kota" class="nav-link @if($sub_menu_ == 'kota') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kota</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-kecamatan" class="nav-link @if($sub_menu_ == 'kecamatan') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kecamatan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-kelurahan" class="nav-link @if($sub_menu_ == 'kelurahan') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kelurahan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin/ongkos-kirim" class="nav-link @if($sub_menu_ == 'ongkos kirim') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ongkos Kirim</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-jadwal-buka" class="nav-link @if($sub_menu_ == 'jadwal_buka') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Jadwal Buka</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-jadwal-tutup" class="nav-link @if($sub_menu_ == 'jadwal_tutup') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Jadwal Tutup</p>
-                </a>
-              </li>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-banner" class="nav-link @if($sub_menu_ == 'banner') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Banner</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-video" class="nav-link @if($sub_menu_ == 'video') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Video</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-kategori" class="nav-link @if($sub_menu_ == 'kategori') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Kategori</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-kota" class="nav-link @if($sub_menu_ == 'kota') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Kota</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-kelurahan" class="nav-link @if($sub_menu_ == 'kelurahan') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Kelurahan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin/ongkos-kirim" class="nav-link @if($sub_menu_ == 'ongkos kirim') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Ongkos Kirim</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-jadwal-buka" class="nav-link @if($sub_menu_ == 'jadwal_buka') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Jadwal Buka</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-jadwal-tutup" class="nav-link @if($sub_menu_ == 'jadwal_tutup') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Jadwal Tutup</p>
+                    </a>
+                  </li>
 
-            </ul>
-          </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-testimoni" class="nav-link @if($sub_menu_ == 'testimoni') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Testimoni</p>
+                    </a>
+                  </li>
 
-          <li class="nav-item has-treeview">
-            <a href="##" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>
-                User
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-daftar-pengguna" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pengguna</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-daftar-pengguna-banned" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pengguna Banned</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-daftar-admin" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Admin</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+                </ul>
+              </li> 
+           @endif
 
+           @if (Auth()->user()->role == "super admin")
+              <li class="nav-item has-treeview">
+                <a href="##" class="nav-link">
+                  <i class="nav-icon fas fa-tree"></i>
+                  <p>
+                    User
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-daftar-pengguna" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Pengguna</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-daftar-pengguna-banned" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Pengguna Banned</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-daftar-admin" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Admin</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+          @endif
           <li class="nav-item has-treeview @if($menu_ == 'produk') menu-open @endif">
             <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'produk') active @endif">
               <i class="nav-icon fas fa-tree"></i>
@@ -235,6 +239,7 @@
               </li>
             </ul>
           </li>
+          
 
           <li class="nav-item has-treeview @if($menu_ == 'diskon') menu-open @endif">
             <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'diskon') active @endif">
@@ -259,12 +264,16 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="<?=url('/')?>/admin/bank" class="nav-link @if($menu_ == 'bank') active @endif">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>Bank</p>
-            </a>
-          </li>
+
+          @if (Auth()->user()->role == "super admin")
+            <li class="nav-item">
+              <a href="<?=url('/')?>/admin/bank" class="nav-link @if($menu_ == 'bank') active @endif">
+                <i class="nav-icon fas fa-tree"></i>
+                <p>Bank</p>
+              </a>
+            </li>
+          @endif
+
           <li class="nav-item has-treeview @if($menu_ == 'pesanan') menu-open @endif">
             <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'pesanan') active @endif">
               <i class="nav-icon fas fa-tree"></i>
@@ -297,6 +306,13 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="<?=url('/')?>/admin/pesanan-siap-diambil" class="nav-link @if($sub_menu_ == 'siap diambil') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Siap Diambil</p>
+                  <span id="jumlah_siap_diambil" class="right badge badge-danger"></span>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?=url('/')?>/admin/daftar-pesanan-expired" class="nav-link @if($sub_menu_ == 'pesanan expired') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pesanan Expired</p>
@@ -312,38 +328,46 @@
             </ul>
           </li>
 
-          <li class="nav-item has-treeview @if($menu_ == 'analisis') menu-open @endif">
-            <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'analisis') active @endif">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>
-                Analisis
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-analisis/produk" class="nav-link @if(Request::segment(2) == 'produk') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Analisis Produk</p>
-                  <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
+          @if (Auth()->user()->role == "super admin")
+              <li class="nav-item has-treeview @if($menu_ == 'analisis') menu-open @endif">
+                <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'analisis') active @endif">
+                  <i class="nav-icon fas fa-tree"></i>
+                  <p>
+                    Analisis
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-analisis/produk" class="nav-link @if(Request::segment(2) == 'produk') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Analisis Produk</p>
+                      <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-analisis/transaksi" class="nav-link @if(Request::segment(2) == 'transaksi') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Analisis Transaksi</p>
+                      <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=url('/')?>/admin-analisis/pelanggan" class="nav-link @if(Request::segment(2) == 'pelanggan') active @endif">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Analisis Pelanggan</p>
+                      <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
+                    </a>
+                  </li>
+                </ul>
               </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-analisis/transaksi" class="nav-link @if(Request::segment(2) == 'transaksi') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Analisis Transaksi</p>
-                  <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-analisis/pelanggan" class="nav-link @if(Request::segment(2) == 'pelanggan') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Analisis Pelanggan</p>
-                  <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
-                </a>
-              </li>
-            </ul>
-          </li>
+            @endif
+            <li class="nav-item">
+              <a href="<?=url('/')?>/logout" class="nav-link @if($menu_ == 'bank') active @endif">
+                <i class="nav-icon fas fa-sign-out-alt"></i>
+                <p>Keluar</p>
+              </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -447,6 +471,7 @@
         $('#jumlah_packaging').html(jumlah['packaging']);
         $('#jumlah_pengantaran').html(jumlah['dalam_pengantaran']);
         $('#jumlah_pesanan_expired').html(jumlah['pesanan_expired']);
+        $('#jumlah_siap_diambil').html(jumlah['siap_diambil']);
       }
     })
   }

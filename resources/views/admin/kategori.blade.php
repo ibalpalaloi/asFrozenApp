@@ -199,7 +199,7 @@
       </div>
       @endif
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Kategori</button>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_tambah_sub_kategori">Tambah Sub Kategori</button>
+      {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_tambah_sub_kategori">Tambah Sub Kategori</button> --}}
       <br><br>
       <div class="card">
 

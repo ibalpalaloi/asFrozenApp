@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Testimoni;
 
 class ManajemenPengguanController extends Controller
 {
     //
     public function daftar_admin(){
-        $user = User::where('role', 'admin')->get();
+        $user = User::where('role', 'admin')->orWhere('role', 'super admin')->get();
 
         return view('admin.daftar_admin', compact('user'));
     }
@@ -84,5 +85,27 @@ class ManajemenPengguanController extends Controller
         User::where('id', $id)->delete();
 
         return back()->with('success', 'Data Terhapus');
+    }
+
+    public function testimoni(){
+        $testimoni = Testimoni::all();
+        $data_testimoni = array();
+        $i = 0;
+        foreach($testimoni as $data){
+            if($data->user){
+                $data_testimoni[$i]['id_testimoni'] = $data->id;
+                $data_testimoni[$i]['testimoni'] = $data->text;
+                $data_testimoni[$i]['nama_user'] = $data->user->biodata->nama;
+                $data_testimoni[$i]['id_user'] = $data->user->id;
+                $data_testimoni[$i]['waktu'] = $data->created_at;
+                $i++;
+            }
+        }
+        return view('admin.daftar_testimoni', compact('data_testimoni'));
+    }
+
+    public function hapus_testimoni($id){
+        Testimoni::where('id', $id)->delete();
+        return back();
     }
 }

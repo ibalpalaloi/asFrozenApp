@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-group">
+                            <div class="form-group" hidden>
                                 <label for="exampleInputEmail1">Sub Kategori</label>
                                 <select name="sub_kategori" id="detail_produk_sub_kategori" class="form-control">
 
