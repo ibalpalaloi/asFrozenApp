@@ -15,15 +15,15 @@ class AdminDiskonController extends Controller
         $date_today = date("Y-M-d");
         if(count($request->all()) != 0){
             if($request->keyword == ""){
-                $produk = Produk::all();
+                $produk = Produk::paginate(50);
             }
             else{
-                $produk = Produk::where('nama', 'LIKE', '%'.$request->keyword.'%')->get();
+                $produk = Produk::where('nama', 'LIKE', '%'.$request->keyword.'%')->paginate(50);
             }
             
         }
         else{
-            $produk = Produk::all();
+            $produk = Produk::paginate(50);
         }
         
         $list_produk = array();

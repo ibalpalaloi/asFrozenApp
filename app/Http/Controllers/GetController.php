@@ -152,7 +152,9 @@ class GetController extends Controller
 
     public function get_img_kategori(){
         $kategori = Kategori::select('id', 'logo')->get();
-        return response()->json($kategori);        
+        return response()->json($kategori);    
+    }
+        
     public function cek_lupa_password(){
         $jumlah_lupa_password = User_lupa_password::count();
 

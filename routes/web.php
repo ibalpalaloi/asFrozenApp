@@ -108,6 +108,9 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
     Route::post('/biodata/update', [UserPesananController::class, 'update_biodata']);
     Route::get('/biodata', [UserPesananController::class, 'biodata']);
 
+    // ubah password
+    
+
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin produk,admin pesanan,super admin']], function(){
