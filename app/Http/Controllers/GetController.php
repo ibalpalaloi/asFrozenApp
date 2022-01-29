@@ -127,7 +127,7 @@ class GetController extends Controller
         }
 
         return response()->json(['data_diskon'=>$data_produk]);
-        
+       
     }
 
     public function get_total_pesanan($id){
@@ -147,5 +147,10 @@ class GetController extends Controller
         $data['total_harga'] = $total_harga;
 
         return response()->json(['data'=>$data]);
+    }
+
+    public function get_img_kategori(){
+        $kategori = Kategori::select('id', 'logo')->get();
+        return response()->json($kategori);        
     }
 }

@@ -16,7 +16,7 @@ Keranjang Belanja
 			<div class="col-md-12" style="padding: 0px;">
 				<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 					<?php
-						$kategori=$list_kategori;
+					$kategori=$list_kategori;
 					?>
 					<div class="icon-boxes" style="margin-top: 0em; display: flex; justify-content: space-between;"> 
 						@for ($i = 0; $i < 12; $i++)

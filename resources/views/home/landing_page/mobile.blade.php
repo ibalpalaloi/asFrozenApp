@@ -1,7 +1,7 @@
 @extends('layouts.home_mobile')
 
 @section('title')
-
+Home
 @endsection
 
 @section('header-scripts')
@@ -170,6 +170,35 @@
 	border-bottom: 1px solid #42b25d;
 }	
 
+.team .member .social {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 40px;
+	opacity: 0;
+	transition: ease-in-out 0.3s;
+	text-align: center;
+	background: rgba(255, 255, 255, 0.85);
+}
+
+.team .member .social a {
+	transition: color 0.3s;
+	color: #124265;
+	margin: 0 10px;
+	padding-top: 8px;
+	display: inline-block;
+}
+
+.team .member .social a:hover {
+	color: #2487ce;
+}
+
+.team .member .social i {
+	font-size: 18px;
+	margin: 0 2px;
+}
+
 </style>
 @endsection
 
@@ -226,14 +255,11 @@ function hari_indo($hari){
 
 			<div style="display: flex; flex-flow: row wrap;">
 				@foreach($kategori as $data)
-				<a href="<?=url('/')?>/public/kategori/{{$data->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 16.6%; display: flex; flex-direction: column;justify-content: center; align-items: center; margin-bottom: 0.5em;">
-					<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
-						@php
-						$url = url('/')."/public/icon_kategori/thumbnail/150x150/$data->logo";
-						@endphp
-						<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 50px; width: 50px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
+				<a href="<?=url('/')?>/kategori/{{$data->kategori}}" data-aos="zoom-in" data-aos-delay="10" style="width: 16.6%; display: flex; flex-direction: column;justify-content: center; align-items: center; margin-bottom: 0.5em;">
+					<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;" id="icon_box_{{$data->id}}">
+						<div id="kategori_{{$data->id}}"style="display: flex; justify-content: center; width: 100%; height: 50px; width: 50px; background-size: cover; border-radius: 50%;  box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 						</div>
-						<div style="text-align: center; font-size: 0.75em; color: black;"><b>{{$data->kategori}}</b></div>
+						<div style="text-align: center; font-size: 0.75em; color: black; line-height: 1em; height: 2em;"><b>{{$data->kategori}}</b></div>
 					</div>
 				</a>
 				@endforeach
@@ -338,13 +364,13 @@ function hari_indo($hari){
 				<div style="width: 2.5em; height: 2.5em; background-image: url('{{$img_kategori}}'); background-size: cover; border-radius: 50%; border: 2px solid #ec1f25;"></div>
 				<span style="margin-left: -0.4em; padding-left: 0.7em; padding-right: 0.5em; box-shadow: 0 4px 2px -2px gray; padding-bottom: 0.2em;"><b>{{$data->kategori}}</b></span>
 			</div>
-			<a href="<?=url('/')?>/public/kategori/daging" style="color: #ec1f25;">Selengkapnya</a>
+			<a href="<?=url('/')?>/kategori/{{$data->kategori}}" style="color: #ec1f25;">Selengkapnya</a>
 		</div>
 		<div class="slider" style="padding-bottom: 1em; margin-top: 0.5em;">
 			<div style="display: flex; align-items: center;">
 
 				@php $jumlah_digital = count($data->produk); @endphp
-				@foreach ($data->produk as $produk)
+				@foreach ($data->produk->take(10) as $produk)
 				<div class="slider-toko" style="@if ($loop->iteration == 0) margin-left: 1em; @endif box-shadow: 0 0 5px #ccc; border-radius: 0.5em !important;">
 					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
 					<img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$produk->foto}}" style="border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
@@ -372,11 +398,24 @@ function hari_indo($hari){
 							<span style="font-size: 0.85em;">{{number_format($produk->harga, 0, '.', '.')}}</span>
 						</div>
 						@endif
-
+						@if ($produk->stok_produk)
+						@if ($produk->stok_produk->stok != 0)
 						<div class="btn-danger" onclick="tambah_keranjang('{{$produk->id}}')" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
 							<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; "></span>&nbsp;&nbsp;Beli
 
 						</div>					
+						@else
+						<div class="btn-secondary" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
+							Stok Habis
+						</div>
+						@endif
+						@else
+						<div class="btn-secondary" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
+							Stok Habis
+						</div>
+						@endif
+
+
 					</div>
 
 				</div> 
@@ -394,26 +433,7 @@ function hari_indo($hari){
 
 </main>
 
-<div class="wrapper" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); position: relative; z-index: -1">
-	<div class="container-mall" style="padding-bottom: 7.5em;">
-		<div style="padding-top: 2em; text-align: center; color: white;">
-			<p style="font-weight: 700;">Alamat</p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper vitae proin fames vulputate integer nulla amet. Donec turpis.
-		</div>
-		<div style="padding-top: 2em; text-align: center; color: white;">
-			<p style="font-weight: 700;">Connect with us on social media</p>
-			<div class="sosmed">
-				<img src="<?=url('/')?>/public/img/home/about/facebook.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/youtube.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/instagram.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/twitter.svg" style="width: 2.2em;">
-			</div><br>
-			<div>
-				Copyright&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;AsFrozen Palu
-			</div>
-		</div>
-	</div>
-</div>
+
 @endsection
 
 @section('footer-scripts')
@@ -466,17 +486,21 @@ function hari_indo($hari){
 
 	timer = setInterval(showRemaining, 1000);
 
-	function tambah_keranjang(id){
-		show_loader();
-		$.ajax({
-			url: "<?=url('/')?>/tambah_keranjang/"+id,
-			type:"get",
-			success:function(data){
-				setTimeout(hide_loader, 500);
-				console.log(data);
-			}
-		})
+	$(document).ready(function() {
+		load_img_kategori();
+	});
+
+	function load_img_kategori(){
+		@foreach($kategori as $data)
+		@php $url = url('/')."/public/icon_kategori/thumbnail/150x150/$data->logo"; @endphp
+		var id = "{{$data->id}}";
+		var url = "{{$url}}";
+
+		$("#kategori_"+id).append("<img src='"+url+"' style='width: 100%; border-radius: 50%;'>");
+		// alert("{{$url}}");
+		@endforeach
 	}
+
 
 </script>	
 @endsection

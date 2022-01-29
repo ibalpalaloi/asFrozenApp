@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Biodata;
+use Jenssegers\Agent\Agent;
 use Auth;
 
 class AuthController extends Controller
@@ -17,7 +18,14 @@ class AuthController extends Controller
     }
 
     public function registrasi(){
-        return view('auth.registrasi');
+        $agent = new Agent();
+        if ($agent->isMobile()){
+            return view('auth.registrasi_mobile');
+        }
+        else {
+            return view('auth.registrasi_desktop');
+        }
+
     }
 
     public function post_registrasi(Request $request){
@@ -61,7 +69,7 @@ class AuthController extends Controller
         $password = $request->password;
 
         if(Auth::attempt(['no_telp' => $no_telp, 'password'=>$password])){
-            
+
             if(Auth()->user()->blokir == "true"){
                 return redirect('/user_login');
             }

@@ -16,7 +16,7 @@ class UserKatalogController extends Controller
     public function index(){
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
-        $kategori = Kategori::orderBy('urutan', 'asc')->get();
+        $kategori = Kategori::select('id', 'kategori', 'logo')->orderBy('urutan', 'asc')->get();
         $flash_sale = Diskon::where('diskon_akhir', '>=', $date_today)->get();
 
         $kategori_show = Kategori::withCount('produk')->orderBy('produk_count', 'desc')->paginate(3);
@@ -40,7 +40,7 @@ class UserKatalogController extends Controller
         if ($agent->isMobile()){
             $dummy = Produk::where('kategori_id', $kategori_current->id)->get();
             // dd($dummy);
-            return view('home.kategori.mobile', compact('list_kategori', 'kategori_current', 'hw_dummy(link, id, msgid)'));            
+            return view('home.kategori.mobile', compact('list_kategori', 'kategori_current', 'dummy'));            
         }        
         else {
             return view('home.kategori.desktop', compact('list_kategori', 'kategori_current'));                        

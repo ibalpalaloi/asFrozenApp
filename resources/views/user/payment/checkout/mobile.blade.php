@@ -285,47 +285,31 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 					}
 					?>
 					<div class="row mb-2">
-						<div style="display: flex;justify-content: center; align-items: center; margin-bottom: 1em; width: 10%;">
-							<div class="icheck-danger d-inline">
-								@php $data_id = $data["id"]; @endphp
-								<input type="checkbox" id="checkboxPrimary{{$data_id}}" onchange="checkbox_cek('$data_id')" checked="false">
-								<label for="checkboxPrimary{{$data_id}}">
-								</label>
-							</div>
-						</div>
-						<div style="width: 22%;">
+						@php $data_id = $data["id"]; @endphp
+						<div style="width: 22%; margin-left: 1em;">
 							<img class="img-fluid" src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100%; border-radius: 0.2em; margin-bottom: 0.5em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 						</div>
 						<div style="width: 60%; padding-left: 0.8em;">
 							<div style="display: flex;">
-								<div>{{$data['nama_produk']}}</div>	&nbsp;							
-								@if ($diskon != "0")
-								<badge class="badge badge-success" style="display: flex; justify-content: center; align-items: center;">
-									{{$diskon}} %
-								</badge>	
-								@endif
+								<div>
+									<span>{{$data['nama_produk']}}</span>
+									<span>								
+										@if ($diskon != "0")
+										<badge class="badge badge-success">
+											{{$diskon}} %
+										</badge>	
+										@endif
+									</span>
+								</div>							
+
 							</div>
 							<div class="text-muted" style="display: flex;">
-								@if ($diskon != "0")
-								<span style="display: flex; margin-top: 0.2em;">
-									<small><s>{{number_format($harga,0,'.','.')}}</s>&nbsp;</small>
-								</span>
-								@php 
-								$potongan_harga = round($harga*$diskon/100,0); 
-								$harga_diskon = $harga-$potongan_harga;
-								@endphp
-								<span>{{number_format($harga_diskon,0,'.','.')}}</span>
-								@else
-								@php 
-								$harga_diskon = $harga;
-								@endphp
-								<span>{{number_format($harga,0,'.','.')}}&nbsp;</span>
-								@endif
+								<span>{{number_format($data['harga_diskon'], 0, '.', '.')}} x {{$data['jumlah']}}</span>
 							</div>
-							<div style="display: flex; align-items: center; justify-content: flex-start; padding-right: 0px; margin-top: 0.7em;">
+							<div style="display: flex; align-items: center; justify-content: flex-start; padding-right: 0px; margin-top: 0.4em;">
 								@php
 								$jumlah = $data['jumlah'];
-								$jumlah_harga = round($jumlah * $harga_diskon,0);
+								$jumlah_harga = round($jumlah * $data['harga_diskon'],0);
 								@endphp	
 								<span >Rp.</span> <span id="sub_total{{$data_id}}">{{number_format($data['harga_diskon'], 0, '.', '.')}}</span>
 							</div>
@@ -359,13 +343,14 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						<svg height="18" viewBox="0 0 12 16" width="18" class="shopee-svg-icon icon-location-marker" style="margin-top: 0.3em;"><path d="M6 3.2c1.506 0 2.727 1.195 2.727 2.667 0 1.473-1.22 2.666-2.727 2.666S3.273 7.34 3.273 5.867C3.273 4.395 4.493 3.2 6 3.2zM0 6c0-3.315 2.686-6 6-6s6 2.685 6 6c0 2.498-1.964 5.742-6 9.933C1.613 11.743 0 8.498 0 6z" fill-rule="evenodd"></path>
 						</svg>
 						<div style="margin-left: 1em;" id="div_alamat_penerima">
-							<b>Alamat Penerima&nbsp;(Ongkir : Rp. {{$ongkos_kirim}})</b><br>
+							<b>Alamat Penerima&nbsp;(Ongkir : Rp. {{number_format($ongkos_kirim, 0, '.', '.')}})</b><br>
 							<span>{{Auth()->user()->biodata->nama}} | ({{Auth()->user()->biodata->no_telp}})</span><br>
 							<span>{{Auth()->user()->biodata->alamat}}</span><br>
 							<span>{{Auth()->user()->biodata->kelurahan->kelurahan}}, {{Auth()->user()->biodata->kelurahan->kecamatan->kecamatan}}, {{Auth()->user()->biodata->kelurahan->kecamatan->kota->kota}}</span> <br>
 						</div>
-						<div data-toggle="modal" onclick="ubah_data()" style="position: absolute; right: 2em; top: 40%;">Ubah data</div>
 					</div>
+					<div data-toggle="modal" onclick="ubah_data()" style="margin-left: 2em; color: blue;">Ubah data</div>
+
 				</div>
 
 				<div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">
@@ -379,7 +364,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						<div class="stardust-radio__content" style="display: flex; margin-top: 1em;">
 							<div class="form-group clearfix" style="margin-right: 1em;">
 								<div class="icheck-primary d-inline">
-									<input type="radio" id="radioPrimary_{{$row->id}}" onclick='radio_bank("{{$row->id}}")' name="id_bank" checked>
+									<input type="radio" id="radioPrimary_{{$row->id}}" onclick='radio_bank("{{$row->id}}")' name="id_bank">
 									<label for="radioPrimary_{{$row->id}}"></label>
 								</div>
 							</div>

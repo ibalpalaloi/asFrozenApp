@@ -29,7 +29,7 @@ class UserPesananController extends Controller
         // $qr = $qrcode->size(250)->generate($response['data']['code']);
 
         if ($agent->isMobile()){
-            return view('user.payment.pesanan.mobile', compact('notas'));
+            return view('user.payment.pesanan.mobile', compact('notas', 'qrcode'));
         }
         else {
             return view('user.payment.pesanan.desktop', compact('notas', 'qrcode'));

@@ -29,19 +29,15 @@ Keranjang
 						}
 						else {
 							foreach ($keranjang as $data){
-								$diskon = "0";
-								if($data->produk->diskon != null){
-									$diskon = $data->produk->diskon->diskon;
-								}
-								$harga = $data->produk->harga;
-								if($diskon != "0"){
-									$harga = $harga - (($diskon / 100) * $harga);
-								}
 								?>
 								<div class="col-md-1" style="display: flex;justify-content: center; align-items: center; margin-bottom: 1em;">
 									<div class="icheck-danger d-inline">
-										<input type="checkbox" id="checkboxPrimary{{$index}}" onchange="checkbox_cek('{{$data->id}}', '{{$index}}')" checked="false">
-										<label for="checkboxPrimary{{$index}}">
+										<input type="checkbox" id="checkboxPrimary{{$data['id']}}" onchange="checkbox_cek('{{$data['id']}}')" @if ($data['stok'] == 0)
+										disabled
+										@else
+										checked
+										@endif >
+										<label for="checkboxPrimary{{$data['id']}}">
 										</label>
 									</div>
 								</div>
@@ -50,7 +46,7 @@ Keranjang
 								</div>
 								<div class="col-5">
 									<div class="row">
-										{{$data->produk->nama}} &nbsp;
+										{{$data['nama_produk']}} &nbsp;
 
 									</div>
 									<div class="row text-muted" style="display: flex; flex-direction: column;">

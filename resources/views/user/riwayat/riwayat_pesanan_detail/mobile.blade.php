@@ -107,7 +107,7 @@ $status_pesanan = "packaging";
 // status_pesanan = ['menunggu konfirmasi', 'packaging', 'telah diantarakan']
 @endphp
 <section id="" class="d-flex align-items-center" style="background: none; margin-top: 3em;">
-  <div class="container" style="padding-top: 40px;" >
+  <div class="container" style="padding-top: 40px; margin-bottom: 20em;" >
     <div class="card shadow p-3 mb-5 bg-white rounded">
       <div tabindex="0" data-slick-index="1" aria-hidden="false" role="tabpanel" id="slick-slide11">
 

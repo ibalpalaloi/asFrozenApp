@@ -63,7 +63,7 @@ Route::post('/auth/post_registrasi', [AuthController::class, 'post_registrasi'])
  Route::get('/get_jumlah_keranjang', [GetController::class, 'get_jumlah_keranjang']);
  Route::get('/get-data-diskon/{id}', [GetController::class, 'get_data_diskon']);
  Route::get('/get-total-harga-pesanan/{id}', [GetController::class, 'get_total_pesanan']);
- 
+ Route::get('/get-image-kategori', [GetController::class, 'get_img_kategori']);
 
 
  // katalog

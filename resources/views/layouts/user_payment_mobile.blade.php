@@ -53,7 +53,12 @@
             <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: 0em 0.1em 0em 0.1em;">
                 <div style="height: 5em; width: 3em; display: flex; flex-direction: column; align-items: center; margin: 0.4em 0em 0.4em 0em; justify-content: center;">
                     <a style="@if ($link_menu[$i] == $link_now) background: #ec1f25; color: white; @else background: white; border: 2px solid #ec1f25; color: #ec1f25; @endif width: 3em; height: 3em; border-radius: 1.5em; margin-bottom: 0.3em; display: flex;justify-content: center; align-items: center;" href="<?=url('/')?>/{{$link_menu[$i]}}">
-                        <span class="iconify" data-icon="{{$menu[$i]}}" style="font-size: 1.8em;">
+                        <span class="iconify" data-icon="{{$menu[$i]}}" style="font-size: 1.8em;"></span>
+                        @if ($i == 2)
+                        @auth
+                        <div style="width: 1.3em;height: 1.3em; border-radius: 50%; background:#ec1f25; position: absolute; right: -0.2em; top: -0.3em; color: white;" id="jumlah_keranjang">0</div>
+                        @endif
+                        @endif
                     </a>
                 </div>
             </div> 
@@ -73,6 +78,25 @@
         console.log('hide');
         $("#modal_loader").modal("hide");
     };
+
+
+    $(document).ready(function(){
+        get_jumlah_keranjang();
+
+    })
+
+    function get_jumlah_keranjang(){
+        $.ajax({
+            url: "<?=url('/')?>/get_jumlah_keranjang/",
+            type:"get",
+            success:function(data){
+                jumlah_keranjang = data.jumlah_keranjang
+                $('#jumlah_keranjang').html(jumlah_keranjang);
+                // alert(jumlah_keranjang);
+            }
+        })
+    }
+
 </script>
 @yield('footer-scripts')
 

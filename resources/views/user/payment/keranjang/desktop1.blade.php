@@ -6,25 +6,25 @@ Keranjang
 
 @section('body')
 <div class="modal fade" id="modal_hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <form action="{{url()->current()}}/delete" method="post">
-        <div class="modal-body">
-          {{ csrf_field() }}
-          <div style="text-align: center;">
-            <input type="text" name="id" id="hapus_id" hidden>
-            <i class="fa fa-trash" style="font-size: 5em; color: #dc3545;"></i>
-            <h4 style="margin-top: 0.5em;">Apakah anda yakin ingin menghapus produk dari keranjang ?</h4>
-            <div style="margin-top: 0.5em;"></div>
-          </div>  
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-secondary">Hapus</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" style=" background: #dc3545; border: 1px solid #dc3545;">Batal</button>
-        </div>
-      </form>
-    </div>
-  </div>
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<form action="{{url()->current()}}/delete" method="post">
+				<div class="modal-body">
+					{{ csrf_field() }}
+					<div style="text-align: center;">
+						<input type="text" name="id" id="hapus_id" hidden>
+						<i class="fa fa-trash" style="font-size: 5em; color: #dc3545;"></i>
+						<h4 style="margin-top: 0.5em;">Apakah anda yakin ingin menghapus produk dari keranjang ?</h4>
+						<div style="margin-top: 0.5em;"></div>
+					</div>  
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-secondary">Hapus</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" style=" background: #dc3545; border: 1px solid #dc3545;">Batal</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center" style="background: none; ">

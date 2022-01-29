@@ -1,7 +1,7 @@
 @extends('layouts.home_mobile')
 
 @section('title')
-
+Keranjang
 @endsection
 
 @section('header-scripts')
@@ -224,7 +224,27 @@ function hari_indo($hari){
 }
 ?>
 
-
+<div class="modal fade" id="modal_hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<form action="{{url()->current()}}/delete" method="post">
+				<div class="modal-body">
+					{{ csrf_field() }}
+					<div style="text-align: center;">
+						<input type="text" name="id" id="hapus_id" hidden>
+						<i class="fa fa-trash" style="font-size: 5em; color: #dc3545;"></i>
+						<h4 style="margin-top: 0.5em;">Apakah anda yakin ingin menghapus produk dari keranjang ?</h4>
+						<div style="margin-top: 0.5em;"></div>
+					</div>  
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-secondary">Hapus</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" style=" background: #dc3545; border: 1px solid #dc3545;">Batal</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 <main id="homepage" class="homepage" style="background: #f5f5f5;">
 	<div class="row" style="margin-top: 5em; margin-bottom: 0px; padding-bottom: 0em;">
@@ -247,69 +267,66 @@ function hari_indo($hari){
 						<?php
 					}
 					else {
-						foreach ($keranjang as $data){
-							$diskon = "0";
-							if($data->produk->diskon != null){
-								$diskon = $data->produk->diskon->diskon;
-							}
-							$harga = $data->produk->harga;
-							if($diskon != "0"){
-								$harga = $harga - (($diskon / 100) * $harga);
-							}
+						foreach ($data_keranjang as $data){
 							?>
 							<div style="display: flex;justify-content: center; align-items: center; margin-bottom: 1em; width: 10%;">
 								<div class="icheck-danger d-inline">
-									<input type="checkbox" id="checkboxPrimary{{$index}}" onchange="checkbox_cek('{{$data->id}}', '{{$index}}')" checked="false">
-									<label for="checkboxPrimary{{$index}}">
+									<input type="checkbox" id="checkboxPrimary{{$data['id']}}" onchange="checkbox_cek('{{$data['id']}}')" @if ($data['stok'] == 0)
+									disabled
+									@else
+									checked
+									@endif >
+									<label for="checkboxPrimary{{$data['id']}}">
 									</label>
 								</div>
 							</div>
 							<div style="width: 30%;">
-								<img class="img-fluid" src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$data->produk->foto}}" style="width: 100%; border-radius: 0.2em; margin-bottom: 0.5em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+								<img class="img-fluid" src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$data['foto']}}" style="width: 100%; border-radius: 0.2em; margin-bottom: 0.5em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 							</div>
 							<div style="width: 60%; padding-left: 0.5em;">
 								<div style="display: flex;">
-									<div>{{$data->produk->nama}}</div>	&nbsp;							
-									@if ($diskon != "0")
+									<div>{{$data['nama_produk']}}</div>	&nbsp;							
+									@if ($data['diskon'] != "0")
 									<badge class="badge badge-success" style="display: flex; justify-content: center; align-items: center;">
-										{{$diskon}} %
+										{{$data['diskon']}} %
 									</badge>	
 									@endif
 								</div>
 								<div class="text-muted" style="display: flex;">
-									@if ($diskon != "0")
+									@if ($data['diskon'] != "0")
 									<span style="display: flex; margin-top: 0.2em;">
-										<small><s>{{number_format($harga,0,'.','.')}}</s>&nbsp;</small>
+										<small><s>{{number_format($data['harga'],0,'.','.')}}</s>&nbsp;</small>
 									</span>
 									@php 
-									$potongan_harga = round($harga*$diskon/100,0); 
-									$harga_diskon = $harga-$potongan_harga;
+									$potongan_harga = round($data['harga']*$data['diskon']/100,0); 
+									$harga_diskon = $data['harga']-$potongan_harga;
 									@endphp
 									<span>{{number_format($harga_diskon,0,'.','.')}}</span>
 									@else
 									@php 
-									$harga_diskon = $harga;
+									$harga_diskon = $data['harga'];
 									@endphp
-									<span>Rp. {{number_format($harga,0,'.','.')}}&nbsp;</span>
+									<span>Rp. {{number_format($data['harga'],0,'.','.')}}&nbsp;</span>
 									@endif
 								</div>
 								<div style="padding: 0px; display: flex; align-items: center;">
 									<div style="display: flex; align-items: flex-start; padding: 0px; justify-content: flex-start; margin-top: 0.2em;">
-										<div onclick="kurang_pesanan('{{$index}}', '{{$harga_diskon}}')" class="btn btn-danger" style="color: black; color: white; height: 1.5em; width: 25%; border-radius: 0px; display: flex; align-items: center; justify-content: center;"> - </div>
-										<div style="width: 50%; border-radius: 0px; display: flex; align-items: center; justify-content: center; border:1px solid #dfdfdf; height: 1.5em;" class="btn" id="jumlah_pesanan{{$index}}">{{$data->jumlah}}</div>
-										<div onclick="tambah_pesanan('{{$index}}', '{{$harga_diskon}}')" class="btn btn-danger" style="color: black; color: white; height: 1.5em; width: 25%; border-radius: 0px; display: flex; align-items: center; justify-content: center;"> + </div>
+										<div onclick="kurang_pesanan('{{$data['id']}}', '{{$harga_diskon}}')" class="btn btn-danger" style="color: black; color: white; height: 1.5em; width: 25%; border-radius: 0px; display: flex; align-items: center; justify-content: center;"> - </div>
+										<div style="width: 50%; border-radius: 0px; display: flex; align-items: center; justify-content: center; border:1px solid #dfdfdf; height: 1.5em;" class="btn" id="jumlah_pesanan{{$data['id']}}">{{$data['jumlah']}}</div>
+										<div onclick="tambah_pesanan('{{$data['id']}}', '{{$harga_diskon}}')" class="btn btn-danger" style="color: black; color: white; height: 1.5em; width: 25%; border-radius: 0px; display: flex; align-items: center; justify-content: center;"> + </div>
 									</div>
-									<div style="margin-left: 0.5em; padding-top: 0.3em;">Stok : 0</div>
+									<div style="margin-left: 0.5em; padding-top: 0.3em;">Stok : {{$data['stok']}}</div>
+									<div style="margin-left: 0.5em;"><span class="iconify" data-icon="bi:trash-fill" style="color:#dc3545;" onclick="hapus_keranjang('{{$data['id']}}')"></span></div>
+
 								</div>
 								<div style="display: flex; align-items: center; justify-content: flex-start; padding-right: 0px; margin-top: 0.5em;">
 									@php
-									$jumlah = $data->jumlah;
-									$jumlah_harga = round($jumlah * $harga_diskon,0);
+									$jumlah = $data['jumlah'];
+									$jumlah_harga = round($data['jumlah'] * $harga_diskon,0);
 									$total_harga += $jumlah_harga;
 									@endphp	
-									<span >Rp.&nbsp;</span> <span id="sub_total{{$index}}">{{number_format($jumlah_harga, 0, '.', '.')}}</span>
+									<span >Rp.&nbsp;</span> <span id="sub_total{{$data['id']}}">{{number_format($jumlah_harga, 0, '.', '.')}}</span>
 								</div>
-
 							</div>
 							<?php
 							$index++;
@@ -319,7 +336,7 @@ function hari_indo($hari){
 			</div>
 		</div>
 	</div>
-	<div class="row" style="margin-top: 0px;">
+	<div class="row" style="margin-top: 0px; margin-bottom: {{$keranjang->count()*5}}em;">
 		<div class="col-md-12">
 			@if ($keranjang->count() > 0)
 			<div class="card shadow mb-2 bg-white rounded" style="border: none;">
@@ -332,33 +349,15 @@ function hari_indo($hari){
 				</div>
 			</div>
 			@else
-			<a href="<?=url('/')?>" class="btn btn-danger" style="padding: 0.7em; font-size: 1.1em;">Belanja Sekarang</a>
+			<div style="display: flex; justify-content: center;">
+				<a href="<?=url('/')?>" class="btn btn-danger" style="padding: 0.7em; font-size: 1.1em; width: 100%;">Belanja Sekarang</a>
+			</div>
 			@endif
 		</div>
 	</div>
 
 </main>
 
-<div class="wrapper" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); position: relative; z-index: -1">
-	<div class="container-mall" style="padding-bottom: 7.5em;">
-		<div style="padding-top: 2em; text-align: center; color: white;">
-			<p style="font-weight: 700;">Alamat</p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper vitae proin fames vulputate integer nulla amet. Donec turpis.
-		</div>
-		<div style="padding-top: 2em; text-align: center; color: white;">
-			<p style="font-weight: 700;">Connect with us on social media</p>
-			<div class="sosmed">
-				<img src="<?=url('/')?>/public/img/home/about/facebook.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/youtube.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/instagram.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/twitter.svg" style="width: 2.2em;">
-			</div><br>
-			<div>
-				Copyright&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;AsFrozen Palu
-			</div>
-		</div>
-	</div>
-</div>
 @endsection
 
 @section('footer-scripts')
@@ -392,96 +391,17 @@ function hari_indo($hari){
 	var _day = _hour * 24;
 	var timer;
 
-	function showRemaining() {
-		var now = new Date();
-		var distance = end - now;
-		if (distance < 0) {
-
-			clearInterval(timer);
-			document.getElementById('countdown').innerHTML = 'EXPIRED!';
-
-			return;
-		}
-		var days = Math.floor(distance / _day);
-		var hours = Math.floor((distance % _day) / _hour);
-		var minutes = Math.floor((distance % _hour) / _minute);
-		var seconds = Math.floor((distance % _minute) / _second);
-
-		document.getElementById('countdown_jam').innerHTML = hours;
-		document.getElementById('countdown_menit').innerHTML = minutes;
-		document.getElementById('countdown_detik').innerHTML = seconds;
-	}
 
 	timer = setInterval(showRemaining, 1000);
 
-	function tambah_keranjang(id){
-		show_loader();
-		$.ajax({
-			url: "<?=url('/')?>/tambah_keranjang/"+id,
-			type:"get",
-			success:function(data){
-				setTimeout(hide_loader, 500);
-				console.log(data);
-			}
-		})
-	}
 
 	var list_keranjang = {!! json_encode($data_keranjang) !!}
 	var total_harga = parseInt("{{$total_harga}}");
 	// alert(total_harga);
-	function checkbox_cek(id,index){
-		var checked = $('#checkboxPrimary'+index).is(":checked");
-		list_keranjang[index]['checked'] = checked.toString();
-		get_harga_total();
-
-		$.ajax({
-			type:"post",
-			url: "<?=url('/')?>/keranjang/ubah_checked",
-			data:{"id": id, "checked":checked.toString(), "_token" : "{{ csrf_token() }}"},
-			success:function(data){
-				console.log("sukses")
-			}
-		})
-
+	function hapus_keranjang(id){
+		$("#hapus_id").val(id);
+		// alert(id);
+		$("#modal_hapus").modal('show');
 	}
-
-	function kurang_pesanan(index, harga_diskon){
-		total_harga -= parseInt(harga_diskon);
-		var jumlah_pesanan = parseInt($('#jumlah_pesanan'+index).html());
-		if(jumlah_pesanan > 1){
-			jumlah_pesanan -= 1;
-		}
-		list_keranjang[index]['jumlah'] = jumlah_pesanan;
-		var sub_total = parseInt(jumlah_pesanan * harga_diskon);
-		$('#jumlah_pesanan'+index).html(jumlah_pesanan);
-		$('#sub_total'+index).html(sub_total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
-		$("#harga_total").html(total_harga.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
-		ubah_jumlah_ajax(list_keranjang[index]['id'], jumlah_pesanan);
-	}
-
-	function tambah_pesanan(index, harga_diskon){
-		total_harga += parseInt(harga_diskon);
-		var jumlah_pesanan = parseInt($('#jumlah_pesanan'+index).html());
-		jumlah_pesanan += 1;
-		list_keranjang[index]['jumlah'] = jumlah_pesanan;
-		var sub_total = parseInt(jumlah_pesanan * harga_diskon);
-		$('#jumlah_pesanan'+index).html(jumlah_pesanan);
-		$('#sub_total'+index).html(sub_total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
-		$("#harga_total").html(total_harga.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
-		ubah_jumlah_ajax(list_keranjang[index]['id'], jumlah_pesanan);
-	}
-
-	function ubah_jumlah_ajax(id, jumlah){
-		$.ajax({
-			type:"post",
-			url: "<?=url('/')?>/keranjang/ubah_jumlah",
-			data:{"id": id, "jumlah":jumlah, "_token" : "{{ csrf_token() }}"},
-			success:function(data){
-				console.log("sukses")
-			}
-		})
-	}
-
-
 </script>	
 @endsection

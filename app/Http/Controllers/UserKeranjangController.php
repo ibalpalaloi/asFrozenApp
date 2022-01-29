@@ -205,6 +205,7 @@ class UserKeranjangController extends Controller
                 }
 
                 $agent = new Agent();
+                // dd($bank);
                 if ($agent->isMobile()){
                     return view('user.payment.checkout.mobile', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk', 'bank'));
                 }
