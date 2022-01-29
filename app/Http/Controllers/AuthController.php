@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Biodata;
 use Jenssegers\Agent\Agent;
+use App\Models\User_lupa_password;
 use Auth;
 
 class AuthController extends Controller
@@ -90,5 +91,22 @@ class AuthController extends Controller
             return redirect('/admin-index');
         }
         return back();
+    }
+
+    public function lupa_password(){
+        return view('auth.lupa_password');
+    }
+
+    public function post_lupa_password(Request $request){
+        $user = User::where('no_telp', $request->no_telp)->first();
+        if(!empty($user)){
+            User_lupa_password::where('user_id', $user->id)->delete();
+            $lupa_password = new User_lupa_password;
+            $lupa_password->user_id = $user->id;
+            $lupa_password->save();
+
+            return redirect('/user_login')->with('success', 'Password Baru Akan DiKirimkan Ke Whatsapp Anda');
+        }
+        return back()->with('error', 'Akun Tidak Tersedia');
     }
 }

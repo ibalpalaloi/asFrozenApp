@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Biodata;
+use App\Models\User_lupa_password;
 
 class AdminUserController extends Controller
 {
@@ -88,4 +89,9 @@ class AdminUserController extends Controller
 
         return response()->json(['status'=>"sukses"]);
     }
+
+    public function lupa_password(){
+        $user = User_lupa_password::all();
+        return view('admin.daftar_lupa_password', compact('user'));
+    } 
 }

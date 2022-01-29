@@ -50,6 +50,8 @@ Route::post('/post_login', [AuthController::class, 'post_login']);
 Route::post('/post-admin-login', [AuthController::class, 'post_admin_login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/auth/post_registrasi', [AuthController::class, 'post_registrasi']);
+Route::get('/lupa-password', [AuthController::class, 'lupa_password']);
+Route::post('/post-lupa-password', [AuthController::class, 'post_lupa_password']);
 
  // get
  Route::get('/get_list_sub_kategori/{id}', [GetController::class, 'get_sub_kategori']);
@@ -64,6 +66,8 @@ Route::post('/auth/post_registrasi', [AuthController::class, 'post_registrasi'])
  Route::get('/get-data-diskon/{id}', [GetController::class, 'get_data_diskon']);
  Route::get('/get-total-harga-pesanan/{id}', [GetController::class, 'get_total_pesanan']);
  Route::get('/get-image-kategori', [GetController::class, 'get_img_kategori']);
+ Route::get('/cek_lupa_password', [GetController::class, 'cek_lupa_password']);
+ 
 
 
  // katalog
@@ -106,7 +110,7 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
 
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:admin,super admin']], function(){
+Route::group(['middleware' => ['auth', 'checkRole:admin produk,admin pesanan,super admin']], function(){
 
         // admin analisis
     Route::get('/admin-analisis/produk', [AdminAnalisController::class, 'produk']);
@@ -228,6 +232,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin,super admin']], function
     Route::get('/admin-daftar-pengguna/banned/{id}', [AdminUserController::class, 'banned_pengguna']);
     Route::get('/admin-daftar-pengguna/hapus/{id}', [AdminUserController::class, 'hapus_pengguna']);
     Route::get('/admin-daftar-pengguna-banned', [AdminUserController::class, 'daftar_pengguna_banned']);
+    Route::get('/admin-lupa-password', [AdminUserController::class, 'lupa_password']);
 
     // manajemen testimoni
     Route::get('/admin-testimoni', [ManajemenPengguanController::class, 'testimoni']);

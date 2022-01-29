@@ -210,60 +210,61 @@
                 </ul>
               </li>
           @endif
-          <li class="nav-item has-treeview @if($menu_ == 'produk') menu-open @endif">
-            <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'produk') active @endif">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>
-                Produk
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'daftar produk') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daftar Produk</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-daftar-produk-kosong" class="nav-link @if($menu_ == 'daftar produk kosong') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Produk Kosong</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-tambah-produk" class="nav-link @if($menu_ == 'tambah produk') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Produk</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          
+          @if (Auth()->user()->role == "super admin" or Auth()->user()->role == "admin produk")
+            <li class="nav-item has-treeview @if($menu_ == 'produk') menu-open @endif">
+              <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'produk') active @endif">
+                <i class="nav-icon fas fa-tree"></i>
+                <p>
+                  Produk
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'daftar produk') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Daftar Produk</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?=url('/')?>/admin-daftar-produk-kosong" class="nav-link @if($menu_ == 'daftar produk kosong') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Produk Kosong</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?=url('/')?>/admin-tambah-produk" class="nav-link @if($menu_ == 'tambah produk') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Tambah Produk</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-          <li class="nav-item has-treeview @if($menu_ == 'diskon') menu-open @endif">
-            <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'diskon') active @endif">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>
-                Diskon
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-diskon-produk" class="nav-link @if($menu_ == 'daftar produk') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lihat Diskon</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin-manajemen-diskon" class="nav-link @if($menu_ == 'tambah produk') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Manajemen Diskon</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+            <li class="nav-item has-treeview @if($menu_ == 'diskon') menu-open @endif">
+              <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'diskon') active @endif">
+                <i class="nav-icon fas fa-tree"></i>
+                <p>
+                  Diskon
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="<?=url('/')?>/admin-diskon-produk" class="nav-link @if($menu_ == 'daftar produk') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Lihat Diskon</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?=url('/')?>/admin-manajemen-diskon" class="nav-link @if($menu_ == 'tambah produk') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manajemen Diskon</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          @endif
 
           @if (Auth()->user()->role == "super admin")
             <li class="nav-item">
@@ -274,59 +275,61 @@
             </li>
           @endif
 
-          <li class="nav-item has-treeview @if($menu_ == 'pesanan') menu-open @endif">
-            <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'pesanan') active @endif">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>
-                Pesanan
-                <i class="fas fa-angle-left right"></i>
-              </p>
-              <span id="jumlah_semua_pesanan" class="right badge badge-danger"></span>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin/daftar-pesanan" class="nav-link @if($sub_menu_ == 'daftar pesanan') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daftar Pesanan</p>
-                  <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin/pesanan-packaging" class="nav-link @if($sub_menu_ == 'packaging') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Packing</p>
-                  <span id="jumlah_packaging" class="right badge badge-danger"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin/pesanan-dalam-pengantaran" class="nav-link @if($sub_menu_ == 'dalam pengantaran') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dalam Pengantaran</p>
-                  <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin/pesanan-siap-diambil" class="nav-link @if($sub_menu_ == 'siap diambil') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Siap Diambil</p>
-                  <span id="jumlah_siap_diambil" class="right badge badge-danger"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin/daftar-pesanan-expired" class="nav-link @if($sub_menu_ == 'pesanan expired') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pesanan Expired</p>
-                  <span id="jumlah_pesanan_expired" class="right badge badge-danger"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=url('/')?>/admin/riwayat-pesanan" class="nav-link @if($sub_menu_ == 'riwayat pesanan') riwayat @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Riwayat</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          @if (Auth()->user()->role == "super admin" or Auth()->user()->role == "admin pesanan")
+            <li class="nav-item has-treeview @if($menu_ == 'pesanan') menu-open @endif">
+              <a href="<?=url('/')?>/admin-daftar-produk" class="nav-link @if($menu_ == 'pesanan') active @endif">
+                <i class="nav-icon fas fa-tree"></i>
+                <p>
+                  Pesanan
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+                <span id="jumlah_semua_pesanan" class="right badge badge-danger"></span>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="<?=url('/')?>/admin/daftar-pesanan" class="nav-link @if($sub_menu_ == 'daftar pesanan') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Daftar Pesanan</p>
+                    <span id="jumlah_menunggu_konfirmasi" class="right badge badge-danger"></span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?=url('/')?>/admin/pesanan-packaging" class="nav-link @if($sub_menu_ == 'packaging') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Packing</p>
+                    <span id="jumlah_packaging" class="right badge badge-danger"></span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?=url('/')?>/admin/pesanan-dalam-pengantaran" class="nav-link @if($sub_menu_ == 'dalam pengantaran') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Dalam Pengantaran</p>
+                    <span id="jumlah_pengantaran" class="right badge badge-danger"></span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?=url('/')?>/admin/pesanan-siap-diambil" class="nav-link @if($sub_menu_ == 'siap diambil') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Siap Diambil</p>
+                    <span id="jumlah_siap_diambil" class="right badge badge-danger"></span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?=url('/')?>/admin/daftar-pesanan-expired" class="nav-link @if($sub_menu_ == 'pesanan expired') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Pesanan Expired</p>
+                    <span id="jumlah_pesanan_expired" class="right badge badge-danger"></span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?=url('/')?>/admin/riwayat-pesanan" class="nav-link @if($sub_menu_ == 'riwayat pesanan') riwayat @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Riwayat</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          @endif
 
           @if (Auth()->user()->role == "super admin")
               <li class="nav-item has-treeview @if($menu_ == 'analisis') menu-open @endif">
@@ -362,12 +365,22 @@
                 </ul>
               </li>
             @endif
+            
+            <li class="nav-item">
+              <a href="<?=url('/')?>/admin-lupa-password" class="nav-link @if($menu_ == 'lupa password') active @endif">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Lupa Password</p>
+                <span id="jumlah_lupa_password" class="right badge badge-danger">0</span>
+              </a>
+            </li>
+
             <li class="nav-item">
               <a href="<?=url('/')?>/logout" class="nav-link @if($menu_ == 'bank') active @endif">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>Keluar</p>
               </a>
             </li>
+            
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -491,11 +504,23 @@
     })
   }
 
+  function get_lupa_password(){
+    $.ajax({
+      type: "get",
+      url: "<?=url('/')?>/cek_lupa_password",
+      success:function(data){
+        console.log(data);
+        $('#jumlah_lupa_password').html(data.jumlah_lupa_password);
+      }
+    })
+  }
+
   $(document).ready ( function(){
     get_jumlah_pesanan();
     timer = setInterval(function() {
               get_jumlah_pesanan();
               cek_pesanan_expired();
+              get_lupa_password();
             }, 10000);
   })
 
