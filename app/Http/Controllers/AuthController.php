@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Biodata;
+use Jenssegers\Agent\Agent;
 use App\Models\User_lupa_password;
 use Auth;
 use Illuminate\Support\Facades\Mail;
@@ -20,7 +21,14 @@ class AuthController extends Controller
     }
 
     public function registrasi(){
-        return view('auth.registrasi');
+        $agent = new Agent();
+        if ($agent->isMobile()){
+            return view('auth.registrasi_mobile');
+        }
+        else {
+            return view('auth.registrasi_desktop');
+        }
+
     }
 
     public function post_registrasi(Request $request){

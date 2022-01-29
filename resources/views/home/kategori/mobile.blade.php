@@ -1,7 +1,7 @@
 @extends('layouts.home_mobile')
 
 @section('title')
-
+{{Request::segment(2)}}
 @endsection
 
 @section('header-scripts')
@@ -225,7 +225,7 @@ function hari_indo($hari){
 <header class="style__Container-sc-3fiysr-0 header" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); border-bottom: none; box-shadow:0 1px 1px rgb(0 0 0 / 20%);">
 	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
 		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; display: flex; justify-content: center; align-items: center;" href="/">
-			<img src="<?=url('/')?>/katalog_assets/assets/img/logo/frozen_palu_white.png" style="width: 2.5em">
+			<img src="<?=url('/')?>/public/katalog_assets/assets/img/logo/frozen_palu_white.png" style="width: 2.5em">
 		</a>
 		<div id="defaultheader_search" class="style__SearchInput-sc-3fiysr-3 sUjAJ">
 			<span></span>
@@ -246,11 +246,11 @@ function hari_indo($hari){
 				<a href="<?=url('/')?>/kategori/{{$data->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 16.6%; display: flex; flex-direction: column;justify-content: center; align-items: center; margin-bottom: 0.5em;">
 					<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
 						@php
-						$url = url('/')."/icon_kategori/thumbnail/150x150/$data->logo";
+						$url = url('/')."/public/icon_kategori/thumbnail/150x150/$data->logo";
 						@endphp
 						<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 50px; width: 50px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 						</div>
-						<div style="text-align: center; font-size: 0.75em; color: black;"><b>{{$data->kategori}}</b></div>
+						<div style="text-align: center; font-size: 0.75em; color: black; line-height: 1em; height: 2em;"><b>{{$data->kategori}}</b></div>
 					</div>
 				</a>
 				@endforeach
@@ -259,15 +259,8 @@ function hari_indo($hari){
 	</div>
 
 	<div class="row-mall" style="padding: 0.7em 0em 0.7em 0em; background: white;">
-		<div style="margin-left: 0.6em;">
-			<div class="kategori-tabs slider-sub" style="margin-top: 5px; white-space: nowrap; font-size: 1.1em; margin-bottom: 1em;">
-				<a class="kategori-active-mall">Semua</a>
-				<a class="">Makanan</a>
-				<a class="">Siap Saji</a>
-				<a class="">Minuman</a>
-				<a class="">Snack</a>
-				<a class="">Juice</a>
-			</div>
+		<div style="margin-left: 0.6em; padding-bottom: 0.3em;">
+			<h3>{{Request::segment(2)}}</h3>
 		</div>
 		<div class="slider" style="padding-bottom: 1em; margin-top: 0.5em;">
 			<div style="display: flex; align-items: center; flex-wrap: wrap; justify-content: space-around;">
@@ -276,7 +269,7 @@ function hari_indo($hari){
 				@foreach ($dummy as $produk)
 				<div class="slider-toko" style="@if ($loop->iteration == 0) margin-left: 1em;@endif box-shadow: 0 0 5px #ccc; border-radius: 0.5em !important;">
 					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-					<img src="<?=url('/')?>/img/produk/thumbnail/500x500/{{$produk->foto}}" style="border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
+					<img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$produk->foto}}" style="border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
 					<div style='text-align: left; font-size: 1em; padding: 0.5em 0.7em 0em 0.7em; width: 100%; background: white border:1px solid #ccc; color: #70767a; background-size: cover; position: relative; border-radius: 0.5em; word-wrap: break-word; line-height: 1.1em;'> 
 						@if ($produk->diskon != null)
 						@php
@@ -319,26 +312,6 @@ function hari_indo($hari){
 
 </main>
 
-<div class="wrapper" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); position: relative; z-index: -1">
-	<div class="container-mall" style="padding-bottom: 7.5em;">
-		<div style="padding-top: 2em; text-align: center; color: white;">
-			<p style="font-weight: 700;">Alamat</p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper vitae proin fames vulputate integer nulla amet. Donec turpis.
-		</div>
-		<div style="padding-top: 2em; text-align: center; color: white;">
-			<p style="font-weight: 700;">Connect with us on social media</p>
-			<div class="sosmed">
-				<img src="<?=url('/')?>/public/img/home/about/facebook.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/youtube.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/instagram.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/twitter.svg" style="width: 2.2em;">
-			</div><br>
-			<div>
-				Copyright&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;AsFrozen Palu
-			</div>
-		</div>
-	</div>
-</div>
 @endsection
 
 @section('footer-scripts')

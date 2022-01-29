@@ -65,6 +65,7 @@ Route::post('/post-lupa-password', [AuthController::class, 'post_lupa_password']
  Route::get('/get_jumlah_keranjang', [GetController::class, 'get_jumlah_keranjang']);
  Route::get('/get-data-diskon/{id}', [GetController::class, 'get_data_diskon']);
  Route::get('/get-total-harga-pesanan/{id}', [GetController::class, 'get_total_pesanan']);
+ Route::get('/get-image-kategori', [GetController::class, 'get_img_kategori']);
  Route::get('/cek_lupa_password', [GetController::class, 'cek_lupa_password']);
  
 
