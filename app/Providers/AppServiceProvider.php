@@ -31,7 +31,10 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('currency', function ( $expression ) { return "<?php echo number_format($expression,0,',','.'); ?>"; });
 
         View::composer('layouts.home_mobile', function($view){
-            $jumlah_nota = Nota::where('user_id', Auth()->user()->id)->get()->count();
+            $jumlah_nota = 0;
+            if (Auth::user()){
+                $jumlah_nota = Nota::where('user_id', Auth()->user()->id)->get()->count();                
+            }
             $view->with(compact('jumlah_nota'));
         });
     }
