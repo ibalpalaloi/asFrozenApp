@@ -125,6 +125,13 @@
                 @include('admin.include.data_manajemen_diskon')
               </tbody>
           </table>
+          <br>
+          <div class="d-flex justify-content-center">
+            <a href="##" onclick="load_data()" class="btn btn-info btn-lg">
+              <span class="glyphicon glyphicon-plus-sign"></span> +
+            </a>
+          </div>
+          
         </div>
         <!-- /.card-body -->
       </div>
@@ -164,6 +171,21 @@
   });
 
   var id_produk;
+
+  var page = 2;
+  var keyword = "";
+
+  function load_data(){
+    keyword = $('#cari_produk').val();
+      $.ajax({
+        type: "GET",
+        url: "?keyword="+keyword+"&page="+page,
+        success:function(data){
+          $('#tbody_daftar_produk').append(data.view);
+          page++;
+        }
+    })
+  }
 
   function modal_ubah_diskon(id){
     $.ajax({
@@ -208,12 +230,13 @@
   }
 
   function cari_produk(){
-    var keyword = $('#cari_produk').val();
+    keyword = $('#cari_produk').val();
       $.ajax({
         type: "GET",
         url: "?keyword="+keyword,
         success:function(data){
           $('#tbody_daftar_produk').html(data.view);
+          page =2;
         }
       })
   }

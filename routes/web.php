@@ -18,7 +18,7 @@ use App\Http\Controllers\UserKeranjangController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserPesananController;
 use App\Http\Controllers\UserRiwayatController;
-use App\Htpp\Controllers\UserBiodataController;
+use App\Http\Controllers\UserBiodataController;
 use App\Http\Controllers\AdminAnalisController;
 use App\Http\Controllers\AdminGetController;
 use App\Http\Controllers\AdminDiskonController;
@@ -107,6 +107,10 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
     // biodata
     Route::post('/biodata/update', [UserPesananController::class, 'update_biodata']);
     Route::get('/biodata', [UserPesananController::class, 'biodata']);
+
+    // ubah password
+    Route::get('/ubah-password', [UserBiodataController::class, 'ubah_password']);   
+    Route::post('/post-ubah-password', [UserBiodataController::class, 'post_ubah_password']);
 
 });
 

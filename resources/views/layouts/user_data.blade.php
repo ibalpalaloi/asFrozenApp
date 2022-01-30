@@ -542,6 +542,9 @@
 									<a href="<?=url('/')?>/testimoni">Testimoni</a>
 								</li>
 								<li style="margin-top: 0.5em;">
+									<a href="<?=url('/')?>/ubah-password">Ubah Password</a>
+								</li>
+								<li style="margin-top: 0.5em;">
 									<a href="<?=url('/')?>/logout">Logout</a>
 								</li>
 							</ul>
