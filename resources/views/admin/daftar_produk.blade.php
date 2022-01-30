@@ -70,6 +70,7 @@ function tgl_indo($tanggal){
           <br>
 
           <br>
+          {{$jumlah_produk}} Produk
           <table id="example1" class="table table-bordered table-striped">
             <thead>
               <tr>
@@ -84,6 +85,12 @@ function tgl_indo($tanggal){
               @include('admin.include.data_daftar_produk')
             </tbody>
           </table>
+          <br>
+          <div class="d-flex justify-content-center">
+            <a href="##" onclick="load_data()" class="btn btn-info btn-lg">
+              <span class="glyphicon glyphicon-plus-sign"></span> +
+            </a>
+          </div>
         </div>
         <!-- /.card-body -->
       </div>
@@ -322,6 +329,11 @@ function tgl_indo($tanggal){
 
     }
   });
+
+  function load_data(){
+    var view = get_data_produk();
+    $('#tbody_daftar_produk').append(view);
+  }
 
   var page = 2;
   var status_scroll = true;
