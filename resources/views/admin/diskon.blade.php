@@ -205,7 +205,6 @@ function tgl_indo($tanggal){
                 <div class="row">
                     <div class="col-md-3" style="display: flex; align-items: center;">
                         <h4>List Diskon</h4>&nbsp;&nbsp;
-                        <span  onclick="tambah_diskon()"><i class="fa fa-plus-circle" style="font-size: 1.3em; color: #007bff;"></i></span>
                     </div>
                     <div class="col-md-9">
                         <div class="row" style="display: flex; justify-content: flex-end;">

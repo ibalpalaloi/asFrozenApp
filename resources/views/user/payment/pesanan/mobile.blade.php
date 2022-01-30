@@ -6,7 +6,9 @@ Biodata
 
 @section('content')
 <section id="hero" class="d-flex align-items-center" style="background: none; margin-bottom: 8em;">
+	@if ($notas->count() > 0)
 	<div class="container" style="padding-top: 80px;" >
+
 		@foreach ($notas as $nota)
 		<div class="card shadow p-3 bg-white rounded">
 			@if ($nota->status == "menunggu konfirmasi")
@@ -162,8 +164,26 @@ Biodata
 				<button onclick="hubungi_penjual()" type="button" class="btn btn-success" style="margin: 10px">Hubungi Penjual</button>
 			</div>
 		</div>
-		@endforeach
 	</div>
+	@endforeach
+	@else
+	<div>
+		<div class="card" style="width: 100%; ; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%); margin-bottom: 0.5em; margin-top: 80px">
+			<div class="row" style="padding: 0.5em 1em;">
+				<div style="display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 2em 5em; width: 100%;">
+					<span class="iconify" data-icon="icon-park-outline:transaction-order" style="font-size: 10em; color:#dc3545;"></span>
+
+					<h4 style="text-align: center;">
+						Belum ada produk yang dipesan
+					</h4>
+				</div>
+			</div>
+		</div>		
+		<div style="display: flex; justify-content: center;">
+			<a href="<?=url('/')?>" class="btn btn-danger" style="padding: 0.7em; font-size: 1.1em; width: 100%; background:#dc3545;">Belanja Sekarang</a>
+		</div>
+	</div>
+	@endif
 </section>
 
 @endsection
@@ -182,7 +202,7 @@ Biodata
 			button: "Oke",
 		});
 		@endif
-		
+
 	});
 
 	function modal_pesan(){
