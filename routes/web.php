@@ -241,6 +241,10 @@ Route::group(['middleware' => ['auth', 'checkRole:admin produk,admin pesanan,sup
     // manajemen testimoni
     Route::get('/admin-testimoni', [ManajemenPengguanController::class, 'testimoni']);
     Route::get('/admin-testimoni-delete/{id}', [ManajemenPengguanController::class, 'hapus_testimoni']);
+
+    // ubah password
+    Route::get('/admin-ubah-password', [AdminController::class, 'ubah_password']);
+    Route::post('/admin-post-ubah-password', [AdminController::class, 'post_ubah_password']);
 });
 
 
