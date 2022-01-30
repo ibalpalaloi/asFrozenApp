@@ -84,7 +84,7 @@
       });
       $(document).ready(function(){
         @if (session('success'))
-          swal("Password baru akan dikirimkan ke akun whatsappa anda");
+          swal("Password baru akan dikirimkan ke email anda anda");
         @endif
         
       })

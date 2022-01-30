@@ -93,6 +93,7 @@ class AdminProdukController extends Controller
 
     public function daftar_produk(Request $request){
         $kategori = Kategori::all();
+        $jumlah_produk = Produk::count();
         $produk = Produk::paginate(30);
         // dd($produk);
         $list_produk = array();
@@ -143,7 +144,7 @@ class AdminProdukController extends Controller
             $view = view('admin.include.data_daftar_produk', compact('list_produk', 'menu', 'sub_menu'))->render();
             return response()->json(['view'=>$view, 'page'=>$page, 'status_scroll'=>$status_scroll]);
         }
-        return view('admin.daftar_produk', compact('list_produk', 'menu', 'sub_menu', 'kategori'));
+        return view('admin.daftar_produk', compact('list_produk', 'menu', 'sub_menu', 'kategori', 'jumlah_produk'));
     }
 
     public function post_ubah_stok(Request $request){

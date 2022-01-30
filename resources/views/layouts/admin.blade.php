@@ -375,11 +375,19 @@
             </li>
 
             <li class="nav-item">
+              <a href="<?=url('/')?>/admin-ubah-password" class="nav-link @if($menu_ == 'lupa password') active @endif">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Ubah Password</p>
+              </a>
+            </li>
+            @if (Auth()->user()->role == "super admin")
+            <li class="nav-item">
               <a href="<?=url('/')?>/logout" class="nav-link @if($menu_ == 'bank') active @endif">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>Keluar</p>
               </a>
             </li>
+            @endif
             
         </ul>
       </nav>
