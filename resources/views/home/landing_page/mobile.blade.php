@@ -337,10 +337,23 @@ function hari_indo($hari){
 							<s style="font-size: 0.7em;">{{number_format($data->produk->harga, 0, '.', '.')}}</s>
 							<span style="font-size: 0.85em;">{{number_format($harga_diskon, 0, '.', '.')}}</span>
 						</div>
-						<a class="btn-danger" href="https://api.whatsapp.com/send?phone=6285156100849&text=Saya%20Mau%20Pesan%20" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
+						@if ($data->produk->stok_produk)
+						@if ($data->produk->stok_produk->stok != 0)
+						<div class="btn-danger" onclick="tambah_keranjang('{{$data->produk->id}}')" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
 							<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; "></span>&nbsp;&nbsp;Beli
 
-						</a>					
+						</div>					
+						@else
+						<div class="btn-secondary" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
+							Stok Habis
+						</div>
+						@endif
+						@else
+						<div class="btn-secondary" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
+							Stok Habis
+						</div>
+						@endif
+
 					</div>
 
 				</div> 
@@ -430,6 +443,23 @@ function hari_indo($hari){
 		</div>
 	</div>
 	@endforeach
+	<div class="wrapper" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%);">
+		<div class="container-mall" style="padding-bottom: 7.5em; ">
+			<div style="padding-top: 2em; text-align: center; color: white;">
+				<p style="font-weight: 700; font-size: 1.2em;">As Frozen Palu</p>
+				Jl. Mandala No.1<br>Kel. Birobuli Utara, Kec. Palu Selatan<br>Kota Palu
+			</div>
+			<a href="{{url('/')}}/public/asfrozenpalu v.1.0.0.apk" download style="display: flex; justify-content: center;">
+				<img src="{{url('/')}}/public/download.png" style="width: 40%;">
+			</a>
+			<div style="padding-top: 2em; text-align: center; color: white;">
+				<br>
+				<div>
+					Copyright&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;AsFrozen Palu
+				</div>
+			</div>
+		</div>
+	</div>
 
 </main>
 

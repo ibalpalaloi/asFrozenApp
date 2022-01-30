@@ -6,7 +6,7 @@ Biodata
 
 @section('content')
 <section id="hero" class="d-flex align-items-center" style="background: none; margin-bottom: 8em;">
-  <div class="container" style="margin-top: 5.5em; margin-bottom: 23em;">
+  <div class="container" style="margin-top: 5.5em;">
     <div class="row">
       <div class="col-12">
         <div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">

@@ -6,7 +6,7 @@ Biodata
 
 @section('content')
 <section id="hero" class="d-flex align-items-center" style="background: none; margin-bottom: 8em;">
-	<div class="container" style="padding-top: 80px; padding-bottom: 25em;" >
+	<div class="container" style="padding-top: 80px;" >
 		@foreach ($notas as $nota)
 		<div class="card shadow p-3 bg-white rounded">
 			@if ($nota->status == "menunggu konfirmasi")

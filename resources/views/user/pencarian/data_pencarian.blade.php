@@ -23,7 +23,7 @@
                         <h6>Rp {{number_format($harga_diskon, 0, '.', '.')}}</h6>
                     </div>
                     @else
-                    <div style="margin-top: 0.5em; text-align: left; color: black;">{{$produk->nama}}</div>
+                    <div style="margin-top: 0.5em; text-align: left; color: black;">@if (strlen($produk->nama) > 15) {{substr($produk->nama, 0, 15)}}... @else {{$produk->nama}} @endif</div>
                     <div style="padding-top: 0px; position: relative; display: flex; flex-direction: row; justify-content: flex-start; margin-top: 0.3em;">
                         <h6>Rp {{number_format($produk->harga, 0, '.', '.')}}</h6>
                     </div>

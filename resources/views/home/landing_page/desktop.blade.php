@@ -116,19 +116,15 @@ Keranjang Belanja
 
 @section('body')
 <section id="hero" class="d-flex align-items-center" style="background: none; ">
-	<div class="container position-relative" data-aos="fade-up" data-aos-delay="100" style="padding-top: 0em;">
+	<div class="container position-relative" data-aos="fade-up" data-aos-delay="10" style="padding-top: 0em;">
 		<div class="row">
 			<div class="col-md-12" style="padding: 0px;">
 				<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
-					<div class="icon-boxes" style="margin-top: 0em; display: flex; justify-content: space-between;"> 
-
+					<div class="icon-boxes" style="margin-top: 0em; display: flex; justify-content: space-between;">
 						@for ($i = 0; $i < 12; $i++)
 						<a href="<?=url('/')?>/kategori/{{$kategori[$i]->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 							<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
-								@php
-								$url = url('/')."/public/icon_kategori/thumbnail/150x150/".$kategori[$i]->logo;
-								@endphp
-								<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
+								<div id="kategori_{{$kategori[$i]->id}}" style="display: flex; justify-content: center; width: 100%; height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 								</div>
 								<div style="font-size: 1em; height: 2em; line-height: 1em; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; vertical-align: center;"><b>{{$kategori[$i]->kategori}}</b></div>
 							</div>
@@ -139,10 +135,7 @@ Keranjang Belanja
 						@for ($i = 12; $i < 24; $i++)
 						<a href="<?=url('/')?>/kategori/{{$kategori[$i]->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
 							<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
-								@php
-								$url = url('/')."/public/icon_kategori/thumbnail/150x150/".$kategori[$i]->logo;
-								@endphp
-								<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
+								<div id="kategori_{{$kategori[$i]->id}}" style="display: flex; justify-content: center; width: 100%; height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 								</div>
 								<div style="font-size: 1em; height: 2em; line-height: 1em; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; vertical-align: center;"><b>{{$kategori[$i]->kategori}}</b></div>
 							</div>
@@ -152,24 +145,6 @@ Keranjang Belanja
 
 					<br>
 
-					<div class="icon-boxes" style="margin-top: 0em; display: flex; justify-content: space-between; display: none;"> 		
-						@php
-						$nama = array('Bakso', 'Buah Sayur', 'Bumbu', 'Daging', 'Ikan', 'Kecap Saus', 'Kue', 'Lainnya', 'Roti', 'Sosis','Kecap Saus', 'Kue', 'Lainnya', 'Roti', 'Sosis');
-						$file = array('bakso.jpg', 'buah_sayur.jpg', 'bumbu.jpg', 'daging.jpg', 'ikan.jpg', 'kecap_saus.jpg', 'kue.jpg', 'lainnya.jpg', 'roti.jpg', 'sossis.jpg','kecap_saus.jpg', 'kue.jpg', 'lainnya.jpg', 'roti.jpg', 'sossis.jpg');
-						@endphp
-						@for ($i = 0; $i < count($file); $i++)
-						<a href="#" data-aos="zoom-in" data-aos-delay="200" style="width: 8%; display: flex; flex-direction: column;justify-content: center; align-items: center;">
-							<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
-								@php
-								$url = url('/')."/public/katalog_assets/assets/img/kategori_icon/$file[$i]";
-								@endphp
-								<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 70px; width: 70px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid white;" >
-								</div>
-								<div style="text-align: center; font-size: 0.8em;">{{$nama[$i]}}</div>
-							</div>
-						</a>
-						@endfor
-					</div>
 
 				</div>
 			</div>
@@ -208,6 +183,7 @@ Keranjang Belanja
 			</div>
 		</div>
 
+		@if ($flash_sale->count() > 0) 
 		<div class="row" style="margin-top: 1em;">
 			<div class="col-md-12" style="padding: 0px;">
 				<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
@@ -246,12 +222,24 @@ Keranjang Belanja
 											<small><s>Rp {{number_format($data->produk->harga, 0, '.', '.')}}</s></small>&nbsp;&nbsp;
 											<h6>Rp {{number_format($harga_diskon, 0, '.', '.')}}</h6>
 										</div>
+										@if ($data->produk->stok_produk)
+										@if ($data->produk->stok_produk->stok != 0)
 										<a onclick="tambah_keranjang('{{$data->produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
 											<div>
 												<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
 											</div>
 											<div>Beli</div>
 										</a>
+										@else
+										<a class="btn btn-secondary" style="display: flex; justify-content: center; flex-direction: row;">
+											<div>Stok Habis</div>
+										</a>
+										@endif
+										@else
+										<a class="btn btn-secondary" style="display: flex; justify-content: center; flex-direction: row;">
+											<div>Stok Habis</div>
+										</a>
+										@endif
 									</div>
 								</div>
 							</div>
@@ -261,7 +249,7 @@ Keranjang Belanja
 				</div>
 			</div>
 		</div>
-
+		@endif
 		<div style="margin-bottom: 10px">
 			<div class="row" style="margin-top: 20px; padding-left: 0px; padding-right: 0px;  display: flex; justify-content: space-between;" hidden>
 				<div style="width: 32%;">
@@ -290,7 +278,7 @@ Keranjang Belanja
 					<hr>
 					<div class="row team" style="padding: 0em 1em;">
 						<div class="flash_sale" style="width: 100%;">
-							@foreach ($data->produk as $produk)
+							@foreach ($data->produk->take(10) as $produk)
 							<div class="d-flex" style="margin-right: 1em; padding-bottom: 0px;  -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%); margin-bottom: 1em; margin-top: 1em;">
 								<div class="member" style="position: relative; margin-bottom: 0px;">
 									<div class="member-img">
@@ -322,18 +310,18 @@ Keranjang Belanja
 											</div>
 											@endif
 											@if ($produk->stok_produk)
-												@if ($produk->stok_produk->stok != 0)
-												<a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
-													<div>
-														<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
-													</div>
-													<div>Beli</div>
-												</a>
-												@else
-												<a class="btn btn-secondary" style="display: flex; justify-content: center; flex-direction: row;">
-													<div>Stok Habis</div>
-												</a>
-												@endif
+											@if ($produk->stok_produk->stok != 0)
+											<a onclick="tambah_keranjang('{{$produk->id}}')" class="btn btn-danger" style="display: flex; justify-content: center; flex-direction: row;">
+												<div>
+													<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; color: white;"></span>&nbsp;&nbsp;
+												</div>
+												<div>Beli</div>
+											</a>
+											@else
+											<a class="btn btn-secondary" style="display: flex; justify-content: center; flex-direction: row;">
+												<div>Stok Habis</div>
+											</a>
+											@endif
 											@else
 											<a class="btn btn-secondary" style="display: flex; justify-content: center; flex-direction: row;">
 												<div>Stok Habis</div>
@@ -581,5 +569,22 @@ Keranjang Belanja
 				}
 			}
 		});
+
+		$(document).ready(function() {
+			load_img_kategori();
+		});
+
+		function load_img_kategori(){
+			@foreach($kategori as $data)
+			@php
+			$url = url('/')."/public/icon_kategori/thumbnail/150x150/".$data->logo;
+			@endphp
+			var id = "{{$data->id}}";
+			var url = "{{$url}}";
+
+			$("#kategori_"+id).append("<img src='"+url+"' style='width: 100%; border-radius: 50%;'>");
+			@endforeach
+		}
+
 	</script>
 	@endsection

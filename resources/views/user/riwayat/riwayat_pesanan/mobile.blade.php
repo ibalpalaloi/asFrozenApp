@@ -123,7 +123,7 @@ $status_pesanan = "packaging";
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td scope="row">
-                                    <a href="{{url()->current()}}/{{$data['id_pesanan']}}" style="color: black;">
+                                    <a href="#" style="color: black;">
                                         {{tgl_indo(date('Y-m-d', strtotime($data['waktu_pemesanan'])))}} &nbsp;
                                         {{date('H:i', strtotime($data['waktu_pemesanan']))}}</<br>
                                         <i>{{$data['id_pesanan']}}</i><br>

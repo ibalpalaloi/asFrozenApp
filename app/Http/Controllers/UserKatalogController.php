@@ -36,6 +36,7 @@ class UserKatalogController extends Controller
     public function kategori($kategori){
         $list_kategori = Kategori::all();
         $kategori_current = Kategori::where('kategori', $kategori)->first();
+        $produk_kategori = Produk::where('kategori_id', $kategori_current->id)->paginate(20);
         $agent = new Agent();
         if ($agent->isMobile()){
             $dummy = Produk::where('kategori_id', $kategori_current->id)->get();
@@ -43,7 +44,7 @@ class UserKatalogController extends Controller
             return view('home.kategori.mobile', compact('list_kategori', 'kategori_current', 'dummy'));            
         }        
         else {
-            return view('home.kategori.desktop', compact('list_kategori', 'kategori_current'));                        
+            return view('home.kategori.desktop', compact('list_kategori', 'kategori_current', 'produk_kategori'));                        
         }
     }
 
@@ -69,8 +70,8 @@ class UserKatalogController extends Controller
         }
         $keyword = $request->keyword;
         $kategori = Kategori::all();
-        $produk = Produk::where('nama', 'LIKE', '%'.$keyword.'%')->paginate(40);
-        $list_page = $this->get_pagination_page_produk($keyword, 40);
+        $produk = Produk::where('nama', 'LIKE', '%'.$keyword.'%')->paginate(20);
+        $list_page = $this->get_pagination_page_produk($keyword, 20);
         return view('user.pencarian.desktop', compact('kategori', 'keyword', 'produk', 'page', 'list_page', 'page'));
     }
 

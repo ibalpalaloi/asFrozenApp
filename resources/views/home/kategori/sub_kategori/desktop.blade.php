@@ -10,7 +10,7 @@
     @php
     $produk = array('1.jpg','2.jpg','3.jpg','1.jpg','2.jpg');
     @endphp
-    @foreach($sub_kategori->produk as $produk)
+    @foreach($sub_kategori->produk->take(10) as $produk)
     <div style="width: 20%; padding: 0em 0.5em; margin-top: 15px">
         <div class="d-flex" style="padding-bottom: 0px;  -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
             <div class="member" style="position: relative; margin-bottom: 0px;">
@@ -51,7 +51,7 @@
 </div>
 @endforeach 
 @else
-@foreach($kategori_current->produk as $produk)
+@foreach($produk_kategori as $produk)
 <div style="width: 20%; padding: 0em 0.5em; margin-top: 15px">
     <div class="d-flex" style="padding-bottom: 0px;  -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
         <div class="member" style="position: relative; margin-bottom: 0px;">
@@ -100,6 +100,9 @@
     </div>
 </div>
 @endforeach
+<div style="display: flex; justify-content: center; width: 100%; margin-top: 2em;">
+    {{ $produk_kategori->links('pagination::bootstrap-4') }}
+</div>
 @endif
 
 

@@ -454,27 +454,6 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 	</div>
 </section><!-- End Hero -->
 
-
-<div class="wrapper" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); position: relative; z-index: -1">
-	<div class="container-mall" style="padding-bottom: 7.5em;">
-		<div style="padding-top: 2em; text-align: center; color: white;">
-			<p style="font-weight: 700;">Alamat</p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper vitae proin fames vulputate integer nulla amet. Donec turpis.
-		</div>
-		<div style="padding-top: 2em; text-align: center; color: white;">
-			<p style="font-weight: 700;">Connect with us on social media</p>
-			<div class="sosmed">
-				<img src="<?=url('/')?>/public/img/home/about/facebook.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/youtube.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/instagram.svg" style="width: 2.2em;">
-				<img src="<?=url('/')?>/public/img/home/about/twitter.svg" style="width: 2.2em;">
-			</div><br>
-			<div>
-				Copyright&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;AsFrozen Palu
-			</div>
-		</div>
-	</div>
-</div>
 @endsection
 
 @section('footer-scripts')

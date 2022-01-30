@@ -22,8 +22,10 @@ Keranjang Belanja
 		width: 40px;
 		height: 40px;
 		border: none;
-		background-color: red;
+		background-color: #CF0303;
 	}
+
+
 </style>
 @endsection
 
@@ -72,14 +74,16 @@ Keranjang Belanja
 		<div class="row" style="margin-top: 1em;">
 			<div class="col-md-12" style="padding: 0px;">
 				<div class="card" style="width: 100%; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+					<h4 style="margin-left: 0.5em; margin-top: 0.5em;">Pencarian : {{$keyword}}</i></h4>
+					<hr>
 					<div class="row team" style="padding: 1em;" id="data_produk">
 						@include('user.pencarian.data_pencarian')
-						<div>
+						<div style="display: flex; justify-content: center; width: 100%;">
 							<button class="pagination_button"><</button>
 							@foreach ($list_page as $data)
 							@if ($page == $data)
 							<a href="/pencarian?keyword={{$keyword}}&page={{$data}}">
-								<button class="pagination_button_active">{{$data}}</button>
+								<button class="pagination_button_active" style="color: white;">{{$data}}</button>
 							</a>
 							@else
 							<a href="<?=url('/')?>/pencarian?keyword={{$keyword}}&page={{$data}}">

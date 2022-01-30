@@ -444,7 +444,10 @@
 				<div class="row">
 
 					<div class="col-lg-4 col-md-6 footer-contact">
-						<h3>AsFrozen Palu</h3>
+						<div style="display: flex;align-items: center;">
+							<h2>as</h2>&nbsp;&nbsp;&nbsp;
+							<h3 style="margin-top: 0.2em;">Frozen Palu</h3>
+						</div>
 						<p>
 							Jl. Mandala No. 1 <br>
 							Kel. Birobuli Utara, Kec. Palu Selatan<br>
@@ -483,7 +486,7 @@
 
 			<div class="mr-md-auto text-center text-md-left">
 				<div class="copyright">
-					{{date('Y')}}&nbsp;&copy; Copyright <strong><span>AsFrozen Palu</span></strong>.
+					{{date('Y')}}&nbsp;&copy; Copyright <strong><span style="font-size: 1.2em;">as</span><span> Frozen Palu</span></strong>.
 				</div>
 				<div class="credits">
 					All Rights Reserved
@@ -553,6 +556,8 @@
 				}
 			})
 		}
+
+
 
 		function tambah_keranjang(id){
 			show_loader();

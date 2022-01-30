@@ -56,20 +56,7 @@
     </header>
 
     @yield("content")
-    <div class="wrapper" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); position: absolute; left: 0; right: 0; bottom: 0;">
-        <div class="container-mall" style="padding-bottom: 7.5em; ">
-            <div style="padding-top: 2em; text-align: center; color: white;">
-                <p style="font-weight: 700; font-size: 1.2em;">As Frozen Palu</p>
-                Jl. Mandala No.1<br>Kel. Birobuli Utara, Kec. Palu Selatan<br>Kota Palu
-            </div>
-            <div style="padding-top: 2em; text-align: center; color: white;">
-                <br>
-                <div>
-                    Copyright&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;AsFrozen Palu
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div class="footer">
         <div class="container-mall footer-mall-menu" style="display: flex; justify-content: space-around;">
             @php
