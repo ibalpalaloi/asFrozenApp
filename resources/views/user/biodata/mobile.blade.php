@@ -5,7 +5,7 @@ Biodata
 @endsection
 
 @section('content')
-<section id="hero" class="d-flex align-items-center" style="background: none; margin-bottom: 8em;">
+<section id="hero" class="d-flex align-items-center" style="background: none; padding-bottom: 5em;">
   <div class="container" style="margin-top: 5.5em;">
     <div class="row">
       <div class="col-12">

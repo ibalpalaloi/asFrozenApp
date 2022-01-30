@@ -105,7 +105,6 @@ Keranjang Belanja
     }
 </style>
 
-</style>
 @endsection
 
 
@@ -196,7 +195,7 @@ function tgl_indo($tanggal){
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"  style="font-size: 5em; color:#dc3545;"><path d="M19.511 17.98L10.604 1.348a.697.697 0 0 0-1.208 0L.49 17.98a.675.675 0 0 0 .005.68c.125.211.352.34.598.34h17.814a.694.694 0 0 0 .598-.34a.677.677 0 0 0 .006-.68zM11 17H9v-2h2v2zm0-3.5H9V7h2v6.5z" fill="currentColor"/></svg>&nbsp;&nbsp;
                 </div>
                 <h5 style="text-align: center; margin-top: 0.5em;">
-                    Testimoni dapat dilakukan ketika anda telah melakukan transaksi melalui website AsFrozen
+                    Testimoni dapat dilakukan ketika anda telah melakukan transaksi melalui website as Frozen Palu
                 </h5>
                 <a href="{{url('/')}}" class="btn btn-danger">Belanja Sekarang</a>
 

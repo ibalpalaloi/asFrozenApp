@@ -1,7 +1,7 @@
 @extends('layouts.home_mobile')
 
 @section('title')
-Home
+{{Request::segment(2)}}
 @endsection
 
 @section('header-scripts')
@@ -116,30 +116,18 @@ Home
 	padding: 0px;
 }
 
-.slider {
-	display: flex; 
-	overflow-y: visible; 
-	margin: 0px; 			
-	overflow-x: scroll;
-	scrollbar-width: none; /* Firefox */
-	-ms-overflow-style: none;  /* Internet Explorer 10+ */
-}
-.slider::-webkit-scrollbar { /* WebKit */
-	width: 0;
-	height: 0;
-}
 
 .slider-toko {
 	display: flex; 
 	justify-content: center; 
 	flex-direction: column; 
 	align-items: center; 
-	margin: 0em 0em 0em 0.5em; 
-	width: 9.5em;		
+	margin: 0em 2.5% 1.2em 2.5%; 
+	width: 45%;	
 }
 
 .slider-toko img {
-	width:9.5em;
+	width: 100%;
 	height: 9.5em;
 	object-fit: cover;
 	border-top-left-radius: 1em;
@@ -169,34 +157,41 @@ Home
 	font-weight: 600;
 	border-bottom: 1px solid #42b25d;
 }	
+.slider-sub {
+	display: flex; 
+	overflow-y: visible; 
+	margin: 0px; 			
+	overflow-x: scroll;
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
 
-.team .member .social {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	right: 0;
+.slider-sub::-webkit-scrollbar { /* WebKit */
+	width: 0;
+	height: 0;
+}
+
+.page-item.active .page-link {
+	z-index: 0 !important;
+}
+
+.pagination_button{
+	font-size: 20px;
+	font-weight: 700;
+	margin: 5px;
+	width: 40px;
 	height: 40px;
-	opacity: 0;
-	transition: ease-in-out 0.3s;
-	text-align: center;
-	background: rgba(255, 255, 255, 0.85);
+	border: none;
+	background-color: transparent;
 }
-
-.team .member .social a {
-	transition: color 0.3s;
-	color: #124265;
-	margin: 0 10px;
-	padding-top: 8px;
-	display: inline-block;
-}
-
-.team .member .social a:hover {
-	color: #2487ce;
-}
-
-.team .member .social i {
-	font-size: 18px;
-	margin: 0 2px;
+.pagination_button_active{
+	font-size: 20px;
+	font-weight: 700;
+	margin: 5px;
+	width: 40px;
+	height: 40px;
+	border: none;
+	background-color: #CF0303;
 }
 
 </style>
@@ -249,6 +244,8 @@ function hari_indo($hari){
 }
 ?>
 
+
+
 <main id="homepage" class="homepage" style="background: #f5f5f5;">
 	<div class="row-mall" style="padding: 5.7em 0em 0.7em 0em; background: white;">
 		<div style="margin-left: 0.6em;">
@@ -266,137 +263,21 @@ function hari_indo($hari){
 			</div>
 		</div>
 	</div>
-	<div class="row-mall" style="padding: 0.5em; background: white;">
-		<div style="padding: 0em 1em;">
 
-			<div>
-				<div class="row justify-content-center">
-					<div class="col-lg-8 text-center" style="padding: 0;">
-						<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-							<ol class="carousel-indicators">
-								<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-								<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-								<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-							</ol>
-							<div class="carousel-inner">
-								@php $i=0; @endphp
-								@foreach ($banner_main as $data)
-								<div class="carousel-item @if ($i == 0) active @endif">
-									<img src="<?=url('/')?>/public/banner/thumbnail/488x150/{{$data->foto}}" class="d-block w-100">
-								</div>
-								@php $i++; @endphp
-								@endforeach 
-							</div>
-							<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								<span class="sr-only">Previous</span>
-							</a>
-							<a class="	carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-								<span class="carousel-control-next-icon" aria-hidden="true"></span>
-								<span class="sr-only">Next</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
+	<div class="row-mall" style="padding: 0.4em 0em 0.7em 0em; background: white; padding-bottom: 6em;">
+		<div style="margin-left: 0.6em; padding-bottom: 0.3em;">
+			<h3>{{Request::segment(2)}}</h3>
 		</div>
-	</div>
-	@if ($flash_sale->count() > 0)
-	<div class="row-mall" style="padding: 0.7em 0em 0.7em 0em; background: white;">
-		<div style="margin-left: 0.6em;">
-			<div style="display: flex; align-items: center;">
-				<img src="<?=url('/')?>/public/katalog_assets/assets/img/flash-sale2.png" style="width: 10em;">
-				<div id="countdown" class="btn-dark" style="display: flex; margin-left: 1em; border-radius: 0.2em;">
-					<div id="countdown_jam" style="padding:0.5em 0em 0.5em 1em; font-size: 1em; font-weight: 600;"></div>
-					<div style="padding:0.5em 1em; font-size: 1em; font-weight: 600;">:</div>
-					<div id="countdown_menit" style="padding:0.5em 0em; font-size: 1em; font-weight: 600;"></div>
-					<div style="padding:0.5em 1em; font-size: 1em; font-weight: 600;">:</div>
-					<div id="countdown_detik" style="padding: 0.5em 1em 0.5em 0em; font-size: 1em; font-weight: 600;"></div>
-				</div>
-			</div>
-		</div>
-		<div class="slider" style="padding-bottom: 1em; margin-top: 0.5em;">
-			<div style="display: flex; align-items: center;">
+		<div class="slider" style="padding-bottom: 1em; margin-top: 0em;">
+			<h4 style="margin-left: 0.5em; margin-top: 0em;">Pencarian : {{$keyword}}</i></h4>
+			<hr>
 
-				@php $jumlah_digital = count($flash_sale); @endphp
-				@foreach ($flash_sale as $data)
+			<div style="display: flex; align-items: center; flex-wrap: wrap; justify-content: space-around;">
+
+				@php $jumlah_digital = count($produk_kategori); @endphp
+				@foreach ($produk_kategori as $produk)
 				<div class="slider-toko" style="@if ($loop->iteration == 0) margin-left: 1em;@endif box-shadow: 0 0 5px #ccc; border-radius: 0.5em !important;">
-					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-					<img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$data->produk->foto}}" style="border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
-					@php
-					$diskon = $data->diskon;
-					$potongan_harga = round($diskon/100 * $data->produk->harga, 0);
-					$harga_diskon = $data->produk->harga - $potongan_harga;
-					@endphp
-
-					<div style='text-align: left; font-size: 1em; padding: 0.5em 0.7em 0em 0.7em; width: 100%; background: white border:1px solid #ccc; color: #70767a; background-size: cover; position: relative; border-radius: 0.5em; word-wrap: break-word; line-height: 1.1em;'> 
-						<div style="font-weight: 600; margin-bottom: 0.2em;">
-							@if (strlen($data->produk->nama) > 9) {{substr($data->produk->nama, 0, 9)}}.. @else {{$data->produk->nama}} @endif
-							<badge class="badge badge-warning">{{$diskon}}%</badge> 
-						</div>
-						<div style="color: #db6148;">
-							<s style="font-size: 0.7em;">{{number_format($data->produk->harga, 0, '.', '.')}}</s>
-							<span style="font-size: 0.85em;">{{number_format($harga_diskon, 0, '.', '.')}}</span>
-						</div>
-						@if ($data->produk->stok_produk)
-						@if ($data->produk->stok_produk->stok != 0)
-						<div class="btn-danger" onclick="tambah_keranjang('{{$data->produk->id}}')" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
-							<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; "></span>&nbsp;&nbsp;Beli
-
-						</div>					
-						@else
-						<div class="btn-secondary" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
-							Stok Habis
-						</div>
-						@endif
-						@else
-						<div class="btn-secondary" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
-							Stok Habis
-						</div>
-						@endif
-
-					</div>
-
-				</div> 
-				@if ($loop->iteration == $jumlah_digital)
-				<div style="padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
-					<span class="iconify" data-icon="fa-solid:angle-right"></span>
-					<div style="color: gray; font-size: 0.7em; white-space: nowrap;">Lebih Banyak</div>
-				</div>
-				@endif
-				@endforeach
-			</div>
-		</div>
-	</div>
-	@endif
-
-	<?php
-		$img_kategori_foto = array();
-		$img_kategori_id = array();
-		$index_img = 0;
-	?>
-	@foreach ($kategori_show as $data)
-	<div class="row-mall" style="padding: 0.7em 0em 0.7em 0em; background: white;">
-		<div style="padding-left: 0.5em; padding-right: 0.5em; display: flex; justify-content: space-between; align-items: center;">
-			<div style="display: flex; align-items: center; margin-bottom: 0.8em;">
-				@php $img_kategori = url('/')."/public/icon_kategori/thumbnail/75x75/$data->logo"; @endphp
-				<div style="width: 2.5em; height: 2.5em; background-image: url('{{$img_kategori}}'); background-size: cover; border-radius: 50%; border: 2px solid #ec1f25;"></div>
-				<span style="margin-left: -0.4em; padding-left: 0.7em; padding-right: 0.5em; box-shadow: 0 4px 2px -2px gray; padding-bottom: 0.2em;"><b>{{$data->kategori}}</b></span>
-			</div>
-			<a href="<?=url('/')?>/kategori/{{$data->kategori}}" style="color: #ec1f25;">Selengkapnya</a>
-		</div>
-		<div class="slider" style="padding-bottom: 1em; margin-top: 0.5em;">
-			<div style="display: flex; align-items: center;">
-
-				@php $jumlah_digital = count($data->produk); @endphp
-				@foreach ($data->produk->take(10) as $produk)
-				<div class="slider-toko" style="@if ($loop->iteration == 0) margin-left: 1em; @endif box-shadow: 0 0 5px #ccc; border-radius: 0.5em !important;">
 					<img id="produk_img_{{$produk->id}}" src="<?=url('/')?>/public/empty.svg" style="border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
-					<?php
-						$img_kategori_foto[$index_img] = $produk->foto;
-						$img_kategori_id[$index_img] = $produk->id;
-						$index_img++;
-					?>
 					<div style='text-align: left; font-size: 1em; padding: 0.5em 0.7em 0em 0.7em; width: 100%; background: white border:1px solid #ccc; color: #70767a; background-size: cover; position: relative; border-radius: 0.5em; word-wrap: break-word; line-height: 1.1em;'> 
 						@if ($produk->diskon != null)
 						@php
@@ -420,6 +301,7 @@ function hari_indo($hari){
 							<span style="font-size: 0.85em;">{{number_format($produk->harga, 0, '.', '.')}}</span>
 						</div>
 						@endif
+
 						@if ($produk->stok_produk)
 						@if ($produk->stok_produk->stok != 0)
 						<div class="btn-danger" onclick="tambah_keranjang('{{$produk->id}}')" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
@@ -435,43 +317,37 @@ function hari_indo($hari){
 						<div class="btn-secondary" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
 							Stok Habis
 						</div>
-						@endif
-
+						@endif				
 
 					</div>
-
 				</div> 
 				@if ($loop->iteration == $jumlah_digital)
-				<div style="padding: 1em; display: flex; justify-content: center; flex-direction: column; align-items: center;">
-					<span class="iconify" data-icon="fa-solid:angle-right"></span>
-					<div style="color: gray; font-size: 0.7em; white-space: nowrap;">Lebih Banyak</div>
+				<div class="slider-toko" style="@if ($loop->iteration == 0) margin-left: 1em;@endif box-shadow: 0 0 5px #ccc; border-radius: 0.5em !important;">
 				</div>
 				@endif
 				@endforeach
-			</div>
-		</div>
-	</div>
-	@endforeach
-	<div class="wrapper" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%);">
-		<div class="container-mall" style="padding-bottom: 7.5em; ">
-			<div style="padding-top: 2em; text-align: center; color: white;">
-				<p style="font-weight: 700; font-size: 1.2em;">As Frozen Palu</p>
-				Jl. Mandala No.1<br>Kel. Birobuli Utara, Kec. Palu Selatan<br>Kota Palu
-			</div>
-			<a href="{{url('/')}}/public/asfrozenpalu v.1.0.0.apk" download style="display: flex; justify-content: center;">
-				<img src="{{url('/')}}/public/download.png" style="width: 40%;">
-			</a>
-			<div style="padding-top: 2em; text-align: center; color: white;">
-				<br>
-				<div>
-					Copyright&nbsp;&copy;&nbsp;<script>document.write(new Date().getFullYear());</script>&nbsp;AsFrozen Palu
+				<div style="display: flex; justify-content: center; width: 100%;">
+					<button class="pagination_button"><</button>
+					@foreach ($list_page as $data)
+					@if ($page == $data)
+					<a href="/pencarian?keyword={{$keyword}}&page={{$data}}">
+						<button class="pagination_button_active" style="color: white;">{{$data}}</button>
+					</a>
+					@else
+					<a href="<?=url('/')?>/pencarian?keyword={{$keyword}}&page={{$data}}">
+						<button class="pagination_button">{{$data}}</button>
+					</a>
+					@endif
+
+					@endforeach
+					<button class="pagination_button">></button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-</main>
 
+</main>
 
 @endsection
 
@@ -493,10 +369,11 @@ function hari_indo($hari){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-<script src="<?=url('/')?>/public/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script type="text/javascript">
 	<?php  $date_tomorrow = date("m/d/Y", strtotime("+1 day", strtotime(date("Y-m-d")))); ?>
 	var end = new Date("{{$date_tomorrow}} 0:00 AM");
+
 	var _second = 1000;
 	var _minute = _second * 60;
 	var _hour = _minute * 60;
@@ -525,10 +402,37 @@ function hari_indo($hari){
 
 	timer = setInterval(showRemaining, 1000);
 
+	function tambah_keranjang(id){
+		show_loader();
+		$.ajax({
+			url: "<?=url('/')?>/tambah_keranjang/"+id,
+			type:"get",
+			success:function(data){
+				setTimeout(hide_loader, 500);
+				console.log(data);
+			}
+		})
+	}
+
+
 	$(document).ready(function() {
 		load_img_kategori();
 		load_img_produk();
+
 	});
+
+	function load_img_produk(){
+		@foreach($produk_kategori as $data)
+		@php
+		$url = url('/')."/public/img/produk/thumbnail/500x500/".$data->foto;
+		@endphp
+		var id = "{{$data->id}}";
+		var url = "{{$url}}";
+		// $("#div_produk_img_"+id).html('')
+		var img = $("#produk_img_"+id);
+		img.attr("src", img.attr("src").replace("<?=url('/')?>/public/empty.svg", url));
+		@endforeach
+	}
 
 	function load_img_kategori(){
 		@foreach($kategori as $data)
@@ -540,20 +444,5 @@ function hari_indo($hari){
 		// alert("{{$url}}");
 		@endforeach
 	}
-
-	function load_img_produk(){
-		@php $i =0; @endphp
-		@foreach ($img_kategori_foto as $data)
-		@php
-		$url = url('/')."/public/img/produk/thumbnail/500x500/".$data;
-		@endphp
-		var id = "{{$img_kategori_id[$i]}}";
-		var url = "{{$url}}";
-		var img = $("#produk_img_"+id);
-		img.attr("src", img.attr("src").replace("<?=url('/')?>/public/empty.svg", url));
-		@php $i++; @endphp
-		@endforeach
-	}
-
 </script>	
 @endsection

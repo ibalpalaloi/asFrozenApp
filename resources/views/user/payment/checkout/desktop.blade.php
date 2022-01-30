@@ -185,7 +185,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						<div class="stardust-radio__content" style="display: flex; margin-top: 1em;">
 							<div class="form-group clearfix" style="margin-right: 1em;">
 								<div class="icheck-primary d-inline">
-									<input type="radio" id="radioPrimary_{{$row->id}}" onclick='radio_bank("{{$row->id}}")' name="id_bank" checked>
+									<input type="radio" id="radioPrimary_{{$row->id}}" onclick='radio_bank("{{$row->id}}")' name="id_bank">
 									<label for="radioPrimary_{{$row->id}}"></label>
 								</div>
 							</div>

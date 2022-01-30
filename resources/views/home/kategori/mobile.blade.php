@@ -13,16 +13,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet">
 <!-- Vendor CSS Files -->
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/venobox/venobox.css" rel="stylesheet">
-<link href="<?=url('/')?>/katalog_assets/assets/vendor/aos/aos.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="<?=url('/')?>/katalog_assets/assets/vendor/slick/slick-theme.css"/>
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/venobox/venobox.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/vendor/aos/aos.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/katalog_assets/assets/vendor/slick/slick-theme.css"/>
 <!-- Template Main CSS File -->
-<link href="<?=url('/')?>/katalog_assets/assets/css/style.css" rel="stylesheet">
+<link href="<?=url('/')?>/public/katalog_assets/assets/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
 <style type="text/css">
 	.banner {
@@ -171,6 +171,10 @@
 	height: 0;
 }
 
+.page-item.active .page-link {
+	z-index: 0 !important;
+}
+
 
 </style>
 @endsection
@@ -222,19 +226,6 @@ function hari_indo($hari){
 }
 ?>
 
-<header class="style__Container-sc-3fiysr-0 header" style="background: linear-gradient(0deg, hsla(20, 70%, 52%, 1) 0%, hsla(358, 84%, 52%, 1) 100%); border-bottom: none; box-shadow:0 1px 1px rgb(0 0 0 / 20%);">
-	<div class="style__Wrapper-sc-3fiysr-2 hBSxmh" style="display: flex; justify-content: center;">
-		<a id="defaultheader_logo" title="Kitabisa" style="margin-left: 20px; height:33px;margin-right:20px; display: flex; justify-content: center; align-items: center;" href="/">
-			<img src="<?=url('/')?>/public/katalog_assets/assets/img/logo/frozen_palu_white.png" style="width: 2.5em">
-		</a>
-		<div id="defaultheader_search" class="style__SearchInput-sc-3fiysr-3 sUjAJ">
-			<span></span>
-			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="color: #dedede;">
-				<path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
-			</svg>
-		</div>
-	</div>
-</header>
 
 
 <main id="homepage" class="homepage" style="background: #f5f5f5;">
@@ -243,12 +234,9 @@ function hari_indo($hari){
 
 			<div style="display: flex; flex-flow: row wrap;">
 				@foreach($list_kategori as $data)
-				<a href="<?=url('/')?>/kategori/{{$data->kategori}}" data-aos="zoom-in" data-aos-delay="200" style="width: 16.6%; display: flex; flex-direction: column;justify-content: center; align-items: center; margin-bottom: 0.5em;">
-					<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;">
-						@php
-						$url = url('/')."/public/icon_kategori/thumbnail/150x150/$data->logo";
-						@endphp
-						<div style="display: flex; justify-content: center; width: 100%; background-image: url('{{$url}}'); height: 50px; width: 50px; background-size: cover; border-radius: 50%; box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
+				<a href="<?=url('/')?>/kategori/{{$data->kategori}}" data-aos="zoom-in" data-aos-delay="10" style="width: 16.6%; display: flex; flex-direction: column;justify-content: center; align-items: center; margin-bottom: 0.5em;">
+					<div class="icon-box" style="padding: 0px; background: none; box-shadow: none; width: 100%; display: flex;justify-content: center; flex-direction: column; align-items: center;" id="icon_box_{{$data->id}}">
+						<div id="kategori_{{$data->id}}"style="display: flex; justify-content: center; width: 100%; height: 50px; width: 50px; background-size: cover; border-radius: 50%;  box-shadow:0 2px 5px rgb(0 0 0 / 40%); border: 2px solid #ec1f25;" >
 						</div>
 						<div style="text-align: center; font-size: 0.75em; color: black; line-height: 1em; height: 2em;"><b>{{$data->kategori}}</b></div>
 					</div>
@@ -258,18 +246,17 @@ function hari_indo($hari){
 		</div>
 	</div>
 
-	<div class="row-mall" style="padding: 0.7em 0em 0.7em 0em; background: white;">
+	<div class="row-mall" style="padding: 0.7em 0em 0.7em 0em; background: white; padding-bottom: 6em;">
 		<div style="margin-left: 0.6em; padding-bottom: 0.3em;">
 			<h3>{{Request::segment(2)}}</h3>
 		</div>
 		<div class="slider" style="padding-bottom: 1em; margin-top: 0.5em;">
 			<div style="display: flex; align-items: center; flex-wrap: wrap; justify-content: space-around;">
 
-				@php $jumlah_digital = count($dummy); @endphp
-				@foreach ($dummy as $produk)
+				@php $jumlah_digital = count($produk_kategori); @endphp
+				@foreach ($produk_kategori as $produk)
 				<div class="slider-toko" style="@if ($loop->iteration == 0) margin-left: 1em;@endif box-shadow: 0 0 5px #ccc; border-radius: 0.5em !important;">
-					<?php $svg = "public/img/home/bg-slider-toko.svg"; ?>
-					<img src="<?=url('/')?>/public/img/produk/thumbnail/500x500/{{$produk->foto}}" style="border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
+					<img id="produk_img_{{$produk->id}}" src="<?=url('/')?>/public/empty.svg" style="border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
 					<div style='text-align: left; font-size: 1em; padding: 0.5em 0.7em 0em 0.7em; width: 100%; background: white border:1px solid #ccc; color: #70767a; background-size: cover; position: relative; border-radius: 0.5em; word-wrap: break-word; line-height: 1.1em;'> 
 						@if ($produk->diskon != null)
 						@php
@@ -294,10 +281,22 @@ function hari_indo($hari){
 						</div>
 						@endif
 
+						@if ($produk->stok_produk)
+						@if ($produk->stok_produk->stok != 0)
 						<div class="btn-danger" onclick="tambah_keranjang('{{$produk->id}}')" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
 							<span class="iconify" data-icon="mdi:cart" style="font-size: 1.3em; "></span>&nbsp;&nbsp;Beli
 
 						</div>					
+						@else
+						<div class="btn-secondary" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
+							Stok Habis
+						</div>
+						@endif
+						@else
+						<div class="btn-secondary" style="position: absolute; bottom: 0.5em; z-index: 0; width: 90%; height: 2em; border-radius: 0.2em; right: 0.45em; display: flex; justify-content: center; align-items: center; color: white;">
+							Stok Habis
+						</div>
+						@endif				
 					</div>
 				</div> 
 				@if ($loop->iteration == $jumlah_digital)
@@ -305,6 +304,9 @@ function hari_indo($hari){
 				</div>
 				@endif
 				@endforeach
+				<div style="display: flex; justify-content: center; width: 100%; margin-top: 0em;">
+					{{ $produk_kategori->links('pagination::bootstrap-4') }}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -315,56 +317,24 @@ function hari_indo($hari){
 @endsection
 
 @section('footer-scripts')
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery/jquery.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/php-email-form/validate.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/counterup/counterup.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/venobox/venobox.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="<?=url('/')?>/katalog_assets/assets/vendor/aos/aos.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/jquery/jquery.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/php-email-form/validate.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/counterup/counterup.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/venobox/venobox.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/vendor/aos/aos.js"></script>
 <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
 
 <!-- Template Main JS File -->
-<script src="<?=url('/')?>/katalog_assets/assets/js/main.js"></script>
+<script src="<?=url('/')?>/public/katalog_assets/assets/js/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-<script src="{{asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script type="text/javascript">
-	<?php  $date_tomorrow = date("m/d/Y", strtotime("+1 day", strtotime(date("Y-m-d")))); ?>
-	var end = new Date("{{$date_tomorrow}} 0:00 AM");
-
-	var _second = 1000;
-	var _minute = _second * 60;
-	var _hour = _minute * 60;
-	var _day = _hour * 24;
-	var timer;
-
-	function showRemaining() {
-		var now = new Date();
-		var distance = end - now;
-		if (distance < 0) {
-
-			clearInterval(timer);
-			document.getElementById('countdown').innerHTML = 'EXPIRED!';
-
-			return;
-		}
-		var days = Math.floor(distance / _day);
-		var hours = Math.floor((distance % _day) / _hour);
-		var minutes = Math.floor((distance % _hour) / _minute);
-		var seconds = Math.floor((distance % _minute) / _second);
-
-		document.getElementById('countdown_jam').innerHTML = hours;
-		document.getElementById('countdown_menit').innerHTML = minutes;
-		document.getElementById('countdown_detik').innerHTML = seconds;
-	}
-
-	timer = setInterval(showRemaining, 1000);
-
 	function tambah_keranjang(id){
 		show_loader();
 		$.ajax({
@@ -376,6 +346,38 @@ function hari_indo($hari){
 			}
 		})
 	}
+
+
+	$(document).ready(function() {
+		load_img_kategori();
+		load_img_produk();
+
+	});
+
+	function load_img_produk(){
+		@foreach($produk_kategori as $data)
+		@php
+		$url = url('/')."/public/img/produk/thumbnail/500x500/".$data->foto;
+		@endphp
+		var id = "{{$data->id}}";
+		var url = "{{$url}}";
+		// $("#div_produk_img_"+id).html('')
+		var img = $("#produk_img_"+id);
+		img.attr("src", img.attr("src").replace("<?=url('/')?>/public/empty.svg", url));
+		@endforeach
+	}
+
+	function load_img_kategori(){
+		@foreach($list_kategori as $data)
+		@php $url = url('/')."/public/icon_kategori/thumbnail/150x150/$data->logo"; @endphp
+		var id = "{{$data->id}}";
+		var url = "{{$url}}";
+
+		$("#kategori_"+id).html("<img src='"+url+"' style='width: 100%; border-radius: 50%;'>");
+		// alert("{{$url}}");
+		@endforeach
+	}
+
 
 </script>	
 @endsection

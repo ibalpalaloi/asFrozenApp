@@ -37,14 +37,15 @@ class UserKatalogController extends Controller
         $list_kategori = Kategori::all();
         $kategori_current = Kategori::where('kategori', $kategori)->first();
         $produk_kategori = Produk::where('kategori_id', $kategori_current->id)->paginate(20);
+        $list_page = $this->get_pagination_page_kategori($kategori_current->id, 20);
         $agent = new Agent();
         if ($agent->isMobile()){
             $dummy = Produk::where('kategori_id', $kategori_current->id)->get();
             // dd($dummy);
-            return view('home.kategori.mobile', compact('list_kategori', 'kategori_current', 'dummy'));            
+            return view('home.kategori.mobile', compact('list_kategori', 'kategori_current', 'list_page','produk_kategori', 'dummy'));            
         }        
         else {
-            return view('home.kategori.desktop', compact('list_kategori', 'kategori_current', 'produk_kategori'));                        
+            return view('home.kategori.desktop', compact('list_kategori', 'kategori_current', 'list_page', 'produk_kategori'));                        
         }
     }
 
@@ -72,8 +73,26 @@ class UserKatalogController extends Controller
         $kategori = Kategori::all();
         $produk = Produk::where('nama', 'LIKE', '%'.$keyword.'%')->paginate(20);
         $list_page = $this->get_pagination_page_produk($keyword, 20);
-        return view('user.pencarian.desktop', compact('kategori', 'keyword', 'produk', 'page', 'list_page', 'page'));
+        $agent = new Agent();
+        if ($agent->isMobile()){
+            $produk_kategori = $produk;
+            return view('user.pencarian.mobile', compact('kategori', 'keyword', 'produk_kategori', 'page', 'list_page', 'page'));
+        }
+        else {
+            return view('user.pencarian.desktop', compact('kategori', 'keyword', 'produk', 'page', 'list_page', 'page'));
+        }
     }
+
+    public function get_pagination_page_kategori($kategori_id, $paginate){
+        $produk = Produk::where('kategori_id', $kategori_id)->count();
+        $jumlah_page = ceil($produk / $paginate);
+        $list_page = array();
+        for($i = 0; $i < $jumlah_page; $i++){
+            $list_page[$i] = $i+1;
+        }
+        return $list_page;
+    }
+
 
     public function get_pagination_page_produk($keyword, $paginate){
         $produk = Produk::where('nama', 'LIKE', '%'.$keyword.'%')->count();

@@ -17,17 +17,17 @@
     <body class="hold-transition login-page">
     <div class="login-box">
     <div class="login-logo">
-        <a href="<?=url('/')?>"><b>Admin</b>LTE</a>
+        <a href="<?=url('/')?>"><img src="{{url('/')}}/public/katalog_assets/assets/img/logo/frozen_palu_red.png" style="width: 1.5em;">&nbsp;<b>Login</b>&nbsp;Admin</a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Masuk ke sistem</p>
 
         <form action="<?=url('/')?>/post-admin-login" method="post">
             @csrf
             <div class="input-group mb-3">
-            <input type="text" name="name" class="form-control" placeholder="text" autocomplete="off" value="">
+            <input type="text" name="name" class="form-control" placeholder="Username" autocomplete="off" value="">
             <div class="input-group-append">
                 <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -47,7 +47,7 @@
             </div>
             <!-- /.col -->
             <div class="col-4">
-                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                <button type="submit" class="btn btn-primary btn-block" style="background: #CF0303; border: 1px solid #CF0303;">Masuk</button>
             </div>
             <!-- /.col -->
             </div>

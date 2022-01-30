@@ -371,6 +371,16 @@
 			font-weight: 700;
 		}		
 
+
+		.loader-container{
+			width: 100%;
+			height: 100vh;
+			position: fixed;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}  
+
 		body {
 			font-family: 'Lato', sans-serif;
 			/*font-family: 'Roboto', sans-serif;*/
@@ -395,7 +405,17 @@
 </head>
 
 <body>
-	
+	<div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
+			<div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">
+				<div class="loader-container">
+					<div class="spinner-border text-danger" role="status">
+						<span class="sr-only">Loading...</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- ======= Header ======= -->
 	<header id="header" class="fixed-top" style="background: white; border-bottom: none; box-shadow:0 1px 1px rgb(0 0 0 / 20%); padding: 1em;">
@@ -423,51 +443,46 @@
 	@yield('body')
 
 	<!-- ======= Footer ======= -->
+	<!-- ======= Footer ======= -->
 	<footer id="footer">
 
 		<div class="footer-top">
 			<div class="container">
 				<div class="row">
 
-					<div class="col-lg-3 col-md-6 footer-contact">
-						<h3>OnePage</h3>
+					<div class="col-lg-4 col-md-6 footer-contact">
+						<div style="display: flex;align-items: center;">
+							<h2>as</h2>&nbsp;&nbsp;&nbsp;
+							<h3 style="margin-top: 0.2em;">Frozen Palu</h3>
+						</div>
 						<p>
-							A108 Adam Street <br>
-							New York, NY 535022<br>
-							United States <br><br>
+							Jl. Mandala No. 1 <br>
+							Kel. Birobuli Utara, Kec. Palu Selatan<br>
+							Kota Palu <br><br>
 							<strong>Phone:</strong> +1 5589 55488 55<br>
 							<strong>Email:</strong> info@example.com<br>
 						</p>
 					</div>
 
-					<div class="col-lg-2 col-md-6 footer-links">
-						<h4>Useful Links</h4>
-						<ul>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-						</ul>
-					</div>
-
-					<div class="col-lg-3 col-md-6 footer-links">
-						<h4>Our Services</h4>
-						<ul>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-						</ul>
+					<div class="col-lg-4 col-md-6 footer-links">
+						<h4>Metode Pembayaran</h4>
+						<div>
+							<img src="<?=url('/')?>/public/bank_footer.png">
+						</div>
 					</div>
 
 					<div class="col-lg-4 col-md-6 footer-newsletter">
-						<h4>Join Our Newsletter</h4>
-						<p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-						<form action="" method="post">
-							<input type="email" name="email"><input type="submit" value="Subscribe">
-						</form>
+						<div style="display: flex;">
+							<img src="<?=url('/')?>/public/mui_halal.png" style="width: 30%;">
+						</div>
+						<h4 style="margin-top: 0.5em; text-align: left;">Ikuti Kami Di</h4>
+						<div class="social-links text-center text-md-left pt-3 pt-md-0">
+							<a href="#" class="twitter" style="background: #ec1f25;"><i class="bx bxl-twitter"></i></a>
+							<a href="#" class="facebook" style="background: #ec1f25;"><i class="bx bxl-facebook"></i></a>
+							<a href="#" class="instagram" style="background: #ec1f25;"><i class="bx bxl-instagram"></i></a>
+							<a href="#" class="google-plus" style="background: #ec1f25;"><i class="bx bxl-skype"></i></a>
+							<a href="#" class="linkedin" style="background: #ec1f25;"><i class="bx bxl-linkedin"></i></a>
+						</div>
 					</div>
 
 				</div>
@@ -478,23 +493,13 @@
 
 			<div class="mr-md-auto text-center text-md-left">
 				<div class="copyright">
-					&copy; Copyright <strong><span>OnePage</span></strong>. All Rights Reserved
+					{{date('Y')}}&nbsp;&copy; Copyright <strong><span style="font-size: 1.2em;">as</span><span> Frozen Palu</span></strong>.
 				</div>
 				<div class="credits">
-					<!-- All the links in the footer should remain intact. -->
-					<!-- You can delete the links only if you purchased the pro version. -->
-					<!-- Licensing information: https://bootstrapmade.com/license/ -->
-					<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/ -->
-					Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+					All Rights Reserved
 				</div>
 			</div>
-			<div class="social-links text-center text-md-right pt-3 pt-md-0">
-				<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-				<a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-				<a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-				<a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-				<a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-			</div>
+
 		</div>
 	</footer><!-- End Footer -->
 
@@ -521,7 +526,38 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	{{-- <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> --}}
 	{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> --}}
-	
+	<script type="text/javascript">
+
+		function show_loader(){
+			console.log('show');
+			$("#modal_loader").modal("show");
+			setTimeout(hide_loader, 5000);
+
+		};		
+		function hide_loader(){
+			console.log('hide');
+			$("#modal_loader").modal("hide");
+		};
+
+		function tambah_keranjang(id){
+			show_loader();
+			setTimeout(hide_loader, 1000);
+			$.ajax({
+				url: "<?=url('/')?>/tambah_keranjang/"+id,
+				type:"get",
+				success:function(data){
+					
+					get_jumlah_keranjang();
+					console.log(data);
+				},
+				error:function(data){
+					if(data.status > 400){
+						window.location.href = "<?=url('/')?>/user_login";
+					}
+				}
+			})
+		}
+	</script>
 	@yield('footer')
 </body>
 

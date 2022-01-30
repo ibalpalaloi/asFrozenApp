@@ -8,6 +8,7 @@ use App\Models\Kota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Biodata;
+use App\Models\Testimoni;
 use App\Models\Keranjang;
 use App\Models\Produk;
 use App\Models\Riwayat_pesanan;
@@ -108,12 +109,14 @@ class UserPesananController extends Controller
 
     public function riwayat_pesanan(){
         $agent = new Agent();
+        $riwayat = Riwayat_nota_pesanan::where('user_id', Auth()->user()->id)->get();
+        $testimoni = Testimoni::where('users_id', Auth()->user()->id)->first();
         $riwayat_nota = Riwayat_nota_pesanan::where('user_id', Auth()->user()->id)->get();
         if ($agent->isMobile()){
-            return view('user.riwayat.riwayat_pesanan/mobile', compact('riwayat_nota'));
+            return view('user.riwayat.riwayat_pesanan/mobile', compact('riwayat_nota', 'testimoni', 'riwayat'));
         }
         else {
-            return view('user.riwayat.riwayat_pesanan/desktop', compact('riwayat_nota'));
+            return view('user.riwayat.riwayat_pesanan/desktop', compact('riwayat_nota', 'testimoni', 'riwayat'));
         }
     }   
 
