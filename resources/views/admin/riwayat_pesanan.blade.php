@@ -57,6 +57,7 @@ function tgl_indo($tanggal){
                             <th scope="col">Tanggal Pesanan</th>
                             <th scope="col">Total Pesanan</th>
                             <th scope="col">Transaksi</th>
+                            <th scope="col">Admin</th>
                         </tr>
                     </thead>
                     <tbody id="tbody_riwayat_pesanan">
@@ -82,6 +83,7 @@ function tgl_indo($tanggal){
                                 <button type="button" class="btn btn-success btn-sm">Ambil Sendiri</button>
                                 @endif
                             </td>
+                            <td>{{$data['admin']}}</td>
                         </tr>
                         @endforeach
 

@@ -22,4 +22,8 @@ class Nota extends Model
     public function bank(){
     	return $this->belongsTo(Bank::class, 'pembayaran');
     }
+
+    public function admin_penerima(){
+        return $this->belongsTo(User::class, 'penerima_pesanan_id');
+    }
 }

@@ -26,6 +26,7 @@ class AdminRiwayatPesanan extends Controller
             $data_nota[$i]['total_pemesanan'] = $this->get_total_harga_riwayat_pesanan($data->id);
             $data_nota[$i]['pembayaran'] = $data->pembayaran;
             $data_nota[$i]['pengantaran'] = $data->pengantaran;
+            $data_nota[$i]['admin'] = $data->admin;
             $i++;
         }
         if(count($request->all()) > 0){
