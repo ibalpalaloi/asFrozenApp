@@ -43,5 +43,6 @@ function tgl_indo($tanggal){
         <button type="button" class="btn btn-success btn-sm">Ambil Sendiri</button>
         @endif
     </td>
+    <td>{{$data['admin']}}</td>
 </tr>
 @endforeach

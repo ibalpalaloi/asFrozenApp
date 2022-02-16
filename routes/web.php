@@ -159,6 +159,9 @@ Route::group(['middleware' => ['auth', 'checkRole:admin produk,admin pesanan,sup
 
     Route::get('/admin/ubah_status_pesanan/{id}/{status}', [AdminPesananController::class, 'ubah_status_pesanan']);
     Route::get('/admin/pesanan-packaging', [AdminPesananController::class, 'packaging']);
+    Route::get('/admin/pesanan-packaging-semua', [AdminPesananController::class, 'packaging_semua']);
+    Route::get('/admin/pesanan-dalam-pengantaran-semua', [AdminPesananController::class, 'dalam_pengantaran_semua']);
+    Route::get('/admin/pesanan-siap-diambil-semua', [AdminPesananController::class, 'siap_diambil_semua']);
     Route::get('/admin/pesanan-dalam-pengantaran', [AdminPesananController::class, 'dalam_pengantaran']);
     Route::get('/admin/pesanan-siap-diambil', [AdminPesananController::class, 'siap_diambil']);
     Route::get('/admin/pesanan-selesai/{id}', [AdminPesananController::class, 'pesanan_selesai']);

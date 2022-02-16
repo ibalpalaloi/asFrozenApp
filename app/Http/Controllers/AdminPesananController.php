@@ -60,11 +60,26 @@ class AdminPesananController extends Controller
     }
 
     public function packaging(){
-        $nota = Nota::where('status', 'packaging')->get();
+        $nota = Nota::where([
+                ['status', 'packaging'],
+                ['penerima_pesanan_id', Auth()->user()->id]
+        ])->get();
         $qrcode = new Generator;
         $menu = "pesanan";
         $sub_menu = "daftar pesanan";
-        return view('admin.pesanan_packaging', compact('nota', 'qrcode', 'menu', 'sub_menu'));
+        $list = "list";
+        return view('admin.pesanan_packaging', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list'));
+    }
+
+    public function packaging_semua(){
+        $nota = Nota::where([
+                ['status', 'packaging']
+        ])->get();
+        $qrcode = new Generator;
+        $menu = "pesanan";
+        $sub_menu = "daftar pesanan";
+        $list = "semua";
+        return view('admin.pesanan_packaging', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list'));
     }
 
     public function detail_pesanan($id){
@@ -80,15 +95,42 @@ class AdminPesananController extends Controller
     public function dalam_pengantaran(){
         $nota = Nota::where([
             ['status', 'dalam pengantaran'],
+            ['pengantaran', 'Diantarkan'],
+            ['penerima_pesanan_id', Auth()->user()->id]
+        ])->get();
+        $qrcode = new Generator;
+        $menu = "pesanan";
+        $sub_menu = "dalam pengantaran";
+        $list = 'list';
+        return view('admin.pesanan_dalam_pengantaran', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list'));
+    }
+
+    public function dalam_pengantaran_semua(){
+        $nota = Nota::where([
+            ['status', 'dalam pengantaran'],
             ['pengantaran', 'Diantarkan']
         ])->get();
         $qrcode = new Generator;
         $menu = "pesanan";
         $sub_menu = "dalam pengantaran";
-        return view('admin.pesanan_dalam_pengantaran', compact('nota', 'qrcode', 'menu', 'sub_menu'));
+        $list = 'semua';
+        return view('admin.pesanan_dalam_pengantaran', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list'));
     }
 
     public function siap_diambil(){
+        $nota = Nota::where([
+            ['status', 'dalam pengantaran'],
+            ['pengantaran', 'Ambil Sendiri'],
+            ['penerima_pesanan_id', Auth()->user()->id]
+        ])->get();
+        $qrcode = new Generator;
+        $menu = "pesanan";
+        $sub_menu = "siap diambil";
+        $list = 'list';
+        return view('admin.pesanan_dalam_pengantaran', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list'));
+    }
+
+    public function siap_diambil_semua(){
         $nota = Nota::where([
             ['status', 'dalam pengantaran'],
             ['pengantaran', 'Ambil Sendiri']
@@ -96,7 +138,8 @@ class AdminPesananController extends Controller
         $qrcode = new Generator;
         $menu = "pesanan";
         $sub_menu = "siap diambil";
-        return view('admin.pesanan_dalam_pengantaran', compact('nota', 'qrcode', 'menu', 'sub_menu'));
+        $list = 'semua';
+        return view('admin.pesanan_dalam_pengantaran', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list'));
     }
 
     public function pesanan_selesai($id){
@@ -121,6 +164,7 @@ class AdminPesananController extends Controller
         $riwayat_nota->kelurahan = $nota->kelurahan;
         $riwayat_nota->waktu_pemesanan = $nota->created_at;
         $riwayat_nota->catatan = $nota->catatan;
+        $riwayat_nota->admin = Auth()->user()->name;
         $riwayat_nota->save();
 
         foreach ($nota->pesanan as $pesanan){
@@ -155,6 +199,7 @@ class AdminPesananController extends Controller
             return redirect('/daftar-pesanan')->with('error', 'Pesanan Expired');
         }
         $nota->status = $status;
+        $nota->penerima_pesanan_id = Auth()->user()->id;
         $nota->save();
         if($status == "packaging"){
             return redirect('/admin/daftar-pesanan');    

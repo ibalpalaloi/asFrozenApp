@@ -5,6 +5,30 @@
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <a @if ($sub_menu == "dalam pengantaran")
+                        href="<?=url('/')?>/admin/pesanan-dalam-pengantaran"
+                    @else
+                        href="<?=url('/')?>/admin/pesanan-siap-diambil"
+                    @endif style="width: 100%" type="button" @if ($list == "list")
+                        class="btn btn-primary"
+                    @else
+                        class="btn btn-light"
+                    @endif >List</a>
+                </div>
+                <div class="col">
+                    <a @if ($sub_menu == "dalam pengantaran")
+                        href="<?=url('/')?>/admin/pesanan-dalam-pengantaran-semua"
+                    @else
+                        href="<?=url('/')?>/admin/pesanan-siap-diambil-semua"
+                    @endif  style="width: 100%" type="button" @if ($list == "semua")
+                        class="btn btn-primary"
+                    @else
+                        class="btn btn-light"
+                    @endif class="btn btn-light">Semua</a>
+                </div>
+            </div>
             <div class="row mb-2">
                 <div class="col-sm-6"><h1>Pesanan {{$sub_menu}}</h1></div>
                 <div class="col-sm-6">
@@ -137,7 +161,12 @@
                                 </div>
                                 <div class="col-4">
                                     <p style="font-weight: 700; margin-left: 10px; color: red">Waktu Konfirmasi : {{date('H:i', strtotime($data->updated_at))}} Wita</p>
-
+                                    @if ($data->admin_penerima)
+                                        <p style="font-weight: 700; margin-left: 10px; color: black">Admin : {{$data->admin_penerima->name}}</p>
+                                    @else
+                                        <p style="font-weight: 700; margin-left: 10px; color: black">Admin : -</p>
+                                    @endif
+                                    <p style="font-weight: 700; margin-left: 10px; color: black"></p>
                                 </div>
                                 <hr>
                                 <div class="template-demo" style="display: flex; padding-bottom: 1em; padding-left: 1em;">
