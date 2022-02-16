@@ -5,7 +5,7 @@ Biodata
 @endsection
 
 @section('content')
-<section id="hero" class="d-flex align-items-center" style="background: none; padding-bottom: 5em;">
+<section id="hero" class="d-flex align-items-center" style="background: none; margin-bottom: 8em;">
 	@if ($notas->count() > 0)
 	<div class="container" style="padding-top: 80px;" >
 
@@ -71,6 +71,7 @@ Biodata
 			</div>
 			<hr>
 			@php
+			$total_harga_pesanan += $pesanan->jumlah * $pesanan->harga_satuan;
 			@endphp
 			@endforeach
 
@@ -163,59 +164,60 @@ Biodata
 				<button onclick="hubungi_penjual()" type="button" class="btn btn-success" style="margin: 10px">Hubungi Penjual</button>
 			</div>
 		</div>
-		@endforeach
-		@else
-		<div>
-			<div class="card" style="width: 100%; ; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%); margin-bottom: 0.5em; margin-top: 80px">
-				<div class="row" style="padding: 0.5em 1em;">
-					<div style="display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 2em 5em; width: 100%;">
-						<span class="iconify" data-icon="icon-park-outline:transaction-order" style="font-size: 10em; color:#dc3545;"></span>
+	</div>
+	@endforeach
+	@else
+	<div>
+		<div class="card" style="width: 100%; ; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%); margin-bottom: 0.5em; margin-top: 80px">
+			<div class="row" style="padding: 0.5em 1em;">
+				<div style="display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 2em 5em; width: 100%;">
+					<span class="iconify" data-icon="icon-park-outline:transaction-order" style="font-size: 10em; color:#dc3545;"></span>
 
-						<h4 style="text-align: center;">
-							Belum ada produk yang dipesan
-						</h4>
-					</div>
+					<h4 style="text-align: center;">
+						Belum ada produk yang dipesan
+					</h4>
 				</div>
-			</div>		
-			<div style="display: flex; justify-content: center;">
-				<a href="<?=url('/')?>" class="btn btn-danger" style="padding: 0.7em; font-size: 1.1em; width: 100%; background:#dc3545;">Belanja Sekarang</a>
 			</div>
+		</div>		
+		<div style="display: flex; justify-content: center;">
+			<a href="<?=url('/')?>" class="btn btn-danger" style="padding: 0.7em; font-size: 1.1em; width: 100%; background:#dc3545;">Belanja Sekarang</a>
 		</div>
-		@endif
-	</section>
+	</div>
+	@endif
+</section>
 
-	@endsection
+@endsection
 
-	@section('footer-scripts')
-	<script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script>
+@section('footer-scripts')
+<script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
 
-		$(document).ready(function(){
-			@if (session('error'))
-			swal({
-				title: "Pesanan Tidak Dapat Dibatalkan!",
-				text: "Pesanan telah dikonfirmasi",
-				icon: "error",
-				button: "Oke",
-			});
-			@endif
-
+	$(document).ready(function(){
+		@if (session('error'))
+		swal({
+			title: "Pesanan Tidak Dapat Dibatalkan!",
+			text: "Pesanan telah dikonfirmasi",
+			icon: "error",
+			button: "Oke",
 		});
+		@endif
 
-		function show_nomor_rekening(nama, no_rek){
-			alert(nama+" "+no_rek);
-		}
+	});
 
-		function modal_pesan(){
-			$('#exampleModal').modal('show');
-		}
+	function show_nomor_rekening(nama, no_rek){
+		alert(nama+" "+no_rek);
+	}
 
-		function hubungi_penjual(){
-			var message = "Hallo AsFrozen saya telah memesan produk dengan link ID_pesanan=1880148014";
+	function modal_pesan(){
+		$('#exampleModal').modal('show');
+	}
 
-			var walink = 'https://wa.me/'+ "+628114588477" +'?text=' + encodeURI(message);
-			window.open(walink);
-		}
-	</script>
-	@endsection
+	function hubungi_penjual(){
+		var message = "Hallo AsFrozen saya telah memesan produk dengan link ID_pesanan=1880148014";
+
+		var walink = 'https://wa.me/'+ "+628114588477" +'?text=' + encodeURI(message);
+		window.open(walink);
+	}
+</script>
+@endsection

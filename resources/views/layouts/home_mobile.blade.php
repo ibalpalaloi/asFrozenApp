@@ -4,9 +4,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="HandheldFriendly" content="true"/>
-    <title>@yield('title') | As Frozen</title>
+    <title>@yield('title') | as Frozen Palu</title>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="icon" type="image/png" sizes="60x60" href="<?=url('/')?>/public/img/yoomam.png">
+    <link rel="icon" type="image/png" sizes="60x60" href="<?=url('/')?>/public/katalog_assets/assets/img/logo/frozen_admin_logo.png">
     <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template_mobile/admin/dist/css/style.min.css">
     <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template_mobile/css/kitapura.css">
     <style type="text/css">

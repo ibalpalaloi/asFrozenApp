@@ -35,7 +35,7 @@ function tgl_indo($tanggal){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Bank
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Bank</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="right: 1em; position: absolute;">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -47,9 +47,14 @@ function tgl_indo($tanggal){
             <label>Nama Bank</label>
             <input name="nama_bank" type="text" class="form-control" placeholder="Masukan nama bank" required>
           </div> 
+
           <div class="form-group">
             <label>Nomor Rekening</label>
             <input name="nomor_rekening" type="text" class="form-control" placeholder="Masukan nomor rekening" required>
+          </div> 
+          <div class="form-group">
+            <label>Nama Pemilik</label>
+            <input name="nama" type="text" class="form-control" placeholder="Masukan nama pemilik" required>
           </div> 
           <div class="form-group">
             <label>Logo Bank</label>
@@ -65,6 +70,47 @@ function tgl_indo($tanggal){
     </div>
   </div>
 </div>
+<div class="modal fade" id="modal_ubah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Bank</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="right: 1em; position: absolute;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{url()->current()}}/update" method="post" enctype='multipart/form-data'>
+        <div class="modal-body">
+          {{ csrf_field() }}
+          <div class="form-group">
+            <label>Nama Bank</label>
+            <input type="text" name="id" id="ubah_id" hidden>
+            <input name="nama_bank" id="nama_bank" type="text" class="form-control" placeholder="Masukan nama bank" required>
+          </div> 
+
+          <div class="form-group">
+            <label>Nomor Rekening</label>
+            <input name="nomor_rekening" id="nomor_rekening" type="text" class="form-control" placeholder="Masukan nomor rekening" required>
+          </div> 
+          <div class="form-group">
+            <label>Nama Pemilik</label>
+            <input name="nama" type="text" id="nama" class="form-control" placeholder="Masukan nama pemilik" required>
+          </div> 
+          <div class="form-group">
+            <label>Logo Bank</label>
+            <input name="logo_bank" type="file" class="form-control" placeholder="Masukan logo bank">
+          </div> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
 
 
 <div class="content-wrapper">
@@ -86,6 +132,7 @@ function tgl_indo($tanggal){
                 <th>No</th>
                 <th>Nama Bank</th>
                 <th>Nomor Rekening</th>
+                <th>Nama Pemilik</th>
                 <th>Logo Bank</th>
                 <th></th>
               </tr>
@@ -96,37 +143,55 @@ function tgl_indo($tanggal){
                 <td>{{$loop->iteration}}</td>
                 <td>{{$row->nama_bank}}</td>
                 <td>{{$row->nomor_rekening}}</td>
+                <td>{{$row->nama}}</td>
                 <td>
                   <img src="<?=url('/')?>/public/bank/{{$row->img}}" style="width: 50px;"></td>
-                <td></td>
-              </tr>
-              @endforeach 
-            </tbody>
-          </table>
+                  <td>
+                    <button class="btn btn-info" onclick="ubah('{{$row->id}}', '{{$row->nama_bank}}', '{{$row->nomor_rekening}}', '{{$row->nama}}')">
+                      <i class="fa fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger" onclick="hapus('{{$row->id}}')">
+                      <i class="fa fa-trash"></i>
+                    </button>
+
+                  </td>
+                </tr>
+                @endforeach 
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-@endsection
-@section('footer')
-<script src="{{asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-<script src="{{asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-<script type="text/javascript">
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
+  @endsection
+  @section('footer')
+  <script src="{{asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+  <script src="{{asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+  <script src="{{asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+  <script src="{{asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+      });
     });
-  });
 
-  function tambah(){
-    $("#modal_tambah").modal('show');
-  }
-</script>
+    function tambah(){
+      $("#modal_tambah").modal('show');
+    }
 
-@endsection
+    function ubah(id, nama_bank, rekening, nama){
+      $("#ubah_id").val(id);
+      $("#nama_bank").val(nama_bank);
+      $('#nomor_rekening').val(rekening);
+      $("#nama").val(nama);
+      $("#modal_ubah").modal('show');
+    }
+
+  </script>
+
+  @endsection

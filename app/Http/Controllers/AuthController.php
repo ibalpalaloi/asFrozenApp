@@ -10,6 +10,7 @@ use App\Models\Biodata;
 use Jenssegers\Agent\Agent;
 use App\Models\User_lupa_password;
 use Auth;
+use Response;
 use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
@@ -65,6 +66,15 @@ class AuthController extends Controller
     public function logout(){
         Auth::logout();
         return redirect('/');
+    }
+
+    public function download(){
+        $file= public_path(). "/asfrozen_v1.0.0.apk";
+
+        return response()->file($path ,[
+            'Content-Type'=>'application/vnd.android.package-archive',
+            'Content-Disposition'=> 'attachment; filename="asfrozen_v1.0.0.apk"',
+        ]) ;
     }
 
     public function post_login(Request $request){
@@ -151,12 +161,12 @@ class AuthController extends Controller
     public function random_password() {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         $randomString = '';
-      
+
         for ($i = 0; $i < 8; $i++) {
             $index = rand(0, strlen($characters) - 1);
             $randomString .= $characters[$index];
         }
-      
+
         return $randomString;
     }
 

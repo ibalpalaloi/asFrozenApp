@@ -292,7 +292,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						<div style="width: 60%; padding-left: 0.8em;">
 							<div style="display: flex;">
 								<div>
-									<span>{{$data['nama_produk']}}</span>
+									<span>{{substr($data['nama_produk'],0,20)}} @if (strlen($data['nama_produk']) > 20)...@endif</span>
 									<span>								
 										@if ($diskon != "0")
 										<badge class="badge badge-success">
@@ -311,7 +311,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 								$jumlah = $data['jumlah'];
 								$jumlah_harga = round($jumlah * $data['harga_diskon'],0);
 								@endphp	
-								<span >Rp.</span> <span id="sub_total{{$data_id}}">{{number_format($data['harga_diskon'], 0, '.', '.')}}</span>
+								<span >Rp.</span> <span id="sub_total{{$data_id}}">{{number_format($jumlah_harga, 0, '.', '.')}}</span>
 							</div>
 
 						</div>
@@ -343,7 +343,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						<svg height="18" viewBox="0 0 12 16" width="18" class="shopee-svg-icon icon-location-marker" style="margin-top: 0.3em;"><path d="M6 3.2c1.506 0 2.727 1.195 2.727 2.667 0 1.473-1.22 2.666-2.727 2.666S3.273 7.34 3.273 5.867C3.273 4.395 4.493 3.2 6 3.2zM0 6c0-3.315 2.686-6 6-6s6 2.685 6 6c0 2.498-1.964 5.742-6 9.933C1.613 11.743 0 8.498 0 6z" fill-rule="evenodd"></path>
 						</svg>
 						<div style="margin-left: 1em;" id="div_alamat_penerima">
-							<b>Alamat Penerima&nbsp;(Ongkir : Rp. {{number_format($ongkos_kirim, 0, '.', '.')}})</b><br>
+							<b>Alamat Penerima&nbsp;<br>(Ongkir : Rp. {{number_format($ongkos_kirim, 0, '.', '.')}})</b><br>
 							<span>{{Auth()->user()->biodata->nama}} | ({{Auth()->user()->biodata->no_telp}})</span><br>
 							<span>{{Auth()->user()->biodata->alamat}}</span><br>
 							<span>{{Auth()->user()->biodata->kelurahan->kelurahan}}, {{Auth()->user()->biodata->kelurahan->kecamatan->kecamatan}}, {{Auth()->user()->biodata->kelurahan->kecamatan->kota->kota}}</span> <br>
@@ -403,7 +403,10 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 							Subtotal Produk
 						</div>
 						<div class="col-6" style="display: flex; justify-content: flex-end;">
-							<div></div><div>{{number_format($total_harga_produk,0,'.','.')}}</div>
+							<div></div>
+							<div>{{number_format($total_harga_produk,0,'.','.')}}</div>
+							<div id="harga_produk_raw" hidden>{{$total_harga_produk}}</div>
+
 						</div>
 					</div>
 					<div class="row">
@@ -411,7 +414,9 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 							Ongkos Kirim
 						</div>
 						<div class="col-6" style="display: flex; justify-content: flex-end;">
-							<div></div><div id="nilai_ongkir">0</div>
+							<div></div>
+							<div id="nilai_ongkir">0</div>
+							<div id="nilai_ongkir_raw" hidden></div>
 						</div>
 					</div>
 					<div class="row">
@@ -437,7 +442,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 					@csrf
 					<input hidden type="text" name="nama_penerima" id="input_nama_penerima" value="{{Auth()->user()->biodata->nama}}" required>
 					<input hidden type="text" name="no_telp_penerima", id="input_no_telp_penerima" value="{{Auth()->user()->biodata->no_telp}}">
-					<input hidden type="text" name="ongkos_kirim" id="input_ongkos_kirim" value="{{$ongkos_kirim}}" required>
+					<input type="text" name="ongkos_kirim" id="input_ongkos_kirim" value="{{$ongkos_kirim}}" required  hidden>
 					<input hidden type="text" name="total_harga_produk" id="input_total_harga_produk" value="{{$total_harga_produk}}" required>
 					<input hidden type="text" name="alamat" id="input_alamat" value="{{Auth()->user()->biodata->alamat}}" required>
 					<input hidden type="text" name="kota" id="input_kota" value="{{Auth()->user()->biodata->kelurahan->kecamatan->kota->kota}}" required>
@@ -459,7 +464,8 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 @section('footer-scripts')
 <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
 <script>
-	var ongkos_kirim = {!! json_encode(Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim) !!};
+	var ongkos_kirim = {!! json_encode(number_format(Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim,0,'.','.')) !!};
+	var ongkos_kirim_raw = {!! json_encode(Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim) !!};
 	var ongkos_kirim_get = 0;
 	var total_harga_produk = {!! json_encode($total_harga_produk) !!}
 	function get_kecamatan(){
@@ -559,6 +565,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 			$('#input_ongkos_kirim').val("0")	
 		}
 		else {
+			var harga_produk_raw = $("#harga_produk_raw").html();
 			$("#toko_as_frozen").prop('hidden', true);
 			$("#alamat_penerima").prop('hidden', false);				
 			$("#btn_diantarkan").css('background', '#dc3545');				
@@ -567,8 +574,9 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 			$("#btn_ambil_sendiri").css('color', '#dc3545');				
 			$("#total_biaya").html("Rp. 97.000");
 			$("#nilai_ongkir").html(ongkos_kirim);	
+			$("#nilai_total").html(parseInt(ongkos_kirim_raw)+parseInt(harga_produk_raw));
 			$("#input_pengantaran").val('Diantarkan');
-			$('#input_ongkos_kirim').val(ongkos_kirim);	
+			$('#input_ongkos_kirim').val(ongkos_kirim_raw);	
 
 
 		}

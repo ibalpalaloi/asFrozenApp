@@ -48,6 +48,7 @@ Route::get('/admin_login', [AuthController::class, 'admin_login']);
 Route::get('/registrasi', [AuthController::class, 'registrasi']);
 Route::post('/post_login', [AuthController::class, 'post_login']);
 Route::post('/post-admin-login', [AuthController::class, 'post_admin_login']);
+Route::get('/download', [AuthController::class, 'download']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/auth/post_registrasi', [AuthController::class, 'post_registrasi']);
 Route::get('/lupa-password', [AuthController::class, 'lupa_password']);

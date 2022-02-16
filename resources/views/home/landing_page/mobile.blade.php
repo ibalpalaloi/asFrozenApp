@@ -458,7 +458,7 @@ function hari_indo($hari){
 				<p style="font-weight: 700; font-size: 1.2em;">As Frozen Palu</p>
 				Jl. Mandala No.1<br>Kel. Birobuli Utara, Kec. Palu Selatan<br>Kota Palu
 			</div>
-			<a href="{{url('/')}}/public/asfrozenpalu v.1.0.0.apk" download style="display: flex; justify-content: center;">
+			<a href="{{url('/')}}/download" style="display: flex; justify-content: center;">
 				<img src="{{url('/')}}/public/download.png" style="width: 40%;">
 			</a>
 			<div style="padding-top: 2em; text-align: center; color: white;">

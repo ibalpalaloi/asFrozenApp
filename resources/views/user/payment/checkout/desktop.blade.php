@@ -228,6 +228,8 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						</div>
 						<div class="col-md-2" style="display: flex; justify-content: flex-end;">
 							<div>Rp.&nbsp;</div><div>{{number_format($total_harga_produk,0,'.','.')}}</div>
+							<div id="harga_produk_raw" hidden>{{$total_harga_produk}}</div>
+
 						</div>
 					</div>
 					<div class="row">
@@ -238,6 +240,8 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						</div>
 						<div class="col-md-2" style="display: flex; justify-content: flex-end;">
 							<div>Rp.&nbsp;</div><div id="nilai_ongkir">0</div>
+							<div id="nilai_ongkir_raw" hidden></div>
+
 						</div>
 					</div>
 					<div class="row">
@@ -288,8 +292,10 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 
 <script>
 
-	var ongkos_kirim = {!! json_encode(Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim) !!};
+	var ongkos_kirim = {!! json_encode(number_format(Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim,0,'.','.')) !!};
+	var ongkos_kirim_raw = {!! json_encode(Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim) !!};
 	var ongkos_kirim_get = 0;
+
 	var total_harga_produk = {!! json_encode($total_harga_produk) !!}
 
 	function get_kecamatan(){
@@ -404,6 +410,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 			$('#input_ongkos_kirim').val("0")	
 		}
 		else {
+			var harga_produk_raw = $("#harga_produk_raw").html();
 			$("#toko_as_frozen").prop('hidden', true);
 			$("#alamat_penerima").prop('hidden', false);				
 			$("#btn_diantarkan").css('background', '#dc3545');				
@@ -412,8 +419,10 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 			$("#btn_ambil_sendiri").css('color', '#dc3545');				
 			$("#total_biaya").html("Rp. 97.000");
 			$("#nilai_ongkir").html(ongkos_kirim);	
+			$("#nilai_total").html(parseInt(ongkos_kirim_raw)+parseInt(harga_produk_raw));
 			$("#input_pengantaran").val('Diantarkan');
-			$('#input_ongkos_kirim').val(ongkos_kirim);	
+			$('#input_ongkos_kirim').val(ongkos_kirim_raw);	
+
 
 
 		}

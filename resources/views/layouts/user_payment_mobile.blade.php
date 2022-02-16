@@ -6,7 +6,7 @@
     <meta name="HandheldFriendly" content="true"/>
     <title>@yield('title')Yoomam</title>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="icon" type="image/png" sizes="60x60" href="{{asset('public/img/yoomam.png')}}">
+    <link rel="icon" type="image/png" sizes="60x60" href="<?=url('/')?>/public/katalog_assets/assets/img/logo/frozen_admin_logo.png">
     <link rel="stylesheet" type="text/css" href="<?=url('/')?>/template_mobile/admin/dist/css/style.min.css">
     <link rel="stylesheet" type="text/css" href="<?=url('/')?>/template_mobile/css/kitapura.css">
     <style type="text/css">

@@ -15,7 +15,7 @@ Biodata
               <img src="<?=url('/')?>/public/img/default.png" style="width: 100%; border-radius: 50%;">
             </div>
             <div style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center; margin-top: 1em;">
-              <h4>Iqbal Ramadhan</h4>
+              <h4>{{$user->nama}}</h4>
               <h5>Member</h5>
               <a href="{{url('/')}}/logout" class="btn btn-danger"><i class="fa fa-power-off"></i>&nbsp;Logout</a>
             </div>
@@ -58,6 +58,15 @@ Biodata
                   <input type="text" class="form-control" id="staticEmail" name="email" value="{{$user->user->email}}" required>
                 </div>
               </div>
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-3 col-form-label">Alamat</label>
+                <div class="col-sm-9">
+                  <input type="text" name="alamat" class="form-control" value="{{$user->alamat}}">
+                </div>
+              </div>
+
+              <div class="form-group row">
+              </div>
               <?php
               $from = "";
               if (isset($_GET['from'])){
@@ -94,6 +103,7 @@ Biodata
                   </select>
                 </div>
               </div>
+
               <div class="form-group row">
                 <label for="staticEmail" class="col-sm-3 col-form-label">Kelurahan</label>
                 <div class="col-sm-9">
@@ -137,4 +147,42 @@ Biodata
 
 @section('footer-scripts')
 <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+@include('user.payment.keranjang.keranjang_script')
+<script type="text/javascript">
+  function get_kecamatan(){
+    var kota_id = $('#selectKota').val();
+    var option = "<option value=''>Pilih Kecamatan</option>";
+    $.ajax({
+      type: "get",
+      url: "<?=url('/')?>/get_kecamatan/"+kota_id,
+      success:function(data){
+        // alert(data)
+        var kecamatan = data.kecamatan;
+        var kecamatan_lenght = Object.keys(kecamatan).length;
+        for(let i = 0; i< kecamatan_lenght; i++){
+          option += "<option value='"+kecamatan[i]['id']+"'>"+kecamatan[i]['kecamatan']+"</option>"
+        }
+        $("#selectKecamatan").html(option);
+      }
+    })
+  }
+
+  function get_kelurahan(){
+    var kecamatan_id = $('#selectKecamatan').val();
+    var option = "<option value=''>Pilih Kelurahan</option>";
+    $.ajax({
+      type: "get",
+      url: "<?=url('/')?>/get_kelurahan/"+kecamatan_id,
+      success:function(data){
+        var kelurahan = data.kelurahan;
+        var kelurahan_lenght = Object.keys(kelurahan).length;
+        for(let i = 0; i< kelurahan_lenght; i++){
+          option += "<option value='"+kelurahan[i]['id']+"'>"+kelurahan[i]['kelurahan']+"</option>"
+        }
+        $("#selectKelurahan").html(option);
+      }
+    })
+  }
+
+</script>
 @endsection
