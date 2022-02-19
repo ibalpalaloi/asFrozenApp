@@ -85,6 +85,12 @@ class GetController extends Controller
 
     public function get_jumlah_pesanan(){
         $jumlah = array();
+        if(Nota::where('notifikasi', 'true')->count() > 0){
+            $notifikasi_pesanan_baru = true;
+        }
+        else{
+            $notifikasi_pesanan_baru = false;
+        }
         $jumlah['menunggu_konfirmasi'] = Nota::where('status', 'menunggu konfirmasi')->count();
         $jumlah['packaging'] = Nota::where('status', 'packaging')->count();
         $jumlah['dalam_pengantaran'] = Nota::where([
@@ -96,8 +102,8 @@ class GetController extends Controller
             ['pengantaran', 'Ambil Sendiri']
         ])->count();
         $jumlah['pesanan_expired'] = Nota_expired::where('notif', 'true')->count();
-
-        return response()->json(['jumlah'=>$jumlah]);
+        Nota::where('notifikasi', 'true')->update(['notifikasi'=>'false']);
+        return response()->json(['jumlah'=>$jumlah, 'notifikasi_pesanan_baru'=>$notifikasi_pesanan_baru]);
     }
 
     public function get_jumlah_keranjang(){

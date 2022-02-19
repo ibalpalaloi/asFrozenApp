@@ -25,6 +25,7 @@
 
   <!-- summernote -->
   <meta name="csrf-token" content="{{ csrf_token() }}" />
+  
   @yield('header')
 </head>
 <style>
@@ -62,6 +63,10 @@
 
 
 <body class="hold-transition sidebar-mini layout-fixed">
+  <audio id="myAudio">
+    <source src="{{asset('/public/audio/mixkit-doorbell-single-press-333.mp3')}}" type="audio/mpeg">
+  </audio>
+
   <div class="wrapper">
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
       <ul class="navbar-nav">
@@ -489,6 +494,12 @@
         $('#jumlah_pengantaran').html(jumlah['dalam_pengantaran']);
         $('#jumlah_pesanan_expired').html(jumlah['pesanan_expired']);
         $('#jumlah_siap_diambil').html(jumlah['siap_diambil']);
+        if(data.notifikasi_pesanan_baru){
+
+          $("#myAudio").trigger('load');
+          $("#myAudio").trigger('play');
+        }
+        
       }
     })
   }
@@ -520,6 +531,7 @@
   }
 
   $(document).ready ( function(){
+    
     get_jumlah_pesanan();
     timer = setInterval(function() {
       get_jumlah_pesanan();

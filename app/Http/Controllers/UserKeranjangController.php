@@ -338,6 +338,7 @@ class UserKeranjangController extends Controller
         $nota->time_date = date('Y-m-d');
         $nota->time_expired = date('H:i:s', $time_expired);
         $nota->status = "menunggu konfirmasi";
+        $nota->notifikasi = 'true';
         $nota->save();
 
         $keranjang = Keranjang::where([['user_id', Auth()->user()->id], ['checked', 'true']])->get();

@@ -271,7 +271,7 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 					<input hidden type="text" name="no_telp_penerima", id="input_no_telp_penerima" value="{{Auth()->user()->biodata->no_telp}}">
 					<input hidden type="text" name="ongkos_kirim" id="input_ongkos_kirim" value="{{$ongkos_kirim}}" required>
 					<input hidden type="text" name="total_harga_produk" id="input_total_harga_produk" value="{{$total_harga_produk}}" required>
-					<input type="text" name="alamat" id="input_alamat" value="{{Auth()->user()->biodata->alamat}}" required>
+					<input hidden type="text" name="alamat" id="input_alamat" value="{{Auth()->user()->biodata->alamat}}" required>
 					<input hidden type="text" name="kota" id="input_kota" value="{{Auth()->user()->biodata->kelurahan->kecamatan->kota->kota}}" required>
 					<input hidden type="text" name="kecamatan" id="input_kecamatan" value="{{Auth()->user()->biodata->kelurahan->kecamatan->kecamatan}}" required> 
 					<input hidden type="text" name="kelurahan" id="input_kelurahan" value="{{Auth()->user()->biodata->kelurahan->kelurahan}}" required>
