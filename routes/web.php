@@ -25,6 +25,7 @@ use App\Http\Controllers\AdminDiskonController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\ManajemenPengguanController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\DataTokoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -249,6 +250,11 @@ Route::group(['middleware' => ['auth', 'checkRole:admin produk,admin pesanan,sup
     // ubah password
     Route::get('/admin-ubah-password', [AdminController::class, 'ubah_password']);
     Route::post('/admin-post-ubah-password', [AdminController::class, 'post_ubah_password']);
+
+    // data toko
+    Route::get('/admin-data-toko', [DataTokoController::class, 'data_toko']);
+    Route::post('/admin-post-ubah-data-toko', [DataTokoController::class, 'post_ubah_data']);
+
 });
 
 

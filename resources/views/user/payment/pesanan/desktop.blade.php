@@ -257,6 +257,8 @@ $status_pesanan = "packaging";
 		
     });
 
+	var no_telp = {!! json_encode($no_telp) !!}
+
 	function modal_pesan(){
 		$('#exampleModal').modal('show');
 	}
@@ -264,7 +266,7 @@ $status_pesanan = "packaging";
 	function hubungi_penjual(){
 		var message = "Hallo AsFrozen saya telah memesan produk dengan link ID_pesanan=1880148014";
 
-		var walink = 'https://wa.me/'+ "+628114588477" +'?text=' + encodeURI(message);
+		var walink = 'https://wa.me/'+ no_telp +'?text=' + encodeURI(message);
 		window.open(walink);
 	}
 </script>

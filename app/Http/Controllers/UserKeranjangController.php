@@ -10,6 +10,7 @@ use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Nota;
 use App\Models\Bank;
+use App\Models\Data_toko;
 use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\Diskon;
@@ -170,11 +171,26 @@ class UserKeranjangController extends Controller
 
     }
 
+    public function get_data_toko(){
+        $data_toko = Data_toko::all()->keyBy('keterangan');
+        $data = array();
+        $data['no_telp'] = $data_toko['no_telp']->nilai;
+        $data['alamat'] = $data_toko['alamat']->nilai;
+        $data['kelurahan'] = $data_toko['kelurahan']->nilai;
+        $data['kecamatan'] = $data_toko['kecamatan']->nilai;
+        $data['kode_pos'] = $data_toko['kode pos']->nilai;
+        $data['kota'] = $data_toko['kota']->nilai;
+        $data['provinsi'] = $data_toko['provinsi']->nilai;
+        
+        return $data;
+    }
+
     public function checkout(){
         $this->cek_jadwal();
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
         $status_jadwal = $this->cek_jadwal();
+        $data_toko = $this->get_data_toko();
         $biodata = Biodata::where('id', Auth()->user()->biodata->id)->first();
         if ($biodata->kelurahan_id != ''){
             if($status_jadwal){
@@ -207,10 +223,10 @@ class UserKeranjangController extends Controller
                 $agent = new Agent();
                 // dd($bank);
                 if ($agent->isMobile()){
-                    return view('user.payment.checkout.mobile', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk', 'bank'));
+                    return view('user.payment.checkout.mobile', compact('data_toko', 'data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk', 'bank'));
                 }
                 else {
-                    return view('user.payment.checkout.desktop', compact('data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk', 'bank'));
+                    return view('user.payment.checkout.desktop', compact('data_toko', 'data_produk_checkout', 'kota', 'kecamatan', 'kelurahan', 'total_harga_produk', 'bank'));
                 }
             }
             else{

@@ -179,6 +179,12 @@
                   <p>Testimoni</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="<?=url('/')?>/admin-data-toko" class="nav-link @if($sub_menu_ == 'testimoni') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Toko</p>
+                </a>
+              </li>
 
             </ul>
           </li> 
