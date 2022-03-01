@@ -44,6 +44,12 @@
             <div class="card-body">
                 {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_tambah_kota">Data Toko</button> --}}
                 <br><br>
+                @if (session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{session('error')}}
+                    </div>
+                @endif
+                
                 <table class="table table-bordered">
                     <thead>
                         <tr>
