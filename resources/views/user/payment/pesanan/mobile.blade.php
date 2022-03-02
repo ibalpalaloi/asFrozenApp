@@ -40,7 +40,7 @@ Biodata
 			@foreach ($nota->pesanan as $pesanan)
 			<div style="width: 100%; display: flex; margin-bottom: 0.5em;">
 				<div style="width: 30%;">
-					<img class="img-fluid" src="<?=url('/')?>./public/img/produk/thumbnail/300x300/{{$pesanan->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
+					<img class="img-fluid" src="<?=url('/')?>/public/img/produk/thumbnail/300x300/{{$pesanan->produk->foto}}" style="width: 100%; border-radius: 0.2em; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%);">
 				</div>
 				<div style="width: 70%; margin-left: 1em; display: flex; align-items: flex-start; flex-direction: column; justify-content: space-between;">
 					<div>
@@ -211,10 +211,11 @@ Biodata
 			$('#exampleModal').modal('show');
 		}
 
+var no_telp = {!! json_encode($no_telp) !!}
 		function hubungi_penjual(){
 			var message = "Hallo AsFrozen saya telah memesan produk dengan link ID_pesanan=1880148014";
 
-			var walink = 'https://wa.me/'+ "+628114588477" +'?text=' + encodeURI(message);
+			var walink = 'https://wa.me/'+no_telp+'?text=' + encodeURI(message);
 			window.open(walink);
 		}
 	</script>
