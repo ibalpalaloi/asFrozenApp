@@ -8,6 +8,7 @@ use App\Models\Kota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Biodata;
+use App\Models\Data_toko;
 use App\Models\Testimoni;
 use App\Models\Keranjang;
 use App\Models\Produk;
@@ -24,17 +25,32 @@ class UserPesananController extends Controller
     //
 
     public function pesanan(){
+        $no_telp = $this->get_no_telp();
         $notas = Nota::where('user_id', Auth()->user()->id)->get();
         $agent = new Agent();
         $qrcode = new Generator;
         // $qr = $qrcode->size(250)->generate($response['data']['code']);
 
         if ($agent->isMobile()){
-            return view('user.payment.pesanan.mobile', compact('notas', 'qrcode'));
+            return view('user.payment.pesanan.mobile', compact('notas', 'qrcode', 'no_telp'));
         }
         else {
-            return view('user.payment.pesanan.desktop', compact('notas', 'qrcode'));
+            return view('user.payment.pesanan.desktop', compact('notas', 'qrcode', 'no_telp'));
         }
+    }
+
+    public function get_no_telp(){
+        $data = Data_toko::where('keterangan', 'no_telp')->first();
+        if(!empty($data)){
+            $no_telp = $data->nilai;
+            $no_telp = substr($no_telp, 1);
+            $no_telp = substr_replace($no_telp, '+62', 0, 0);
+        }
+        else{
+            $no_telp = 0;
+        }
+
+        return $no_telp;
     }
 
     public function batalkan_pesanan($id){

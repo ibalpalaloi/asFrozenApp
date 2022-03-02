@@ -154,8 +154,8 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 						</svg>
 						<div style="margin-left: 1em;">
 							<b>Toko Asfrozen</b><br>
-							Jl. Mandala No. 1, Birobuli Utara, Kec, Palu Selatan<br>
-							Kota Palu, Sulawesi Tengah, 94111<br>
+							{{$data_toko['alamat']}}, {{$data_toko['kelurahan']}}, {{$data_toko['kecamatan']}}<br>
+							{{$data_toko['kota']}}, {{$data_toko['provinsi']}}, {{$data_toko['kode_pos']}}<br>
 							<a href="https://www.google.com/maps/place/AS+FROZEN+PALU/@-0.9144415,119.8997595,16.92z/data=!4m5!3m4!1s0x2d8bef83f63e3983:0x39f3cc45d0d5d04!8m2!3d-0.9141016!4d119.8988105">Lihat maps</a>
 						</div>
 					</div>
