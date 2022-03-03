@@ -56,7 +56,8 @@ Route::get('/lupa-password', [AuthController::class, 'lupa_password']);
 Route::post('/post-lupa-password', [AuthController::class, 'post_lupa_password']);
 
  // get
- Route::get('/cetak-nota/{id}', [GetController::class, 'cetak_nota']);
+ Route::get('/cetak-nota/pesanan/{id}', [GetController::class, 'cetak_pesanan']);
+ Route::get('/cetak-nota/nota/{id}', [GetController::class, 'cetak_nota']);
  Route::get('/get_list_sub_kategori/{id}', [GetController::class, 'get_sub_kategori']);
  Route::get('/get_kecamatan/{id}', [GetController::class, 'get_kecamatan']);
  Route::get('/get_kelurahan/{id}', [GetController::class, 'get_kelurahan']);

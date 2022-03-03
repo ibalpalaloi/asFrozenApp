@@ -135,7 +135,7 @@ function tgl_indo($tanggal){
           @endif
         </div>
         <div class="col-md-4" style="display: flex; font-size: 0.8em;">
-          <div style="margin-right: 1em; margin-top: 0.5em;">{{$qrcode->size(60)->generate($riwayat_nota->id_pesanan)}}</div>
+          <div style="margin-right: 1em; margin-top: 0.5em;" hidden>{{$qrcode->size(60)->generate($riwayat_nota->id_pesanan)}}</div>
           <div style="margin-top: 0.2em;width: 100%;">
             <div class="row">
               <div style="width: 50%; padding-left: 1em;">Subtotal</div>

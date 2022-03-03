@@ -275,7 +275,7 @@ function tgl_indo($tanggal){
               @endif
             </div>
             <div class="col-md-4" style="display: flex;">
-              <div style="margin-right: 1em; margin-top: 0.5em;">{{$qrcode->size(80)->generate($nota->id_pesanan)}}</div>
+              <div style="margin-right: 1em; margin-top: 0.5em;" hidden>{{$qrcode->size(80)->generate($nota->id_pesanan)}}</div>
               <div style="margin-top: 0.2em;width: 100%;">
                 <div class="row">
                   <div class="col-md-6">    

@@ -117,8 +117,8 @@ Biodata
 						@endif
 					</div>
 					<div style="width: 56%; display: flex; padding-top: 1em;">
-						<div style="margin-right: 1em; margin-top: 0.5em;">{{$qrcode->size(50)->generate(url('/')."/cetak-nota/".$nota->id_pesanan)}}</div>
-						<div style="margin-top: 0.2em;width: 100%;">
+						<div style="margin-right: 1em; margin-top: 0.5em;" hidden>{{$qrcode->size(50)->generate(url('/')."/cetak-nota/".$nota->id_pesanan)}}</div>
+						<div style="margin-top: 0.2em;width: 70%; margin-left: 30%;">
 							<div style="display: flex; justify-content: space-between;">
 								<div style="font-size: 0.95em;">		
 									Sub
