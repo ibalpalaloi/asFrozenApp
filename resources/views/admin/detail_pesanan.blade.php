@@ -269,7 +269,7 @@ function tgl_indo($tanggal){
                   <div class="checkout-bank-transfer-item__description">
                     <small>Perlu upload bukti transfer</small>
                   </div>
-                  <div>(Dicek Manual)</div>
+                  <div>{{$nota->bank->nomor_rekening}}</div>
                 </div>
               </div>
               @endif

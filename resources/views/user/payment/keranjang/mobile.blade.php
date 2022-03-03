@@ -336,7 +336,7 @@ function hari_indo($hari){
 			</div>
 		</div>
 	</div>
-	<div class="row" style="margin-top: 0px; ">
+	<div class="row" style="margin-top: 0px; margin-bottom: 7em;">
 		<div class="col-md-12">
 			@if ($keranjang->count() > 0)
 			<div class="card shadow mb-2 bg-white rounded" style="border: none;">

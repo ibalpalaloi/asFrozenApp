@@ -114,7 +114,7 @@
                                                         <div class="checkout-bank-transfer-item__description">
                                                             <small>Perlu upload bukti transfer</small>
                                                         </div>
-                                                        <div>(Dicek Manual)</div>
+                                                        <div>{{$data->bank->nomor_rekening}}</div>
                                                     </div>
                                                 </div>
                                                 @endif

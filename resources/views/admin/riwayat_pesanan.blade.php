@@ -64,6 +64,9 @@ function tgl_indo($tanggal){
                         @foreach ($data_nota as $data)
                         <tr>
                             <td scope="row">
+                                <a class="btn btn-success" href="{{url('/')}}/cetak-nota/{{$data['id_pesanan']}}" style="padding: 0px; padding-left: 0.5em; padding-right: 0.5em;">
+                                    <i class="fa fa-download"></i>
+                                </a>
                                 <a href="{{url()->current()}}/{{$data['id_pesanan']}}" style="color: black;">
                                     {{$data['id_pesanan']}}
                                 </a>

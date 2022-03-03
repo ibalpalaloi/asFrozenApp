@@ -117,7 +117,7 @@ Biodata
 						@endif
 					</div>
 					<div style="width: 56%; display: flex; padding-top: 1em;">
-						<img src="<?=url('/')?>/public/katalog_assets/assets/qrcode.png" style="width: 4.5em; height: 4.5em;">
+						<div style="margin-right: 1em; margin-top: 0.5em;">{{$qrcode->size(50)->generate(url('/')."/cetak-nota/".$nota->id_pesanan)}}</div>
 						<div style="margin-top: 0.2em;width: 100%;">
 							<div style="display: flex; justify-content: space-between;">
 								<div style="font-size: 0.95em;">		
@@ -211,7 +211,7 @@ Biodata
 			$('#exampleModal').modal('show');
 		}
 
-var no_telp = {!! json_encode($no_telp) !!}
+		var no_telp = {!! json_encode($no_telp) !!}
 		function hubungi_penjual(){
 			var message = "Hallo AsFrozen saya telah memesan produk dengan link ID_pesanan=1880148014";
 
