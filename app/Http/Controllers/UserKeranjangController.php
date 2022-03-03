@@ -192,6 +192,9 @@ class UserKeranjangController extends Controller
         $status_jadwal = $this->cek_jadwal();
         $data_toko = $this->get_data_toko();
         $biodata = Biodata::where('id', Auth()->user()->biodata->id)->first();
+        if($biodata->alamat == "" or $biodata->alamat == null){
+            return redirect('biodata?from=keranjang')->with('error', "Silahkan lengkapi biodata terlebih dahulu");  
+        }
         if ($biodata->kelurahan_id != ''){
             if($status_jadwal){
                 $kota = Kota::all();
@@ -206,18 +209,24 @@ class UserKeranjangController extends Controller
                 $bank = Bank::all();
                 $i=0;
                 foreach($list_keranjang as $data){
-                    $diskon = $this->get_diskon($data->produk_id, $date_today);
-                    $harga = $data->produk->harga;
-                    $data_produk_checkout[$i]['id'] = $data->id;
-                    $data_produk_checkout[$i]['produk_id'] = $data->produk_id;
-                    $data_produk_checkout[$i]['nama_produk'] = $data->produk->nama;
-                    $data_produk_checkout[$i]['harga'] = $data->produk->harga;
-                    $data_produk_checkout[$i]['jumlah'] = $data->jumlah;
-                    $data_produk_checkout[$i]['checked'] = $data->checked;
-                    $data_produk_checkout[$i]['diskon'] = $diskon;
-                    $data_produk_checkout[$i]['foto'] = $data->produk->foto;
-                    $data_produk_checkout[$i]['harga_diskon'] = $this->get_harga_diskon($data->produk->harga, $diskon);
-                    $i++;
+                    if($data->jumlah > 0){
+                        $diskon = $this->get_diskon($data->produk_id, $date_today);
+                        $harga = $data->produk->harga;
+                        $data_produk_checkout[$i]['id'] = $data->id;
+                        $data_produk_checkout[$i]['produk_id'] = $data->produk_id;
+                        $data_produk_checkout[$i]['nama_produk'] = $data->produk->nama;
+                        $data_produk_checkout[$i]['harga'] = $data->produk->harga;
+                        $data_produk_checkout[$i]['jumlah'] = $data->jumlah;
+                        $data_produk_checkout[$i]['checked'] = $data->checked;
+                        $data_produk_checkout[$i]['diskon'] = $diskon;
+                        $data_produk_checkout[$i]['foto'] = $data->produk->foto;
+                        $data_produk_checkout[$i]['harga_diskon'] = $this->get_harga_diskon($data->produk->harga, $diskon);
+                        $i++;
+                    }
+                }
+
+                if(count($data_produk_checkout) == 0){
+                    return redirect()->back()->with('error', "Pesanan Kosong");
                 }
 
                 $agent = new Agent();
