@@ -231,7 +231,7 @@ $status_pesanan = "packaging";
 				<a href="<?=url('/')?>/batalkan-pesanan/{{$nota->id}}" type="button" class="btn btn-danger btn-lg" style="margin: 10px">Batalkan</a>
 
 				@endif
-				<button onclick="hubungi_penjual()" type="button" class="btn btn-success" style="margin: 10px">Hubungi Penjual</button>
+				<button onclick="hubungi_penjual('{{$nota->id_pesanan}}')" type="button" class="btn btn-success" style="margin: 10px">Hubungi Penjual</button>
 			</div>
 		</div>
 		@endforeach
@@ -263,8 +263,8 @@ $status_pesanan = "packaging";
 		$('#exampleModal').modal('show');
 	}
 
-	function hubungi_penjual(){
-		var message = "Hallo AsFrozen saya telah memesan produk dengan link ID_pesanan=1880148014";
+	function hubungi_penjual(id_pesanan){
+		var message = "Hallo AsFrozen saya telah memesan produk dengan link ID_pesanan="+id_pesanan;
 
 		var walink = 'https://wa.me/'+ no_telp +'?text=' + encodeURI(message);
 		window.open(walink);
