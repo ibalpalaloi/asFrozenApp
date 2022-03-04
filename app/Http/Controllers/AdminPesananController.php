@@ -13,6 +13,7 @@ use App\Models\Diskon;
 use App\Models\Keranjang;
 use App\Models\Nota_expired;
 use App\Models\Stok_produk;
+use App\Models\Kurir;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use SimpleSoftwareIO\QrCode\Generator;
 
@@ -60,6 +61,7 @@ class AdminPesananController extends Controller
     }
 
     public function packaging(){
+        $kurir = Kurir::all();
         $nota = Nota::where([
                 ['status', 'packaging'],
                 ['penerima_pesanan_id', Auth()->user()->id]
@@ -68,7 +70,7 @@ class AdminPesananController extends Controller
         $menu = "pesanan";
         $sub_menu = "daftar pesanan";
         $list = "list";
-        return view('admin.pesanan_packaging', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list'));
+        return view('admin.pesanan_packaging', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list', 'kurir'));
     }
 
     public function packaging_semua(){
@@ -165,6 +167,8 @@ class AdminPesananController extends Controller
         $riwayat_nota->waktu_pemesanan = $nota->created_at;
         $riwayat_nota->catatan = $nota->catatan;
         $riwayat_nota->admin = Auth()->user()->name;
+        $riwayat_nota->nama_kurir = $nota->nama_kurir;
+        $riwayat_nota->no_telp_kurir = $nota->no_telp_kurir;
         $riwayat_nota->save();
 
         foreach ($nota->pesanan as $pesanan){
@@ -432,5 +436,14 @@ class AdminPesananController extends Controller
         $menu = "pesanan";
         $sub_menu = "pesanan expired";
         return view('admin.daftar_pesanan_expired', compact('data_nota', 'menu', 'sub_menu'));
+    }
+
+    public function post_kurir_packaging(Request $request){
+        $nota = Nota::find($request->id_pesanan);
+        $nota->nama_kurir = $request->nama;
+        $nota->no_telp_kurir = $request->no_telp;
+        $nota->save();
+
+        return redirect('/admin/ubah_status_pesanan/'.$request->id_pesanan.'/dalam pengantaran');
     }
 }

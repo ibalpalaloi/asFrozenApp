@@ -2,6 +2,48 @@
 @extends("layouts.admin")
 
 @section("body")
+{{-- modal --}}
+<div class="modal fade" id="modal_kurir" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Pilih Kurir</label>
+                <select class="form-control" id="pilih_kurir">
+                  <option>---Pilih---</option>
+                  @foreach ($kurir as $data)
+                      <option value="{{$data->id}}">{{$data->nama}}</option>
+                  @endforeach
+                </select>
+            </div>
+          <form action="<?=url('/')?>/post-kurir-packaging" method="post">
+              @csrf
+              <input type="text" name="id_pesanan" id="id_pesanan" hidden>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Nama</label>
+                    <input type="text" class="form-control" id="nama_kurir" placeholder="Nama" name="nama" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">No Telp</label>
+                    <input type="text" class="form-control" id="no_telp_kurir" placeholder="No Telp" name="no_telp">
+                </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        </form>
+      </div>
+    </div>
+</div>
+
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
@@ -163,7 +205,11 @@
                                 <hr>
                                 <div class="template-demo" style="display: flex; padding-bottom: 1em; padding-left: 1em;">
                                     <div class="text-right">
-                                        <a href="<?=url('/')?>/admin/ubah_status_pesanan/{{$data->id}}/dalam pengantaran" class="btn btn-primary btn-sm" style="color: white">Antar Pesanan</a>
+                                        @if ($data->pengantaran == "Diantarkan")
+                                            <a href="#" onclick="modal_kurir('{{$data->id}}')" class="btn btn-primary btn-sm" style="color: white">Antar Pesanan</a>
+                                        @else
+                                            <a href="<?=url('/')?>/admin/ubah_status_pesanan/{{$data->id}}/dalam pengantaran" class="btn btn-primary btn-sm" style="color: white">Pesanan Siap</a>
+                                        @endif
                                         <a class="btn btn-success btn-sm" style="color: white">Hubungi Pembeli</a>
                                     </div>
                                 </div>
@@ -186,4 +232,28 @@
 </div>
 
 
+@endsection
+
+@section('footer')
+    <script>
+        var data_kurir = {!! json_encode($kurir) !!}
+        function modal_kurir(id){
+            $('#id_pesanan').val(id);
+            $('#nama_kurir').val('');
+            $('#no_telp_kurir').val('')
+            $('#modal_kurir').modal('show');
+        }
+
+        $('#pilih_kurir').change(function(){
+            var id_kurir = $('#pilih_kurir').val();
+            console.log(data_kurir);
+            for(let i = 0; i<data_kurir.length; i++){
+                if(data_kurir[i]['id'] == id_kurir){
+                    $('#nama_kurir').val(data_kurir[i]['nama']);
+                    $('#no_telp_kurir').val(data_kurir[i]['no_telp'])
+                    break;
+                }
+            }
+        })
+    </script>
 @endsection

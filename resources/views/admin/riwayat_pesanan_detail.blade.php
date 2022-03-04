@@ -198,10 +198,28 @@ function tgl_indo($tanggal){
                     <div><b id="total_pesanan">{{number_format($riwayat_nota->ongkos_kirim+$total_pesanan, 0, ".", ".")}}</b></div>
                   </div>
                 </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-6">    
+                    <b>Kurir</b>
+                  </div>
+                  <div class="col-md-6" style="display: flex; justify-content: space-between;">   
+                    <div>: {{$riwayat_nota->nama_kurir}}</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">    
+                    <b>No Telp Kurir</b>
+                  </div>
+                  <div class="col-md-6" style="display: flex; justify-content: space-between;">   
+                    <div>: {{$riwayat_nota->no_telp_kurir}}</div>
+                  </div>
+                </div>
               </div>
             </div>
 
           </div>
+          <br>
         </div>
       </div>
     </div>

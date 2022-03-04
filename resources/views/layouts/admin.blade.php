@@ -180,9 +180,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=url('/')?>/admin-data-toko" class="nav-link @if($sub_menu_ == 'testimoni') active @endif">
+                <a href="<?=url('/')?>/admin-data-toko" class="nav-link @if($sub_menu_ == 'data toko') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Toko</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?=url('/')?>/admin-data-kurir" class="nav-link @if($sub_menu_ == 'kurir') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kurir</p>
                 </a>
               </li>
 
