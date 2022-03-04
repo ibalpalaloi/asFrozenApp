@@ -347,7 +347,7 @@ Keranjang Belanja
 
 	<div id="ck-wrapperWhyBrambang" class="ng-scope" style="background: rgba(255, 255, 255, 0.8);">
 		<div class="mobileOnly" style="margin-top:50px;"></div>
-		<div class="title-index">Keutungan Beli dari AsFrozen</div>
+		<div class="title-index">Keutungan Beli dari As Frozen</div>
 		<div id="WhyBrambangContainer" style="padding-left: 0px;">
 			<div style="display: flex; justify-content: space-around;width: 100%;">
 				<div class="wrapperWhyBrambangCard" style=" width: 23%;">
