@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" sizes="60x60" href="<?=url('/')?>/public/katalog_assets/assets/img/logo/frozen_admin_logo.png">
     <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template_mobile/admin/dist/css/style.min.css">
     <link rel="stylesheet" type="text/css" href="<?=url('/')?>/public/template_mobile/css/kitapura.css">
+
     <style type="text/css">
         body {
             font-family: 'Roboto', sans-serif;
@@ -28,6 +29,7 @@
 </head>
 
 <body style="background: #f5f5f5 !important; position: relative; min-height: 100%; padding-bottom: 0em;">
+
     <div class="modal fade" id="modal_loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding: 1.5em; padding: 0px;">
         <div class="modal-dialog modal-dialog-centered" role="document" style="padding: 0px; position: relative;">
             <div class="modal-content st0" style="border-radius: 1.2em; display: flex; justify-content: center; align-items: center; margin: 8em 1em 0em 1em; color: white; border: #353535;">

@@ -328,24 +328,9 @@ function hari_indo($hari){
 <script src="<?=url('/')?>/public/katalog_assets/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 <script src="<?=url('/')?>/public/katalog_assets/assets/vendor/aos/aos.js"></script>
 <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
-
-<!-- Template Main JS File -->
 <script src="<?=url('/')?>/public/katalog_assets/assets/js/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
 <script type="text/javascript">
-	function tambah_keranjang(id){
-		show_loader();
-		$.ajax({
-			url: "<?=url('/')?>/tambah_keranjang/"+id,
-			type:"get",
-			success:function(data){
-				setTimeout(hide_loader, 500);
-				console.log(data);
-			}
-		})
-	}
 
 
 	$(document).ready(function() {
@@ -381,3 +366,4 @@ function hari_indo($hari){
 
 </script>	
 @endsection
+\

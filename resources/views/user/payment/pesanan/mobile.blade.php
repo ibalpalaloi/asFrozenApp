@@ -92,7 +92,7 @@ Biodata
 					<hr>
 				</div>
 				<div style="display: flex; width: 100%;">
-					<div style="width: 42%;">
+					<div style="width: 44%;">
 						@if ($nota->pembayaran == 'COD')
 						<b>Cash On Delivery</b><br>
 						<div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.5em;">
@@ -107,18 +107,18 @@ Biodata
 								<img src="<?=url('/')?>/public/bank/{{$nota->bank->img}}" class="checkout-bank-transfer-item__icon" style="margin-right: 0.5em; width: 3em;">
 							</div>
 							<div>
-								<div class="checkout-bank-transfer-item__main" style="line-height: 1.2em; font-size: 0.95em; margin-top: 0.5em;">
+								<div class="checkout-bank-transfer-item__main" style="line-height: 1.2em; font-size: 0.95em; margin-top: 0em;">
 									{{$nota->bank->nama_bank}}
 								</div>
 								<div style="display: flex;"><small>Cek Manual</small></div>
-
+								<div style="display: flex;"><small>{{$nota->bank->nomor_rekening}}</small></div>
 							</div>
 						</div>
 						@endif
 					</div>
-					<div style="width: 58%; display: flex; padding-top: 1em;">
-						<img src="<?=url('/')?>/public/katalog_assets/assets/qrcode.png" style="width: 4.5em; height: 4.5em;">
-						<div style="margin-top: 0.2em;width: 100%;">
+					<div style="width: 56%; display: flex; padding-top: 1em;">
+						<div style="margin-right: 1em; margin-top: 0.5em;" hidden>{{$qrcode->size(50)->generate(url('/')."/cetak-nota/".$nota->id_pesanan)}}</div>
+						<div style="margin-top: 0.2em;width: 70%; margin-left: 30%;">
 							<div style="display: flex; justify-content: space-between;">
 								<div style="font-size: 0.95em;">		
 									Sub
@@ -211,7 +211,11 @@ Biodata
 			$('#exampleModal').modal('show');
 		}
 
+<<<<<<< HEAD
 		var no_telp = {!! json_encode($no_telp) !!}	
+=======
+		var no_telp = {!! json_encode($no_telp) !!}
+>>>>>>> b6b748dea0b4c5c8dce70ef6c4f27c131641dc52
 		function hubungi_penjual(){
 			var message = "Hallo AsFrozen saya telah memesan produk dengan link ID_pesanan=1880148014";
 

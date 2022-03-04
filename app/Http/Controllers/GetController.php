@@ -13,10 +13,13 @@ use App\Models\Riwayat_pesanan;
 use App\Models\Produk;
 use App\Models\Kategori;
 use App\Models\Nota;
+use App\Models\Pesanan;
 use App\Models\Keranjang;
 use App\Models\Nota_expired;
 use App\Models\User_lupa_password;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use SimpleSoftwareIO\QrCode\Generator;
+use PDF;
 class GetController extends Controller
 {
     //
@@ -24,6 +27,31 @@ class GetController extends Controller
         $sub_kategori = Sub_kategori::where('kategori_id', $id)->get();
         return response()->json(['sub_kategori' => $sub_kategori]);
     }
+
+    public function cetak_nota($id){
+        $riwayat_nota = Riwayat_nota_pesanan::where('id_pesanan', $id)->first();
+        $riwayat = Riwayat_pesanan::where('riwayat_nota_pesanan_id', $riwayat_nota->id)->get();
+        // dd($riwayat);    
+        $qrcode = new Generator;
+        $pdf = PDF::loadView('home/cetak_nota/nota', compact('riwayat', 'riwayat_nota', 'qrcode'))->setOption('page-width', '215')->setOption('page-height', '297')->setOption('margin-left',15)->setOption('margin-right',15)->setOption('images', true);;
+        return $pdf->download("Nota_$id.pdf");
+        // return view('home/cetak_nota', compact('riwayat', 'riwayat_nota', 'qrcode'));
+
+    }
+
+    public function cetak_pesanan($id){
+        // $notas = Nota::where('user_id', Auth()->user()->id)->get();
+
+        $riwayat_nota = Nota::where('id_pesanan', $id)->first();
+        $riwayat = Pesanan::where('nota_id', $riwayat_nota->id)->get();
+        $qrcode = new Generator;
+        $pdf = PDF::loadView('home/cetak_nota/pesanan', compact('riwayat', 'riwayat_nota', 'qrcode'))->setOption('page-width', '215')->setOption('page-height', '297')->setOption('margin-left',15)->setOption('margin-right',15)->setOption('images', true);;
+        return $pdf->download("Pesanan_$id.pdf");
+        // return view('home/cetak_nota', compact('riwayat', 'riwayat_nota', 'qrcode'));
+
+
+    }
+
 
     public function get_kecamatan($id){
         $kecamatan = Kecamatan::where('kota_id', $id)->get();
@@ -134,7 +162,7 @@ class GetController extends Controller
         }
 
         return response()->json(['data_diskon'=>$data_produk]);
-       
+
     }
 
     public function get_total_pesanan($id){
@@ -160,7 +188,7 @@ class GetController extends Controller
         $kategori = Kategori::select('id', 'logo')->get();
         return response()->json($kategori);    
     }
-        
+
     public function cek_lupa_password(){
         $jumlah_lupa_password = User_lupa_password::count();
 

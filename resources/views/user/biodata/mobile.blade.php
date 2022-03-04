@@ -74,6 +74,7 @@ Biodata
               }
               ?>
               <div class="form-group row">
+                <input type="text" name="from" value="{{$from}}" hidden>
                 <label for="staticEmail" class="col-sm-3 col-form-label">Kota/Kabupaten</label>
                 <div class="col-sm-9">
                   <select name="kota" class="form-control" onchange="get_kecamatan()" id="selectKota" required @if ($from == 'keranjang') style="border:1px solid red;" @endif>

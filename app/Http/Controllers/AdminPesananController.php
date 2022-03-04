@@ -66,7 +66,7 @@ class AdminPesananController extends Controller
         ])->get();
         $qrcode = new Generator;
         $menu = "pesanan";
-        $sub_menu = "daftar pesanan";
+        $sub_menu = "packaging";
         $list = "list";
         return view('admin.pesanan_packaging', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list'));
     }
@@ -77,7 +77,7 @@ class AdminPesananController extends Controller
         ])->get();
         $qrcode = new Generator;
         $menu = "pesanan";
-        $sub_menu = "daftar pesanan";
+        $sub_menu = "packaging";
         $list = "semua";
         return view('admin.pesanan_packaging', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list'));
     }
