@@ -16,10 +16,16 @@
     <div class="cover" style="background: #ec1f25;"></div>
   </section>
   <section class="login-content">
-    <div class="login-box" style="min-height: 400px; min-width: 50%;">
+    <div class="login-box" style="min-height: 460px; min-width: 50%;">
       <img src="<?=url('/')?>/public/katalog_assets/assets/img/logo.png" style="width: 8em; border-radius: 50%; position: absolute; top: -4em; border: 5px solid white; left: 42%;">
       <form class="login-form" action="<?=url('/')?>/auth/post_registrasi" style="margin-top: 1.5em;" method="post">
         @csrf
+        @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+              {{session('error')}}
+            </div>
+        @endif
+        
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">

@@ -26,6 +26,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\ManajemenPengguanController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\DataTokoController;
+use App\Http\Controllers\KurirController;
 
 /*
 |--------------------------------------------------------------------------
@@ -175,6 +176,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin produk,admin pesanan,sup
     Route::get('/admin/get_harga_produk/{id_produk}', [AdminPesananController::class, 'get_harga']);
     Route::get('/admin/batalkan_pesanan/{id}', [AdminPesananController::class, 'batalkan_pesanan']);
     Route::get('/admin/daftar-pesanan-expired', [AdminPesananController::class, 'daftar_pesanan_expired']);
+    Route::post('/post-kurir-packaging', [AdminPesananController::class, 'post_kurir_packaging']);
 
 
     // admin riwayat
@@ -257,6 +259,10 @@ Route::group(['middleware' => ['auth', 'checkRole:admin produk,admin pesanan,sup
     Route::get('/admin-data-toko', [DataTokoController::class, 'data_toko']);
     Route::post('/admin-post-ubah-data-toko', [DataTokoController::class, 'post_ubah_data']);
 
+    // kurir
+    Route::get('/admin-data-kurir', [KurirController::class, 'data_kurir']);
+    Route::post('/admin-post-kurir', [KurirController::class, 'post_data_kurir']);
+    Route::post('/admin-post-ubah-kurir', [KurirController::class, 'post_ubah_kurir']);
 });
 
 
