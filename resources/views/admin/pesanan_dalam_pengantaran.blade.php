@@ -159,6 +159,7 @@
                                     </div>
                                     <hr>
                                 </div>
+<<<<<<< HEAD
                                 <div class="col-4">
                                     <p style="font-weight: 700; margin-left: 10px; color: red">Waktu Konfirmasi : {{date('H:i', strtotime($data->updated_at))}} Wita</p>
                                     @if ($data->admin_penerima)
@@ -167,7 +168,25 @@
                                     <p style="font-weight: 700; margin-left: 10px; color: black">Admin : -</p>
                                     @endif
                                     <p style="font-weight: 700; margin-left: 10px; color: black"></p>
+=======
+                                <div class="row" style="margin-left: 10px">
+                                    <div class="col-4">
+                                        <p style="font-weight: 700; margin-left: 10px; color: red">Waktu Konfirmasi : {{date('H:i', strtotime($data->updated_at))}} Wita</p>
+                                        @if ($data->admin_penerima)
+                                            <p style="font-weight: 700; margin-left: 10px; color: black">Admin : {{$data->admin_penerima->name}}</p>
+                                        @else
+                                            <p style="font-weight: 700; margin-left: 10px; color: black">Admin : -</p>
+                                        @endif
+                                        <p style="font-weight: 700; margin-left: 10px; color: black"></p>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <p style=" margin-left: 10px; color: black">Kurir : {{$data->nama_kurir}}</p>
+                                        <p style=" margin-left: 10px; color: black">No Telp Kurir : {{$data->no_telp_kurir}}</p>
+                                    </div>
+>>>>>>> 580d4ce45baad98336a4e9d5c983293bf70c196a
                                 </div>
+                                
                                 <hr>
                                 <div class="template-demo" style="display: flex;  justify-content: space-between; padding-bottom: 1em; padding-left: 1em;">
                                     <div class="text-right">

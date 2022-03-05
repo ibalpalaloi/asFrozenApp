@@ -41,6 +41,20 @@ class AuthController extends Controller
             'password'  => 'required'
         ]);
 
+        if($validator->fails()){
+            return back();
+        }
+
+        $cek_user = User::where('no_telp', $request->no_telp)->get();
+        if(count($cek_user)>0){
+            return back()->with('error', 'No Telpon Telah Terdaftar');
+        }
+
+        $cek_user = User::where('email', $request->email)->get();
+        if(count($cek_user)>0){
+            return back()->with('error', 'Email Telah Terdaftar');
+        }
+
         $user = new User;
         $user->name = $request->nama;
         $user->email = $request->email;
