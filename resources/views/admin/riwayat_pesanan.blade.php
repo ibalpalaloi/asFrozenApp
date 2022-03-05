@@ -48,6 +48,28 @@ function tgl_indo($tanggal){
           <div class="card">
               <div class="card-header">
                 <div class="col-sm-6"><h1>Riwayat Pesanan</h1></div>
+                <br>
+                <div class="row" style="margin: 5px">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Cari Id</label>
+                            <input type="text" class="form-control" id="input_id_pesanan" placeholder="id pesanan" @isset($id_pesanan)
+                                value="{{$id_pesanan}}"
+                            @endisset>
+                        </div>
+                        <button onclick="cari_id_pesanan()" type="button" class="btn btn-primary btn-sm">cari</button>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Cari Tgl</label>
+                            <input type="date" class="form-control" id="input_tgl" placeholder="Tgl" @isset($tgl)
+                                value="{{$tgl}}"
+                            @endisset>
+                        </div>
+                        <button onclick="cari_tgl()" type="button" class="btn btn-primary btn-sm">cari</button>
+                    </div>
+                </div>
+                
             </div>
             <div class="card-body">
                 <table id="example1" class="table table-bordered" >
@@ -141,6 +163,22 @@ function tgl_indo($tanggal){
                 page++;
             }
         })
+    }
+
+    function cari_id_pesanan(){
+        var id_pesanan = $('#input_id_pesanan').val();
+        if(id_pesanan != ""){
+            window.location.href = "<?=url('/')?>/admin/riwayat-pesanan-cari?id_pesanan="+id_pesanan;
+        }
+        
+    }
+
+    function cari_tgl(){
+        var tgl = $('#input_tgl').val();
+        if(tgl != ""){
+            window.location.href = "<?=url('/')?>/admin/riwayat-pesanan-cari?tgl="+tgl;
+        }
+        
     }
 </script>
 @endsection

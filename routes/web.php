@@ -183,6 +183,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin produk,admin pesanan,sup
     Route::get('/admin/riwayat-pesanan/{id}', [AdminRiwayatPesanan::class, 'daftar_riwayat_detail']);
     Route::get('/admin/riwayat-pesanan', [AdminRiwayatPesanan::class, 'daftar_riwayat']);
     Route::get('/admin/get_riwayat_pesanan/{id}', [AdminRiwayatPesanan::class, 'get_riwayat_pesanan']);
+    Route::get('/admin/riwayat-pesanan-cari', [AdminRiwayatPesanan::class, 'riwayat_pesanan_cari']);
 
     // Produk
     Route::get('/admin-daftar-produk', [AdminProdukController::class, 'daftar_produk']);

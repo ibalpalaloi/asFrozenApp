@@ -61,4 +61,44 @@ class AdminRiwayatPesanan extends Controller
         $html = view('admin.include.detail_riwayat_pesanan_modal', compact('nota', 'pesanan'))->render();
         return response()->json(['html'=>$html]);
     }
+
+    public function riwayat_pesanan_cari(Request $request){
+        $data_nota = array();
+        if($request->has('id_pesanan')){
+            $nota = Riwayat_nota_pesanan::where('id_pesanan', 'LIKE', '%'.$request->id_pesanan.'%')->get();
+
+        }
+        elseif($request->has('tgl')){
+            $nota = Riwayat_nota_pesanan::whereDate('waktu_pemesanan', $request->tgl)->get();
+        }
+        else{
+            $nota = Riwayat_nota_pesanan::orderBy('created_at', 'desc')->paginate(50);
+        }
+
+        $i = 0;
+        foreach($nota as $data){
+            $data_nota[$i]['id'] = $data->id;
+            $data_nota[$i]['id_pesanan'] = $data->id_pesanan;
+            $data_nota[$i]['nama_pemesan'] = $data->nama_pemesan;
+            $data_nota[$i]['nomor_pemesan'] = $data->nomor_pemesan;
+            $data_nota[$i]['waktu_pemesanan'] = $data->waktu_pemesanan;
+            $data_nota[$i]['total_pemesanan'] = $this->get_total_harga_riwayat_pesanan($data->id);
+            $data_nota[$i]['pembayaran'] = $data->pembayaran;
+            $data_nota[$i]['pengantaran'] = $data->pengantaran;
+            $data_nota[$i]['admin'] = $data->admin;
+            $i++;
+        }
+
+        if($request->has('id_pesanan')){
+            $id_pesanan = $request->id_pesanan;
+            return view('admin.riwayat_pesanan', compact('data_nota', 'id_pesanan')); 
+        }
+        elseif($request->has('tgl')){
+            $tgl = $request->tgl;
+            return view('admin.riwayat_pesanan', compact('data_nota', 'tgl')); 
+        }
+
+        return view('admin.riwayat_pesanan', compact('data_nota')); 
+
+    }
 }

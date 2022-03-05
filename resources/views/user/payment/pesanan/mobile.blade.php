@@ -211,11 +211,7 @@ Biodata
 			$('#exampleModal').modal('show');
 		}
 
-<<<<<<< HEAD
 		var no_telp = {!! json_encode($no_telp) !!}	
-=======
-		var no_telp = {!! json_encode($no_telp) !!}
->>>>>>> b6b748dea0b4c5c8dce70ef6c4f27c131641dc52
 		function hubungi_penjual(){
 			var message = "Hallo AsFrozen saya telah memesan produk dengan link ID_pesanan=1880148014";
 
