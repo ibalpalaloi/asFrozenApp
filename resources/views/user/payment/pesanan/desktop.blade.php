@@ -175,16 +175,16 @@ $status_pesanan = "packaging";
 					<b>Transfer melalui</b><br>
 					<div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.3em;">
 						<div class="checkout-bank-transfer-item__icon-container">
-							<img src="<?=url('/')?>/public/bank/{{$nota->bank->img}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
+							<img src="<?=url('/')?>/public/bank/{{$nota->bank->img ?? ''}}" class="checkout-bank-transfer-item__icon" style="width: 2em; margin-right: 1em; width: 4em;">
 						</div>
 						<div>
 							<div class="checkout-bank-transfer-item__main" style="line-height: 0.8em;">
-								{{$nota->bank->nama_bank}}
+								{{$nota->bank->nama_bank ?? ""}}
 							</div>
 							<div class="checkout-bank-transfer-item__description">
 								<small>Perlu upload bukti transfer</small>
 							</div>
-							<div>{{$nota->bank->nomor_rekening}}</div>
+							<div>{{$nota->bank->nomor_rekening ?? ""}}</div>
 						</div>
 					</div>
 					@endif

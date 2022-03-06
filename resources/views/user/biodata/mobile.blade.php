@@ -9,7 +9,7 @@ Biodata
   <div class="container" style="margin-top: 5.5em;">
     <div class="row">
       <div class="col-12">
-        <div class="card shadow p-3 mb-2 bg-white rounded" style="border: none;">
+        <div class="card shadow p-3 mb-2 bg-white rounded" style="border: none; position: relative;">
           <div style="padding: 0.5em 1em; width: 100%; align-items: center; display: flex; flex-direction: column; justify-content: center;">
             <div style="width: 30%; border-radius: 50%;">
               <img src="<?=url('/')?>/public/img/default.png" style="width: 100%; border-radius: 50%;">
@@ -20,6 +20,9 @@ Biodata
               <a href="{{url('/')}}/logout" class="btn btn-danger"><i class="fa fa-power-off"></i>&nbsp;Logout</a>
             </div>
           </div>
+          <a href="{{url('/')}}/ubah-password" style="position: absolute; right: 1em; top: 1em;">
+            Ubah Password
+          </a>
         </div>
         <div class="card shadow p-3 bg-white rounded" style="border: none;">
           <div class="col-12">

@@ -102,16 +102,16 @@ Biodata
 						</div>
 						@else
 						<b>Transfer melalui</b><br>
-						<div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.5em;" onclick="show_nomor_rekening('{{$nota->bank->nomor_rekening}}', '{{$nota->nama}}')">
+						<div class="checkout-bank-transfer-item__card" style="display: flex; margin-top: 0.5em;" onclick="show_nomor_rekening('{{$nota->bank->nomor_rekening ?? ''}}', '{{$nota->nama}}')">
 							<div class="checkout-bank-transfer-item__icon-container">
-								<img src="<?=url('/')?>/public/bank/{{$nota->bank->img}}" class="checkout-bank-transfer-item__icon" style="margin-right: 0.5em; width: 3em;">
+								<img src="<?=url('/')?>/public/bank/{{$nota->bank->img ?? ''}} ?? ''" class="checkout-bank-transfer-item__icon" style="margin-right: 0.5em; width: 3em;">
 							</div>
 							<div>
 								<div class="checkout-bank-transfer-item__main" style="line-height: 1.2em; font-size: 0.95em; margin-top: 0em;">
-									{{$nota->bank->nama_bank}}
+									{{$nota->bank->nama_bank ?? ''}}
 								</div>
 								<div style="display: flex;"><small>Cek Manual</small></div>
-								<div style="display: flex;"><small>{{$nota->bank->nomor_rekening}}</small></div>
+								<div style="display: flex;"><small>{{$nota->bank->nomor_rekening ?? ""}}</small></div>
 							</div>
 						</div>
 						@endif

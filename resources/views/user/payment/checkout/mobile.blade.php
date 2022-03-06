@@ -536,6 +536,10 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 		console.log(html);
 
 		$("#div_alamat_penerima").html(html);
+		$('#nilai_ongkir').html(ongkos_kirim);
+		var total_harga = ongkos_kirim+total_harga_produk;
+		$('#nilai_total').html("Rp. "+total_harga);
+
 	}
 
 	function buat_pesanan(){
