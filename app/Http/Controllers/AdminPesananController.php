@@ -74,6 +74,7 @@ class AdminPesananController extends Controller
     }
 
     public function packaging_semua(){
+        $kurir = Kurir::all();
         $nota = Nota::where([
                 ['status', 'packaging']
         ])->get();
@@ -81,7 +82,7 @@ class AdminPesananController extends Controller
         $menu = "pesanan";
         $sub_menu = "packaging";
         $list = "semua";
-        return view('admin.pesanan_packaging', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list'));
+        return view('admin.pesanan_packaging', compact('nota', 'qrcode', 'menu', 'sub_menu', 'list', 'kurir'));
     }
 
     public function detail_pesanan($id){

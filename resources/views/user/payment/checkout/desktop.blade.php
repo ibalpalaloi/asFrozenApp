@@ -374,8 +374,16 @@ $ongkos_kirim = Auth()->user()->biodata->kelurahan->ongkos_kirim->ongkos_kirim;
 
 		$("#div_alamat_penerima").html(html);
 		$('#nilai_ongkir').html(ongkos_kirim);
-		var total_harga = ongkos_kirim+total_harga_produk;
-		$('#nilai_total').html("Rp. "+total_harga);
+		var total_harga = parseInt(ongkos_kirim)+parseInt(total_harga_produk);
+		var rupiah_format = rubah(total_harga);
+		$('#nilai_total').html("Rp. "+rupiah_format);
+	}
+
+	function rubah(angka){
+		var reverse = angka.toString().split('').reverse().join(''),
+		ribuan = reverse.match(/\d{1,3}/g);
+		ribuan = ribuan.join('.').split('').reverse().join('');
+		return ribuan;
 	}
 
 	function buat_pesanan(){
