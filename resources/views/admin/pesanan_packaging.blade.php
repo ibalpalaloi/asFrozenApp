@@ -235,9 +235,6 @@
     </div>
 
 
-<<<<<<< HEAD
-    @endsection
-=======
 @endsection
 
 @section('footer')
@@ -263,4 +260,3 @@
         })
     </script>
 @endsection
->>>>>>> 580d4ce45baad98336a4e9d5c983293bf70c196a
