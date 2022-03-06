@@ -160,7 +160,7 @@ Biodata
 				<a href="<?=url('/')?>/batalkan-pesanan/{{$nota->id}}" type="button" class="btn btn-danger btn-lg" style="margin: 10px">Batalkan</a>
 
 				@endif
-				<button onclick="hubungi_penjual('{{$data->id_pesanan}}')" type="button" class="btn btn-success" style="margin: 10px">Hubungi Penjual</button>
+				<button onclick="hubungi_penjual('{{$nota->id_pesanan}}')" type="button" class="btn btn-success" style="margin: 10px">Hubungi Penjual</button>
 			</div>
 		</div>
 		@endforeach
