@@ -276,6 +276,9 @@ function tgl_indo($tanggal){
             </div>
             <div class="col-md-4" style="display: flex;">
               <div style="margin-right: 1em; margin-top: 0.5em;" hidden>{{$qrcode->size(80)->generate($nota->id_pesanan)}}</div>
+              <div style="margin-right: 1em; margin-top: 0.5em;">
+
+              </div>
               <div style="margin-top: 0.2em;width: 100%;">
                 <div class="row">
                   <div class="col-md-6">    
@@ -312,10 +315,15 @@ function tgl_indo($tanggal){
           </div>
         </div>
         <hr>
-        <div class="template-demo" style="display: flex; padding-bottom: 1em; padding-left: 1em;">
-          <a href="<?=url('/')?>/admin/ubah_status_pesanan/{{$nota->id}}/packaging" class="btn btn-primary" style="margin-right: 0.5em;">Terima Pesanan</a>
-          <a class="btn btn-success" onclick="hubungi_pesanan('{{$nota->id_pesanan}}')" style="margin-right: 0.5em; color: white;">Hubungi Pembeli</a>
-          <a class="btn btn-danger" onclick="batalkan_pesanan('{{$nota->id}}')" style="margin-right: 0.5em; color: white;">Batalkan Pesanan</a>
+        <div class="template-demo" style="display: flex; padding-bottom: 1em; padding-left: 1em; justify-content: space-between;">
+          <div>
+            <a href="<?=url('/')?>/admin/ubah_status_pesanan/{{$nota->id}}/packaging" class="btn btn-primary" style="margin-right: 0.5em;">Terima Pesanan</a>
+            <a class="btn btn-success" onclick="hubungi_pesanan('{{$nota->id_pesanan}}')" style="margin-right: 0.5em; color: white;">Hubungi Pembeli</a>
+            <a class="btn btn-danger" onclick="batalkan_pesanan('{{$nota->id}}')" style="margin-right: 0.5em; color: white;">Batalkan Pesanan</a>
+          </div>
+          <a href="{{url('/')}}/cetak-nota/pesanan/{{$data->id_pesanan}}" class="btn btn-warning" style="padding: 0em 0.5em; margin-right:1em;">
+            <i class="fa fa-print"></i>
+          </a>        
         </div>
       </div>
     </div>

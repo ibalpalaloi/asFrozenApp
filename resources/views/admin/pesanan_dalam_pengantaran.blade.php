@@ -8,24 +8,24 @@
             <div class="row">
                 <div class="col">
                     <a @if ($sub_menu == "dalam pengantaran")
-                        href="<?=url('/')?>/admin/pesanan-dalam-pengantaran"
+                    href="<?=url('/')?>/admin/pesanan-dalam-pengantaran"
                     @else
-                        href="<?=url('/')?>/admin/pesanan-siap-diambil"
+                    href="<?=url('/')?>/admin/pesanan-siap-diambil"
                     @endif style="width: 100%" type="button" @if ($list == "list")
-                        class="btn btn-primary"
+                    class="btn btn-primary"
                     @else
-                        class="btn btn-light"
+                    class="btn btn-light"
                     @endif >List</a>
                 </div>
                 <div class="col">
                     <a @if ($sub_menu == "dalam pengantaran")
-                        href="<?=url('/')?>/admin/pesanan-dalam-pengantaran-semua"
+                    href="<?=url('/')?>/admin/pesanan-dalam-pengantaran-semua"
                     @else
-                        href="<?=url('/')?>/admin/pesanan-siap-diambil-semua"
+                    href="<?=url('/')?>/admin/pesanan-siap-diambil-semua"
                     @endif  style="width: 100%" type="button" @if ($list == "semua")
-                        class="btn btn-primary"
+                    class="btn btn-primary"
                     @else
-                        class="btn btn-light"
+                    class="btn btn-light"
                     @endif class="btn btn-light">Semua</a>
                 </div>
             </div>
@@ -159,6 +159,16 @@
                                     </div>
                                     <hr>
                                 </div>
+<<<<<<< HEAD
+                                <div class="col-4">
+                                    <p style="font-weight: 700; margin-left: 10px; color: red">Waktu Konfirmasi : {{date('H:i', strtotime($data->updated_at))}} Wita</p>
+                                    @if ($data->admin_penerima)
+                                    <p style="font-weight: 700; margin-left: 10px; color: black">Admin : {{$data->admin_penerima->name}}</p>
+                                    @else
+                                    <p style="font-weight: 700; margin-left: 10px; color: black">Admin : -</p>
+                                    @endif
+                                    <p style="font-weight: 700; margin-left: 10px; color: black"></p>
+=======
                                 <div class="row" style="margin-left: 10px">
                                     <div class="col-4">
                                         <p style="font-weight: 700; margin-left: 10px; color: red">Waktu Konfirmasi : {{date('H:i', strtotime($data->updated_at))}} Wita</p>
@@ -174,31 +184,35 @@
                                         <p style=" margin-left: 10px; color: black">Kurir : {{$data->nama_kurir}}</p>
                                         <p style=" margin-left: 10px; color: black">No Telp Kurir : {{$data->no_telp_kurir}}</p>
                                     </div>
+>>>>>>> 580d4ce45baad98336a4e9d5c983293bf70c196a
                                 </div>
                                 
                                 <hr>
-                                <div class="template-demo" style="display: flex; padding-bottom: 1em; padding-left: 1em;">
+                                <div class="template-demo" style="display: flex;  justify-content: space-between; padding-bottom: 1em; padding-left: 1em;">
                                     <div class="text-right">
                                         <a href="<?=url('/')?>/admin/pesanan-selesai/{{$data->id}}" class="btn btn-primary btn-sm" style="color: white">Pesanan Selesai</a>
                                         <a class="btn btn-success btn-sm" style="color: white">Hubungi Pembeli</a>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
+                                    <a href="{{url('/')}}/cetak-nota/pesanan/{{$data->id_pesanan}}" class="btn btn-warning" style="padding: 0em 0.5em; margin-right:1em;">
+                                      <i class="fa fa-print"></i>
+                                  </a>
+                              </div>
+                          </div>
+                      </div>
+                      @endforeach
+                  </div>
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+                <div class="timeline">
+
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="timeline">
-
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </div>
+        </div><!-- /.container-fluid -->
     </div>
+</div>
 </div>
 
 
