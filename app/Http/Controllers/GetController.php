@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diskon;
 use Illuminate\Http\Request;
 use App\Models\Sub_kategori;
 use App\Models\Kota;
@@ -193,5 +194,10 @@ class GetController extends Controller
         $jumlah_lupa_password = User_lupa_password::count();
 
         return response()->json(['jumlah_lupa_password'=>$jumlah_lupa_password]);
+    }
+
+    public function delete_diskon_expired(){
+        $date_today = date('Y-m-d');
+        $diskon = Diskon::where('diskon_akhir', '<', $date_today)->delete();
     }
 }

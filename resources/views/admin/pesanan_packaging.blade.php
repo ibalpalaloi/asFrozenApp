@@ -203,6 +203,9 @@
                                             <a href="<?=url('/')?>/admin/ubah_status_pesanan/{{$data->id}}/dalam pengantaran" class="btn btn-primary btn-sm" style="color: white">Pesanan Siap</a>
                                             @endif
                                             <a class="btn btn-success btn-sm" style="color: white">Hubungi Pembeli</a>
+                                            <a href="{{url('/')}}/cetak-nota/pesanan/{{$data->id_pesanan}}" class="btn btn-warning" style="padding: 0em 0.5em; margin-right:1em;">
+                                                <i class="fa fa-print"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

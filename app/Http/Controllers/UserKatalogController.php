@@ -16,6 +16,7 @@ class UserKatalogController extends Controller
     public function index(){
         date_default_timezone_set( 'Asia/Singapore' ) ;
         $date_today = date("Y-m-d");
+        Diskon::where('diskon_akhir', '<', $date_today)->delete();
         $kategori = Kategori::select('id', 'kategori', 'logo')->orderBy('urutan', 'asc')->get();
         $flash_sale = Diskon::where('diskon_akhir', '>=', $date_today)->get();
 
@@ -34,6 +35,9 @@ class UserKatalogController extends Controller
     }
 
     public function kategori($kategori){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
+        Diskon::where('diskon_akhir', '<', $date_today)->delete();
         $list_kategori = Kategori::all();
         $kategori_current = Kategori::where('kategori', $kategori)->first();
         $produk_kategori = Produk::where('kategori_id', $kategori_current->id)->paginate(20);
@@ -50,6 +54,9 @@ class UserKatalogController extends Controller
     }
 
     public function get_produK_sub_kategori(Request $request){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
+        Diskon::where('diskon_akhir', '<', $date_today)->delete();
         $sub_kategori = $request->sub_kategori;
         $jenis = $request->jenis;
 

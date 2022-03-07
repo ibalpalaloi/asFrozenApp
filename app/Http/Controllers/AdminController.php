@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Diskon;
 
 class AdminController extends Controller
 {
     //
     public function index(){
+        date_default_timezone_set( 'Asia/Singapore' ) ;
+        $date_today = date("Y-m-d");
+        Diskon::where('diskon_akhir', '<', $date_today)->delete();
         return view('admin.index');
     }
 

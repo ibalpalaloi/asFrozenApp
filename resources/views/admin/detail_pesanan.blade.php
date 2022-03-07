@@ -321,7 +321,7 @@ function tgl_indo($tanggal){
             <a class="btn btn-success" onclick="hubungi_pesanan('{{$nota->id_pesanan}}')" style="margin-right: 0.5em; color: white;">Hubungi Pembeli</a>
             <a class="btn btn-danger" onclick="batalkan_pesanan('{{$nota->id}}')" style="margin-right: 0.5em; color: white;">Batalkan Pesanan</a>
           </div>
-          <a href="{{url('/')}}/cetak-nota/pesanan/{{$data->id_pesanan}}" class="btn btn-warning" style="margin-right:1em;">
+          <a href="{{url('/')}}/cetak-nota/pesanan/{{$nota->id_pesanan}}" class="btn btn-warning" style="margin-right:1em;">
             <i class="fa fa-print"></i>
           </a>        
         </div>

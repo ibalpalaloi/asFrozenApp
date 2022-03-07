@@ -72,6 +72,7 @@ Route::post('/post-lupa-password', [AuthController::class, 'post_lupa_password']
  Route::get('/get-total-harga-pesanan/{id}', [GetController::class, 'get_total_pesanan']);
  Route::get('/get-image-kategori', [GetController::class, 'get_img_kategori']);
  Route::get('/cek_lupa_password', [GetController::class, 'cek_lupa_password']);
+ Route::get('/delete-diskon-expired', [GetController::class, 'delete_diskon_expired']);
  
 
 
