@@ -185,7 +185,6 @@ function tgl_indo($tanggal){
           </div>
           <div style="display: flex; align-items: center;">
             <span class="time" style="font-size: 15px">ID: {{$nota->id_pesanan}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <i class="fas fa-clock"></i> 12:05
             </span>
           </div>
         </div>
