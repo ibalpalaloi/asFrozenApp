@@ -5,14 +5,38 @@ Biodata
 @endsection
 
 @section('content')
-<section id="hero" class="d-flex align-items-center" style="background: none; padding-bottom: 5em;">
-	@if ($notas->count() > 0)
-	<div class="container" style="padding-top: 80px;" >
+<section id="hero" style="background: none; padding-bottom: 5em;">
+	<div class="container" style="padding-top: 70px;" >
+		<div style="display: flex; justify-content: space-between; padding-bottom: 0.5em;">
+			<a href="<?=url('/')?>/pesanan/menunggu konfirmasi"  style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0.8em; @if (Request::segment(2) == 'menunggu konfirmasi') background:white; @endif width: 32%; color: #313131; position: relative;">
+				@if ($nota_status['menunggu_konfirmasi'] > 0)
+				<div style="width: 1.3em;height: 1.3em; border-radius: 50%; background:#ec1f25; position: absolute; right: 30%; top: 30%; color: white; z-index: 1000000; text-align: center;">{{$nota_status['menunggu_konfirmasi']}}</div>
+				@endif
+				<span class="iconify" data-icon="fluent:wallet-credit-card-16-regular" style="font-size: 2em;"></span>
+				<small>Belum dibayar</small>
+			</a>
+			<a href="<?=url('/')?>/pesanan/packaging" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0.8em; width: 32%; @if (Request::segment(2) == 'packaging') background:white; @endif color: #313131; position: relative;">
+				@if ($nota_status['packaging'] > 0)
+				<div style="width: 1.3em;height: 1.3em; border-radius: 50%; background:#ec1f25; position: absolute; right: 30%; top: 30%; color: white; z-index: 1000000; text-align: center;">{{$nota_status['menunggu_konfirmasi']}}</div>
+				@endif
+				<span class="iconify" data-icon="charm:package" style="font-size: 1.7em;"></span>
+				<small>Dikemas</small>
+			</a>
+			<a href="<?=url('/')?>/pesanan/dalam pengantaran" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0.8em;width: 32%; @if (Request::segment(2) == 'dalam pengantaran') background:white; @endif color: #313131; position: relative;">
+				@if ($nota_status['dalam_pengantaran'] > 0)
+				<div style="width: 1.3em;height: 1.3em; border-radius: 50%; background:#ec1f25; position: absolute; right: 30%; top: 30%; color: white; z-index: 1000000; text-align: center;">{{$nota_status['menunggu_konfirmasi']}}</div>
+				@endif
+				<span class="iconify" data-icon="eva:car-outline" style="font-size: 2em;"></span>			
+				<small>Dikemas</small>
+			</a>
+		</div>
+
+		@if ($notas->count() > 0)
 
 		@foreach ($notas as $nota)
 		<div class="card shadow p-3 bg-white rounded">
 			@if ($nota->status == "menunggu konfirmasi")
-			<div class="alert alert-primary" style="font-size: 17px" role="alert">
+			<div class="alert alert-primary" style="font-size: 17px" role="alert" hidden>
 				Menunggu Konfirmasi Pesanan
 				<div style="float: right">
 					<img src="<?=url('/')?>/public/katalog_assets/img/icons/chronometer.png" alt="" width="30px">
@@ -165,8 +189,9 @@ Biodata
 		</div>
 		@endforeach
 		@else
+		@if (Request::segment(2) == 'menunggu konfirmasi')
 		<div>
-			<div class="card" style="width: 100%; ; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%); margin-bottom: 0.5em; margin-top: 80px">
+			<div class="card" style="width: 100%; ; padding: 1em; border:none; -webkit-box-shadow: 2px 10px 10px rgb(0 0 0 / 30%); box-shadow: 2px 2px 8px rgb(0 0 0 / 30%); margin-bottom: 0.5em; margin-top: 0px">
 				<div class="row" style="padding: 0.5em 1em;">
 					<div style="display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 2em 5em; width: 100%;">
 						<span class="iconify" data-icon="icon-park-outline:transaction-order" style="font-size: 10em; color:#dc3545;"></span>
@@ -181,6 +206,7 @@ Biodata
 				<a href="<?=url('/')?>" class="btn btn-danger" style="padding: 0.7em; font-size: 1.1em; width: 100%; background:#dc3545;">Belanja Sekarang</a>
 			</div>
 		</div>
+		@endif
 		@endif
 	</section>
 

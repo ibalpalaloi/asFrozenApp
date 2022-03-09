@@ -83,11 +83,36 @@ $status_pesanan = "packaging";
 // status_pesanan = ['menunggu konfirmasi', 'packaging', 'telah diantarakan']
 @endphp
 <section id="" class="d-flex align-items-center" style="background: none; ">
-	<div class="container" style="padding-top: 40px;" >
+	<div class="container" style="padding-top: 30px;" >
+		<div style="display: flex; justify-content: space-between; padding-bottom: 0.5em;">
+			<a href="<?=url('/')?>/pesanan/menunggu konfirmasi" @if (Request::segment(2) == 'menunggu konfirmasi') class="shadow"  @endif style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0.8em;  width: 32%; color: #313131; position: relative;">
+				@if ($nota_status['menunggu_konfirmasi'] > 0)
+				<div style="width: 1.3em;height: 1.3em; border-radius: 50%; background:#ec1f25; position: absolute; right: 43%; top: 30%; color: white; z-index: 1000000; text-align: center;">{{$nota_status['menunggu_konfirmasi']}}</div>
+				@endif
+
+				<span class="iconify" data-icon="fluent:wallet-credit-card-16-regular" style="font-size: 2em;"></span>
+				<small>Belum dibayar</small>
+			</a>
+			<a href="<?=url('/')?>/pesanan/packaging" @if (Request::segment(2) == 'packaging') class="shadow"  @endif style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0.8em; width: 32%; color: #313131; position: relative;">
+				@if ($nota_status['packaging'] > 0)
+				<div style="width: 1.3em;height: 1.3em; border-radius: 50%; background:#ec1f25; position: absolute; right: 43%; top: 30%; color: white; z-index: 1000000; text-align: center;">{{$nota_status['packaging']}}</div>
+				@endif
+
+				<span class="iconify" data-icon="charm:package" style="font-size: 1.7em;"></span>
+				<small>Dikemas</small>
+			</a>
+			<a href="<?=url('/')?>/pesanan/dalam pengantaran" @if (Request::segment(2) == 'dalam pengantaran') class="shadow"  @endif style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0.8em;width: 32%; color: #313131; position: relative;">
+				@if ($nota_status['dalam_pengantaran'] > 0)
+				<div style="width: 1.3em;height: 1.3em; border-radius: 50%; background:#ec1f25; position: absolute; right: 43%; top: 30%; color: white; z-index: 1000000; text-align: center;">{{$nota_status['dalam_pengantaran']}}</div>
+				@endif
+				<span class="iconify" data-icon="eva:car-outline" style="font-size: 2em;"></span>			
+				<small>Dikemas</small>
+			</a>
+		</div>
 		@foreach ($notas as $nota)
 		<div class="card shadow p-3 mb-5 bg-white rounded">
 			@if ($nota->status == "menunggu konfirmasi")
-			<div class="alert alert-primary" style="font-size: 17px" role="alert">
+			<div class="alert alert-primary" style="font-size: 17px" role="alert" hidden>
 				Menunggu Konfirmasi Pesanan
 				<div style="float: right">
 					<img src="<?=url('/')?>/public/katalog_assets/img/icons/chronometer.png" alt="" width="30px">
@@ -117,7 +142,7 @@ $status_pesanan = "packaging";
 				</thead>
 				<tbody>
 					@php
-						$total_harga_pesanan = 0;
+					$total_harga_pesanan = 0;
 					@endphp
 					@foreach ($nota->pesanan as $pesanan)
 					<tr>
@@ -144,7 +169,7 @@ $status_pesanan = "packaging";
 						</td>
 					</tr>
 					@php
-						$total_harga_pesanan += $pesanan->jumlah * $pesanan->harga_satuan;
+					$total_harga_pesanan += $pesanan->jumlah * $pesanan->harga_satuan;
 					@endphp
 					@endforeach
 				</tbody>							
@@ -247,15 +272,15 @@ $status_pesanan = "packaging";
 
 	$(document).ready(function(){
 		@if (session('error'))
-			swal({
-				title: "Pesanan Tidak Dapat Dibatalkan!",
-				text: "Pesanan telah dikonfirmasi",
-				icon: "error",
-				button: "Oke",
-			});
+		swal({
+			title: "Pesanan Tidak Dapat Dibatalkan!",
+			text: "Pesanan telah dikonfirmasi",
+			icon: "error",
+			button: "Oke",
+		});
 		@endif
 		
-    });
+	});
 
 	var no_telp = {!! json_encode($no_telp) !!}
 

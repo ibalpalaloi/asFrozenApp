@@ -72,7 +72,7 @@
             $menu_color = array('beranda_color.svg', 'pencarian_color.svg', 'toko_color.svg', 'emergency_color.svg', 'akun_color.svg');
             $menu = array('ant-design:home-outlined', 'clarity:history-line', 'ant-design:shopping-cart-outlined', 'icon-park-outline:transaction-order', 'ant-design:user-outlined');
             $nama_menu = array('Beranda', 'Pencarian', 'Toko', 'Emergency', 'Akun');
-            $link_menu = array('', 'riwayat-pesanan', 'keranjang', 'pesanan', 'biodata');
+            $link_menu = array('', 'riwayat-pesanan', 'keranjang', 'pesanan/menunggu konfirmasi', 'biodata');
             $link_now = Request::segment(1);
             @endphp 
             @for ($i = 0; $i < count($menu); $i++)  

@@ -105,7 +105,7 @@ Route::group(['middleware' => ['auth', 'checkRole:user']], function(){
 
 
     // pesanan
-    Route::get('/pesanan', [UserPesananController::class, 'pesanan']);
+    Route::get('/pesanan/{id}', [UserPesananController::class, 'pesanan']);
     Route::get('/batalkan-pesanan/{id}', [UserPesananController::class, 'batalkan_pesanan']);
     Route::get('/riwayat-pesanan/{id}', [UserPesananController::class, 'riwayat_pesanan_detail']);
     Route::get('/riwayat-pesanan', [UserPesananController::class, 'riwayat_pesanan']);  
@@ -151,6 +151,8 @@ Route::group(['middleware' => ['auth', 'checkRole:admin produk,admin pesanan,sup
     Route::post('/admin-post-video', [AdminVideoController::class, 'post_video']);
     Route::get('/get-embed-link', [GetController::class, 'get_embed_video']);
 
+    Route::get('/admin/download-produk/{id}', [AdminProdukController::class, 'download_produk']);
+    Route::post('/admin/pesanan/ubah_ongkir', [AdminPesananController::class, 'ubah_ongkir']);
 
     Route::post('/admin/bank/delete', [AdminBankController::class, 'delete']);
     Route::post('/admin/bank/update', [AdminBankController::class, 'update']);

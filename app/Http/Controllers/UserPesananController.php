@@ -22,20 +22,22 @@ use SimpleSoftwareIO\QrCode\Generator;
 
 class UserPesananController extends Controller
 {
-    //
-
-    public function pesanan(){
+    public function pesanan($status){
+        // dd($status);
         $no_telp = $this->get_no_telp();
-        $notas = Nota::where('user_id', Auth()->user()->id)->get();
+        $notas = Nota::where('user_id', Auth()->user()->id)->where('status', $status)->get();
+        $nota_status['menunggu_konfirmasi'] = Nota::where('user_id', Auth()->user()->id)->where('status', 'menunggu konfirmasi')->get()->count();
+        $nota_status['packaging'] = Nota::where('user_id', Auth()->user()->id)->where('status', 'packaging')->get()->count();
+        $nota_status['dalam_pengantaran'] = Nota::where('user_id', Auth()->user()->id)->where('status', 'dalam pengantaran')->get()->count();
         $agent = new Agent();
         $qrcode = new Generator;
         // $qr = $qrcode->size(250)->generate($response['data']['code']);
 
         if ($agent->isMobile()){
-            return view('user.payment.pesanan.mobile', compact('notas', 'qrcode', 'no_telp'));
+            return view('user.payment.pesanan.mobile', compact('notas', 'qrcode', 'no_telp', 'nota_status'));
         }
         else {
-            return view('user.payment.pesanan.desktop', compact('notas', 'qrcode', 'no_telp'));
+            return view('user.payment.pesanan.desktop', compact('notas', 'qrcode', 'no_telp', 'nota_status'));
         }
     }
 

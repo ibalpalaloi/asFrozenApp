@@ -39,6 +39,28 @@ function tgl_indo($tanggal){
 </script>
 @endsection
 @section('body')
+<div id="ubah_ongkir" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby=" yLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="<?=url('/')?>/admin/pesanan/ubah_ongkir" method="post">
+        @csrf
+        <div class="modal-header">
+         Ubah Ongkir
+       </div>
+       <div class="modal-body">
+        <label for="form-control">Ongkir</label>
+        <input type="text" name="id" id="id_ongkir" hidden>
+        <input type="text" class="form-control" name="ongkir" id="ongkir">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-success">Simpan</button>
+      </div>
+    </WWform>
+  </div>
+</div>
+</div>
+
 <div id="tambah_pesanan_modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -290,9 +312,10 @@ function tgl_indo($tanggal){
                   </div>
 
                 </div>
+
                 <div class="row">
                   <div class="col-md-6">    
-                    Ongkir
+                    Ongkir&nbsp;<badge class="badge badge-warning" onclick="ubah_ongkir('{{$nota->id}}','{{number_format($nota->ongkos_kirim)}}')">Ubah</badge>
                   </div>
                   <div class="col-md-6" style="display: flex; justify-content: space-between;">   
                     <div>: Rp.</div>
@@ -320,6 +343,7 @@ function tgl_indo($tanggal){
             <a href="<?=url('/')?>/admin/ubah_status_pesanan/{{$nota->id}}/packaging" class="btn btn-primary" style="margin-right: 0.5em;">Terima Pesanan</a>
             <a class="btn btn-success" onclick="hubungi_pesanan('{{$nota->id_pesanan}}')" style="margin-right: 0.5em; color: white;">Hubungi Pembeli</a>
             <a class="btn btn-danger" onclick="batalkan_pesanan('{{$nota->id}}')" style="margin-right: 0.5em; color: white;">Batalkan Pesanan</a>
+
           </div>
           <a href="{{url('/')}}/cetak-nota/pesanan/{{$nota->id_pesanan}}" class="btn btn-warning" style="margin-right:1em;">
             <i class="fa fa-print"></i>
@@ -347,6 +371,40 @@ function tgl_indo($tanggal){
     });
   });
 
+  function ubah_ongkir(id, ongkir){
+    $("#id_ongkir").val(id);
+    $("#ongkir").val(ongkir);
+    $('#ubah_ongkir').modal('show');
+  }
+
+  $("#ongkir").on("keydown", function(e) {
+    var keycode = (event.which) ? event.which : event.keyCode;
+    if (e.shiftKey == true || e.ctrlKey == true) return false;
+    if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || (keycode == 190 && this.value.indexOf('.') === -1) || (keycode == 110 && this.value.indexOf('.') === -1) || (keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105)) {
+      var parts = this.value.split('.');
+      if (parts.length > 1 && parts[1].length >= 2 && ((keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105))) {
+        return false;
+      } 
+      else {
+        if (keycode == 110) {
+          this.value += ".";
+          return false;
+        }
+        return true;
+      }
+    } 
+    else {
+      return false;
+    }
+  }).on("keyup", function() {
+    var parts = this.value.split('.');
+    parts[0] = parts[0].replace(/,/g, '').replace(/^0+/g, '');
+    if (parts[0] == "") parts[0] = "0";
+    var calculated = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    if (parts.length >= 2) calculated += "." + parts[1].substring(0, 2);
+    this.value = calculated;
+    if (this.value == "NaN" || this.value == "") this.value = 0;
+  });
   function tambah(){
     $("#modal_tambah").modal('show');
   }

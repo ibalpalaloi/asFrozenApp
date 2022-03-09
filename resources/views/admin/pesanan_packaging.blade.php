@@ -3,6 +3,28 @@
 
 @section("body")
 {{-- modal --}}
+<div id="ubah_ongkir" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby=" yLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="<?=url('/')?>/admin/pesanan/ubah_ongkir" method="post">
+        @csrf
+        <div class="modal-header">
+           Ubah Ongkir
+       </div>
+       <div class="modal-body">
+        <label for="form-control">Ongkir</label>
+        <input type="text" name="id" id="id_ongkir" hidden>
+        <input type="text" class="form-control" name="ongkir" id="ongkir">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-success">Simpan</button>
+    </div>
+</form>
+</div>
+</div>
+</div>
+
 <div class="modal fade" id="modal_kurir" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -164,7 +186,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-6">Ongkir</div>
+                                                        <div class="col-md-6">Ongkir&nbsp;<badge class="badge badge-warning" onclick="ubah_ongkir('{{$data->id}}','{{number_format($data->ongkos_kirim)}}')">Ubah</badge></div>
                                                         <div class="col-md-6" style="display: flex; justify-content: space-between;">   
                                                             <div>: Rp.</div>
                                                             <div>{{number_format($data->ongkos_kirim, 0, '.', '.')}}</div>
@@ -203,6 +225,8 @@
                                             <a href="<?=url('/')?>/admin/ubah_status_pesanan/{{$data->id}}/dalam pengantaran" class="btn btn-primary btn-sm" style="color: white">Pesanan Siap</a>
                                             @endif
                                             <a class="btn btn-success btn-sm" style="color: white">Hubungi Pembeli</a>
+                                            <a class="btn btn-danger btn-sm" onclick="batalkan_pesanan('{{$data->id}}')" style="margin-right: 0.5em; color: white;">Batalkan Pesanan</a>
+
                                             <a href="{{url('/')}}/cetak-nota/pesanan/{{$data->id_pesanan}}" class="btn btn-warning" style="padding: 0em 0.5em; margin-right:1em;">
                                                 <i class="fa fa-print"></i>
                                             </a>
@@ -232,24 +256,60 @@
 
 @section('footer')
 <script>
-    var data_kurir = {!! json_encode($kurir) !!}
-    function modal_kurir(id){
-        $('#id_pesanan').val(id);
-        $('#nama_kurir').val('');
-        $('#no_telp_kurir').val('')
-        $('#modal_kurir').modal('show');
-    }
+  function ubah_ongkir(id, ongkir){
+    $("#id_ongkir").val(id);
+    $("#ongkir").val(ongkir);
+    $('#ubah_ongkir').modal('show');
+}
 
-    $('#pilih_kurir').change(function(){
-        var id_kurir = $('#pilih_kurir').val();
-        console.log(data_kurir);
-        for(let i = 0; i<data_kurir.length; i++){
-            if(data_kurir[i]['id'] == id_kurir){
-                $('#nama_kurir').val(data_kurir[i]['nama']);
-                $('#no_telp_kurir').val(data_kurir[i]['no_telp'])
-                break;
-            }
+$("#ongkir").on("keydown", function(e) {
+    var keycode = (event.which) ? event.which : event.keyCode;
+    if (e.shiftKey == true || e.ctrlKey == true) return false;
+    if ([8, 110, 39, 37, 46].indexOf(keycode) >= 0 || (keycode == 190 && this.value.indexOf('.') === -1) || (keycode == 110 && this.value.indexOf('.') === -1) || (keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105)) {
+      var parts = this.value.split('.');
+      if (parts.length > 1 && parts[1].length >= 2 && ((keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105))) {
+        return false;
+    } 
+    else {
+        if (keycode == 110) {
+          this.value += ".";
+          return false;
+      }
+      return true;
+  }
+} 
+else {
+  return false;
+}
+}).on("keyup", function() {
+    var parts = this.value.split('.');
+    parts[0] = parts[0].replace(/,/g, '').replace(/^0+/g, '');
+    if (parts[0] == "") parts[0] = "0";
+    var calculated = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    if (parts.length >= 2) calculated += "." + parts[1].substring(0, 2);
+    this.value = calculated;
+    if (this.value == "NaN" || this.value == "") this.value = 0;
+});
+
+var data_kurir = {!! json_encode($kurir) !!}
+function modal_kurir(id){
+    $('#id_pesanan').val(id);
+    $('#nama_kurir').val('');
+    $('#no_telp_kurir').val('')
+    $('#modal_kurir').modal('show');
+}
+
+$('#pilih_kurir').change(function(){
+    var id_kurir = $('#pilih_kurir').val();
+    console.log(data_kurir);
+    for(let i = 0; i<data_kurir.length; i++){
+        if(data_kurir[i]['id'] == id_kurir){
+            $('#nama_kurir').val(data_kurir[i]['nama']);
+            $('#no_telp_kurir').val(data_kurir[i]['no_telp'])
+            break;
         }
-    })
+    }
+})
 </script>
+@include('script.daftar_pesanan_script')
 @endsection

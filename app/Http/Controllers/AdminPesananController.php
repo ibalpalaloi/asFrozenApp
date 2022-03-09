@@ -60,6 +60,14 @@ class AdminPesananController extends Controller
 
     }
 
+    public function ubah_ongkir(Request $request){
+        // dd($request);
+        $db = Nota::where('id', $request->id)->first();
+        $db->ongkos_kirim = str_replace(',', '', $request->ongkir);
+        $db->save();
+        return redirect()->back();
+    }
+
     public function packaging(){
         $kurir = Kurir::all();
         $nota = Nota::where([

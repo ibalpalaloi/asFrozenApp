@@ -533,7 +533,7 @@
 									<a href="<?=url('/')?>/biodata">Biodata</a>
 								</li>
 								<li style="margin-top: 0.5em;">
-									<a href="<?=url('/')?>/pesanan">Pesanan</a>
+									<a href="<?=url('/')?>/pesanan/menunggu konfirmasi">Pesanan</a>
 								</li>
 								<li style="margin-top: 0.5em;">
 									<a href="<?=url('/')?>/riwayat-pesanan">Riwayat Pesanan</a>

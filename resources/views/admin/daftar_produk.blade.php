@@ -62,15 +62,17 @@ function tgl_indo($tanggal){
               <select name="" class="form-control" id="select_kategori" onchange="produk_perkategori()">
                 <option disabled selected value="">Pilih Kategori</option>
                 @foreach ($kategori as $data)
-                    <option value="{{$data->id}}">{{$data->kategori}}</option>
+                <option value="{{$data->id}}">{{$data->kategori}}</option>
                 @endforeach
               </select>
             </div>
           </div>
-          <br>
-
-          <br>
-          {{$jumlah_produk}} Produk
+          <div style="margin-top: 0.5em; margin-bottom: 0.5em; display: flex; justify-content: space-between;">
+            <div>
+              <h4 >{{$jumlah_produk}} Produk</h4>
+            </div>
+            <a href="{{url('/')}}/admin/download-produk/semua" class="btn btn-success"><i class="fa fa-download"></i></a>
+          </div>
           <table id="example1" class="table table-bordered table-striped">
             <thead>
               <tr>
@@ -126,7 +128,7 @@ function tgl_indo($tanggal){
   });
   var kategori;
   
-    $('#post-update-produk').submit(function(e){
+  $('#post-update-produk').submit(function(e){
     e.preventDefault();
     let formData = new FormData(this);
     console.log(formData);

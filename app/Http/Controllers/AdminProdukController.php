@@ -12,6 +12,7 @@ use File;
 use Image;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use PDF;
 
 class AdminProdukController extends Controller
 {
@@ -94,7 +95,7 @@ class AdminProdukController extends Controller
     public function daftar_produk(Request $request){
         $kategori = Kategori::all();
         $jumlah_produk = Produk::count();
-        $produk = Produk::paginate(30);
+        $produk = Produk::orderBy('kategori_id', 'asc')->orderBy('nama', 'asc')->paginate(30);
         // dd($produk);
         $list_produk = array();
         $i=0;
@@ -107,7 +108,7 @@ class AdminProdukController extends Controller
             $list_produk[$i]['diskon_akhir'] = $data->diskon->diskon_akhir ?? null;
             $list_produk[$i]['harga'] = $data->harga;
             $list_produk[$i]['satuan'] = $data->satuan;
-            $list_produk[$i]['kategori'] = $data->kategori->kategori;
+            $list_produk[$i]['kategori'] = $data->kategori->kategori ?? "Belum ada kategori";
             $list_produk[$i]['sub_kategori'] = "-";
             if($data->sub_kategori != null){
                 $list_produk[$i]['sub_kategori'] = $data->sub_kategori->sub_kategori;
@@ -416,9 +417,26 @@ class AdminProdukController extends Controller
         return view('admin.daftar_produk_kosong', compact('list_produk'));
     }
 
+    public function download_produk($id){
+        // dd($id);
+        if ($id == "semua"){
+            $kategori = "Semua Produk";
+            $produk = Produk::orderBy('kategori_id', 'asc')->orderBy('nama', 'asc')->get();
+        }
+        else {
+            $kategori = Kategori::where('id', $id)->first()->kategori;
+            $produk = Produk::where('kategori_id', $id)->orderBy('nama', 'asc')->get();
+        }
+        $pdf = PDF::loadView('admin/produk/download', compact('produk', 'kategori'))->setOption('page-width', '215')->setOption('page-height', '297');
+        return $pdf->download("Daftar Produk $kategori.pdf");
+
+        // return view('admin/produk/download', compact('produk', 'kategori'));
+    }
+
     public function produk_perkategori($id_kategori, Request $request){
         $kategori = Kategori::all();
-        $produk = Produk::where('kategori_id', $id_kategori)->paginate(50);
+        $jumlah_produk = Produk::where('kategori_id', $id_kategori)->get()->count();
+        $produk = Produk::where('kategori_id', $id_kategori)->orderBy('nama', 'asc')->paginate(50);
         $list_produk = array();
         $i=0;
         foreach($produk as $data){
@@ -464,6 +482,6 @@ class AdminProdukController extends Controller
             $view = view('admin.include.data_daftar_produk', compact('list_produk'))->render();
             return response()->json(['view'=>$view, 'page'=>$page, 'status_scroll'=>$status_scroll]);
         }
-        return view('admin.daftar_produk_perkategori', compact('list_produk', 'kategori', 'id_kategori'));
+        return view('admin.daftar_produk_perkategori', compact('list_produk', 'kategori', 'id_kategori', 'jumlah_produk'));
     }
 }

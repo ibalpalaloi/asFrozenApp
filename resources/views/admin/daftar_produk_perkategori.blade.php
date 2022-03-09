@@ -55,15 +55,16 @@ function tgl_indo($tanggal){
         <div class="card-body">
             <div class="row">
                 <div class="col">
-    
+                  <h4>{{$jumlah_produk}} Produk</h4>
                 </div>
-                <div class="col">
-                  <select name="" class="form-control" id="select_kategori" onchange="produk_perkategori()">
+                <div class="col" style="display: flex; justify-content: space-between;">
+                  <select name="" class="form-control" id="select_kategori" onchange="produk_perkategori()" style="margin-right: 1em;">
                     <option disabled selected value="">Pilih Kategori</option>
                     @foreach ($kategori as $data)
                         <option @if ($data->id == $id_kategori) selected @endif value="{{$data->id}}">{{$data->kategori}}</option>
                     @endforeach
                   </select>
+                  <a href="{{url('/')}}/admin/download-produk/{{$id_kategori}}" class="btn btn-success"><i class="fa fa-download"></i></a>
                 </div>
             </div>
           <br>
