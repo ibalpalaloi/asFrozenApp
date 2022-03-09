@@ -208,12 +208,12 @@ class AdminProdukController extends Controller
     }
 
     public function post_update_produk(Request $request){
+        $produk_sebelum = Produk::find($request->id);
         $produk = Produk::find($request->id);
         $produk->nama = $request->nama;
-        // $produk->harga = str_replace(',', '', $request->harga);
-        // $produk->satuan =  $request->satuan;
-        // $produk->kategori_id = $request->kategori;
-        // $produk->sub_kategori_id = $request->sub_kategori;
+        $produk->harga = str_replace(',', '', $request->harga);
+        $produk->satuan =  $request->satuan;
+        $produk->kategori_id = $request->kategori;
 
         if ($request->file('foto')) {
             if ($produk->foto != 'image_not_available.png'){
@@ -241,6 +241,7 @@ class AdminProdukController extends Controller
         $data_produk['harga'] = "Rp. ".number_format($produk->harga, 0, ".", ".");
         $data_produk['satuan'] = $produk->satuan;
         $data_produk['kategori'] = $produk->kategori->kategori;
+        $data_produk['kategori_id'] = $produk->kategori_id;
         $data_produk['foto'] = $produk->foto;
         if($produk->sub_kategori != null){
             $data_produk['sub_kategori'] = $produk->sub_kategori->sub_kategori;
@@ -251,7 +252,7 @@ class AdminProdukController extends Controller
         // $data_produk = array();        
 
 
-        return response()->json(['produk'=>$data_produk]);
+        return response()->json(['produk'=>$data_produk, 'produk_sebelum'=>$produk_sebelum]);
     }
 
     public function diskon(Request $request){
@@ -419,6 +420,11 @@ class AdminProdukController extends Controller
     public function produk_perkategori($id_kategori, Request $request){
         $kategori = Kategori::all();
         $produk = Produk::where('kategori_id', $id_kategori)->paginate(50);
+        if(count($request->all()) > 0){
+            if($request->has('keyword')){
+                $produk = Produk::where('kategori_id', $id_kategori)->where('nama', 'LIKE', '%'.$request->keyword.'%')->get();
+            }
+        }
         $list_produk = array();
         $i=0;
         foreach($produk as $data){

@@ -131,6 +131,7 @@ function tgl_indo($tanggal){
     let formData = new FormData(this);
     console.log(formData);
     show_loader();
+    setTimeout(hide_loader, 10);
     $.ajax({
       type:'POST',
       url: "<?=url('/')?>/post-update-produk",
@@ -145,10 +146,10 @@ function tgl_indo($tanggal){
          $('#nama_'+id).html(produk['nama']);
          $('#harga_'+id).html(produk['harga']);
          $('#satuan_'+id).html(produk['satuan']);
-         $('#kategori'+id).html(produk['kategori']);
+         $('#kategori_'+id).html(produk['kategori']);
          $('#sub_kategori_'+id).html(produk['sub_kategori']);
          $('#foto_'+id).prop('src', "<?=url('/')?>/public/img/produk/thumbnail/300x300/"+produk['foto']);
-         setTimeout(hide_loader, 5000);
+         setTimeout(hide_loader, 100);
 
          // $)$
          // location.reload();
