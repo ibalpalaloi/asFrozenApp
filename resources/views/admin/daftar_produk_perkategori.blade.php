@@ -56,6 +56,8 @@ function tgl_indo($tanggal){
             <div class="row">
                 <div class="col">
                   <h4>{{$jumlah_produk}} Produk</h4>
+                  <input type="text" class="form-control" style="width: 400px" id="cari_produk" onchange="cari_produk()" placeholder="Cari Produk">
+
                 </div>
                 <div class="col" style="display: flex; justify-content: space-between;">
                   <select name="" class="form-control" id="select_kategori" onchange="produk_perkategori()" style="margin-right: 1em;">
@@ -118,12 +120,12 @@ function tgl_indo($tanggal){
   });
 
   var kategori;
+  var id_kategori = {!! json_encode($id_kategori) !!}
 
   $('#post-update-produk').submit(function(e){
     e.preventDefault();
     let formData = new FormData(this);
     console.log(formData);
-    show_loader();
     $.ajax({
       type:'POST',
       url: "<?=url('/')?>/post-update-produk",
@@ -134,14 +136,17 @@ function tgl_indo($tanggal){
        if (response) {
          console.log(response.produk);
          var produk = response.produk;
+         var produk_sebelum = response.produk_sebelum;
          var id = produk['id'];
+         if(produk['kategori_id'] != id_kategori){
+           $('#trow_daftar_produk_'+id).remove();
+         }
          $('#nama_'+id).html(produk['nama']);
          $('#harga_'+id).html(produk['harga']);
          $('#satuan_'+id).html(produk['satuan']);
-         $('#kategori'+id).html(produk['kategori']);
+         $('#kategori_'+id).html(produk['kategori']);
          $('#sub_kategori_'+id).html(produk['sub_kategori']);
          $('#foto_'+id).prop('src', "<?=url('/')?>/public/img/produk/thumbnail/300x300/"+produk['foto']);
-         setTimeout(hide_loader, 5000);
 
          // $)$
          // location.reload();
@@ -323,7 +328,7 @@ function tgl_indo($tanggal){
   var page = 2;
   var status_scroll = true;
 
-  function get_data_produk(keyword){
+  function get_data_produk(){
     if(status_scroll){
       var view = null
       var table = $.ajax({
@@ -359,7 +364,7 @@ function tgl_indo($tanggal){
       var table = $.ajax({
         async: false,
         type: "get",
-        url: "<?=url('/')?>/admin/get-data-cari-produk?keyword="+keyword,
+        url: "?keyword="+keyword,
         success:function(data){
           view = data.view;
         }

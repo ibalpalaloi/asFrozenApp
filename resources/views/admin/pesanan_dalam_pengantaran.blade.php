@@ -46,6 +46,10 @@
                             <div class="timeline-item">
                                 <div class="timeline-body row">
                                     <div class="col-12">
+                                        <div style="display: flex; align-items: center; float: right;">
+                                            <span class="time" style="font-size: 15px"> <b>ID: {{$data->id_pesanan}}</b>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </span>
+                                          </div>
                                         <table class="table" >
                                             <thead>
                                                 <th>No.</th>

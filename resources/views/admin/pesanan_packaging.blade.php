@@ -81,7 +81,7 @@
                 <div class="col-sm-6"><h1>Pesanan Yang Siap di Packing</h1></div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">31/8/2021</li>
+                        {{-- <li class="breadcrumb-item active">31/8/2021</li> --}}
                     </ol>
                 </div>
             </div>
@@ -94,6 +94,10 @@
                             <div class="timeline-item">
                                 <div class="timeline-body row">
                                     <div class="col-12">
+                                        <div style="display: flex; align-items: center; float: right;">
+                                            <span class="time" style="font-size: 15px"> <b>ID: {{$data->id_pesanan}}</b>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </span>
+                                          </div>
                                         <table class="table" >
                                             <thead>
                                                 <th>No.</th>
