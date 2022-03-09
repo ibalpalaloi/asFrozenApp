@@ -76,6 +76,7 @@ function tgl_indo($tanggal){
                     <thead>
                         <tr>
                             <th scope="col">ID Pesanan</th>
+                            <th scope="col">Nama Pemesan</th>
                             <th scope="col">Tanggal Pesanan</th>
                             <th scope="col">Total Pesanan</th>
                             <th scope="col">Transaksi</th>
@@ -89,9 +90,12 @@ function tgl_indo($tanggal){
                                 <a class="btn btn-success" href="{{url('/')}}/cetak-nota/nota/{{$data['id_pesanan']}}" style="padding: 0px; padding-left: 0.5em; padding-right: 0.5em;">
                                     <i class="fa fa-download"></i>
                                 </a>
-                                <a href="{{url()->current()}}/{{$data['id_pesanan']}}" style="color: black;">
+                                <a href="<?=url('/')?>/admin/riwayat-pesanan/{{$data['id_pesanan']}}" style="color: black;">
                                     {{$data['id_pesanan']}}
                                 </a>
+                            </td>
+                            <td>
+                                {{$data['nama_pemesan']}}
                             </td>
                             <td>{{tgl_indo(date('Y-m-d', strtotime($data['waktu_pemesanan'])))}} [{{date('H:i', strtotime($data['waktu_pemesanan']))}}]</td>
                             <td>Rp. {{number_format($data['total_pemesanan'],0,',','.')}}</td>
